@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+ <Jabaco type="language">
+	<Information>
+		<Item Name="Name" value="German"/>
+	</Information>
+	<MainForm>
+		<Item Name="mnuFile" value="{amp}Datei" />
+			<Item Name="mnuNew" value="Neues Projekt..."/>
+			<Item Name="mnuOpen" value="Projekt öffnen..."/>
+			<Item Name="mnuSave" value="Projekt speichern"/>
+			<Item Name="mnuSaveAs" value="Projekt speichern unter"/>
+			<Item Name="mnuClose" value="Alles schließen"/>
+			<Item Name="mnuCreate" value="Projekt kompilieren..."/>
+			<Item Name="mnuEnd" value="Beenden"/>
+		<Item Name="mnuEdit" value="{amp}Bearbeiten"/>
+			<Item Name="mnuUndo" value="Rückgängig"/>
+			<Item Name="mnuRedo" value="Wiederholen"/>
+			<Item Name="mnuCut" value="Ausschneiden"/>
+			<Item Name="mnuCopy" value="Kopieren"/>
+			<Item Name="mnuPaste" value="Einfügen"/>
+			<Item Name="mnuDelete" value="Löschen"/>
+			<Item Name="mnuPrint" value="Drucken"/>
+			<Item Name="mnuSearch" value="Suchen"/>
+			<Item Name="mnuSearchThrough" value="Weitersuchen"/>
+			<Item Name="mnuReplace" value="Ersetzen..."/>
+			<Item Name="mnuGotoDefinition" value="Definition"/>
+			<Item Name="mnuGotoLastPosition" value="Letzte Position"/>
+		<Item Name="mnuProject" value="{amp}Projekt"/>
+			<Item Name="mnuRun" value="Starten"/>
+			<Item Name="mnuRunFull" value="Starten, vollständige Kompilierung"/>
+			<Item Name="mnuEndBlockStep" value="Prozedur abschließen"/>
+			<Item Name="mnuSingleStep" value="Einzelschritt"/>
+			<Item Name="mnuBlockStep" value="Prozedurschritt"/>
+			<Item Name="mnuMarker" value="Lesezeichen ein/aus"/>
+			<Item Name="mnuGotoMarker" value="Zum nächsten Lesezeichen"/>
+			<Item Name="mnuImports" value="Projektverweise (Classpath)"/>
+		<Item Name="mnuLanguageList" value="Sprache"/>
+		<Item Name="mnuHelp" value="{amp}?"/>
+			<Item Name="mnuWebPage" value="Homepage"/>
+			<Item Name="mnuWebCommunity" value="Userforum"/>
+			<Item Name="mnuOrder" value="Bestellen"/>
+			<Item Name="mnuInfo" value="Info"/>
+		<Item Name="cmdAddClass" value="Hinzufügen"/>
+		<Item Name="mnuAddClass" value="Hinzufügen"/>
+			<Item Name="mnuForm" value="Formular"/>
+			<Item Name="mnuMDIForm" value="MDI-Formular"/>
+			<Item Name="mnuMDIChild" value="MDI-Child"/>
+			<Item Name="mnuApplet" value="Applet"/>
+			<Item Name="mnuUsercontrol" value="Usercontrol"/>
+			<Item Name="mnuModul" value="Modul"/>
+			<Item Name="mnuClass" value="Klassenmodul"/>
+			<Item Name="mnuInterface" value="Interface"/>
+			<Item Name="mnuResource" value="Ressource"/>
+			<Item Name="mnuDelete" value="Löschen"/>
+		<Item Name="mnuComment" value="Block auskommentieren"/>
+		<Item Name="mnuUnComment" value="Auskommentieren des Blockes aufheben"/>
+		<Item Name="mnuNextPage" value="Nächste Seite"/>
+		<Item Name="mnuLastPage" value="Letzte Seite"/>
+		
+		<Item Name="treeProject" value="Projekt"/>
+		<Item Name="treeForms" value="Formulare"/>
+		<Item Name="treeModules" value="Module"/>
+		<Item Name="treeClasses" value="Klassenmodule"/>
+		<Item Name="treeInterfaces" value="Interfaces"/>
+		<Item Name="treeResources" value="Ressourcen"/>
+		<Item Name="(General)" value="(Allgemein)"/>
+		<Item Name="(Declarations)" value="(Deklarationen)"/>
+	</MainForm>
+	<Classbrowser>
+		<Item Name="lblTopic" value="Package / Klassenverzeichnis:"/>
+		<Item Name="lblMissingClasspath" value="Fehlende Klassen"/>
+		<Item Name="lblClassName" value="Klassenname:"/>
+		<Item Name="cmdAddJar" value="Jar-Archiv hinzufügen..."/>
+		<Item Name="cmdAddFolder" value="Verzeichnis hinzufügen..."/>
+		<Item Name="cmdDeleteClasspath" value="Archiv entfernen"/>
+		<Item Name="cmdFindClass" value="Klasse suchen"/>
+		<Item Name="cmdShowClass" value="Klasse anzeigen"/>
+		<Item Name="cmdClose" value="{amp}Schließen"/>
+		<Item Name="cmdClean" value="Clean"/>
+		<Item Name="cmdBack" value="Zurück"/>
+		<Item Name="mnuCopy" value="Dateiname kopieren"/>
+		<Item Name="mnuCopyFull" value="Vollständigen Pfad kopieren"/>
+		
+	</Classbrowser>
+	<Classfinder>
+		<Item Name="lblTopic" value="Select a Classfile:"/>
+		<Item Name="cmdSelect" value="{amp}Auswählen"/>
+		<Item Name="cmdCancel" value="{amp}Abbrechen"/>
+		<Item Name="cmdClose" value="{amp}Schließen"/>
+	</Classfinder>
+	<NewProject>
+		<Item Name="lblCaption" value="Neues Projekt"/>
+		<Item Name="tabNew" value="Neu"/>
+		<Item Name="tabCurrent" value="Aktuell"/>
+		<Item Name="cmdOpenProject" value="{amp}Vorhandenes Projekt öffnen..."/>
+		<Item Name="cmdOpen" value="{amp}Öffnen"/>
+		<Item Name="cmdCancel" value="{amp}Abbrechen"/>
+		<Item Name="optWinProject" value="SDI-Anwendung"/>
+		<Item Name="optMDIProject" value="MDI-Anwendung"/>
+		<Item Name="optWebProject" value="Web Applet"/>
+		<Item Name="optDOSProject" value="Konsolenanwendung"/>
+		<Item Name="optComponent" value="Klassenbibliothek"/>
+	</NewProject>
+	<SearchDialog>
+		<Item Name="lblCaption" value="Suchen"/>
+		<Item Name="cmdSearch" value="Suchen"/>
+		<Item Name="cmdSearchNormal" value="Weitersuchen"/>
+		<Item Name="cmdSearchReplace" value="Ersetzen"/>
+		<Item Name="cmdCancel" value="A{amp}bbrechen"/>
+		<Item Name="cmdSetReplaceModeOn" value="Ersetzen..."/>
+		<Item Name="cmdSetReplaceModeOff" value="... nur Suchen"/>
+		<Item Name="cmdReplace" value="Ersetzen"/>
+		<Item Name="cmdReplaceAll" value="Alle ersetzen"/>
+		<Item Name="lblSearch" value="Suchen nach:"/>
+		<Item Name="lblReplace" value="Ersetzen durch:"/>
+		<Item Name="frmSearchLimit" value="Suchen in"/>
+		<Item Name="optSearchBy1" value="Markierung"/>
+		<Item Name="optSearchBy2" value="Dokument"/>
+		<Item Name="optSearchBy3" value="Projekt"/>
+		<Item Name="chkSearchWord" value="Nur ganzes Wort"/>
+		<Item Name="chkCaseSensitive" value="Groß-/Kleinschreibung beachten"/>
+		<Item Name="chkSearchList" value="Als Suchliste"/>
+		<Item Name="lblListCountText" value="Elemente gefunden."/>
+		<Item Name="lblDirection" value="Suchrichtung"/>
+		<Item Name="cboDirectionUp" value="nach oben"/>
+		<Item Name="cboDirectionDown" value="nach unten"/>
+		<Item Name="cmdJumpTo" value="Zur Zeile springen"/>
+	</SearchDialog>
+	<GeneralText>
+		<Item Name="ExeFile" value="Exe-Datei"/>
+		<Item Name="JarFileWithHTML" value="Jar-Datei + HTML"/>
+		<Item Name="JarFile" value="Jar-Archiv"/>
+		<Item Name="AllFiles" value="Alle Dateien"/>
+	</GeneralText>
+	<Messages>
+		<Item Name="SEARCH_NOTFOUND" value="Suchtext nicht gefunden."/>
+		<Item Name="SEARCH_REPLACE_ELEMENTS" value="Der angegebene Bereich wurde durchsucht."/>
+		<Item Name="SEARCH_REPLACE_ELEMENTS_COUNT" value="%1 Elemente wurden ersetzt."/>
+		<Item Name="FILE_NOT_FOUND" value="Die Datei '%1' konnte nicht geladen werden!"/>
+		<Item Name="DEBUGGER_RESTART" value="Die Änderungen konnten nicht automatisch übernommen werden! Soll das Programm neu gestartet werden?"/>
+		<Item Name="INTERFACE_NOT_IMPLEMENTED" value="Diese Klasse implementiert das Interface '%1'. Sollen alle nötigen Methoden zu diesem Interface implementiert werden?"/>
+		<Item Name="PROJECT_END_WHILERUNNING" value="Soll das laufende Projekt beendet werden?"/>
+		<Item Name="PROJECT_END_SAVECHANGES" value="Sollen die Änderungen gespeichert werden?"/>
+		<Item Name="PROJECT_CREATEFILE_ERROR" value="Fehler beim Erstellen von '%1'!"/>
+		<Item Name="PROJECT_SELECT_PROJECT" value="Bitte wählen Sie ein Projekt aus!"/>
+		<Item Name="GUICLASS_NOTFOUND" value="Fehler beim Laden von '%1'. Die Klasse '%2' wurde nicht gefunden! Soll das Objekt gelöscht werden?"/>
+		<Item Name="CLASSBROWSER_NOSEL" value="Bitte vorher einen Classpath selektieren!"/>
+		<Item Name="CLASSBROWSER_CORESEL" value="Sie haben ein Core-Framework selektiert. Dieses kann nicht entfernt werden!"/>
+		<Item Name="CLASSBROWSER_CONFIRMDELETE" value="Soll das Archiv '%1' aus dem Projekt entfernt werden?"/>
+		<Item Name="CLASSBROWSER_DELETE_ERROR" value="Classpath konnte nicht, oder nicht vollständig, entfernt werden!"/>
+		<Item Name="JABACO_CANTFIND_SIGNATURE" value="Eine Signatur wurde nicht gefunden. Variable: '%1' Methode: '%2' Klasse '%3' !" />
+		<Item Name="GUIEDITOR_PASTE_SELCONTAINER" value="Bitte wählen Sie einen Container!"/>
+		<Item Name="GUIEDITOR_PASTE_INVALID" value="Ungültiges Format!"/>
+		<Item Name="PROJECT_LOAD_ERROR" value="Die Datei '%1' konnte nicht geladen werden!"/>
+		<Item Name="PROJECT_NOTFOUND" value="Das Projekt '%1' wurde nicht gefunden!"/>
+		<Item Name="COMPILER_ERROR" value="Fehler in '%1' Zeile %2{crlf}%3"/>
+	</Messages>
+	<CompilerMessages>
+		<Item Name="GLOBAL::MISSING_CONSTRUCTOR" value="Es wurde kein Konstruktor für '%1' gefunden!"/>
+		<Item Name="GLOBAL::MISSING_CONSTRUCTOR_UNKNOWN" value="Es wurde kein Konstruktor für diese Klasse gefunden!"/>
+		<Item Name="GLOBAL::MISSING_EVENT" value="Das Event wurde nicht gefunden!"/>
+		<Item Name="GLOBAL::MISSING_BASECLASS" value="Die Basisklasse '%1' wurde nicht gefunden!"/>
+		<Item Name="GLOBAL::MISSING_BASECLASS_UNKNOWN" value="Die Basisklasse wurde nicht gefunden!"/>
+		<Item Name="GLOBAL::MISSING_CLASS" value="Die Klasse '%1' wurde nicht gefunden!"/>
+		<Item Name="GLOBAL::MISSING_CLASS_UNKNOWN" value="Die Klasse wurde nicht gefunden!"/>
+		<Item Name="GLOBAL::MISSING_CLASS_BYGUIOBJECT" value="Die Klasse für das Benutzersteuerelement '%1' wurde nicht gefunden!"/>
+		<Item Name="GLOBAL::MISSING_CLASS_BYPROPERTY" value="Die Klasse für die Eigenschaft '%1' wurde nicht gefunden!"/>
+		<Item Name="GLOBAL::MISSING_VAR" value="Die Variable '%1' wurde nicht gefunden!"/>
+		<Item Name="GLOBAL::MISSING_ENDENUM" value="Enum ohne End Enum"/>
+		<Item Name="GLOBAL::MISSING_ENDTYPE" value="Type ohne End Type"/>
+		<Item Name="GLOBAL::MISSING_ENDPROPERTY" value="Property ohne End Property"/>
+		<Item Name="GLOBAL::MISSING_ENDSUB" value="Sub ohne End Sub"/>
+		<Item Name="GLOBAL::MISSING_ENDFUNCTION" value="Function ohne End Function"/>
+		<Item Name="GLOBAL::MISSING_FOR" value="Exit For, ohne For"/>
+		<Item Name="GLOBAL::MISSING_DO" value="Exit Do, ohne Do"/>
+		<Item Name="GLOBAL::MISSING_WEND" value="Function ohne End Function"/>
+
+		<Item Name="GLOBAL::UNEXPECTED_END" value="Unerwartetes Ende!"/>
+		<Item Name="GLOBAL::UNEXPECTED_ARRAY" value="Unerwartetes Array!"/>
+		<Item Name="GLOBAL::UNEXPECTED_EXITCODE" value="Unerwartetes Blockende!"/>
+		<Item Name="GLOBAL::UNEXPECTED_ERROR" value="Unerwarteter Fehler: %1!"/>
+		<Item Name="GLOBAL::UNEXPECTED_OPERATOR" value="Unerwarteter Operator '%s'!"/>
+		<Item Name="GLOBAL::UNEXPECTED_OPERATOR_UNKNOWN" value="Unerwarteter Operator!"/>
+		<Item Name="GLOBAL::UNEXPECTED_ENDLINE" value="Unerwartetes Zeilenende!"/>
+		<Item Name="GLOBAL::UNEXPECTED_ELSE" value="Else ohne If!"/>
+		<Item Name="GLOBAL::UNEXPECTED_ELSEIF" value="ElseIf ohne If!"/>
+		<Item Name="GLOBAL::UNEXPECTED_ELSECASE" value="Case Else ohne Select Case!"/>
+		<Item Name="GLOBAL::UNEXPECTED_CASE" value="Case ohne Select Case!"/>
+		<Item Name="GLOBAL::UNEXPECTED_BASECLASS_INTERFACE" value="Ein Interface darf nicht als Basisklasse verwendet werden!"/>
+		<Item Name="GLOBAL::UNEXPECTED_BYJAVA" value="Das Attribut 'ByJava' ist nur innerhalb einer Signatur erlaubt!'"/>
+		<Item Name="GLOBAL::UNEXPECTED_ASSIGN_BYJAVA_MULTIDIMENSION" value="Das Attribut 'ByJava' ist nur in Verbindung mit einem eindimensionalen Array gültig!"/>
+		<Item Name="GLOBAL::UNEXPECTED_BYVAL" value="Das Attribut 'ByVal' wird nicht unterstützt!'"/>
+		<Item Name="GLOBAL::UNEXPECTED_INSTRUCTION" value="Unbekannter Befehl, Variable, oder Methode"/>
+		<Item Name="GLOBAL::UNEXPECTED_ENUMVALUE" value="Ungültiger Wert!"/>
+		
+		<Item Name="GLOBAL::EXPECTED_IDENTIFIER" value="Erwartet: Bezeichner!"/>
+		<Item Name="GLOBAL::EXPECTED_FUNCTION_OR_VAR" value="Erwartet: Variable oder Funktion!"/>
+		<Item Name="GLOBAL::EXPECTED_ENDSYNC" value="Erwartet: End Sync!"/>
+		<Item Name="GLOBAL::EXPECTED_LOOP" value="Erwartet: Loop!"/>
+		<Item Name="GLOBAL::EXPECTED_NEXT" value="Erwartet: Next!"/>
+		<Item Name="GLOBAL::EXPECTED_THEN" value="Erwartet: Then!"/>
+		<Item Name="GLOBAL::EXPECTED_ENDIF" value="Erwartet: End If!"/>
+		<Item Name="GLOBAL::EXPECTED_ENDSELECT" value="Erwartet: End Select!"/>
+		<Item Name="GLOBAL::EXPECTED_ENDSTATEMENT" value="Erwartet: %1"/>
+		<Item Name="GLOBAL::EXPECTED_LABEL" value="Erwartet: Label!"/>
+		<Item Name="GLOBAL::EXPECTED_GOTO_OR_RESUME" value="Erwartet: GoTo oder Resume!"/>
+		<Item Name="GLOBAL::EXPECTED_EXPRESSION" value="Erwartet: Ausdruck!"/>
+		<Item Name="GLOBAL::EXPECTED_EQUAL" value="Erwartet: ="/>
+		<Item Name="GLOBAL::EXPECTED_OBJECT" value="Erwartet: Objekt!"/>
+		<Item Name="GLOBAL::EXPECTED_CLIP_CLOSE" value="Erwartet: )"/>
+		<Item Name="GLOBAL::EXPECTED_CLIP_OPEN" value="Erwartet: ("/>
+		<Item Name="GLOBAL::EXPECTED_COMMA_SEPERATOR" value="Erwartet: ,"/>
+		<Item Name="GLOBAL::EXPECTED_SYMBOL" value="Erwartet: Symbol!"/>
+		<Item Name="GLOBAL::EXPECTED_CLASS" value="Erwartet: Class!"/>
+		<Item Name="GLOBAL::EXPECTED_STATIC_METHOD" value="Erwartet: Statische Methode!"/>
+		<Item Name="GLOBAL::EXPECTED_WHILE_OR_UNTIL" value="Erwartet: While, Until, oder Anweisungsende!"/>
+		<Item Name="GLOBAL::EXPECTED_ASSIGNMENT" value="Erwartet: Zuweisung!"/>
+		<Item Name="GLOBAL::EXPECTED_TO" value="Erwartet: To!"/>
+		<Item Name="GLOBAL::EXPECTED_CONSTANT_OR_VAR_OR_EXPRESSION" value="Erwartet: Konstante, Variable, oder Ausdruck!"/>
+		<Item Name="GLOBAL::EXPECTED_NUMBER" value="Erwartet: Zahl!"/>
+		<Item Name="GLOBAL::EXPECTED_INSTRUCTIONEND" value="Erwartet: Anweisungsende!"/>
+		<Item Name="GLOBAL::EXPECTED_STEP_OR_INSTRUCTIONEND" value="Erwartet: Step, oder Anweisungsende!"/>
+		<Item Name="GLOBAL::EXPECTED_CASE" value="Erwartet: Case!"/>
+		<Item Name="GLOBAL::EXPECTED_ARRAY" value="Erwartet: Array!"/>
+		<Item Name="GLOBAL::EXPECTED_ARRAY_INDEX" value="Erwartet: Array-Index!"/>
+		<Item Name="GLOBAL::EXPECTED_VARIABLE" value="Erwartet: Variable!"/>
+		<Item Name="GLOBAL::EXPECTED_GET_OR_LET" value="Erwartet: Get, Let oder Set!"/>
+		<Item Name="GLOBAL::EXPECTED_GET" value="Erwartet: Get!"/>
+		<Item Name="GLOBAL::EXPECTED_LIB" value="Erwartet: Lib!"/>
+		<Item Name="GLOBAL::EXPECTED_THROWABLE" value="Erwartet Variable, oder Feld vom Typ 'Throwable'!"/>
+		<Item Name="GLOBAL::EXPECTED_GOTO_LABEL" value="Erwartet: Label!"/>
+		<Item Name="GLOBAL::EXPECTED_EVENT" value="Erwartet: Event!"/>
+		<Item Name="GLOBAL::EXPECTED_BYJAVA_ASSIGN" value="Erwartet: Jabaco-Array!"/>
+
+		<Item Name="GLOBAL::PROTECTED_CONST" value="Zuweisung einer Konstante nicht zulässig!"/>
+		<Item Name="GLOBAL::PROTECTED_WITHEVENTS" value="Diese Variable ist mit dem Attribut 'WithEvents' definiert und deshalb schreibgeschützt!"/>
+
+		<Item Name="GLOBAL::UNSUPPORTED_FEATURE" value="Der Befehl '%1' wurde noch nicht implementiert!"/>
+		<Item Name="GLOBAL::UNSUPPORTED_ASSIGN" value="Die Zuweisung an '%1' wird momentan nicht unterstützt!"/>
+		<Item Name="GLOBAL::UNSUPPORTED_DATATYPE_FOR_OPERATION" value="Der Datentyp '%1' ist nicht zulässig für die Operation '%2'!"/>
+		<Item Name="GLOBAL::UNSUPPORTED_OUTSIDE_CLASSMODULES" value="Nur in Objektmodulen zulässig!"/>
+
+		<Item Name="GLOBAL::ALREADYEXISTS_EVENT" value="Es existiert bereits ein Event '%1' mit gleicher Signatur innerhalb dieser Klasse!"/>
+		<Item Name="GLOBAL::ALREADYEXISTS_PROPERTY" value="Es existiert bereits ein Property '%1' mit gleichen Parametern innerhalb dieser Klasse!"/>
+		<Item Name="GLOBAL::ALREADYEXISTS_LABEL" value="Es existiert bereits ein Label '%1' innerhalb dieser Methode!"/>
+		<Item Name="GLOBAL::ALREADYEXISTS_METHOD" value="Es existiert bereits eine Methode '%1' mit gleicher Signatur!"/>
+		<Item Name="GLOBAL::ALREADYEXISTS_VAR_BYMETHOD" value="Es existiert bereits eine Variable '%1' innerhalb dieser Methode!"/>
+		<Item Name="GLOBAL::ALREADYEXISTS_VAR_BYCLASS" value="Es existiert bereits eine Variable '%1' innerhalb dieser Klasse!"/>
+
+		<Item Name="CONVERSION::FAILED" value="Fehler beim Konvertieren der Datentypen!"/>
+		<Item Name="CONVERSION::STACKCONVERSION_TYPE_NOTSUPPORTED" value="Eine automatische Konvertierung für diesen Datentyp wird momentan nicht unterstützt!"/>
+		<Item Name="CONVERSION::SWITCHSTACK_TYPE_NOTSUPPORTED" value="Eine automatische Konvertierung für diesen Datentyp wird momentan nicht unterstützt! (SwitchStack)"/>
+		<Item Name="CONVERSION::BOXING_CLASSNOTFOUND" value="Die Zielklasse für das automatische Boxing wurde nicht gefunden!"/>
+		<Item Name="CONVERSION::NOT_SUPPORTED" value="Momentan ist eine automatische Konvertierung von '%1' nach '%2' nicht möglich!"/>
+		<Item Name="CONVERSION::NOT_POSSIBLE" value="Eine Konvertierung von '%1' nach '%2' ist nicht möglich!"/>
+		
+		<Item Name="CHECKINTERFACE::NEW_METHODS_FOUND_RESTART" value="Es wurden neuen Methoden implementiert! Das Projekt muss neu gestartet werden!"/>
+		<Item Name="CHECKINTERFACE::MISSING_METHODS" value="Es fehlen Methoden zu dem Interface: '%1'!"/>
+
+		<Item Name="ENUM::UNSUPPORTED_VALUE" value="Der Wert '%1' ist ungültig für die Enumeration '%2'!"/>
+		<Item Name="ENUM::EMPTY_VALUE" value="Für die Enumeration '%1' wurde kein Wert übergeben!"/>
+
+		<Item Name="INVOKE::UNSUPPORTED_ARRAY" value="Die Rückgabe dieser Methode muss erst einer Variablen zugewiesen werden!"/>
+		<Item Name="INVOKE::SIGNATURE_ERROR" value="Fehler in der Methodensignatur!"/>
+		<Item Name="INVOKE::STATICMETHOD_USE_CLASSNAME" value="Verwenden Sie Klassennamen für statische Methoden!{crlf}%1"/>
+		<Item Name="INVOKE::MISSING_METHOD" value="Es existiert keine Methode '%1' mit dieser Signatur!"/>
+		<Item Name="INVOKE::MISSING_METHOD_BYCLASS" value="Es existiert keine Methode '%1' in der Klasse '%2'!"/>
+		<Item Name="INVOKE::MISSING_CONSTRUCTOR" value="Es existiert kein Konstruktor mit dieser Signatur!"/>
+		<Item Name="INVOKE::MISSING_CONSTRUCTOR_BYCLASS" value="Es wurde kein öffentlicher Konstruktor der Klasse '%1' gefunden!"/>
+	</CompilerMessages>
+ </Jabaco>

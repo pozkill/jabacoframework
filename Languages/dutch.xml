@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+ <Jabaco type="language">
+	<Information>
+		<Item Name="Name" value="Dutch"/>
+	</Information>
+	<MainForm>
+		<Item Name="mnuFile" value="Bestand" />
+			<Item Name="mnuNew" value="Nieuw project..."/>
+			<Item Name="mnuOpen" value="Project openen..."/>
+			<Item Name="mnuSave" value="Project opslaan"/>
+			<Item Name="mnuSaveAs" value="Project opslaan als..."/>
+			<Item Name="mnuClose" value="Project sluiten"/>
+			<Item Name="mnuCreate" value="Project maken..."/>
+			<Item Name="mnuEnd" value="Beeindigen"/>
+		<Item Name="mnuEdit" value="Bewerken"/>
+			<Item Name="mnuUndo" value="Ongedaan maken"/>
+			<Item Name="mnuRedo" value="Opnieuw"/>
+			<Item Name="mnuCut" value="Knippen"/>
+			<Item Name="mnuCopy" value="Kopieeren"/>
+			<Item Name="mnuPaste" value="Plakken"/>
+			<Item Name="mnuDelete" value="Verwijderen"/>
+			<Item Name="mnuPrint" value="Afdrukken..."/>
+			<Item Name="mnuSearch" value="Zoeken..."/>
+			<Item Name="mnuSearchThrough" value="Volgende zoeken"/>
+			<Item Name="mnuReplace" value="Vervangen..."/>
+			<Item Name="mnuGotoDefinition" value="Definitie"/>
+			<Item Name="mnuGotoLastPosition" value="Laatste positie"/>
+		<Item Name="mnuProject" value="Project"/>
+			<Item Name="mnuRun" value="Start"/>
+			<Item Name="mnuRunFull" value="Start met volledige compilatie"/>
+			<Item Name="mnuEndBlockStep" value="Procedurestep"/>
+			<Item Name="mnuSingleStep" value="Singlestep"/>
+			<Item Name="mnuBlockStep" value="Blockstep"/>
+			<Item Name="mnuMarker" value="Toggle Bookmark"/>
+			<Item Name="mnuGotoMarker" value="Next Bookmark"/>
+			<Item Name="mnuImports" value="Referenties (Classpath)..."/>
+		<Item Name="mnuLanguageList" value="Taal"/>
+		<Item Name="mnuHelp" value="?"/>
+			<Item Name="mnuWebPage" value="Homepage"/>
+			<Item Name="mnuWebCommunity" value="Forum"/>
+			<Item Name="mnuOrder" value="Volgorde"/>
+			<Item Name="mnuInfo" value="Info"/>
+		<Item Name="cmdAddClass" value="Bestand toevoegen..."/>
+		<Item Name="mnuAddClass" value="Bestand toevoegen..."/>
+			<Item Name="mnuForm" value="Form"/>
+			<Item Name="mnuMDIForm" value="MDI-Form"/>
+			<Item Name="mnuMDIChild" value="MDI-Child"/>
+			<Item Name="mnuApplet" value="Applet"/>
+			<Item Name="mnuUsercontrol" value="User Control"/>
+			<Item Name="mnuModul" value="Module"/>
+			<Item Name="mnuClass" value="Class Module"/>
+			<Item Name="mnuInterface" value="Interface"/>
+			<Item Name="mnuResource" value="Resource"/>
+			<Item Name="mnuDelete" value="Verwijderen"/>
+		<Item Name="mnuComment" value="Comment Block"/>
+		<Item Name="mnuUnComment" value="Uncomment Block"/>
+		<Item Name="mnuNextPage" value="Volgende pagina"/>
+		<Item Name="mnuLastPage" value="Vorige pagina"/>
+		
+		<Item Name="treeProject" value="Project"/>
+		<Item Name="treeForms" value="Forms"/>
+		<Item Name="treeModules" value="Modules"/>
+		<Item Name="treeClasses" value="Class Modules"/>
+		<Item Name="treeInterfaces" value="Interfaces"/>
+		<Item Name="treeResources" value="Resources"/>
+		<Item Name="(General)" value="(Algemeen)"/>
+		<Item Name="(Declarations)" value="(Declarations)"/>
+	</MainForm>
+	<Classbrowser>
+		<Item Name="lblTopic" value="Package / Map:"/>
+		<Item Name="lblMissingClasspath" value="Ontbrekende classes"/>
+		<Item Name="lblClassName" value="Class-naam:"/>
+		<Item Name="cmdAddJar" value="Jar-archief toevoegen..."/>
+		<Item Name="cmdAddFolder" value="Map toevoegen..."/>
+		<Item Name="cmdDeleteClasspath" value="Archief verwijderen"/>
+		<Item Name="cmdFindClass" value="Class zoeken"/>
+		<Item Name="cmdShowClass" value="Class weergeven"/>
+		<Item Name="cmdCancel" value="Annuleren"/>
+		<Item Name="cmdClose" value="Sluiten"/>
+		<Item Name="cmdClean" value="Opschonen"/>
+		<Item Name="cmdBack" value="Sluiten"/>
+		<Item Name="mnuCopy" value="Naam kopieeren"/>
+		<Item Name="mnuCopyFull" value="Volledige pad kopieeren"/>
+	</Classbrowser>
+	<Classfinder>
+		<Item Name="lblTopic" value="Selecteer een Class-bestand:"/>
+		<Item Name="cmdSelect" value="{amp}Selecteer"/>
+		<Item Name="cmdClose" value="{amp}Sluiten"/>
+	</Classfinder>
+	<NewProject>
+		<Item Name="lblCaption" value="Projecten"/>
+		<Item Name="tabNew" value="Nieuw project"/>
+		<Item Name="tabCurrent" value="Huidige projecten"/>
+		<Item Name="cmdOpenProject" value="Project openen..."/>
+		<Item Name="cmdOpen" value="Openen"/>
+		<Item Name="cmdCancel" value="Annuleren"/>
+		<Item Name="optWinProject" value="SDI Applicatie"/>
+		<Item Name="optMDIProject" value="MDI Applicatie"/>
+		<Item Name="optWebProject" value="Web Applet"/>
+		<Item Name="optDOSProject" value="Console Applicatie"/>
+		<Item Name="optComponent" value="Class Bibliotheek"/>
+	</NewProject>
+	<SearchDialog>
+		<Item Name="lblCaption" value="Zoeken"/>
+		<Item Name="cmdSearch" value="Zoeken"/>
+		<Item Name="cmdSearchNormal" value="Volgende zoeken"/>
+		<Item Name="cmdSearchReplace" value="Vervangen"/>
+		<Item Name="cmdCancel" value="Annuleren"/>
+		<Item Name="cmdSetReplaceModeOn" value="Vervangmodus ..."/>
+		<Item Name="cmdSetReplaceModeOff" value="Zoekmodus ..."/>
+		<Item Name="cmdReplace" value="Vervangen"/>
+		<Item Name="cmdReplaceAll" value="Alles vervangen"/>
+		<Item Name="lblSearch" value="Zoeken naar:"/>
+		<Item Name="lblReplace" value="Vervangen met:"/>
+		<Item Name="frmSearchLimit" value="Zoeken in:"/>
+		<Item Name="optSearchBy1" value="Geselecteerde tekst"/>
+		<Item Name="optSearchBy2" value="Huidige module"/>
+		<Item Name="optSearchBy3" value="Huidige project"/>
+		<Item Name="chkSearchWord" value="Find Whole Word Only"/>
+		<Item Name="chkCaseSensitive" value="Hoofdlettergevoelig"/>
+		<Item Name="chkSearchList" value="Resultaten weergeven"/>
+		<Item Name="lblListCountText" value="Elementen gevonden."/>
+		<Item Name="lblDirection" value="Positie:"/>
+		<Item Name="cboDirectionUp" value="Boven"/>
+		<Item Name="cboDirectionDown" value="Beneden"/>
+		<Item Name="cmdJumpTo" value="Ga naar"/>
+	</SearchDialog>
+	<GeneralText>
+		<Item Name="ExeFile" value="Exe-Bestand"/>
+		<Item Name="JarFileWithHTML" value="Jar-Bestand + HTML"/>
+		<Item Name="JarFile" value="Jar-Bestand"/>
+		<Item Name="AllFiles" value="Alle bestenden"/>
+	</GeneralText>
+
+	<Messages>
+		<Item Name="SEARCH_NOTFOUND" value="De gezochte tekst is niet gevonden."/>
+		<Item Name="SEARCH_REPLACE_ELEMENTS" value="De opgegeven lokatie is doorzocht."/>
+		<Item Name="SEARCH_REPLACE_ELEMENTS_COUNT" value="%1 replacements were made."/>
+		<Item Name="FILE_NOT_FOUND" value="Bestand niet gevonden: '%1'!"/>
+		<Item Name="DEBUGGER_RESTART" value="Deze aktie zal je project opnieuw starten. Weet je dit zeker?"/>
+		<Item Name="INTERFACE_NOT_IMPLEMENTED" value="Deze class implenteerd '%1'. Wil je alle benodigde methoden invoegen voor deze interface?"/>
+		<Item Name="PROJECT_END_WHILERUNNING" value="Deze aktie zal de debugger sluiten. Doorgaan?"/>
+		<Item Name="PROJECT_END_SAVECHANGES" value="Wijzigingen opslaan?"/>
+		<Item Name="PROJECT_CREATEFILE_ERROR" value="Error while creating '%1'!"/>
+		<Item Name="PROJECT_SELECT_PROJECT" value="Selecteer een project!"/>
+		<Item Name="GUICLASS_NOTFOUND" value="Fouten tijdens het laden. Class '%2' gebruikt door '%1' kon niet worden gevonden! '%1' verwijderen?"/>
+		<Item Name="CLASSBROWSER_NOSEL" value="Selecteer classpad!"/>
+		<Item Name="CLASSBROWSER_CORESEL" value="Kan class-pad niet verwijderen; Het is in gebruik!"/>
+		<Item Name="CLASSBROWSER_CONFIRMDELETE" value="Wil je class-pad '%1' van het project verwijderen?"/>
+		<Item Name="CLASSBROWSER_DELETE_ERROR" value="Kan class-pad niet verwijderen!"/>
+		<Item Name="JABACO_CANTFIND_SIGNATURE" value="Ontbrekende handtekening. Variabel: '%1' Methode: '%2' Class: '%3' !" />
+		<Item Name="GUIEDITOR_PASTE_SELCONTAINER" value="Selecteer een container!"/>
+		<Item Name="GUIEDITOR_PASTE_INVALID" value="Ongeldig formaat!"/>
+		<Item Name="PROJECT_LOAD_ERROR" value="Fouten tijden het laden. '%1' kon niet worden geladen!"/>
+		<Item Name="PROJECT_NOTFOUND" value="Project '%1' niet gevonden."/>
+		<Item Name="COMPILER_ERROR" value="Compilatie-fout. Class: '%1' regel: %2{crlf}%3"/>
+	</Messages>
+	<CompilerMessages>
+		<Item Name="GLOBAL::MISSING_CONSTRUCTOR" value="Constructor voor class '%1' niet gevonden!"/>
+		<Item Name="GLOBAL::MISSING_CONSTRUCTOR_UNKNOWN" value="Constructor niet gevonden!"/>
+		<Item Name="GLOBAL::MISSING_EVENT" value="Event niet gevonden!"/>
+		<Item Name="GLOBAL::MISSING_BASECLASS" value="Basis-class '%1' niet gevonden!"/>
+		<Item Name="GLOBAL::MISSING_BASECLASS_UNKNOWN" value="Basis-class niet gevonden!"/>
+		<Item Name="GLOBAL::MISSING_CLASS" value="Class '%1' niet gevonden!"/>
+		<Item Name="GLOBAL::MISSING_CLASS_UNKNOWN" value="Class niet gevonden!"/>
+		<Item Name="GLOBAL::MISSING_CLASS_BYGUIOBJECT" value="Class voor '%1' not found!"/>
+		<Item Name="GLOBAL::MISSING_CLASS_BYPROPERTY" value="Class voor property '%1' not found!"/>
+		<Item Name="GLOBAL::MISSING_VAR" value="Variabel '%1' niet gedefineerd!"/>
+		<Item Name="GLOBAL::MISSING_ENDENUM" value="Enum zonder End Enum"/>
+		<Item Name="GLOBAL::MISSING_ENDTYPE" value="Type zonder End Type"/>
+		<Item Name="GLOBAL::MISSING_ENDPROPERTY" value="Property zonder End Property"/>
+		<Item Name="GLOBAL::MISSING_ENDSUB" value="Sub zonder End Sub"/>
+		<Item Name="GLOBAL::MISSING_ENDFUNCTION" value="Function zonder End Function"/>
+		<Item Name="GLOBAL::MISSING_FOR" value="Exit For zonder For"/>
+		<Item Name="GLOBAL::MISSING_DO" value="Exit Do zonder Do"/>
+		<Item Name="GLOBAL::MISSING_WEND" value="Function zonder End Function"/>
+
+		<Item Name="GLOBAL::UNEXPECTED_END" value="Onverwacht: End of statement!"/>
+		<Item Name="GLOBAL::UNEXPECTED_ARRAY" value="Onverwacht: Array!"/>
+		<Item Name="GLOBAL::UNEXPECTED_EXITCODE" value="Onverwacht: End or Exit!"/>
+		<Item Name="GLOBAL::UNEXPECTED_ERROR" value="Compilatie fout: %1!"/>
+		<Item Name="GLOBAL::UNEXPECTED_OPERATOR" value="Onverwacht: Opterator '%s'!"/>
+		<Item Name="GLOBAL::UNEXPECTED_OPERATOR_UNKNOWN" value="Onverwacht: Opterator!"/>
+		<Item Name="GLOBAL::UNEXPECTED_ENDLINE" value="Onverwacht: End of line!"/>
+		<Item Name="GLOBAL::UNEXPECTED_ELSE" value="Else zonder If"/>
+		<Item Name="GLOBAL::UNEXPECTED_ELSEIF" value="ElseIf zonder If"/>
+		<Item Name="GLOBAL::UNEXPECTED_ELSECASE" value="Case Else zonder Select Case"/>
+		<Item Name="GLOBAL::UNEXPECTED_CASE" value="Case zonder Select Case"/>
+		<Item Name="GLOBAL::UNEXPECTED_BASECLASS_INTERFACE" value="Ongeldige Basis-class!"/>
+		<Item Name="GLOBAL::UNEXPECTED_BYJAVA" value="Verwacht: Identifier!"/>
+		<Item Name="GLOBAL::UNEXPECTED_ASSIGN_BYJAVA_MULTIDIMENSION" value="Verwacht: One-dimensional array!"/>
+		<Item Name="GLOBAL::UNEXPECTED_BYVAL" value="Verwacht: Identifier!'"/>
+		<Item Name="GLOBAL::UNEXPECTED_INSTRUCTION" value="Functie of variabel niet gedefineerd!"/>
+		<Item Name="GLOBAL::UNEXPECTED_ENUMVALUE" value="Type mismatch!"/>
+		
+		<Item Name="GLOBAL::EXPECTED_IDENTIFIER" value="Verwacht: Identifier"/>
+		<Item Name="GLOBAL::EXPECTED_FUNCTION_OR_VAR" value="Verwacht: Variabel of Functie"/>
+		<Item Name="GLOBAL::EXPECTED_ENDSYNC" value="Verwacht: End Sync"/>
+		<Item Name="GLOBAL::EXPECTED_LOOP" value="Verwacht: Loop"/>
+		<Item Name="GLOBAL::EXPECTED_NEXT" value="Verwacht: Next"/>
+		<Item Name="GLOBAL::EXPECTED_THEN" value="Verwacht: Then"/>
+		<Item Name="GLOBAL::EXPECTED_ENDIF" value="Verwacht: End If"/>
+		<Item Name="GLOBAL::EXPECTED_ENDSELECT" value="Verwacht: End Select"/>
+		<Item Name="GLOBAL::EXPECTED_ENDSTATEMENT" value="Verwacht: %1"/>
+		<Item Name="GLOBAL::EXPECTED_LABEL" value="Verwacht: Label"/>
+		<Item Name="GLOBAL::EXPECTED_GOTO_OR_RESUME" value="Verwacht: GoTo of Resume"/>
+		<Item Name="GLOBAL::EXPECTED_EXPRESSION" value="Verwacht: Expression"/>
+		<Item Name="GLOBAL::EXPECTED_EQUAL" value="Verwacht: ="/>
+		<Item Name="GLOBAL::EXPECTED_OBJECT" value="Verwacht: Object"/>
+		<Item Name="GLOBAL::EXPECTED_CLIP_CLOSE" value="Verwacht: )"/>
+		<Item Name="GLOBAL::EXPECTED_CLIP_OPEN" value="Verwacht: ("/>
+		<Item Name="GLOBAL::EXPECTED_COMMA_SEPERATOR" value="Verwacht: ,"/>
+		<Item Name="GLOBAL::EXPECTED_SYMBOL" value="Verwacht: Symbool"/>
+		<Item Name="GLOBAL::EXPECTED_CLASS" value="Verwacht: Class"/>
+		<Item Name="GLOBAL::EXPECTED_STATIC_METHOD" value="Verwacht: Static method"/>
+		<Item Name="GLOBAL::EXPECTED_WHILE_OR_UNTIL" value="Verwacht: While of Until of 'end of statement'"/>
+		<Item Name="GLOBAL::EXPECTED_ASSIGNMENT" value="Verwacht: Assignment"/>
+		<Item Name="GLOBAL::EXPECTED_TO" value="Verwacht: To"/>
+		<Item Name="GLOBAL::EXPECTED_CONSTANT_OR_VAR_OR_EXPRESSION" value="Verwacht: Variabel of statement"/>
+		<Item Name="GLOBAL::EXPECTED_INSTRUCTIONEND" value="Verwacht: End of statement"/>
+		<Item Name="GLOBAL::EXPECTED_IDENTIFIER" value="Verwacht: Identifier"/>
+		<Item Name="GLOBAL::EXPECTED_STEP_OR_INSTRUCTIONEND" value="Verwacht: Step of end of statement"/>
+		<Item Name="GLOBAL::EXPECTED_CASE" value="Verwacht: Case"/>
+		<Item Name="GLOBAL::EXPECTED_ARRAY" value="Verwacht: Array"/>
+		<Item Name="GLOBAL::EXPECTED_ARRAY_INDEX" value="Verwacht: Array-Index"/>
+		<Item Name="GLOBAL::EXPECTED_VARIABLE" value="Verwacht: Variabel"/>
+		<Item Name="GLOBAL::EXPECTED_GET_OR_LET" value="Verwacht: Get of Let of Set"/>
+		<Item Name="GLOBAL::EXPECTED_GET" value="Verwacht: Get"/>
+		<Item Name="GLOBAL::EXPECTED_LIB" value="Verwacht: Lib"/>
+		<Item Name="GLOBAL::EXPECTED_THROWABLE" value="Verwacht 'Throwable'-Variabel"/>
+		<Item Name="GLOBAL::EXPECTED_GOTO_LABEL" value="Verwacht: Label"/>
+		<Item Name="GLOBAL::EXPECTED_EVENT" value="Verwacht: Event"/>
+		<Item Name="GLOBAL::EXPECTED_BYJAVA_ASSIGN" value="Verwacht: Jabaco-Array"/>
+
+		<Item Name="GLOBAL::PROTECTED_CONST" value="Assignment naar een constant niet toegstaan!"/>
+		<Item Name="GLOBAL::PROTECTED_WITHEVENTS" value="Assignment naar WithEvent-Variable niet toegestaan!"/>
+
+		<Item Name="GLOBAL::UNSUPPORTED_FEATURE" value="Nog niet ondersteund: '%1'"/>
+		<Item Name="GLOBAL::UNSUPPORTED_ASSIGN" value="Assignment naar '%1' niet toegestaan!"/>
+		<Item Name="GLOBAL::UNSUPPORTED_DATATYPE_FOR_OPERATION" value="Ongeldige data type '%1' voor '%2'!"/>
+		<Item Name="GLOBAL::UNSUPPORTED_OUTSIDE_CLASSMODULES" value="Alleen geldig in object module!"/>
+
+		<Item Name="GLOBAL::ALREADYEXISTS_EVENT" value="Ambiguous event gevonden: %1"/>
+		<Item Name="GLOBAL::ALREADYEXISTS_PROPERTY" value="Ambiguous property gevonden: %1"/>
+		<Item Name="GLOBAL::ALREADYEXISTS_LABEL" value="Ambiguous label gevonden: %1"/>
+		<Item Name="GLOBAL::ALREADYEXISTS_METHOD" value="Ambiguous methode gevonden: %1"/>
+		<Item Name="GLOBAL::ALREADYEXISTS_VAR_BYMETHOD" value="Ambiguous variabel gevonden: %1"/>
+		<Item Name="GLOBAL::ALREADYEXISTS_VAR_BYCLASS" value="Ambiguous variabel gevonden: %1"/>
+
+		<Item Name="CONVERSION::FAILED" value="Type mismatch."/>
+		<Item Name="CONVERSION::STACKCONVERSION_TYPE_NOTSUPPORTED" value="Automatische conversie voor dit type nog niet ondersteund!"/>
+		<Item Name="CONVERSION::SWITCHSTACK_TYPE_NOTSUPPORTED" value="Automatische conversie voor dit type nog niet ondersteund (SwitchStack)!"/>
+		<Item Name="CONVERSION::BOXING_CLASSNOTFOUND" value="Boxing class voor automatische conversie niet gevonden!"/>
+		<Item Name="CONVERSION::NOT_SUPPORTED" value="Automatische conversie '%1' naar '%2' wordt niet ondersteund!"/>
+		<Item Name="CONVERSION::NOT_POSSIBLE" value="Type mismatch. '%1' gevonden maar '%2' is nodig!"/>
+		
+		<Item Name="CHECKINTERFACE::NEW_METHODS_FOUND_RESTART" value="Nieuwe methodes gevonden!"/>
+		<Item Name="CHECKINTERFACE::MISSING_METHODS" value="Ontbrekende methodes voor interface '%1'!"/>
+
+		<Item Name="ENUM::UNSUPPORTED_VALUE" value="Ongeldige waarde '%1' voor Enum '%2'!"/>
+		<Item Name="ENUM::EMPTY_VALUE" value="Ontbrekende waarde voor Enum '%1'!"/>
+
+		<Item Name="INVOKE::SIGNATURE_ERROR" value="Ongeldige handtekening methode!"/>
+		<Item Name="INVOKE::STATICMETHOD_USE_CLASSNAME" value="Gebruik class naam voor static methodes.{crlf}%1"/>
+		<Item Name="INVOKE::MISSING_METHOD" value="Methode '%1' niet gevonden met deze parameters!"/>
+		<Item Name="INVOKE::MISSING_METHOD_BYCLASS" value="Ontbrekende methode '%2.%1'!"/>
+		<Item Name="INVOKE::MISSING_CONSTRUCTOR" value="Ontbrekende constructor!"/>
+		<Item Name="INVOKE::MISSING_CONSTRUCTOR_BYCLASS" value="Constructor voor class '%1' niet gevonden met deze parameters!"/>
+	</CompilerMessages>
+ </Jabaco>
