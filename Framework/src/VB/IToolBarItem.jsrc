@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Implements IJabacoClass 
+
+Public Property Get ControlID() As String
+End Property
+
+Public Property Let ControlID(s As String)
+End Property
+
+
+]]></Source><Param Name="(Name)" Value="IToolBarItem"/><Param Name="(SuperClass)" Value="java/lang/Object"/><Param Name="(Type)" Value="Interface"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VB"/></SourceFile>

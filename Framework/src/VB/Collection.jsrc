@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+Implements IJabacoClass 
+
+Dim myObjectList As New java#util#HashMap 
+Dim myKeyArray As New java#util#LinkedList 
+
+Private Function createUniqueKey(KeyLength As Integer) As String
+   Dim i As Integer, ret As String 
+   For i = 1 To KeyLength
+      ret = ret + cStr( Chr( cInt(Rnd * 26) + 65 ) )
+   Next
+   createUniqueKey = ret
+End Function
+
+Public Synchronized Function Add(Item As Variant) As Boolean
+   Add = Add(Item, Count)
+End Function
+
+Public Synchronized Function Add(Item As Variant, After As Integer) As Boolean 
+   Add = Add(Item, After, createUniqueKey(32))
+End Function
+
+Public Synchronized Function Add(Item As Variant, Key As String) As Boolean 
+   Add = Add(Item, Count, Key)
+End Function
+
+Private Synchronized Function Add(Item As Variant, After As Integer, Key As String) As Boolean ' SOLE method to add items
+   If Item(Key) <> Null Then
+      Exit Function
+   End If
+   Call myObjectList.put(Key, Item) ' save the item with a key
+   Call myKeyArray.add(After, Key)  ' save the key in a list to iterate
+   Add = True 
+End Function
+
+Public Synchronized Sub Clear()
+   Call myObjectList.clear()
+   Call myKeyArray.clear()
+End Sub
+
+Public Synchronized Function KeyExists(Key As String) As Boolean 
+   KeyExists = myObjectList.containsKey(Key)
+End Function
+
+Public Synchronized Function Count() As Integer
+   Count = myObjectList.size()
+End Function
+
+'Public Function Count2() As Integer
+'   Count2 = myKeyArray.size()
+'End Function
+
+Public Synchronized Function Iterator() As java#util#Iterator
+   Iterator = myObjectList.keySet().iterator()
+End Function
+
+Public Synchronized Function Item(Index As Integer) As Variant 
+   On Error Resume Next
+   Index = Index - 1
+   Item = Item(cStr(Cast(myKeyArray.get(Index), java#lang#String)))
+End Function
+
+Public Synchronized Function Item(Key As String) As Variant 
+   Item = myObjectList.get(key)
+End Function
+
+Public Synchronized Function Remove(Key As String) As Boolean 
+   On Error Resume Next
+   Call myKeyArray.remove(myKeyArray.indexOf(Key))
+   Remove = myObjectList.remove(Key)
+End Function
+
+Public Function Remove(Index As Integer) As Boolean 
+   On Error Resume Next
+   Index = Index - 1
+   Remove = Remove(cStr(Cast(myKeyArray.get(Index), java#lang#String)))
+End Function
+
+Public Property Get Parent() As ArrayList
+   Parent = Null ' DONT RETURN THIS LIST !!! let it private to protect the consistent  
+End Property
+]]></Source><Param Name="(Name)" Value="Collection"/><Param Name="(SuperClass)" Value="java/lang/Object"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VB"/></SourceFile>

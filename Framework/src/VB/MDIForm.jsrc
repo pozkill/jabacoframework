@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+Implements IJabacoForm
+
+Dim myDesktop As New javax#swing#JDesktopPane()
+
+Public Sub MDIForm
+   Call setGlobalMDIForm(Me)
+   Call Base.getContentPane.add(myDesktop)
+   Call myDesktop.setDoubleBuffered(True)
+End Sub
+
+Public Sub addChild(refChild As MDIChild)
+   Call myDesktop.add(refChild)
+End Sub
+
+Public Property Get BackColor() As Long
+   BackColor = ColorToRGB(myDesktop.getBackground)
+End Property
+
+Public Property Let BackColor(v As Long)
+   Call myDesktop.setBackground(RGBToColor(v))
+   Call Base.setBackground(RGBToColor(v))
+End Property
+
+Public Property Get ActiveForm() As MDIChild
+   ActiveForm = Cast(myDesktop.getSelectedFrame, MDIChild)
+End Property
+
+Public Property Let ActiveForm(v As MDIChild)
+   Call myDesktop.setSelectedFrame(v)
+End Property
+
+'-------------
+
+Public Sub Form_Activate()
+End Sub
+Public Sub Form_Deactivate()
+End Sub
+Public Sub Form_GotFocus()
+End Sub
+Public Sub Form_LostFocus()
+End Sub
+Public Sub Form_Load()
+End Sub
+Public Sub Form_Resize()
+End Sub
+Public Sub Form_Move()
+End Sub
+Public Sub Form_MenuClick(MenuItem As IMenuItem)
+End Sub
+Public Sub Form_ToolBarClick(ToolBarItem As IToolBarItem)
+End Sub
+Public Sub Form_Click()
+End Sub
+Public Sub Form_DblClick()
+End Sub
+Public Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
+End Sub
+Public Sub Form_KeyPress(KeyAscii As Integer)
+End Sub
+Public Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
+End Sub
+Public Sub Form_MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
+End Sub
+Public Sub Form_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+End Sub
+Public Sub Form_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+End Sub
+Public Sub Form_Paint(g As java#awt#Graphics)
+End Sub
+]]></Source><Param Name="(Name)" Value="MDIForm"/><Param Name="(SuperClass)" Value="VB/AbstractForm"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>

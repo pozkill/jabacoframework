@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Implements IMenuItem 
+
+Public Property Get ControlID() As String
+End Property
+
+Public Property Let ControlID(s As String)
+End Property
+
+Public Property Get Caption() As String
+End Property
+
+Public Property Let Caption(s As String)
+End Property
+
+Public Property Get BackColor() As Long
+End Property
+
+Public Property Let BackColor(v As Long)
+End Property
+
+Public Property Get ForeColor() As Long
+End Property
+
+Public Property Let ForeColor(v As Long)
+End Property
+
+Public Property Get Icon() As String
+End Property
+
+Public Property Let Icon(Path As String)
+End Property
+
+Public Property Get Visible() As Boolean 
+End Property
+
+Public Property Let Visible(v As Boolean)
+End Property
+
+Public Property Get Parent() As #JComponent 
+End Property
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+]]></Source><Param Name="(Name)" Value="VBMenuSeperator"/><Param Name="(SuperClass)" Value="javax/swing/JSeparator"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>

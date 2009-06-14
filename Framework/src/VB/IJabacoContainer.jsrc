@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Public Property Get Font() As Font
+End Property
+
+Public Property Get ContentFrame() As PictureBox 
+End Property
+]]></Source><Param Name="(Name)" Value="IJabacoContainer"/><Param Name="(SuperClass)" Value="java/lang/Object"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Interface"/><Param Name="(Access)" Value="Public"/></SourceFile>

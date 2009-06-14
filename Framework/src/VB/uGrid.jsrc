@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[
+
+Public Sub Usercontrol_Initialize()
+
+   jbGrid1.Cols = 14
+   jbGrid1.Rows = 10
+   
+   jbGrid2.Cols = 14
+   jbGrid2.Rows = 10
+   
+   Dim x As Integer, y As Integer
+   For y = 0 To jbGrid1.Cols
+      jbGrid1.Header(y) = "Header" & y
+      jbGrid2.Header(y) = "Header" & y
+      For x = 0 To jbGrid1.Rows
+         jbGrid1.TextMatrix(x, y) = "Item_" & x & "/" & y
+         jbGrid2.TextMatrix(x, y) = "Item_" & x & "/" & y
+      Next
+   Next
+   
+End Sub
+
+
+Public Sub JBGrid2_BeforeCellEdit(row As Integer, col As Integer)
+   JBGrid2.ComboList = "Test1|Test2"
+   
+End Sub
+]]></Source><Param Name="(Name)" Value="uGrid"/><Param Name="(SuperClass)" Value="VB/Usercontrol"/><Param Name="(NameSpace)" Value=""/><Param Name="(Type)" Value="Usercontrol"/><Param Name="(Access)" Value="Public"/><Param Name="Opaque" Value="True"/><Param Name="AutoRedraw" Value="False"/><Param Name="AntiAliasing" Value="False"/><Param Name="Transparency" Value=""/><Param Name="DrawWidth" Value="1"/><Param Name="BorderColor" Value=""/><Param Name="Picture" Value="Nothing"/><Param Name="BorderStyle" Value="fmBorderStyleNone"/><Param Name="SpecialEffect" Value="fmSpecialEffectFlat"/><Param Name="FontName" Value="Arial"/><Param Name="FontBold" Value="False"/><Param Name="FontItalic" Value="False"/><Param Name="FontSize" Value="9"/><Param Name="BackColor" Value="-2147483633"/><Param Name="ForeColor" Value=""/><Param Name="Width" Value="753"/><Param Name="Height" Value="541"/><Param Name="Left" Value="0"/><Param Name="Top" Value="0"/><Param Name="ToolTip" Value=""/><Param Name="Enabled" Value="True"/><Param Name="Visible" Value="True"/><Param Name="Tag" Value=""/><Param Name="MousePointer" Value="vbDefault"/><Param Name="MouseIcon" Value="Nothing"/><Param Name="CanGetFocus" Value="True"/><Object Type="VB/JBGrid"><Param Name="BorderColorSel" Value="-2147483638"/><Param Name="GridColor" Value="-2147483638"/><Param Name="BackColorSel" Value="-2147483635"/><Param Name="ForeColorSel" Value="-2147483634"/><Param Name="SelectionMode" Value="flexSelectionFree"/><Param Name="AutoResize" Value="jbAutoResizeOff"/><Param Name="BackColorHeader" Value="-2147483633"/><Param Name="ForeColorHeader" Value="-2147483630"/><Param Name="BackColorCells" Value="-2147483643"/><Param Name="FlatHeader" Value="False"/><Param Name="BorderColor" Value="-2147483642"/><Param Name="BorderStyle" Value="fmBorderStyleSingle"/><Param Name="SpecialEffect" Value="fmSpecialEffectFlat"/><Param Name="Editable" Value="jbNotEditable"/><Param Name="Cols" Value="4"/><Param Name="Rows" Value="3"/><Param Name="HeaderHeight" Value="23"/><Param Name="RowHeightGlobal" Value="-1"/><Param Name="ShowHorizontalLines" Value="True"/><Param Name="ShowVerticalLines" Value="False"/><Param Name="HeaderVisible" Value="True"/><Param Name="FontName" Value="Arial"/><Param Name="FontBold" Value="False"/><Param Name="FontItalic" Value="False"/><Param Name="FontSize" Value="9"/><Param Name="BackColor" Value="-2147483633"/><Param Name="ForeColor" Value="-2147483640"/><Param Name="Width" Value="737"/><Param Name="Height" Value="249"/><Param Name="Left" Value="8"/><Param Name="Top" Value="8"/><Param Name="ToolTip" Value=""/><Param Name="Enabled" Value="True"/><Param Name="Visible" Value="True"/><Param Name="Tag" Value=""/><Param Name="(Name)" Value="JBGrid1"/></Object><Object Type="VB/JBGrid"><Param Name="BorderColorSel" Value="8388608"/><Param Name="GridColor" Value="65535"/><Param Name="BackColorSel" Value="0"/><Param Name="ForeColorSel" Value="16776960"/><Param Name="SelectionMode" Value="flexSelectionByColumn"/><Param Name="AutoResize" Value="jbAutoResizeOff"/><Param Name="BackColorHeader" Value="8388672"/><Param Name="ForeColorHeader" Value="16711935"/><Param Name="BackColorCells" Value="128"/><Param Name="FlatHeader" Value="True"/><Param Name="BorderColor" Value="4259584"/><Param Name="BorderStyle" Value="fmBorderStyleSingle"/><Param Name="SpecialEffect" Value="fmSpecialEffectFlat"/><Param Name="Editable" Value="jbEditOnDblClick"/><Param Name="Cols" Value="4"/><Param Name="Rows" Value="3"/><Param Name="HeaderHeight" Value="23"/><Param Name="RowHeightGlobal" Value="-1"/><Param Name="ShowHorizontalLines" Value="False"/><Param Name="ShowVerticalLines" Value="True"/><Param Name="HeaderVisible" Value="True"/><Param Name="FontName" Value="Arial"/><Param Name="FontBold" Value="False"/><Param Name="FontItalic" Value="False"/><Param Name="FontSize" Value="9"/><Param Name="BackColor" Value="0"/><Param Name="ForeColor" Value="255"/><Param Name="Width" Value="737"/><Param Name="Height" Value="249"/><Param Name="Left" Value="8"/><Param Name="Top" Value="264"/><Param Name="ToolTip" Value=""/><Param Name="Enabled" Value="True"/><Param Name="Visible" Value="True"/><Param Name="Tag" Value=""/><Param Name="(Name)" Value="JBGrid2"/></Object></SourceFile>

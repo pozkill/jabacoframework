@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+Implements IJabacoClass
+
+Dim myBorderWidth As Long
+Dim myDrawMode As DrawModeConstants
+Dim myShape As ShapeConstants
+Dim myFillColor As Long 
+Dim myBackStyle As BackStyleConstants
+Dim myAntiAliasing As Boolean 
+Dim myTag As String
+
+Public Sub paintComponent(g As #Graphics)
+   If g = Nothing Then Exit Sub
+   Dim g2d As #Graphics2D 
+   g2d = Cast(g, #Graphics2D)
+   
+   If myAntiAliasing Then
+      Call g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON)
+   End If
+   
+   'Call g2d.setStroke(New java#awt#BasicStroke(8))
+   Call g2d.setStroke(New java#awt#BasicStroke(myBorderWidth))
+   
+   Dim myLeft As Long, myTop As Long, myWidth As Long, myHeight As Long
+   myLeft = (myBorderWidth / 2)
+   myTop = (myBorderWidth / 2)
+   myWidth = Width - 1 - (myBorderWidth)
+   myHeight = Height - 1 - (myBorderWidth)
+   
+   
+   If myShape = vbShapeSquare Or myShape = vbShapeCircle Then
+      Dim myMemWidth As Long = myWidth, myMemHeight As Long = myHeight
+      myWidth = IIF(myWidth > myHeight, myHeight, myWidth) 
+      myHeight = IIF(myWidth > myHeight, myHeight, myWidth)
+      myLeft = myLeft + (myMemWidth - myWidth) / 2 
+      myTop = myTop + (myMemHeight - myHeight) / 2
+   End If
+   
+   
+   Select Case myShape
+      Case vbShapeRectangle, vbShapeSquare
+         If myBackStyle = vbSolid Then
+            Call g2d.setColor(Parent.getBackground())
+            g2d.fillRect myLeft, myTop, myWidth + 1, myHeight + 1
+         End If
+         Call g2d.setColor(Parent.getForeground())
+         g2d.drawRect myLeft, myTop, myWidth, myHeight
+      Case vbShapeOval, vbShapeCircle
+         If myBackStyle = vbSolid Then
+            Call g2d.setColor(Parent.getBackground())
+            g2d.fillOval myLeft, myTop, myWidth + 1, myHeight + 1
+         End If
+         Call g2d.setColor(Parent.getForeground())
+         g2d.drawOval myLeft, myTop, myWidth, myHeight
+      Case vbShapeRoundedRectangle, vbShapeRoundedSquare
+         If myBackStyle = vbSolid Then
+            Call g2d.setColor(Parent.getBackground())
+            g2d.fillRect myLeft, myTop, myWidth + 1, myHeight + 1
+         End If
+         Call g2d.setColor(Parent.getForeground())
+         g2d.drawRect myLeft, myTop, myWidth, myHeight
+   End Select
+   
+   'g2d.drawLine 0, 0, mX2, mY2
+   g2d.dispose 
+End Sub
+
+Public Property Get Parent() As #JComponent 
+   Parent = Base
+End Property
+
+Public Property Get AntiAliasing() As Boolean
+   AntiAliasing = myAntiAliasing
+End Property
+
+Public Property Let AntiAliasing(v As Boolean)
+   myAntiAliasing = v
+End Property
+
+Public Property Get DrawMode() As DrawModeConstants
+   DrawMode = myDrawMode
+End Property
+
+Public Property Let DrawMode(v As DrawModeConstants)
+   myDrawMode = v
+   Call Me.Refresh()
+End Property
+
+Public Property Get Shape() As ShapeConstants
+   Shape = myShape
+End Property
+
+Public Property Let Shape(v As ShapeConstants)
+   myShape = v
+   Call Me.Refresh()
+End Property
+
+Public Property Get BackColor() As Long
+   BackColor = ColortoRGB(Base.getBackground())
+End Property
+
+Public Property Let BackColor(v As Long)
+   Base.setBackground(RGBtoColor(v))
+End Property
+
+Public Property Get BorderColor() As Long
+   BorderColor = ColorToRGB(Parent.getForeground())
+End Property
+
+Public Property Let BorderColor(v As Long)
+   Call Parent.setForeground(RGBToColor(v))
+End Property
+
+Public Property Get FillColor() As Long
+   FillColor = myFillColor
+End Property
+
+Public Property Let FillColor(v As Long)
+   myFillColor = v
+   Call Me.Refresh()
+End Property
+
+Public Property Get BackStyle() As BackStyleConstants
+   BackStyle = myBackStyle
+End Property
+
+Public Property Let BackStyle(v As BackStyleConstants)
+   myBackStyle = v
+   Call Me.Refresh()
+End Property
+
+Public Property Get BorderWidth() As Long
+   BorderWidth = myBorderWidth
+End Property
+
+Public Property Let BorderWidth(v As Long)
+   myBorderWidth = v
+   Call Me.Refresh()
+End Property
+
+Public Property Get Width() As Single
+    Width = Me.getSize.Width
+End Property
+
+Public Property Let Width(v As Single)
+    Me.setSize(v, Me.getSize.Height)
+End Property
+
+Public Property Get Height() As Single
+    Height = Me.getSize.Height
+End Property
+
+Public Property Let Height(v As Single)
+    Me.setSize(Me.getSize.Width, v)
+End Property
+
+Public Property Get Left() As Single
+    Left = Me.getLocation.x
+End Property
+
+Public Property Let Left(v As Single)
+    Me.setLocation(v, Me.getLocation.y)
+End Property
+
+Public Property Get Top() As Single
+    Top = Me.getLocation.y
+End Property
+
+Public Property Let Top(v As Single)
+    Me.setLocation(Me.getLocation.x, v)
+End Property
+
+Public Property Get Visible() As Boolean 
+    Visible = Base.isVisible()
+End Property
+
+Public Property Let Visible(v As Boolean)
+    Base.setVisible v
+End Property
+
+Public Property Get Tag() As String 
+   Tag = myTag
+End Property
+
+Public Property Let Tag(v As String)
+   myTag = v
+End Property
+
+Public Sub Refresh()
+   Call Parent.invalidate()
+   Call Parent.repaint(0, 0, 0, Me.Width, Me.Height)
+End Sub
+
+
+
+
+
+
+
+
+]]></Source><Param Name="(Name)" Value="Shape"/><Param Name="(SuperClass)" Value="javax/swing/JComponent"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>

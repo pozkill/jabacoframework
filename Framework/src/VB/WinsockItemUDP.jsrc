@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SourceFile><Source><![CDATA[Option Explicit
+Implements IJabacoClass 
+Implements IWinsockItem
+Implements Runnable 
+
+Dim myOwner As Winsock
+Dim mySocket As java#net#DatagramSocket
+
+Public Synchronized Property Get BytesReceived() As Long
+End Property
+ 
+Public Sub WinsockItem(RefOwner As Winsock)
+   myOwner = RefOwner
+End Sub
+
+Public Property Get Owner() As Winsock
+   Owner = myOwner
+End Property
+
+Public Sub run()
+End Sub
+
+Public Synchronized Function GetData() As String 
+End Function
+
+Public Sub SendData(data As String)
+End Sub
+
+Public Property Get Parent() As #DatagramSocket
+   Parent = mySocket
+End Property
+
+Public Sub Close()
+   On Error Resume Next
+   mySocket.close
+End Sub
+
+Public Sub Class_Initialize
+End Sub
+
+
+
+]]></Source><Param Name="(Name)" Value="WinsockItemUDP"/><Param Name="(SuperClass)" Value="java/lang/Thread"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>

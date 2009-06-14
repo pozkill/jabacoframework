@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Implements DocumentListener
+
+
+Private Enum MODTYPE
+   DOC_CHANGED
+   DOC_INSERT
+   DOC_REMOVE
+End Enum
+
+Event Modified(action As MODTYPE, e As DocumentEvent)
+Event Paint(g As Graphics)
+
+'Dim myRTF As New javax#swing#text#rtf#RTFEditorKit()
+'Dim myHTML As New javax#swing#text#html#HTMLEditorKit()
+
+Public Property Get Parent() As JTextPane
+   Parent = Base
+End Property
+
+Public Sub setDocument(refDoc As Document)
+   Call Base.setDocument(refDoc)
+   Call refDoc.removeDocumentListener(Me)
+   Call refDoc.addDocumentListener(Me)   
+End Sub
+
+Friend Sub paintComponent(g As Graphics)
+   On Error Resume Next
+   Base.paintComponent g
+   Raiseevent Paint(g)
+End Sub
+
+'Public Sub Class_Initialize
+'   'Call Parent.setEditorKit(myRTF)   
+'   'Call Parent.setDocument(myRTF.createDefaultDocument())
+'   
+'   
+'  ' Parent.setContentType "text/rdf"
+'  ' Parent.setContentType "text/html"
+'End Sub
+''
+'Public Function getText() As String 
+'  getText = Parent.getDocument.getText(0, Parent.getDocument.getLength)
+'End Function
+'
+'Public Sub setText(v As String)
+'  ' parent.setEditorKitForContentType 
+'  'getText = Parent.getDocument.getText(0, Parent.getDocument.getLength)
+'End Sub
+
+Public Sub insertUpdate(e As DocumentEvent)
+   Raiseevent Modified(DOC_INSERT, e)
+End Sub
+
+Public Sub removeUpdate(e As DocumentEvent)
+   Raiseevent Modified(DOC_REMOVE, e)
+End Sub
+
+Public Sub changedUpdate(e As DocumentEvent)
+   Raiseevent Modified(DOC_CHANGED, e)
+End Sub
+]]></Source><Param Name="(Name)" Value="RTTextPane"/><Param Name="(SuperClass)" Value="javax/swing/JTextPane"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+Implements IResource 
+
+Dim myImage As #BufferedImage 
+
+Public Sub VBImage(width As Integer, height As Integer)
+   myImage = New BufferedImage(width, height, BufferedImage.TYPE_INT_RGB)
+End Sub
+
+Public Sub VBImage(refImage As #BufferedImage)
+   myImage = refImage
+End Sub
+
+Public Sub VBImage(refImage As #Image)
+   myImage = createBufferedImage(refImage)
+End Sub
+
+Public Sub VBImage(url As String)
+   On Error Resume Next
+   Dim myStream As InputStream 
+   Dim myUrl As java#net#URL
+   myUrl = New java#net#URL(url)
+   If myUrl = Nothing Then
+      myStream = New FileInputStream(url)
+   Else
+      myStream = myUrl.openStream()
+   End If
+   On Error Goto 0
+   myImage = ImageIO.read(myStream)
+End Sub
+
+Public Sub VBImage(url As java#net#URL)
+   Dim myStream As InputStream = url.openStream()
+   myImage = ImageIO.read(myStream)
+End Sub
+
+Public Sub VBImage(refImage As #IResource)
+   myImage = createBufferedImage(LoadPicture(refImage))
+End Sub
+
+Public Sub VBImage(refImage As VBImage)
+   myImage = createBufferedImage(refImage.getImage())
+End Sub
+
+Public Function getImage() As #BufferedImage
+   getImage = myImage
+End Function
+
+Public Property Get RGB(x As Integer, y As Integer) As Long
+   RGB = myImage.getRGB(x, y)
+End Property
+
+Public Property Let RGB(x As Integer, y As Integer, v As Long)
+   Call myImage.setRGB(x, y, v)
+End Property
+
+Public Function cutImage(x As Integer, y As Integer, width As Integer, height As Integer) As #VBImage
+   myImage = myImage.getSubimage(x, y, width, height)
+   cutImage= Me
+End Function
+
+Public Function scaleImage(width As Integer, height As Integer) As #VBImage
+   Call scaleImage(width, height, True)
+   scaleImage = Me
+End Function
+
+Public Function scaleImage(width As Integer, height As Integer, smooth As Boolean) As #VBImage
+   myImage = createBufferedImage(myImage.getScaledInstance(width, height, IIF(smooth, Image.SCALE_SMOOTH, Image.SCALE_DEFAULT)))
+   scaleImage = Me
+End Function
+
+Public Function rotateImage(Picture As Image, angle As Double, xAngle As Integer, yAngle As Integer) As #VBImage
+   'myImage = createBufferedImage(myImage.getScaledInstance(width, height, IIF(smooth, Image.SCALE_SMOOTH, Image.SCALE_DEFAULT)))
+   'rotateImage = Me
+   
+'   Dim my2DGraphics As Graphics2D
+'   my2DGraphics = getGraphics()
+'   Dim newXform As #AffineTransform = Cast(my2DGraphics.getTransform().clone(), #AffineTransform)
+'   newXform.rotate java#lang#Math.toRadians(angle), xAngle, yAngle
+'   my2DGraphics.drawImage Picture, newXform, Nothing
+'   Call disposeGraphics(my2DGraphics)
+End Function
+
+
+Public Property Get Graphics() As #Graphics
+   Graphics = myImage.getGraphics()
+End Property
+]]></Source><Param Name="(Name)" Value="VBImage"/><Param Name="(SuperClass)" Value="java/lang/Object"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>

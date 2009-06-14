@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+Dim myTree As TreeView
+
+Public Sub TreeViewRenderer(refTreeView As TreeView)
+   myTree = refTreeView
+End Sub
+
+Public Function getTreeCellRendererComponent(pTree As JTree, pValue As Object, pIsSelected As Boolean, pIsExpanded As Boolean, pIsLeaf As Boolean, pRow As Integer, pHasFocus As Boolean) As Component
+   Call Base.getTreeCellRendererComponent(pTree, pValue, pIsSelected, pIsExpanded, pIsLeaf, pRow, pHasFocus)
+   Dim myNode As Node = Cast(pValue, Node)
+
+   If myNode <> Nothing Then
+      If myTree <> Nothing Then
+      
+         Call Me.setText(myNode.Text)      
+         Call Me.setBackground(RGBToColor(myTree.BackColor))
+         
+         Call Me.setBackgroundNonSelectionColor(RGBToColor(myNode.BackColor))
+         Call Me.setBackgroundSelectionColor(RGBToColor(myNode.BackColorSel))
+     
+         'Call Me.setTextNonSelectionColor(RGBToColor(myNode.ForeColor)) <<<<==== DOESN'T WORK...?
+         'Call Me.setTextSelectionColor(RGBToColor(myNode.ForeColorSel)) <<<<==== DOESN'T WORK...?
+         If pIsSelected Then
+            Call Me.setForeground(RGBToColor(myNode.ForeColorSel))
+         Else
+            Call Me.setForeground(RGBToColor(myNode.ForeColor))
+         End If
+         
+         If usePicture(myTree) Then
+            If myNode.GetIcon(TreeIconDefault) = Nothing Then
+               Call Me.setClosedIcon(myNode.GetIcon(TreeIconClosed))
+               Call Me.setOpenIcon(myNode.GetIcon(TreeIconOpen))
+               Call Me.setLeafIcon(myNode.GetIcon(TreeIconLeaf))
+            Else
+               Call Me.setIcon(myNode.GetIcon(TreeIconDefault))
+               Call Me.setDisabledIcon(myNode.GetIcon(TreeIconDisabled))
+            End If
+         Else
+            Call Me.setClosedIcon(Nothing)
+            Call Me.setOpenIcon(Nothing)
+            Call Me.setLeafIcon(Nothing)
+            Call Me.setIcon(Nothing)
+            Call Me.setDisabledIcon(Nothing)
+         End If
+         
+         Call Me.setFont(myNode.Font)
+      End If
+   End If
+
+   getTreeCellRendererComponent = Me
+End Function
+             
+Private Function usePicture(refTree As TreeView) As Boolean
+   Select Case refTree.Style
+      Case tvwPictureText, tvwPlusPictureText, tvwTreelinesPictureText, tvwTreelinesPlusMinusPictureText
+         usePicture = True
+      Case Else
+         usePicture = False
+   End Select
+End Function]]></Source><Param Name="(Name)" Value="TreeViewRenderer"/><Param Name="(SuperClass)" Value="javax/swing/tree/DefaultTreeCellRenderer"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>

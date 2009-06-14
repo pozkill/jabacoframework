@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Public Event Click()
+
+Public Sub Command1_Click()
+   System.out.println "JOJOJO!"
+   
+End Sub
+
+Public Sub Usercontrol_DblClick()
+   label1.BackColor = rgb(rnd*255, rnd*255, rnd*255)
+   
+End Sub
+
+Public Sub Usercontrol_MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
+   label1.Caption = Timer
+   
+End Sub
+
+Public Sub Usercontrol_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+   label1.Caption = x & " - " & y
+End Sub
+
+Public Sub Usercontrol_Initialize()
+   Call Usercontrol_Resize()
+End Sub
+
+Public Sub Usercontrol_Resize()
+
+   
+End Sub
+
+Public Sub Usercontrol_Click()
+   out.println "TEST"
+   
+End Sub
+
+Public Sub Command2_Click()
+   msgbox "jo"
+   
+End Sub
+]]></Source><Param Name="(Name)" Value="TestItem"/><Param Name="(SuperClass)" Value="VB/Usercontrol"/><Param Name="(NameSpace)" Value=""/><Param Name="(Type)" Value="Usercontrol"/><Param Name="(Access)" Value="Public"/><Param Name="MenuBackColor" Value="-2147483644"/><Param Name="MenuForeColor" Value="-2147483641"/><Param Name="ToolBackColor" Value="-2147483644"/><Param Name="ToolForeColor" Value="-2147483641"/><Param Name="Redraw" Value="False"/><Param Name="AutoRedraw" Value="False"/><Param Name="AntiAliasing" Value="False"/><Param Name="Transparency" Value=""/><Param Name="DrawWidth" Value=""/><Param Name="BorderColor" Value=""/><Param Name="Picture" Value="Nothing"/><Param Name="BorderStyle" Value="fmBorderStyleNone"/><Param Name="SpecialEffect" Value="fmSpecialEffectFlat"/><Param Name="PictureAlignment" Value="fmPictureAlignmentTopLeft"/><Param Name="FontName" Value="Arial"/><Param Name="FontBold" Value="False"/><Param Name="FontItalic" Value="False"/><Param Name="FontSize" Value="9"/><Param Name="BackColor" Value="-2147483633"/><Param Name="ForeColor" Value=""/><Param Name="Width" Value="273"/><Param Name="Height" Value="82"/><Param Name="Left" Value="0"/><Param Name="Top" Value="0"/><Param Name="ToolTip" Value=""/><Param Name="Enabled" Value="True"/><Param Name="Visible" Value="True"/><Param Name="Tag" Value=""/><Param Name="MousePointer" Value="vbDefault"/><Param Name="MouseIcon" Value="Nothing"/><Param Name="CanGetFocus" Value="True"/><Object Type="VB/PictureBox"><Param Name="Redraw" Value="False"/><Param Name="AutoRedraw" Value="True"/><Param Name="AntiAliasing" Value="False"/><Param Name="Transparency" Value="0"/><Param Name="DrawWidth" Value="1"/><Param Name="BorderColor" Value="-2147483642"/><Param Name="Picture" Value="Nothing"/><Param Name="BorderStyle" Value="fmBorderStyleSingle"/><Param Name="SpecialEffect" Value="fmSpecialEffectFlat"/><Param Name="PictureAlignment" Value="fmPictureAlignmentTopLeft"/><Param Name="FontName" Value="Arial"/><Param Name="FontBold" Value="False"/><Param Name="FontItalic" Value="False"/><Param Name="FontSize" Value="9"/><Param Name="BackColor" Value="-2147483643"/><Param Name="ForeColor" Value="-2147483640"/><Param Name="Width" Value="257"/><Param Name="Height" Value="65"/><Param Name="Left" Value="8"/><Param Name="Top" Value="8"/><Param Name="ToolTip" Value=""/><Param Name="Enabled" Value="True"/><Param Name="Visible" Value="True"/><Param Name="Tag" Value=""/><Param Name="MousePointer" Value="vbDefault"/><Param Name="MouseIcon" Value="Nothing"/><Param Name="CanGetFocus" Value="True"/><Param Name="(Name)" Value="Picture1"/><Object Type="VB/Label"><Param Name="TextAlign" Value="fmTextAlignLeft"/><Param Name="PicturePosition" Value="fmPicturePositionLeftTop"/><Param Name="BackStyle" Value="vbSolid"/><Param Name="BorderColor" Value="-2147483642"/><Param Name="BorderStyle" Value="fmBorderStyleNone"/><Param Name="SpecialEffect" Value="fmSpecialEffectFlat"/><Param Name="Caption" Value="TESTITEM"/><Param Name="Picture" Value="Nothing"/><Param Name="FontName" Value="Arial"/><Param Name="FontBold" Value="False"/><Param Name="FontItalic" Value="False"/><Param Name="FontSize" Value="9"/><Param Name="BackColor" Value="4227327"/><Param Name="ForeColor" Value="-2147483630"/><Param Name="Width" Value="169"/><Param Name="Height" Value="17"/><Param Name="Left" Value="8"/><Param Name="Top" Value="8"/><Param Name="ToolTip" Value=""/><Param Name="Enabled" Value="True"/><Param Name="Visible" Value="True"/><Param Name="Tag" Value=""/><Param Name="MousePointer" Value="vbDefault"/><Param Name="MouseIcon" Value="Nothing"/><Param Name="CanGetFocus" Value="True"/><Param Name="(Name)" Value="Label1"/></Object><Object Type="VB/CommandButton"><Param Name="Caption" Value="OK"/><Param Name="Picture" Value="Nothing"/><Param Name="RolloverPicture" Value="Nothing"/><Param Name="PicturePosition" Value="fmPicturePositionLeftCenter"/><Param Name="FontName" Value="Arial"/><Param Name="FontBold" Value="False"/><Param Name="FontItalic" Value="False"/><Param Name="FontSize" Value="9"/><Param Name="BackColor" Value="-2147483633"/><Param Name="ForeColor" Value="-2147483630"/><Param Name="Width" Value="89"/><Param Name="Height" Value="17"/><Param Name="Left" Value="160"/><Param Name="Top" Value="40"/><Param Name="ToolTip" Value=""/><Param Name="Enabled" Value="True"/><Param Name="Visible" Value="True"/><Param Name="Tag" Value=""/><Param Name="MousePointer" Value="vbDefault"/><Param Name="MouseIcon" Value="Nothing"/><Param Name="CanGetFocus" Value="True"/><Param Name="(Name)" Value="Command1"/></Object><Object Type="VB/CommandButton"><Param Name="Caption" Value="OK"/><Param Name="Picture" Value="Nothing"/><Param Name="RolloverPicture" Value="Nothing"/><Param Name="PicturePosition" Value="fmPicturePositionLeftCenter"/><Param Name="FontName" Value="Arial"/><Param Name="FontBold" Value="False"/><Param Name="FontItalic" Value="False"/><Param Name="FontSize" Value="9"/><Param Name="BackColor" Value="-2147483633"/><Param Name="ForeColor" Value="-2147483630"/><Param Name="Width" Value="89"/><Param Name="Height" Value="17"/><Param Name="Left" Value="104"/><Param Name="Top" Value="8"/><Param Name="ToolTip" Value=""/><Param Name="Enabled" Value="True"/><Param Name="Visible" Value="True"/><Param Name="Tag" Value=""/><Param Name="MousePointer" Value="vbDefault"/><Param Name="MouseIcon" Value="Nothing"/><Param Name="CanGetFocus" Value="True"/><Param Name="(Name)" Value="Command2"/></Object><Param Name="CurrentX" Value=""/><Param Name="CurrentY" Value=""/><Param Name="Opaque" Value="True"/></Object><Param Name="Opaque" Value="True"/></SourceFile>

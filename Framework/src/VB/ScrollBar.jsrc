@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+Implements IJabacoControl
+Implements KeyListener
+Implements AdjustmentListener 
+Implements FocusListener 
+
+Event GotFocus()
+Event LostFocus()
+Event Click()
+Event KeyDown(KeyCode As Integer, Shift As Integer)
+Event KeyPress(KeyAscii As Integer)
+Event KeyUp(KeyCode As Integer, Shift As Integer)
+Event Scroll()
+
+Dim myMouseIcon As IResource 
+
+Public Sub Class_Initialize()
+   Me.setVisible False
+   Me.addKeyListener(Me)
+   Me.addAdjustmentListener(Me)
+   Me.setVisibleAmount(0)
+End Sub
+
+' ******************************** DEFAULT FOCUS - EVENTS ********************************
+
+Public Sub focusGained(arg2 As FocusEvent)
+   Raiseevent GotFocus()
+End Sub
+
+Public Sub focusLost(arg2 As FocusEvent)
+   Raiseevent LostFocus()
+End Sub
+
+Public Sub adjustmentValueChanged(e As AdjustmentEvent)
+   If Visible Then Raiseevent Scroll()
+End Sub
+
+Public Sub keyReleased(e As KeyEvent) 
+   RaiseEvent KeyUp(e.getKeyCode, KeyEventToShiftConstant(e))
+   If e.getKeyCode = 10 Or e.getKeyCode = 32 Then Raiseevent Click()
+End Sub
+
+Public Sub keyTyped(e As KeyEvent)
+   RaiseEvent KeyPress(e.getKeyChar)
+End Sub
+
+Public Sub keyPressed(e As KeyEvent)
+   RaiseEvent KeyDown(e.getKeyCode, KeyEventToShiftConstant(e))
+End Sub 
+
+Public Property Get Width() As Single
+   Width = Me.getSize.Width
+End Property
+
+Public Property Let Width(v As Single)
+   Me.setSize(v, Me.getSize.Height)
+   Call Refresh()
+End Property
+
+Public Property Get Height() As Single
+   Height = Me.getSize.Height
+End Property
+
+Public Property Let Height(v As Single)
+   Me.setSize(Me.getSize.Width, v)
+   Call Refresh()
+End Property
+
+Public Property Get Left() As Single
+   Left = Me.getLocation.x
+End Property
+
+Public Property Let Left(v As Single)
+   Me.setLocation(v, Me.getLocation.y)
+End Property
+
+Public Property Get Top() As Single
+   Top = Me.getLocation.y
+End Property
+
+Public Property Let Top(v As Single)
+   Me.setLocation(Me.getLocation.x, v)
+End Property
+
+Public Property Let Orientation(v As fmOrientation)
+   If v = fmOrientationVertical Then 
+      Base.setOrientation Adjustable.VERTICAL
+   Else
+      Base.setOrientation Adjustable.HORIZONTAL
+   End If
+End Property
+
+Public Property Get Orientation() As fmOrientation
+   If Base.getOrientation() = Adjustable.VERTICAL Then 
+      Orientation = fmOrientationVertical
+   Else
+      Orientation = fmOrientationHorizontal
+   End If
+End Property
+
+Public Property Let Min(v As Integer)
+   Base.setMinimum v
+End Property
+
+Public Property Get Min() As Integer 
+   Min = Base.getMinimum()
+End Property
+
+Public Property Let Max(v As Integer)
+   Base.setMaximum v
+End Property
+
+Public Property Get Max() As Integer 
+   Max = Base.getMaximum()
+End Property
+
+Public Property Let Value(v As Integer)
+   Base.setValue v
+End Property
+
+Public Property Get Value() As Integer 
+   Value = Base.getValue()
+End Property
+
+Public Property Get ToolTip() As String 
+    ToolTip = Me.getToolTipText()
+End Property
+
+Public Property Let ToolTip(v As String)
+   If Len(v) = 0 Then 
+      Me.setToolTipText(Null)
+   Else
+      Me.setToolTipText(v)
+   End If
+End Property
+
+Public Property Get Enabled() As Boolean 
+   Enabled = Me.isEnabled()
+End Property
+
+Public Property Let Enabled(v As Boolean)
+   Call Me.setEnabled(v)
+End Property
+
+Public Property Get Visible() As Boolean 
+    Visible = Me.isVisible()
+End Property
+
+Public Property Let Visible(v As Boolean)
+    Me.setVisible v
+End Property
+
+Public Property Get Parent() As JScrollBar
+   Parent = Base
+End Property
+
+Public Property Get MousePointer() As MousePointerConstants
+   MousePointer = JCursorToVBMousePointer(Parent.getCursor())
+End Property
+
+Public Property Let MousePointer(v As MousePointerConstants)
+   Call Parent.setCursor(VBMousePointerToJCursor(v))
+End Property
+
+Public Property Get MouseIcon() As String 
+   MouseIcon = myMouseIcon
+End Property
+
+Public Property Let MouseIcon(v As #IResource)
+   myMouseIcon = v
+   Call Parent.setCursor(VBMouseIconToJCursor(v, Me))
+End Property
+
+Public Property Get CanGetFocus() As Boolean
+   CanGetFocus = Parent.isFocusable
+End Property
+
+Public Property Let CanGetFocus(v As Boolean)
+   Parent.setFocusable v
+End Property
+
+Public Sub SetFocus()
+   Parent.requestFocus 
+End Sub
+
+Public Sub Refresh()
+   Call Parent.invalidate()
+   Call Parent.repaint(0, 0, 0, Me.Width, Me.Height)
+   Call Parent.revalidate()   
+
+End Sub
+
+
+
+]]></Source><Param Name="(Name)" Value="ScrollBar"/><Param Name="(SuperClass)" Value="javax/swing/JScrollBar"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VB"/></SourceFile>

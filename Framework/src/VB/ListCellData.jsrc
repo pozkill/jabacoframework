@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+
+Dim myText As String
+Dim myData As String
+Dim myIcon As #IResource
+Dim myAsCheckBox As Boolean 
+Dim myComponent As #Component
+Dim myChecked As Boolean 
+Dim myOwner As IListCellDataOwner 
+Dim myComponentOwn As Usercontrol 
+
+Private Function IsDefaultBorder() As Boolean 
+   IsDefaultBorder = True
+   If myOwner <> Nothing Then If myOwner.BorderColorSel <> -2147483638 Then IsDefaultBorder = False
+End Function
+
+Private Function getBorderFocusSel() As Border
+   If IsDefaultBorder Then
+      getBorderFocusSel = UIManager.getBorder("List.focusCellHighlightBorder")
+   Else
+      getBorderFocusSel = BorderFactory.createLineBorder(ColorToRGB(myOwner.BorderColorSel))
+   End If
+End Function
+
+Private Function getMarginBorder(refBorder As Border) As Border
+   Dim margin As Integer = 1
+   If myOwner <> Nothing Then margin = myOwner.MarginItem
+   getMarginBorder = New javax#swing#border#CompoundBorder(refBorder, New EmptyBorder(margin, margin, margin, margin))
+End Function
+
+Public Function getComponent(Owner As IListCellDataOwner, IsSelected As Boolean, CellHasFocus As Boolean) As #Component 
+   If Owner = Nothing Then Exit Function
+   Dim myCellHasFocus As Boolean = CellHasFocus
+   If myCellHasFocus = False Then If IsSelected Then If (IsDefaultBorder = False) Then myCellHasFocus = True
+   If myComponentOwn = Nothing Then
+      If AsCheckBox Then
+         Dim tmpCheckBox As JCheckBox
+         tmpCheckBox = Cast(myComponent, #JCheckBox)
+         If (myComponent = Nothing) Then
+            tmpCheckBox = New JCheckBox(Text)
+            myComponent = tmpCheckBox
+         End If
+         tmpCheckBox.setText(Text)
+         tmpCheckBox.setOpaque(True)
+         tmpCheckBox.setBackground(IIF(IsSelected, Owner.getSelectionBackground(), Owner.getBackground()))
+         tmpCheckBox.setForeground(IIF(IsSelected, Owner.getSelectionForeground(), Owner.getForeground()))
+         tmpCheckBox.setBorder(getMarginBorder(IIF(myCellHasFocus, getBorderFocusSel(), New #EmptyBorder(1,1,1,1))))
+         tmpCheckBox.setBorderPainted(True)
+         tmpCheckBox.setFont(Owner.getFont())
+         Call tmpCheckBox.setSelected(Checked)
+      Else
+         Dim tmpLabel As JLabel
+         tmpLabel = Cast(myComponent, #JLabel)
+         If (myComponent = Nothing) Then
+            tmpLabel = New JLabel(Text, getIcon(), SwingConstants.LEFT)
+            myComponent = tmpLabel
+         End If
+         tmpLabel.setIcon(getIcon())
+         tmpLabel.setText(Text)
+         tmpLabel.setOpaque(True)
+         tmpLabel.setBackground(IIF(IsSelected, Owner.getSelectionBackground(), Owner.getBackground()))
+         tmpLabel.setForeground(IIF(IsSelected, Owner.getSelectionForeground(), Owner.getForeground()))
+         tmpLabel.setBorder(getMarginBorder(IIF(myCellHasFocus, getBorderFocusSel(), New #EmptyBorder(1,1,1,1))))
+         tmpLabel.setFont(Owner.getFont())
+      End If
+   Else
+      myComponentOwn.setBackground(IIF(IsSelected, Owner.getSelectionBackground(), Owner.getBackground()))
+      myComponentOwn.setForeground(IIF(IsSelected, Owner.getSelectionForeground(), Owner.getForeground()))
+      myComponentOwn.setBorder(getMarginBorder(IIF(myCellHasFocus, getBorderFocusSel(), New #EmptyBorder(1,1,1,1))))
+      myComponentOwn.setFont(Owner.getFont())
+      myComponentOwn.Parent.setPreferredSize myComponentOwn.Parent.getPreferredSize 
+      myComponent = myComponentOwn
+   End If
+   GetComponent = myComponent
+End Function
+
+Private Sub FireChanged()
+   Call myOwner.Refresh()
+End Sub
+
+Public Sub ListCellData(refControl As Usercontrol)
+   myComponentOwn = refControl
+End Sub
+
+Public Sub ListCellData(refText As String)
+   myText = refText
+   myIcon = Nothing
+End Sub
+
+Public Sub ListCellData(refText As String, refIcon As #IResource)
+   myText = refText
+   myIcon = refIcon
+End Sub
+
+Public Sub ListCellData(refText As String, refIcon As #IResource, refAsCheckBox As Boolean)
+   myText = refText
+   myIcon = refIcon
+   myAsCheckBox = refAsCheckBox
+End Sub
+
+Public Property Let Owner(v As IListCellDataOwner)
+   myOwner = v
+End Property
+
+Public Property Get Owner() As IListCellDataOwner
+   Owner = myOwner
+End Property
+
+Public Property Let Text(v As String)
+   myText = v
+   Call FireChanged()
+End Property
+
+Public Property Get Text() As String
+   Text = myText
+End Property
+
+Public Property Let Data(v As String)
+   myData = v
+End Property
+
+Public Property Get Data() As String
+   Data = myData
+End Property
+
+Public Property Let Icon(v As #IResource)
+   myIcon = v
+   Call FireChanged()
+End Property
+
+Public Property Get Icon() As IResource
+   Icon = myIcon
+End Property
+
+Public Function getIcon() As #Icon 
+   getIcon = LoadIcon(Icon)
+End Function
+
+Public Property Let AsCheckBox(v As Boolean)
+   myAsCheckBox = v
+   Call FireChanged()
+End Property
+
+Public Property Get AsCheckBox() As Boolean
+   AsCheckBox = myAsCheckBox
+End Property
+
+Public Property Let Checked(v As Boolean)
+   myChecked = v
+   Call FireChanged()
+End Property
+
+Public Property Get Checked() As Boolean
+   Checked = myChecked
+End Property
+
+Public Function toString() As String
+   toString = Text
+End Function
+]]></Source><Param Name="(Name)" Value="ListCellData"/><Param Name="(SuperClass)" Value="java/lang/Object"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>

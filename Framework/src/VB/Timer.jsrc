@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+Implements IJabacoClass 
+Implements ActionListener
+Public Event Timer()
+
+Dim MyTimer As New javax#swing#Timer(0, Me)
+Dim MyFirstInterval As Long 
+Dim MyInterval As Long
+Dim MyEnabled As Boolean 
+Dim MyEnabledState As Boolean 
+
+Public Sub actionPerformed(e As java#awt#Event#ActionEvent)
+   On Error Resume Next ' sate of loading not defined
+   Raiseevent Timer
+End Sub
+
+Public Sub run()  
+   On Error Resume Next ' sate of loading not defined
+   Raiseevent Timer()
+End Sub
+
+Private Sub Class_Initialize()
+   MyFirstInterval = 0
+   MyInterval = 0
+   MyEnabled = False
+   MyEnabledState = False
+End Sub
+
+Public Property Get Interval() As Single
+   Interval = MyInterval
+End Property
+
+Public Property Let Interval(v As Single)
+   If v < 0 Then v = 0
+   MyInterval = v
+   MyFirstInterval = v
+   InitTimer
+End Property
+
+Public Property Get Enabled() As Boolean 
+   Enabled = MyEnabled
+End Property
+
+Public Property Let Enabled(v As Boolean)
+   MyEnabled = v
+   InitTimer
+End Property
+
+Private Sub InitTimer()
+   If (MyEnabled) Then
+      If MyFirstInterval > 0 Then
+         'MyTimer.scheduleAtFixedRate Me, MyFirstInterval, MyInterval
+         MyTimer.setInitialDelay MyInterval
+         MyTimer.setDelay MyInterval
+      End If
+      MyTimer.start()
+      MyEnabledState = True
+   Else
+      If MyEnabledState Then MyTimer.stop()
+      MyEnabledState = False
+   End If
+End Sub
+
+Public Property Get Parent() As TimerTask
+   Parent = Base
+End Property]]></Source><Param Name="(Name)" Value="Timer"/><Param Name="(SuperClass)" Value="java/util/TimerTask"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VB"/></SourceFile>

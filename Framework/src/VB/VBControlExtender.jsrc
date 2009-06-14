@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+Implements IJabacoClass 
+Implements MouseListener 
+Implements MouseMotionListener
+Implements KeyListener
+
+Event DblClick(ControlID As String)
+Event Click(ControlID As String)
+Event KeyDown(ControlID As String, KeyCode As Integer, Shift As Integer)
+Event KeyPress(ControlID As String, KeyAscii As Integer)
+Event KeyUp(ControlID As String, KeyCode As Integer, Shift As Integer)
+Event MouseDown(ControlID As String, Button As Integer, Shift As Integer, X As Single, Y As Single)
+Event MouseMove(ControlID As String, Button As Integer, Shift As Integer, X As Single, Y As Single)
+Event MouseUp(ControlID As String, Button As Integer, Shift As Integer, X As Single, Y As Single)
+
+Dim Withevents myTimer As Timer 
+Dim Owner As PictureBox 
+Dim Controls As New Collection
+Dim DeathList As New Collection 
+
+Public Sub VBControlExtender(RefOwner As IJabacoContainer)
+   Owner = RefOwner.ContentFrame 
+End Sub
+
+Public Function GetControl(ControlID As String) As IJabacoControl
+   Dim i As Integer 
+   Dim tmpComponents() As #Component 
+   tmpComponents = Owner.getComponents()
+   For i = 0 To UBound(tmpComponents)
+      If GetControlID(tmpComponents(i)) = ControlID Then
+         GetControl = Cast(tmpComponents(i), IJabacoControl)
+         Exit Function
+      End If
+   Next
+End Function
+
+Private Function AddListener(RefOwner As IJabacoControl) As Boolean 
+   Dim tmpComponent As #JComponent 
+   tmpComponent = Cast(RefOwner, #JComponent)
+   If tmpComponent <> Nothing Then
+      Call tmpComponent.addMouseMotionListener(Me)
+      Call tmpComponent.addMouseListener(Me)
+      Call tmpComponent.addKeyListener(Me)
+      AddListener = True
+      Exit Sub
+   End If
+End Function
+
+Public Function AddControl(ControlID As String, RefControl As IJabacoControl, Left As Single, Top As Single, Width As Single, Height As Single, Visible As Boolean) As Boolean 
+   If AddControlID(ControlID, RefControl) = False Then Exit Function
+   Owner.Add Cast(RefControl, #JComponent)
+   RefControl.Left = Left
+   RefControl.Top = Top
+   RefControl.Width = Width
+   RefControl.Height = Height
+   RefControl.Visible = Visible
+   Call AddListener(RefControl)
+   Owner.invalidate 
+   Owner.Parent.repaint
+   AddControl = True
+End Function
+
+Public Sub RemoveControl(ControlID As String)
+   If IsControlID(ControlID) = False Then Exit Sub
+   DeathList.Add ControlID
+   myTimer.Enabled = True 
+End Sub
+
+Private Function GetKeyFromControl(Control As Object) As String
+   GetKeyFromControl = cStr(Control.hashCode())
+End Function
+
+Private Function IsControlID(ControlID As String) As Boolean
+   Dim tmpControl As Object
+   tmpControl = GetControl(ControlID)
+   If tmpControl <> Nothing Then 
+      IsControlID = Controls.KeyExists(cStr(tmpControl.hashCode()))
+   Else
+      IsControlID = False
+   End If
+End Function
+
+Private Function AddControlID(ControlID As String, Control As Object) As Boolean
+   If IsControlID(ControlID) Then Exit Function
+   Call Controls.Add(ControlID, GetKeyFromControl(Control))
+   AddControlID = True
+End Function
+
+Private Function GetControlID(Control As Object) As String
+   GetControlID = Controls.Item(GetKeyFromControl(Control))
+End Function
+
+Public Sub mousePressed(e As MouseEvent)
+   Dim tmpComponents As #Component 
+   tmpComponents = Cast(e.getSource(), #Component)
+   If (tmpComponents = Nothing) Then Exit Sub
+   If (e.getX > 0 And e.getY > 0 And e.getX < tmpComponents.getWidth And e.getY < tmpComponents.getHeight) Then
+      If e.getClickCount() >= 2 Then
+         RaiseEvent DblClick(GetControlID(e.getSource()))
+      Else
+         RaiseEvent Click(GetControlID(e.getSource()))
+      End If
+   End If
+   RaiseEvent MouseDown(GetControlID(e.getSource()), getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
+End Sub
+
+Public Sub mouseReleased(e As MouseEvent)
+   RaiseEvent MouseUp(GetControlID(e.getSource()), getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
+End Sub
+
+Public Sub mouseEntered(e As MouseEvent)
+End Sub
+
+Public Sub mouseExited(e As MouseEvent)
+End Sub
+
+Public Sub mouseDragged(e As MouseEvent)
+End Sub
+
+Public Sub mouseMoved(e As MouseEvent)
+    RaiseEvent MouseMove(GetControlID(e.getSource()), getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
+End Sub
+
+Public Sub keyTyped(e As KeyEvent)
+   RaiseEvent KeyPress(GetControlID(e.getSource()), e.getKeyChar)
+End Sub
+
+Public Sub keyPressed(e As KeyEvent)
+   Raiseevent KeyDown(GetControlID(e.getSource()), e.getKeyCode(), KeyEventToShiftConstant(e))
+End Sub
+
+Public Sub keyReleased(e As KeyEvent)
+   Raiseevent KeyUp(GetControlID(e.getSource()), e.getKeyCode, KeyEventToShiftConstant(e))
+End Sub
+
+Public Sub mouseClicked(e As java#awt#Event#MouseEvent)
+End Sub
+
+Public Sub myTimer_Timer()
+   On Error Goto ERROUT
+   Dim bInProcess As Boolean 
+   If bInProcess Then Exit Sub
+   bInProcess = True 
+   Dim tmpControlID As String, tmpControl As #JComponent 
+   tmpControlID = DeathList.Item(1)
+   tmpControl = Cast(GetControl(tmpControlID),  #JComponent)
+   If tmpControl = Nothing Then
+      Call DeathList.Remove(1) ' wtf ...
+   Else
+      Owner.remove(tmpControl)
+      Controls.Remove(tmpControl)
+      Call DeathList.Remove(1)
+   End If
+   If DeathList.Count = 0 Then
+      Owner.Parent.invalidate 
+      Owner.Parent.repaint
+      myTimer.Enabled = False 
+   End If
+ERROUT:
+   bInProcess = True 
+End Sub
+
+Public Sub Class_Initialize
+   myTimer.Interval = 1
+   myTimer.Enabled = False   
+End Sub
+]]></Source><Param Name="(Name)" Value="VBControlExtender"/><Param Name="(SuperClass)" Value="java/lang/Object"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VB"/></SourceFile>

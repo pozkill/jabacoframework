@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+Implements IJabacoForm
+Implements IJabacoContainer
+
+Dim Withevents myContent As New PictureBox
+
+Public Sub add(Component As java#awt#Component) 
+   If (myContent = Nothing) Then
+      Call Base.getContentPane().add(Component)
+   Else
+      Call myContent.Add(Component)
+   End If
+End Sub
+
+Public Sub Class_Initialize()
+   myContent.BorderStyle = fmBorderStyleNone
+   'Call Base.setContentPane(myContent)
+   Base.getContentPane.add myContent
+   myContent.Visible = True
+End Sub
+
+' ******************************** REDIRECT EVENTS ********************************
+
+Public Sub Form_Activate()
+End Sub
+Public Sub Form_Deactivate()
+End Sub
+Public Sub Form_GotFocus()
+End Sub
+Public Sub Form_LostFocus()
+End Sub
+Public Sub Form_Load()
+End Sub
+Public Sub Form_Resize()
+End Sub
+Public Sub Form_Move()
+End Sub
+Public Sub Form_MenuClick(MenuItem As IMenuItem)
+End Sub
+Public Sub Form_ToolBarClick(ToolBarItem As IToolBarItem)
+End Sub
+Public Sub Form_Click()
+End Sub
+Public Sub Form_DblClick()
+End Sub
+Public Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
+End Sub
+Public Sub Form_KeyPress(KeyAscii As Integer)
+End Sub
+Public Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
+End Sub
+Public Sub Form_MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
+End Sub
+Public Sub Form_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+End Sub
+Public Sub Form_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+End Sub
+Public Sub Form_Paint(g As java#awt#Graphics)
+End Sub
+
+Public Sub myContent_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+   Call Me.Form_MouseUp(Button, Shift, X, Y)
+End Sub
+Public Sub myContent_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+   Call Me.Form_MouseMove(Button, Shift, X, Y)
+End Sub
+Public Sub myContent_MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
+   Call Me.Form_MouseDown(Button, Shift, X, Y)
+End Sub
+Public Sub myContent_Click()
+   Call Me.Form_Click()
+End Sub
+Public Sub myContent_DblClick()
+   Call Me.Form_DblClick()
+End Sub
+Public Sub myContent_KeyDown(KeyCode As Integer, Shift As Integer)
+   Call Me.Form_KeyDown(KeyCode, Shift)
+End Sub
+Public Sub myContent_KeyPress(KeyAscii As Integer)
+   Call Me.Form_KeyPress(KeyAscii)
+End Sub
+Public Sub myContent_KeyUp(KeyCode As Integer, Shift As Integer)
+   Call Me.Form_KeyUp(KeyCode, Shift)
+End Sub
+Public Sub myContent_Paint(g As java#awt#Graphics)
+   Call Me.Form_Paint(g)
+End Sub
+
+' ******************************** CONTENTFRAME PROPERTYS ********************************
+
+'Public Property Get AlwaysOnTop() As Boolean ' DISABLED => 1.4 COMPATIBLE
+'   AlwaysOnTop = Parent.isAlwaysOnTop 
+'End Property
+
+'Public Property Let AlwaysOnTop(v As Boolean)
+'   Parent.setAlwaysOnTop v
+'End Property
+
+'Public Sub Show(Modal As FormShowConstants)
+'   If Modal = vbModeless Then
+'      Call Base.Show()      
+'   Else
+'   
+'      Dim myDialog As New javax#swing#JDialog() 
+'      Call myDialog.setModal(True) 
+'      Call myDialog.setSize(Base.Parent.getSize())
+'      Call myDialog.setMinimumSize(Base.Parent.getMinimumSize())
+'      Call myDialog.setLocation(Base.Parent.getLocation())
+'      Call myDialog.setContentPane(Base.getContentPane())
+'      Call myDialog.setTitle(Me.Caption)
+'      
+'   End If
+'End Sub
+
+Public Property Get Transparency() As Integer 
+   Transparency = myContent.Transparency
+End Property
+
+Public Property Let Transparency(v As Integer)
+   myContent.Transparency = v
+End Property
+
+Public Property Get AntiAliasing() As Boolean
+   AntiAliasing = myContent.AntiAliasing
+End Property
+
+Public Property Let AntiAliasing(v As Boolean)
+   myContent.AntiAliasing = v
+End Property
+
+Public Property Get AutoRedraw() As Boolean
+   AutoRedraw = myContent.AutoRedraw
+End Property
+
+Public Property Let AutoRedraw(v As Boolean)
+   myContent.AutoRedraw = v
+End Property
+
+Public Property Get Picture() As #IResource
+    Picture = myContent.Picture
+End Property
+
+Public Property Let Picture(Path As #IResource)
+   myContent.Picture = Path
+End Property
+
+Public Property Get DrawWidth() As Integer 
+   Transparency = myContent.DrawWidth
+End Property
+
+Public Property Let DrawWidth(v As Integer)
+   myContent.DrawWidth = v
+End Property
+
+Public Sub PSet(x As Single, y As Single)
+   myContent.PSet x, y
+End Sub
+
+Public Sub Line(x As Single, y As Single)
+   myContent.Line x, y
+End Sub
+
+Public Sub Line(x1 As Single, y1 As Single, x2 As Single, y2 As Single)
+   myContent.Line x1, y1, x2, y2
+End Sub
+
+Public Sub Line(x1 As Single, y1 As Single, x2 As Single, y2 As Single, Rect As Boolean)
+   myContent.Line x1, y1, x2, y2, Rect
+End Sub
+
+Public Sub Line(x1 As Single, y1 As Single, x2 As Single, y2 As Single, Rect As Boolean, FillColor As Long)
+   myContent.Line x1, y1, x2, y2, Rect, FillColor
+End Sub
+
+Public Sub Circle(x As Single, y As Single, width As Single, height As Single)
+   Call myContent.Circle(x, y, width, height)
+End Sub
+
+Public Sub Circle(x As Single, y As Single, width As Single, height As Single, FillColor As Long)
+   Call myContent.Circle(x, y, width, height, FillColor)
+End Sub
+
+Public Sub PaintPicture(refImage As Image, x As Single, y As Single)
+   myContent.PaintPicture refImage, x, y
+End Sub
+
+Public Sub Print(text As String, x1 As Single, y1 As Single)
+   myContent.Print text, x1, y1
+End Sub
+
+Public Sub Cls() 
+   myContent.Cls
+End Sub
+
+Public Property Get Image() As Image
+   Image = myContent.Image
+End Property
+
+Public Property Get ImageBuffer() As BufferedImage
+   ImageBuffer = myContent.ImageBuffer
+End Property
+
+Public Property Get Point(x As Single, y As Single) As Long 
+   Point = myContent.Point(x, y)
+End Property
+
+Public Function TextWidth(text As String) As Integer
+   TextWidth = myContent.TextWidth(text)
+End Function
+
+Public Function TextHeight(text As String) As Integer
+   TextHeight = myContent.TextHeight(text)
+End Function
+
+Public Sub Print(text As String)
+   Call myContent.Print(text)   
+End Sub
+
+Public Property Get CurrentX() As Long
+   CurrentX = myContent.CurrentX
+End Property
+
+Public Property Let CurrentX(v As Long)
+   myContent.CurrentX = v
+End Property
+
+Public Property Get CurrentY() As Long
+   CurrentY = myContent.CurrentY
+End Property
+
+Public Property Let CurrentY(v As Long)
+   myContent.CurrentY = v
+End Property
+
+Public Property Get ScaleLeft() As Single
+   ScaleLeft = myContent.Left
+End Property
+
+Public Property Get ScaleTop() As Single
+   ScaleTop = myContent.Top
+End Property
+
+Public Property Get ScaleWidth() As Single
+   ScaleWidth = myContent.Width
+End Property
+
+Public Property Get ScaleHeight() As Single
+   ScaleHeight = myContent.Height
+End Property
+
+Public Function getBackground() As Color
+   If myContent = Nothing Then
+      getBackground = Base.getBackground()
+   Else
+      getBackground = myContent.Parent.getBackground()
+   End If
+End Function
+
+Public Function getForeground() As Color
+   If myContent = Nothing Then
+      getForeground = Base.getForeground()
+   Else
+      getForeground = myContent.Parent.getForeground()
+   End If
+End Function
+
+Public Property Get BackColor() As Long
+   BackColor = myContent.BackColor
+End Property
+
+Public Property Let BackColor(v As Long)
+   myContent.BackColor = v
+End Property
+
+Public Property Get ForeColor() As Long
+   ForeColor = MyContent.ForeColor 
+End Property
+
+Public Property Let ForeColor(v As Long)
+   MyContent.ForeColor = v
+End Property
+
+' ******************************** FONT PROPERTYS ********************************
+
+Public Property Get FontName() As String 
+   FontName = myContent.FontName 
+End Property
+
+Public Property Let FontName(val As String)
+   myContent.FontName = val
+End Property
+
+Public Property Get FontBold() As Boolean 
+   FontBold = myContent.FontBold
+End Property
+
+Public Property Let FontBold(val As Boolean)
+   myContent.FontBold = val
+End Property
+
+Public Property Get FontItalic() As Boolean
+   FontItalic = myContent.FontItalic
+End Property
+
+Public Property Let FontItalic(val As Boolean)
+   myContent.FontItalic = val
+End Property
+
+Public Property Get FontSize() As Integer 
+   FontSize = myContent.FontSize
+End Property
+
+Public Property Let FontSize(val As Integer)
+   myContent.FontSize = val
+End Property
+
+Public Property Get Font() As Font
+   Font = myContent.getFont()
+End Property
+
+Public Property Get ContentFrame() As PictureBox
+   ContentFrame = myContent
+End Property
+]]></Source><Param Name="(Name)" Value="Form"/><Param Name="(SuperClass)" Value="VB/AbstractForm"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VB"/></SourceFile>

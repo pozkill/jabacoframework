@@ -1,0 +1,88 @@
+﻿<?xml version="1.0"?>
+ <project name="JabacoFramework" basedir="." default="build">
+  <property name="name" value="Jabaco" />
+  <property name="bin.dir" value = "./bin" />
+  <property name="build.dir" value = "./bin-tmp" />
+  <property name="src.dir" value="./src" />
+  <property name="src.project.path" value="${src.dir}/VB/Framework.jba" />
+  <property name="doclet.dir" value="./doclet" />
+  <property name="doclet.path" value="${doclet.dir}/bin/JBCDoclet.jar" />
+  <property name="doc.dir" value="./doc" />
+  <property name="extlib.dir" value="./lib" />
+  <property name="manifest" value="${src.dir}/manifest" />
+  
+  
+   <!-- create the doclet -->
+  <ant dir="${doclet.dir}" antfile="./build.xml" inheritAll="false" />
+  
+   <!-- create the framework -->
+  <target name="build" depends="clean">
+
+    <!-- create the working directory -->
+    <mkdir dir="${build.dir}" />
+    <!-- create the binary output directory -->
+    <mkdir dir="${bin.dir}" />
+    <!-- create the documentation output directory -->
+    <mkdir dir="${doc.dir}" />
+	
+    <!--  compile the java sourcefiles -->
+    <javac srcdir="${src.dir}"
+           destdir="${build.dir}"
+           debug="true"
+		   source="1.4"
+		   target="1.4.2"
+           optimize="true">
+		<classpath>
+			<pathelement path="${java.class.path}/" />
+			<pathelement path="${extlib.dir}" />
+		</classpath>
+    </javac>
+
+    <!--  compile the jabaco sourcefiles -->
+ <!--
+	<execx executable="jabaco">
+		<arg value="${src.project.path}" />
+	</execx>
+ -->
+ 
+	<!-- create the framework documentation -->
+	<javadoc sourcepath="${src.dir}"
+		     destdir="${doc.dir}"
+		     author="true"
+		     version="true"
+			 access="public"
+			 docletpath="${doclet.path}"
+			 doclet="com.jbcdoclet.JBCDoclet">
+		<classpath>
+			<pathelement path="${java.class.path}/" />
+			<pathelement path="${extlib.dir}" />
+		</classpath>
+	</javadoc>
+ 
+ 
+    <!-- copy lib to working directory -->
+    <copy todir="${build.dir}">
+      <fileset dir="${extlib.dir}">
+        <include name="**/*" />
+      </fileset>
+    </copy>
+ 
+    <!-- create the jabaco - jar -->
+    <jar jarfile="${bin.dir}/${name}.jar" manifest="${manifest}">
+      <fileset dir="${build.dir}" />
+    </jar>
+	
+	<delete dir="${build.dir}" />
+	
+  </target>
+ 
+  <!-- cleanup  -->
+  <target name="clean">
+    <delete dir="${bin.dir}" failonerror="false" />
+    <delete dir="${build.dir}" failonerror="false" />
+    <delete dir="${doc.dir}" failonerror="false" />
+    <delete> 
+      <fileset dir="." includes="**/*~" defaultexcludes="no"/>
+    </delete>
+  </target>
+</project>

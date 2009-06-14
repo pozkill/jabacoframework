@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Implements Runnable 
+
+Dim myContainer As ILoadAdapter
+Dim mySender As Object 
+
+Public Sub LoadAdapter(refSender As Object, refContainer As ILoadAdapter)
+   mySender = refSender
+   myContainer = refContainer
+End Sub
+
+Public Sub fireLoaded()
+   If SwingUtilities.isEventDispatchThread() Then
+      Call myContainer.fireLoaded(mySender)
+   Else
+      Call SwingUtilities.invokeAndWait(Me)
+   End If
+End Sub
+
+'Public Sub fireInit()
+'   If SwingUtilities.isEventDispatchThread() Then
+'      Call myContainer.fireInit()
+'   Else
+'      Call SwingUtilities.invokeAndWait(Me)
+'   End If
+'End Sub
+
+Public Sub run
+   Call myContainer.fireLoaded(mySender)
+End Sub]]></Source><Param Name="(Name)" Value="LoadAdapter"/><Param Name="(SuperClass)" Value="java/lang/Object"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+Implements IJabacoClass
+Dim mX1 As Long, mX2 As Long, mY1 As Long, mY2 As Long
+Dim myBorderWidth As Long
+Dim myTag As String
+
+Public Sub paintComponent(g As #Graphics)
+   If g = Nothing Then Exit Sub
+   Dim g2d As #Graphics2D 
+   g2d = Cast(g, Graphics2D)
+   Call g2d.setStroke( New java#awt#BasicStroke(myBorderWidth) )
+   Call g2d.setColor(Parent.getForeground())
+   g2d.drawLine mX1, mY1, mX2, mY2
+   g2d.dispose 
+End Sub
+
+Public Property Get Parent() As #JComponent 
+   Parent = Base
+End Property
+
+Private Sub recalcMySelf()
+   Call Parent.setLocation(IIF(X1 > X2, X2, X1), IIF(Y1 > Y2, Y2, Y1))
+   Call Parent.setSize(IIF(X1 > X2, X1, X2), IIF(Y1 > Y2, Y1, Y2))
+   Call Parent.invalidate()
+   Call Parent.updateUI()
+End Sub
+
+Public Property Get DrawMode() As DrawModeConstants
+
+End Property
+
+Public Property Let DrawMode(v As DrawModeConstants)
+
+End Property
+
+Public Property Get BorderColor() As Long
+   BorderColor = ColorToRGB(Parent.getForeground())
+End Property
+
+Public Property Let BorderColor(v As Long)
+   Call Parent.setForeground(RGBToColor(v))
+   Call recalcMySelf()
+End Property
+
+Public Property Get BorderWidth() As Long
+   BorderWidth = myBorderWidth
+End Property
+
+Public Property Let BorderWidth(v As Long)
+   myBorderWidth = v
+   Call recalcMySelf()
+End Property
+
+Public Property Let X1(v As Long)
+   mX1 = v
+   Call recalcMySelf()
+End Property
+
+Public Property Get X1() As Long
+   X1 = mX1
+End Property
+
+Public Property Let Y1(v As Long)
+   mY1 = v
+   Call recalcMySelf()
+End Property
+
+Public Property Get Y1() As Long
+   Y1 = mY1
+End Property
+
+Public Property Let X2(v As Long)
+   mX2 = v
+   Call recalcMySelf()
+End Property
+
+Public Property Get X2() As Long
+   X2 = mX2
+End Property
+
+Public Property Let Y2(v As Long)
+   mY2 = v
+   Call recalcMySelf()
+End Property
+
+Public Property Get Y2() As Long
+   Y2 = mY2
+End Property
+
+Public Property Get Visible() As Boolean 
+    Visible = Base.isVisible()
+End Property
+
+Public Property Let Visible(v As Boolean)
+    Base.setVisible v
+End Property
+
+Public Property Get Tag() As String 
+   Tag = myTag
+End Property
+
+Public Property Let Tag(v As String)
+   myTag = v
+End Property]]></Source><Param Name="(Name)" Value="Line"/><Param Name="(SuperClass)" Value="javax/swing/JComponent"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>

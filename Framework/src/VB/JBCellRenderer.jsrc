@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+'Implements TableCellRenderer
+
+Dim myGrid As JBGrid
+
+Public Sub JBCellRenderer(refGrid As JBGrid)
+   myGrid = refGrid
+End Sub
+
+Public Function getTableCellRendererComponent(table As JTable, value As Object, isSelected As Boolean, hasFocus As Boolean, row As Integer, col As Integer) As Component
+   Dim myCellData As JBCellData
+   If IsClass(value, JBCellData) Then
+      myCellData = Cast(value, JBCellData)
+      getTableCellRendererComponent = myCellData.getComponent(myGrid, isSelected, hasFocus)   
+   Else  
+      getTableCellRendererComponent = Base.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col)
+      Call getTableCellRendererComponent.setBackground(RGBToColor(IIF(isSelected, myGrid.BackColorSel, myGrid.BackColorCells)))
+   End If
+   
+'   Dim myPreferredSize As Dimension 
+'   myPreferredSize = getTableCellRendererComponent.getPreferredSize 
+'   Call getTableCellRendererComponent.setPreferredSize(New Dimension(myPreferredSize.width, myPreferredSize.height + 20))
+
+End Function
+
+]]></Source><Param Name="(Name)" Value="JBCellRenderer"/><Param Name="(SuperClass)" Value="javax/swing/table/DefaultTableCellRenderer"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+Implements IJabacoClass 
+Implements IToolBarItem
+
+Dim myControlID As String
+Dim myToolBar As VBToolBar
+
+Public Sub VBToolBarItem(refToolBar As VBToolBar)
+   myToolBar = refToolBar
+   
+End Sub
+
+Public Function getBackground() As #Color
+   If myToolBar = Nothing Then
+      getBackground = Base.getBackground()
+   Else
+      getBackground = myToolBar.getBackground()
+   End If
+End Function
+
+Public Function getForeground() As #Color
+   If myToolBar = Nothing Then
+      getForeground = Base.getForeground()
+   Else
+      getForeground = myToolBar.getForeground()
+   End If
+End Function
+
+Public Property Get ControlID() As String
+    ControlID = myControlID
+End Property
+
+Public Property Let ControlID(s As String)
+    myControlID = s
+End Property
+
+Public Sub Class_Initialize
+   Call Base.setRolloverEnabled(True)
+   Call Base.Parent.setFocusable False
+   Call Base.Parent.setRolloverEnabled True
+End Sub
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+]]></Source><Param Name="(Name)" Value="VBToolBarItem"/><Param Name="(SuperClass)" Value="CommandButton"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VB"/></SourceFile>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+Implements IJabacoClass 
+Dim myClipBoardInternal As java#awt#datatransfer#Clipboard
+
+Private Function myClipBoard() As java#awt#datatransfer#Clipboard
+   If myClipBoardInternal = Nothing Then
+      myClipBoardInternal = Toolkit.getDefaultToolkit().getSystemClipboard()
+   End If
+   myClipBoard = myClipBoardInternal
+End Function
+
+Public Sub SetText(val As String)
+   If SysInfo.SecurityMode = False Then 
+      Dim myStringSelection As New StringSelection(val)
+      myClipBoard.setContents myStringSelection, Null
+   End If
+End Sub
+
+Public Function GetText() As String 
+   If SysInfo.SecurityMode = False Then 
+      On Error Resume Next
+      Dim tmpData As Transferable
+      tmpData = myClipBoard.getContents(Null)
+      GetText = Cast(tmpData.getTransferData(DataFlavor.stringFlavor), java#lang#String)
+   End If
+End Function
+
+Public Sub Clear()  
+   If SysInfo.SecurityMode = False Then 
+      Call SetText(vbNullString)
+   End If
+End Sub]]></Source><Param Name="(Name)" Value="VBClipboard"/><Param Name="(SuperClass)" Value="java/lang/Object"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VB"/></SourceFile>

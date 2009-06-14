@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+
+Implements IJabacoClass 
+Implements Runnable 
+
+Event Connect()
+Event Close()
+Event SendComplete()
+Event SendProgress(bytesSent As Long, bytesRemaining As Long)
+Event DataArrival(bytesTotal As Long)
+Event ConnectionRequest(requestID As Long)
+
+Dim bWithGUI As Boolean
+Dim myThread As New java#lang#Thread(Me)
+Dim myServer As java#net#ServerSocket
+Dim Owner As Winsock 
+
+Public Sub WinsockServer(RefOwner As Winsock)
+   Owner = RefOwner
+   myThread = New java#lang#Thread(Me)
+   Call myThread.start()
+End Sub
+
+Public Sub closeServer()
+   If myServer <> Nothing Then
+      Call myServer.close()
+   End If
+   myServer = Nothing
+End Sub
+
+Public Sub startServer()
+   bWithGUI = Swingutilities.isEventDispatchThread()
+   If myServer <> Nothing Then Call myServer.close()
+   myServer = New java#net#ServerSocket(Owner.LocalPort)
+End Sub
+
+Public Sub run()
+   On Error Resume Next
+   Dim tmpSocket As java#net#Socket
+   Dim tmpRequest As WinsockServerRequest 
+   Do While True
+      If myServer = Nothing Then
+         Call Sleep(1)
+      Else
+         If myServer.isBound Then
+            tmpSocket = myServer.accept()
+            If tmpSocket <> Nothing Then
+               If bWithGUI Then
+                  tmpRequest = New WinsockServerRequest(Owner, tmpSocket)
+               Else
+                  Call Owner.OnConnectionRequest(tmpSocket)
+               End If               
+            Else
+               Call Sleep(1)
+            End If
+         End If
+      End If
+   Loop
+End Sub
+]]></Source><Param Name="(Name)" Value="WinsockServer"/><Param Name="(SuperClass)" Value="java/lang/Object"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+Dim myTabStrip As TabStrip
+
+Public Sub Tabs(refTabStrip As TabStrip)
+   myTabStrip = refTabStrip
+End Sub
+
+Public Property Get TabCount() As Integer 
+   On Error Resume Next
+   TabCount = myTabStrip.Parent.getComponentCount 
+End Property
+
+Public Property Get Item(Index As Integer) As Usercontrol
+   On Error Resume Next
+   Item = Cast(myTabStrip.Parent.getComponentAt(Index - 1), Usercontrol)
+End Property
+
+Public Property Let Item(Index As Integer, v As Usercontrol)
+   On Error Resume Next
+   Call myTabStrip.Parent.setComponentAt(Index - 1, v)
+End Property
+
+Public Sub Clear()
+   On Error Resume Next
+   Call myTabStrip.Parent.removeAll()
+End Sub
+
+Public Sub Remove(Index As Integer)
+   On Error Resume Next
+   Call myTabStrip.Parent.remove(Index)
+End Sub
+
+Public Sub Remove(v As Usercontrol)
+   On Error Resume Next
+   Call myTabStrip.Parent.remove(v)
+End Sub
+
+Public Sub Add(Component As VB#Usercontrol, Title As String)
+   On Error Resume Next
+   Component.Opaque = False
+   Call myTabStrip.Parent.addTab(Title, Component)
+End Sub
+
+Public Sub Add(Component As VB#Usercontrol, Title As String, IconPath As #IResource)
+   On Error Resume Next
+   Component.Opaque = False
+   Call myTabStrip.Parent.addTab(Title, LoadIcon(IconPath), Component)
+End Sub
+
+Public Sub Add(Component As VB#Usercontrol, Title As String, IconPath As #IResource, ToolTip As String)
+   On Error Resume Next
+   Component.Opaque = False
+   Call myTabStrip.Parent.addTab(Title, LoadIcon(IconPath), Component, ToolTip)
+End Sub]]></Source><Param Name="(Name)" Value="Tabs"/><Param Name="(SuperClass)" Value="java/lang/Object"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>

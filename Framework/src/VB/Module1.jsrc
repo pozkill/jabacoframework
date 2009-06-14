@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA['Dim ary(0 To 100)
+
+Type tFormTest 
+   FormName As String
+   FormWidth As String
+End Type
+
+
+'Public bOwnLookAndFeel As String = LookAndFeelManager.SetJabacoLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel")
+Public Form1 As New Form1 
+
+
+Public Sub main(Byjava args() As String)
+
+  
+   Form1.show()
+   Form1.SetDefaultClose
+
+End Sub
+]]></Source><Param Name="(Name)" Value="Module1"/><Param Name="(SuperClass)" Value="java/lang/Object"/><Param Name="(Type)" Value="Module"/><Param Name="(Access)" Value="Private"/><Param Name="(NameSpace)" Value=""/></SourceFile>

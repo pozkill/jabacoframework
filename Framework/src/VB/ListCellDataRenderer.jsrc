@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+Implements IJabacoClass 
+Dim myOwner As IListCellDataOwner
+
+Public Sub ListCellDataRenderer(owner As IListCellDataOwner)
+   myOwner = owner
+End Sub
+
+Public Function getListCellRendererComponent(List As #JList, Value As #Object, Index As Integer, IsSelected As Boolean, CellHasFocus As Boolean) As #Component 
+   On Error Resume Next
+   Dim tmpCellData As ListCellData  = Cast(Value, #ListCellData)
+   If tmpCellData <> Nothing And myOwner <> Nothing Then
+      getListCellRendererComponent = tmpCellData.getComponent(myOwner, IsSelected, CellHasFocus) 
+   Else
+      getListCellRendererComponent = Base.getListCellRendererComponent(List, Value, Index, IsSelected, CellHasFocus)
+   End If
+End Function
+
+]]></Source><Param Name="(Name)" Value="ListCellDataRenderer"/><Param Name="(SuperClass)" Value="javax/swing/DefaultListCellRenderer"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VB"/></SourceFile>

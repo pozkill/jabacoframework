@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+ <project name="JabacoDoclet" basedir="." default="build">
+  <property name="name" value="JBCDoclet" />
+  <property name="bin.dir" value = "./bin" />
+  <property name="build.dir" value = "./bin-tmp" />
+  <property name="src.dir" value="./src" />
+  
+  <target name="build" depends="clean">
+ 
+    <!-- create the working directory -->
+    <mkdir dir="${build.dir}"/>
+    <!-- create the binary output directory -->
+    <mkdir dir="${bin.dir}"/>
+	
+    <!--  compile the java sourcefiles -->
+    <javac srcdir="${src.dir}"
+           destdir="${build.dir}"
+           debug="true"
+		   source="1.4"
+		   nowarn="true"
+           optimize="true">
+		<classpath>
+			<pathelement path="${java.class.path}/"/>
+			<pathelement path="${extlib.dir}"/>
+		</classpath>
+    </javac>
+  
+    <!-- create the jabaco-doclet - jar -->
+	<jar destfile="${bin.dir}/${name}.jar" basedir="${build.dir}">
+		<manifest>
+			<attribute name="Main-Class" value="${main-class}"/>
+		</manifest>
+	</jar>
+
+	<delete dir="${build.dir}" />
+	
+  </target>
+
+  <!-- cleanup  -->
+  <target name="clean">
+    <delete dir="${bin.dir}" />
+    <delete dir="${build.dir}" />
+    <delete> 
+      <fileset dir="." includes="**/*~" defaultexcludes="no"/>
+    </delete>
+  </target>
+</project>
+
+
+
+
+
+
+
+

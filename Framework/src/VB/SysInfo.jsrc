@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+Implements IJabacoClass 
+
+Dim useProxy As Boolean
+Dim ProxyUser As String
+Dim ProxyPassword As String
+
+Public Sub SetProxy(host As String, port As Long, user As String, password As String)
+   System.getProperties().put("proxySet", "true")
+   System.getProperties().put("proxyHost", host)
+   System.getProperties().put("proxyPort", cStr(port))
+   useProxy = True
+End Sub
+
+Public Sub SetProxyToConnection(c As #URLConnection)
+   c.setRequestProperty("Proxy-Authorization", "")
+End Sub
+
+Public Function IsProxy() As Boolean 
+   IsProxy = useProxy
+End Function
+
+Public Function FocusedWindow() As java#awt#Window
+   FocusedWindow = KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusedWindow()
+End Function
+
+Public Function FocusedComponent() As java#awt#Component
+   FocusedComponent = KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner()
+End Function
+
+Private Function NormString(v As String) As String
+   If v = Nothing Then v = vbNullString
+   NormString = v
+End Function
+
+Public Property Get OperatingSystem() As String
+   OperatingSystem = NormString(System.getProperty("os.name"))
+End Property
+
+Public Property Get SecurityMode() As Boolean
+   ' TODO: DISABLE FOR SIGNED JARS
+   SecurityMode = AppletMode
+End Property
+
+Public Property Get AppletMode() As Boolean
+   AppletMode = (Len(Browser) > 0)
+End Property
+
+Public Property Get Architecture() As String
+   Architecture = NormString(System.getProperty("os.arch"))
+End Property
+
+Public Property Get JavaVersion() As String
+   JavaVersion = NormString(System.getProperty("java.vm.version"))
+End Property
+
+Public Property Get JavaVendor() As String
+   JavaVendor = NormString(System.getProperty("java.vm.vendor"))
+End Property
+
+Public Property Get JavaRuntimeVersion() As String
+   JavaRuntimeVersion = NormString(System.getProperty("java.runtime.version"))
+End Property
+
+Public Property Get Browser() As String
+   Browser = NormString(System.getProperty("browser"))
+End Property
+
+Public Property Get BrowserVersion() As String
+   BrowserVersion = NormString(System.getProperty("browser.version"))
+End Property
+
+Public Property Get LineSeperator() As String
+   LineSeperator = NormString(System.getProperty("line.separator"))  
+End Property
+
+Public Property Let LineSeperator(v As String)
+   Call System.setProperty("line.separator", v)
+End Property
+
+Public Property Get PathSeperator() As String
+   PathSeperator = NormString(System.getProperty("path.separator"))
+End Property
+
+'------------------------
+
+Public Property Get Username() As String
+   Username = NormString(System.getProperty("user.name"))
+End Property
+
+Public Property Get HomeDirectory() As String
+   HomeDirectory = NormString(System.getProperty("user.home"))
+End Property
+
+
+
+
+
+
+
+
+]]></Source><Param Name="(Name)" Value="SysInfo"/><Param Name="(SuperClass)" Value="java/lang/Object"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>

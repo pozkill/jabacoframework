@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+
+Dim Owner As WinsockItemTCP 
+Dim DataHive As List
+
+Public Sub AddData(NewData As String)
+   If Owner.Owner.State = sckConnected Then
+      Call DataHive.add(NewData)
+   Else
+      Call Owner.Owner.OnError(sckNotConnected)
+   End If
+End Sub
+
+Public Sub WinsockSendThread(RefOwner As WinsockItemTCP)
+   Owner = RefOwner
+End Sub
+
+Public Sub run()
+   On Error Goto ERROUT
+   Do While True
+      Call processData()
+   Loop
+   Exit Sub
+ERROUT:
+   Owner.Owner.OnError(sckInProgress, Err.toString)
+End Sub
+
+Private Synchronized Sub processData()
+   Dim tmpData As String
+   If DataHive.isEmpty = False Then
+      tmpData = DataHive.get(0)
+      DataHive.remove(0)
+      Call SendData(tmpData)
+   Else
+      Call Thread.yield()
+      Call Thread.sleep(1)
+   End If
+End Sub
+
+Public Sub SendData(data As String)
+   Dim tmpStream As DataOutputStream, DataSize As Long
+   Dim CurrentSend As Long, CurrentDataSize As Long, CurrentPacketSize As Long
+   tmpStream =	New DataOutputStream(Owner.GetOutputStream())
+   DataSize = Len(data)
+   CurrentDataSize = DataSize
+   Do While CurrentDataSize > 0
+       CurrentPacketSize = IIF(Owner.Owner.BlockSize < CurrentDataSize, Owner.Owner.BlockSize, CurrentDataSize)
+       tmpStream.write data, CurrentSend, CurrentPacketSize
+       CurrentSend = CurrentSend + CurrentPacketSize
+       CurrentDataSize = CurrentDataSize - CurrentPacketSize
+       Call Owner.Owner.OnSendProgress(CurrentSend, CurrentDataSize)
+   Loop
+   Owner.Owner.OnSendComplete()
+End Sub
+
+Public Sub Class_Initialize
+   DataHive = java#util#Collections.synchronizedList(New ArrayList())
+End Sub
+]]></Source><Param Name="(Name)" Value="WinsockSendThread"/><Param Name="(SuperClass)" Value="java/lang/Thread"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>

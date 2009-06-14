@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Implements IJabacoControl
+Implements MouseListener 
+Implements MouseMotionListener
+
+Event Click()
+Event GotFocus()
+Event LostFocus()
+Event MouseEntered()
+Event MouseExited() 
+Event MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Event MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Event MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+
+Dim myScrollPane As New JScrollPane(Me)
+Dim myImage As BufferedImage 
+Dim myImagePath As String 
+Dim RadioButtonGroup As New ButtonGroup
+Dim AutoResizeVal As Boolean
+Dim StartUpPositionVal As StartUpPositionConstants
+
+Dim myBorderStyle As fmBorderStyle
+Dim mySpecialEffect As fmSpecialEffect
+Dim myBorderColor As Long
+Dim myCaption As String
+
+'Public Sub Add(Component As java#awt#Component) 
+'   On Error Resume Next
+'   Dim MySelf As JPanel
+'   MySelf = Directcast(Me, JPanel)
+'   MySelf.add Component
+'   On Error Resume Next
+'   Dim ComponentCB As javax#swing#JCheckBox 
+'   ComponentCB = Directcast(Component, javax#swing#JCheckBox )
+'   If ComponentCB <> Null Then
+'      Exit Sub
+'   End If
+'   Dim ComponentAB As AbstractButton
+'   ComponentAB = Directcast(Component, AbstractButton)
+'   If ComponentAB <> Null Then
+'      RadioButtonGroup.add ComponentAB
+'   End If
+'End Sub
+'
+Public Sub Class_Initialize()
+    Me.setVisible False
+    Me.addMouseListener(Me)
+    Me.addMouseMotionListener(Me)
+End Sub
+
+Public Property Get Caption() As String
+   Caption = myCaption
+End Property
+
+Public Property Let Caption(s As String)
+   myCaption = s
+   Call SetMyBorder()
+End Property
+
+Public Property Get BackColor() As Long
+    BackColor = ColortoRGB(Me.getBackground())
+End Property
+
+Public Property Let BackColor(v As Long)
+    Me.setBackground(RGBtoColor(v))
+End Property
+
+Public Property Get ForeColor() As Long
+    ForeColor = ColortoRGB(Me.getForeground())
+End Property
+
+Public Property Let ForeColor(v As Long)
+    Me.setForeground(RGBtoColor(v))
+    Call SetTitledBorderColor
+End Property
+
+Public Property Get Width() As Single
+    Width = Me.getSize.Width
+End Property
+
+Public Property Let Width(v As Single)
+    Me.setSize(v, Me.getSize.Height)
+End Property
+
+Public Property Get Height() As Single
+    Height = Me.getSize.Height
+End Property
+
+Public Property Let Height(v As Single)
+    Me.setSize(Me.getSize.Width, v)
+End Property
+
+Public Property Get Left() As Single
+    Left = Me.getLocation.x
+End Property
+
+Public Property Let Left(v As Single)
+    Me.setLocation(v, Me.getLocation.y)
+End Property
+
+Public Property Get Top() As Single
+    Top = Me.getLocation.y
+End Property
+
+Public Property Let Top(v As Single)
+    Me.setLocation(Me.getLocation.x, v)
+End Property
+
+Public Property Get ToolTip() As String 
+    ToolTip = Me.getToolTipText()
+End Property
+
+Public Property Let ToolTip(v As String)
+   If Len(v) = 0 Then 
+      Me.setToolTipText(Null)
+   Else
+      Me.setToolTipText(v)
+   End If
+End Property
+
+Public Property Get Enabled() As Boolean 
+   Enabled = Me.isEnabled()
+End Property
+
+Public Property Let Enabled(v As Boolean)
+   Call Me.setEnabled(v)
+End Property
+
+Public Property Get Visible() As Boolean 
+    Visible = Me.isVisible()
+End Property
+
+Public Property Let Visible(v As Boolean)
+    Me.setVisible v
+End Property
+
+Public Property Get BorderColor() As Long
+   BorderColor = myBorderColor
+End Property
+
+Public Property Let BorderColor(v As Long)
+   myBorderColor = v
+End Property
+
+Public Property Get BorderStyle() As fmBorderStyle
+   BorderStyle = myBorderStyle
+End Property
+
+Public Property Let BorderStyle(v As fmBorderStyle)
+   myBorderStyle = v
+   Call SetMyBorder()
+End Property
+
+Public Property Get SpecialEffect() As fmSpecialEffect
+   SpecialEffect = mySpecialEffect
+End Property
+
+Public Property Let SpecialEffect(v As fmSpecialEffect)
+   mySpecialEffect = v
+   Call SetMyBorder()
+End Property
+
+Private Sub SetMyBorder()
+   Dim myBorder As Border
+   myBorder = GetVBBorder(BorderStyle, SpecialEffect, BorderColor)
+   If myCaption <> "" Then
+      myBorder = BorderFactory.createTitledBorder(myBorder, myCaption)
+   End If
+   Base.setBorder myBorder
+   Call SetTitledBorderColor
+End Sub
+
+Private Sub SetTitledBorderColor()
+   On Error Goto ERROUT
+   Dim TitledBorder As javax#swing#border#TitledBorder 
+   TitledBorder = Me.getBorder 
+   TitledBorder.setTitleColor Me.getForeground 
+   TitledBorder.setTitleFont Me.getFont 
+   ERROUT:
+End Sub
+
+Public Sub mouseMoved(e As MouseEvent) 
+    RaiseEvent MouseMove(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
+End Sub
+
+Public Sub mouseDragged(e As MouseEvent) 
+    RaiseEvent MouseMove(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
+End Sub
+
+Public Sub mousePressed(e As MouseEvent) 
+    RaiseEvent MouseDown(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
+End Sub
+
+Public Sub mouseReleased(e As MouseEvent) 
+    RaiseEvent MouseUp(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
+End Sub
+
+Public Sub mouseClicked(e As MouseEvent) 
+    RaiseEvent Click()
+End Sub
+
+Public Sub mouseEntered(e As MouseEvent) 
+    RaiseEvent MouseEntered()
+End Sub 
+
+Public Sub mouseExited(e As MouseEvent) 
+    RaiseEvent MouseExited()
+End Sub
+
+Public Property Get FontName() As String 
+   FontName = me.getFont.GetFontName()
+End Property
+
+Public Property Let FontName(val As String)
+   Me.setFont(New Font(val, IIF(FontBold, BOLD, 0) OR IIF(FontItalic, ITALIC, 0), FontSize))
+   Call SetTitledBorderColor
+End Property
+
+Public Property Get FontBold() As Boolean 
+   FontBold = Me.getFont.isBold()
+End Property
+
+Public Property Let FontBold(val As Boolean)
+   Me.setFont(New Font(val, IIF(val, BOLD, 0) OR IIF(FontItalic, ITALIC, 0), FontSize))
+   Call SetTitledBorderColor
+End Property
+
+Public Property Get FontItalic() As Boolean
+   FontItalic = Me.getFont.isItalic()
+End Property
+
+Public Property Let FontItalic(val As Boolean)
+   Me.setFont(New Font(val, IIF(FontBold, BOLD, 0) OR IIF(val, ITALIC, 0), FontSize))
+   Call SetTitledBorderColor
+End Property
+
+Public Property Get FontSize() As Integer 
+   FontSize = (JFontSizeToVBFontSize(Font.getSize()))
+End Property
+
+Public Property Let FontSize(val As Integer)
+   Me.setFont(New Font(FontName, IIF(FontBold, BOLD, 0) Or IIF(FontItalic, ITALIC, 0), VBFontSizeToJFontSize(val)))
+   Call SetTitledBorderColor
+End Property
+
+Public Property Get Font() As Font
+   Font = Me.getFont()
+End Property
+
+Public Property Get Parent() As #JTabbedPane 
+   Parent = Base
+End Property
+
+
+
+
+]]></Source><Param Name="(Name)" Value="TabControl"/><Param Name="(SuperClass)" Value="javax/swing/JTabbedPane"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>

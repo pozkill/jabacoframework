@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SourceFile><Source><![CDATA[
+
+
+Public Sub cmdTest_Click()
+On Error Goto ERROUT
+
+   Dim driver As Class
+   driver = Class.forName("SQLite.JDBCDriver")
+   If driver = Nothing Then MsgBox "Not found!"
+
+   Call database1.Connect("jdbc:sqlite:/:memory:")
+   
+   Call database1.ExecuteStatement("CREATE TABLE user (id Integer PRIMARY KEY, name varchar(10) NOT NULL, desc varchar(30) NOT NULL)")
+   Call database1.ExecuteStatement("INSERT INTO user (id, name, desc) VALUES (1, 'manuel', 'developer')")
+   Call database1.ExecuteStatement("INSERT INTO user (id, name, desc) VALUES (2, 'frankp', 'developer')")
+   Call database1.ExecuteStatement("INSERT INTO user (id, name, desc) VALUES (3, 'maxim', 'developer')")
+   Call database1.ExecuteStatement("INSERT INTO user (id, name, desc) VALUES (4, 'david', 'supporter')")
+   
+   Dim rsAllUsers As java#sql#ResultSet
+   rsAllUsers = database1.ExecuteStatement("SELECT * FROM user")
+
+   Dim i As Integer
+   Dim rsAllUserColCount = rsAllUsers.getMetaData.getColumnCount
+   JBGrid1.Cols = rsAllUserColCount
+   For i = 1 To rsAllUserColCount
+  	JBGrid1.Header(i-1) = rsAllUsers.getMetaData.getColumnName(i)
+   Next
+   
+   Do While rsAllUsers.next
+  	For i = 1 To rsAllUserColCount
+     	JBGrid1.TextMatrix(rsAllUsers.getRow() - 1, i - 1) = rsAllUsers.getString(i)
+  	Next
+  	rows = rows + 1
+  	JBGrid1.Rows = rows
+   Loop
+
+   Exit Sub
+ERROUT:
+   MsgBox Err.toString
+End Sub
+]]></Source><Param Name="(Name)" Value="uDatabase"/><Param Name="(SuperClass)" Value="VB/Usercontrol"/><Param Name="(NameSpace)" Value=""/><Param Name="(Type)" Value="Usercontrol"/><Param Name="(Access)" Value="Public"/><Param Name="Opaque" Value="True"/><Param Name="AutoRedraw" Value="False"/><Param Name="AntiAliasing" Value="False"/><Param Name="Transparency" Value=""/><Param Name="DrawWidth" Value="1"/><Param Name="BorderColor" Value=""/><Param Name="Picture" Value="Nothing"/><Param Name="BorderStyle" Value="fmBorderStyleNone"/><Param Name="SpecialEffect" Value="fmSpecialEffectFlat"/><Param Name="FontName" Value="Arial"/><Param Name="FontBold" Value="False"/><Param Name="FontItalic" Value="False"/><Param Name="FontSize" Value="9"/><Param Name="BackColor" Value="-2147483633"/><Param Name="ForeColor" Value=""/><Param Name="Width" Value="722"/><Param Name="Height" Value="546"/><Param Name="Left" Value="0"/><Param Name="Top" Value="0"/><Param Name="ToolTip" Value=""/><Param Name="Enabled" Value="True"/><Param Name="Visible" Value="True"/><Param Name="Tag" Value=""/><Param Name="MousePointer" Value="vbDefault"/><Param Name="MouseIcon" Value="Nothing"/><Param Name="CanGetFocus" Value="True"/><Object Type="VB/JBGrid"><Param Name="BorderColorSel" Value="-2147483638"/><Param Name="GridColor" Value="-2147483638"/><Param Name="BackColorSel" Value="-2147483635"/><Param Name="ForeColorSel" Value="-2147483634"/><Param Name="SelectionMode" Value="flexSelectionFree"/><Param Name="AutoResize" Value="jbAutoResizeOff"/><Param Name="BackColorHeader" Value="-2147483633"/><Param Name="ForeColorHeader" Value="-2147483630"/><Param Name="BackColorCells" Value="-2147483643"/><Param Name="FlatHeader" Value="False"/><Param Name="BorderColor" Value="-2147483642"/><Param Name="BorderStyle" Value="fmBorderStyleSingle"/><Param Name="SpecialEffect" Value="fmSpecialEffectFlat"/><Param Name="Editable" Value="jbNotEditable"/><Param Name="Cols" Value="4"/><Param Name="Rows" Value="3"/><Param Name="HeaderHeight" Value="21"/><Param Name="RowHeightGlobal" Value="-1"/><Param Name="ShowHorizontalLines" Value="False"/><Param Name="ShowVerticalLines" Value="False"/><Param Name="HeaderVisible" Value="True"/><Param Name="FontName" Value="Arial"/><Param Name="FontBold" Value="False"/><Param Name="FontItalic" Value="False"/><Param Name="FontSize" Value="9"/><Param Name="BackColor" Value="-2147483633"/><Param Name="ForeColor" Value="-2147483640"/><Param Name="Width" Value="633"/><Param Name="Height" Value="441"/><Param Name="Left" Value="16"/><Param Name="Top" Value="48"/><Param Name="ToolTip" Value=""/><Param Name="Enabled" Value="True"/><Param Name="Visible" Value="True"/><Param Name="Tag" Value=""/><Param Name="(Name)" Value="JBGrid1"/></Object><Object Type="VB/Database"><Param Name="Width" Value="32"/><Param Name="Height" Value="32"/><Param Name="Top" Value="8"/><Param Name="Left" Value="152"/><Param Name="(Name)" Value="Database1"/></Object><Object Type="VB/CommandButton"><Param Name="Caption" Value="Test"/><Param Name="Picture" Value="Nothing"/><Param Name="RolloverPicture" Value="Nothing"/><Param Name="PicturePosition" Value="fmPicturePositionLeftCenter"/><Param Name="FontName" Value="Arial"/><Param Name="FontBold" Value="False"/><Param Name="FontItalic" Value="False"/><Param Name="FontSize" Value="9"/><Param Name="BackColor" Value="-2147483633"/><Param Name="ForeColor" Value="-2147483630"/><Param Name="Width" Value="121"/><Param Name="Height" Value="33"/><Param Name="Left" Value="16"/><Param Name="Top" Value="8"/><Param Name="ToolTip" Value=""/><Param Name="Enabled" Value="True"/><Param Name="Visible" Value="True"/><Param Name="Tag" Value=""/><Param Name="MousePointer" Value="vbDefault"/><Param Name="MouseIcon" Value="Nothing"/><Param Name="CanGetFocus" Value="True"/><Param Name="(Name)" Value="cmdTest"/></Object></SourceFile>

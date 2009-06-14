@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Public Sub fireLoaded()
+End Sub
+
+Public Sub fireLoaded(sender As Object)
+End Sub
+
+]]></Source><Param Name="(Name)" Value="ILoadAdapter"/><Param Name="(SuperClass)" Value="java/lang/Object"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Interface"/><Param Name="(Access)" Value="Public"/></SourceFile>

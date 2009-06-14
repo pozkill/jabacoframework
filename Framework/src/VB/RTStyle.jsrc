@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA['Implements javax#swing#text#Style
+'Implements javax#swing#text#MutableAttributeSet 
+
+Dim myStyle As javax#swing#text#Style
+
+Public Sub RTStyle(refStyle As javax#swing#text#Style)
+   myStyle = refStyle
+End Sub
+
+Public Function getStyle() As Style
+   getStyle = myStyle
+End Function
+
+Public Property Let BidiLevel(v As Integer)
+   StyleConstants.setBidiLevel myStyle, v
+End Property
+Public Property Get BidiLevel() As Integer
+   BidiLevel = StyleConstants.getBidiLevel(myStyle)
+End Property
+
+Public Property Let Superscript(v As Boolean)
+   StyleConstants.setSuperscript myStyle, v
+End Property
+Public Property Get Superscript() As Boolean
+   Superscript = StyleConstants.isSuperscript(myStyle)
+End Property
+
+Public Property Let Subscript(v As Boolean)
+   StyleConstants.setSubscript myStyle, v
+End Property
+Public Property Get Subscript() As Boolean
+   Subscript = StyleConstants.isSubscript(myStyle)
+End Property
+
+Public Property Let SpaceAbove(v As Single)
+   StyleConstants.setSpaceAbove myStyle, v
+End Property
+Public Property Get SpaceAbove() As Single
+   SpaceAbove = StyleConstants.getSpaceAbove(myStyle)
+End Property
+
+Public Property Let SpaceBelow(v As Single)
+   StyleConstants.setSpaceBelow myStyle, v
+End Property
+Public Property Get SpaceBelow() As Single
+   SpaceBelow = StyleConstants.getSpaceBelow(myStyle)
+End Property
+
+Public Property Let RightIndent(v As Single)
+   StyleConstants.setRightIndent myStyle, v
+End Property
+Public Property Get RightIndent() As Single
+   RightIndent = StyleConstants.getRightIndent(myStyle)
+End Property
+
+Public Property Let LeftIndent(v As Single)
+   StyleConstants.setLeftIndent myStyle, v
+End Property
+Public Property Get LeftIndent() As Single
+   LeftIndent = StyleConstants.getLeftIndent(myStyle)
+End Property
+
+Public Property Let FirstLineIndent(v As Single)
+   StyleConstants.setFirstLineIndent myStyle, v
+End Property
+Public Property Get FirstLineIndent() As Single
+   FirstLineIndent = StyleConstants.getFirstLineIndent(myStyle)
+End Property
+
+Public Property Let Bold(v As Boolean)
+   StyleConstants.setBold myStyle, v
+End Property
+Public Property Get Bold() As Boolean
+   Bold = StyleConstants.isBold(myStyle)
+End Property
+
+Public Property Let Italic(v As Boolean)
+   StyleConstants.setItalic myStyle, v
+End Property
+Public Property Get Italic() As Boolean
+   Italic = StyleConstants.isItalic(myStyle)
+End Property
+
+Public Property Let Underline(v As Boolean)
+   StyleConstants.setUnderline myStyle, v
+End Property
+Public Property Get Underline() As Boolean
+   Underline = StyleConstants.isUnderline(myStyle)
+End Property
+
+Public Property Let FontName(v As String)
+   StyleConstants.setFontFamily myStyle, v
+End Property
+Public Property Get FontName() As String
+   FontName = StyleConstants.getFontFamily(myStyle)
+End Property
+
+Public Property Let FontSize(v As Integer)
+   StyleConstants.setFontSize myStyle, v
+End Property
+Public Property Get FontSize() As Integer
+   FontSize = StyleConstants.getFontSize(myStyle)
+End Property
+
+Public Property Let TextColor(v As Long)
+   StyleConstants.setForeground myStyle, RGBToColor(v)
+End Property
+Public Property Get TextColor() As Long
+   TextColor = ColorToRGB(StyleConstants.getForeground(myStyle))
+End Property
+
+Public Property Let BackColor(v As Long)
+   StyleConstants.setBackground myStyle, RGBToColor(v)
+End Property
+Public Property Get BackColor() As Long
+   BackColor = ColorToRGB(StyleConstants.getBackground(myStyle))
+End Property
+
+Public Property Let Icon(v As #IResource)
+   StyleConstants.setIcon myStyle, LoadIcon(v)
+End Property
+Public Property Get Icon() As #IResource
+   Icon = New VBImage(StyleConstants.getIcon(myStyle))
+End Property
+
+Public Property Let StrikeThrough(v As Boolean)
+   StyleConstants.setStrikeThrough myStyle, v
+End Property
+Public Property Get StrikeThrough() As Boolean
+   StrikeThrough = StyleConstants.isStrikeThrough(myStyle)
+End Property
+
+
+
+]]></Source><Param Name="(Name)" Value="RTStyle"/><Param Name="(SuperClass)" Value="java/lang/Object"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>

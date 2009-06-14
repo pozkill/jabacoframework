@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Implements IJabacoControl 
+
+Dim myIconPath As String
+Dim myControlID As String
+
+Public Property Get ControlID() As String
+    ControlID = myControlID
+End Property
+
+Public Property Let ControlID(s As String)
+    myControlID = s
+End Property
+
+Public Property Get Caption() As String
+    Caption = Me.getLabel()
+End Property
+
+Public Property Let Caption(s As String)
+    Me.setLabel(s)
+End Property
+
+Public Property Get BackColor() As Long
+    BackColor = ColortoRGB(Me.getForeground())
+End Property
+
+Public Property Let BackColor(v As Long)
+    Me.setBackground(RGBtoColor(v))
+End Property
+
+Public Property Get ForeColor() As Long
+    ForeColor = ColortoRGB(Me.getForeground())
+End Property
+
+Public Property Let ForeColor(v As Long)
+    Me.setForeground(RGBtoColor(v))
+End Property
+
+Public Function LoadIcon(Resource As String) As ImageIcon
+   LoadIcon = New ImageIcon(LoadPicture(Resource))
+End Function
+
+Public Function LoadPicture(Resource As String) As Image
+   LoadPicture = getImageFromResource(Me.getClass, Resource)
+End Function
+
+Public Property Get Icon() As String
+   Picture = myIconPath
+End Property
+
+Public Property Let Icon(Path As String)
+   On Error Goto ERROUT
+   If Len(Path) > 0 Then 
+      Me.setIcon LoadIcon(Path)
+      myIconPath = Path
+   End If
+ERROUT:
+End Property
+
+Public Property Get Visible() As Boolean 
+   Visible = Me.isVisible()
+End Property
+
+Public Property Let Visible(v As Boolean)
+   Me.setVisible v
+End Property
+
+Public Property Get Parent() As JMenu
+   Parent = Base
+End Property
+
+'Public Property Get Checked() As Boolean 
+'    Checked = Base.get
+'End Property
+'
+'Public Property Let Checked(v As Boolean)
+'    Me.setForeground(RGBtoColor(v))
+'End Property
+
+Public Sub Class_Initialize
+   
+End Sub
+]]></Source><Param Name="(Name)" Value="VBMenu"/><Param Name="(SuperClass)" Value="javax/swing/JMenuItem"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>

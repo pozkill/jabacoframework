@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+
+Implements IJabacoClass 
+
+Private Enum TreeIconEnum
+   TreeIconDefault
+   TreeIconOpen
+   TreeIconClosed
+   TreeIconDisabled
+   TreeIconLeaf
+End Enum
+
+
+Dim myTree As TreeView 
+
+Dim myForeColor As Long
+Dim myForeColorSel As Long
+Dim myBackColor As Long
+Dim myBackColorSel As Long
+
+Dim myOpenIcon As #IResource, resOpenIcon As #Icon
+Dim myClosedIcon As #IResource, resClosedIcon As #Icon
+Dim myIcon As #IResource, resDefaultIcon As #Icon
+Dim myLeafIcon As #IResource, resLeafIcon As #Icon
+Dim myDisabledIcon As #IResource, resDisabledIcon As #Icon
+Dim myFontName As String, myFontBold As Boolean, myFontItalic As Boolean, myFontSize As Integer, myFont As #Font
+
+Public Property Get OwnerTree() As TreeView
+   OwnerTree = myTree
+End Property
+
+Public Sub SetDefaultIcons()
+   resOpenIcon = UIManager.getIcon("Tree.openIcon")
+   resClosedIcon = UIManager.getIcon("Tree.closedIcon")
+   resLeafIcon = UIManager.getIcon("Tree.leafIcon")
+End Sub
+
+Private Sub SetDefaults()
+   Call Me.setAllowsChildren(True)
+   FontName = "Arial"
+   FontSize = 9
+End Sub
+
+Public Sub Node(refTree As TreeView)
+   myTree = refTree
+   Call SetDefaults()   
+End Sub
+
+Public Sub Node(refTree As TreeView, Text As String)
+   myTree = refTree
+   Me.Text = Text
+   Call SetDefaults()
+End Sub
+
+Public Property Get Expand() As Boolean
+   Expand = myTree.isExpanded(Me)
+End Property
+
+Public Property Let Expand(v As Boolean)
+   If v Then 
+      Call myTree.expandNode(Me)
+   Else
+      Call myTree.collapseNode(Me)
+   End If   
+End Property
+
+Public Property Get Selected() As Boolean
+   On Error Resume Next
+   Selected = myTree.Parent.isPathSelected(Me.TreePath)
+End Property
+
+Public Property Let Selected(v As Boolean)
+   On Error Resume Next
+   If Selected = v Then Exit Property
+   If v Then
+      myTree.Parent.setSelectionPath(Me.TreePath)
+   Else
+      myTree.Parent.setSelectionPath(Nothing)
+   End If
+End Property
+
+Public Property Get Visible() As Boolean
+   Visible = myTree.isVisible(Me)
+End Property
+
+Public Property Let Visible(v As Boolean)
+   If v Then 
+      Call myTree.expandNode(Me)
+   Else
+      Call myTree.collapseNode(Me)
+   End If   
+End Property
+
+Public Property Get ParentNode() As Node
+   ParentNode = Cast(Base.getParent(), #Node)   
+End Property
+
+Public Property Get ChildCount() As Integer 
+   ChildCount = Base.getChildCount()   
+End Property
+
+'Public Property Get Childs() As Node
+'   Base.getChildCount 
+'   
+'   Parent = Cast(Base.getParent(), #Node)   
+'End Property
+
+Public Property Get AsMutableTreeNode() As DefaultMutableTreeNode
+   AsMutableTreeNode = Base
+End Property
+
+'Public Property Get Parent() As DefaultMutableTreeNode
+'   Parent = Base
+'End Property
+
+Public Property Get Text() As String
+   Text = Base.getUserObject()
+End Property
+
+Public Property Let Text(s As String)
+   On Error Resume Next
+   Call Base.setUserObject(s)
+   Call MyTree.Model.nodeChanged(Me)
+End Property
+
+Public Property Get OpenIcon() As #IResource
+   OpenIcon = myOpenIcon
+End Property
+
+Public Property Let OpenIcon(refIcon As #IResource)
+   myOpenIcon = refIcon
+   resOpenIcon = Nothing
+End Property
+
+Public Property Get AllowsChildren() As Boolean
+   AllowsChildren = Base.getAllowsChildren()
+End Property
+
+Public Property Let AllowsChildren(v As Boolean)
+   Call Base.setAllowsChildren(v)   
+End Property
+
+Public Property Get ClosedIcon() As #IResource
+   ClosedIcon = myClosedIcon
+End Property
+
+Public Property Let ClosedIcon(refIcon As #IResource)
+   myClosedIcon = refIcon
+   resClosedIcon = Nothing
+End Property
+
+Public Property Get Icon() As #IResource
+   Icon = myIcon
+End Property
+
+Public Property Let Icon(refIcon As #IResource)
+   myIcon = refIcon
+   resDefaultIcon = Nothing
+End Property
+
+Public Property Get DisabledIcon() As #IResource
+   DisabledIcon = myDisabledIcon
+End Property
+
+Public Property Let DisabledIcon(refIcon As #IResource)
+   myDisabledIcon = refIcon
+   resDisabledIcon = Nothing
+End Property
+
+Public Property Get LeafIcon() As #IResource
+   LeafIcon = myLeafIcon
+End Property
+
+Public Property Let LeafIcon(refIcon As #IResource)
+   myLeafIcon = refIcon
+   resLeafIcon = Nothing
+End Property
+
+Public Function GetIcon(IconType As TreeIconEnum) As #Icon 
+   Select Case IconType
+      Case TreeIconDefault
+         If resDefaultIcon = Nothing Then resDefaultIcon = LoadIcon(Me.Icon)
+         GetIcon = resDefaultIcon
+      Case TreeIconOpen
+         If resOpenIcon = Nothing Then resOpenIcon = LoadIcon(Me.OpenIcon)
+         GetIcon = resOpenIcon
+      Case TreeIconClosed
+         If resClosedIcon = Nothing Then resClosedIcon = LoadIcon(Me.ClosedIcon)
+         GetIcon = resClosedIcon
+      Case TreeIconDisabled
+         If resDefaultIcon = Nothing Then resDisabledIcon = LoadIcon(Me.DisabledIcon)
+         GetIcon = resDisabledIcon
+      Case TreeIconLeaf
+         If resLeafIcon = Nothing Then resLeafIcon = LoadIcon(Me.LeafIcon)
+         GetIcon = resLeafIcon
+   End Select
+End Function
+
+
+Public Property Get FontName() As String 
+   FontName = myFontName
+End Property
+
+Public Property Let FontName(val As String)
+   myFontName = val
+   myFont = Nothing 
+End Property
+
+Public Property Get FontBold() As Boolean 
+   FontBold = myFontBold
+End Property
+
+Public Property Let FontBold(val As Boolean)
+   myFontBold = val
+   myFont = Nothing 
+End Property
+
+Public Property Get FontItalic() As Boolean
+   FontItalic = myFontItalic
+End Property
+
+Public Property Let FontItalic(val As Boolean)
+   myFontItalic = val
+   myFont = Nothing 
+End Property
+
+Public Property Get FontSize() As Integer 
+   FontSize = myFontSize
+End Property
+
+Public Property Let FontSize(val As Integer)
+   myFontSize = val
+   myFont = Nothing 
+End Property
+
+Public Property Get Font() As Font
+   If myFont = Nothing Then
+      myFont = New Font(FontName, IIF(FontBold, BOLD, 0) Or IIF(FontItalic, ITALIC, 0), VBFontSizeToJFontSize(FontSize))
+   End If
+   Font = myFont   
+End Property
+
+Public Property Get BackColorSel() As Long
+   BackColorSel = myBackColorSel
+End Property
+
+Public Property Let BackColorSel(v As Long)
+   myBackColorSel = v
+End Property
+
+Public Property Get BackColor() As Long
+   BackColor = myBackColor
+End Property
+
+Public Property Let BackColor(v As Long)
+   myBackColor = v
+End Property
+
+Public Property Get ForeColorSel() As Long
+   ForeColorSel = myForeColorSel
+End Property
+
+Public Property Let ForeColorSel(v As Long)
+   myForeColorSel = v
+End Property
+
+Public Property Get ForeColor() As Long
+   ForeColor = myForeColor
+End Property
+
+Public Property Let ForeColor(v As Long)
+   myForeColor = v
+End Property
+
+Public Property Get TreePath() As #TreePath
+   TreePath = New Treepath(Base.getPath())
+End Property
+
+Public Function toString() As String
+   toString = Text   
+End Function
+
+Public Sub removeAllChildren()
+   Call Base.removeAllChildren()   
+End Sub
+
+
+
+
+
+'Public Property Let BackColor(v As Long)
+'   Parent.setBackground(RGBtoColor(v))
+'End Property
+'
+'Public Property Get ForeColor() As Long
+'   ForeColor = ColortoRGB(Parent.getForeground())
+'End Property
+
+'Implements TreeNode
+'Implements Enumeration
+
+'Function hasMoreElements() As Boolean
+'End Function
+'
+'Function nextElement() As Object
+'End Function
+'
+'Public Function children() As Enumeration
+'End Function
+'
+'Public Function getAllowsChildren() As Boolean 
+'End Function
+'
+'Public Function getChildAt(childIndex As Integer) As TreeNode
+'End Function
+'
+'Public Function getChildCount() As Integer
+'End Function
+'
+'Public Function getIndex(Node As TreeNode) As Integer
+'End Function
+'
+'Public Function getParent() As TreeNode
+'End Function
+'
+'Public Function isLeaf() As Boolean
+'End Function
+'
+
+Public Sub Class_Initialize
+   Call SetDefaultIcons()
+End Sub
+]]></Source><Param Name="(Name)" Value="Node"/><Param Name="(SuperClass)" Value="javax/swing/tree/DefaultMutableTreeNode"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VB"/></SourceFile>

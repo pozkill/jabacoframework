@@ -1,0 +1,675 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+
+Implements IJabacoControl
+Implements MouseListener
+Implements MouseMotionListener
+Implements KeyListener
+Implements FocusListener 
+
+Event Activate()
+Event Click()
+Event DblClick()
+Event Deactivate()
+Event GotFocus()
+Event KeyDown(KeyCode As Integer, Shift As Integer)
+Event KeyPress(KeyAscii As Integer)
+Event KeyUp(KeyCode As Integer, Shift As Integer)
+Event LostFocus()
+Event MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Event MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Event MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Event MouseEntered()
+Event MouseExited()
+Event Paint(g As java#awt#Graphics)
+
+Dim DoubleBuffering As Boolean 
+Dim RadioButtonGroup As New ButtonGroup
+'Dim myScrollPane As New JScrollPane(Me)
+Dim myImage As Image 
+Dim myImagePath As #IResource 
+Dim myBufferedImage As Image
+Dim myDrawWidth As Single 
+Dim myTransparency As Integer 
+Dim myAntiAliasing As Boolean 
+Dim myBorderStyle As fmBorderStyle
+Dim mySpecialEffect As fmSpecialEffect
+Dim myBorderColor As Long
+Dim myCurrentX As Long, myCurrentY As Long
+Dim myTag As String
+Dim myMouseIcon As #IResource 
+Dim myForeColor As Long
+
+' ******************************** INIT THIS CONTROL ********************************
+
+Public Property Get Parent() As #JPanel 
+   Parent = Base
+End Property
+
+Public Sub PictureBox()
+   On Error Resume Next
+
+   Call Parent.addKeyListener(Me)
+   
+   Call Parent.addFocusListener(Me)
+   Call Parent.addMouseListener(Me)
+   Call Parent.addMouseMotionListener(Me)
+   Call Parent.setDoubleBuffered(True)
+
+   Call Base.setBorder(New javax#swing#border#EtchedBorder)
+   Call Base.setLayout(Null)
+   
+   Call Base.setFocusable(True)
+   Call Base.setFocusTraversalKeysEnabled(False)
+   Call Base.setRequestFocusEnabled(True)
+   
+   myTransparency = 0
+   myDrawWidth = 1
+   
+End Sub
+
+
+' ******************************** DEFAULT FOCUS - EVENTS ********************************
+
+Public Sub focusGained(arg2 As FocusEvent)
+   Raiseevent GotFocus()
+End Sub
+
+Public Sub focusLost(arg2 As FocusEvent)
+   Raiseevent LostFocus()
+End Sub
+
+' ******************************** DEFAULT MOUSE - EVENTS ********************************
+
+Public Sub mouseMoved(e As MouseEvent) 
+   RaiseEvent MouseMove(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
+End Sub
+
+Public Sub mouseDragged(e As MouseEvent) 
+   RaiseEvent MouseMove(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
+End Sub
+
+Public Sub mousePressed(e As MouseEvent)
+   Me.SetFocus 
+   RaiseEvent MouseDown(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
+End Sub
+
+Public Sub mouseReleased(e As MouseEvent) 
+   RaiseEvent MouseUp(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
+   If (e.getX > 0 And e.getY > 0 And e.getX < Me.getWidth And e.getY < Me.getHeight) Then
+      If e.getClickCount() Mod 2 = 0 Then
+         RaiseEvent DblClick()
+      Else
+         RaiseEvent Click()
+      End If
+   End If
+End Sub
+
+Public Sub mouseClicked(e As MouseEvent) 
+    'done by mouserelease
+End Sub
+
+Public Sub mouseEntered(e As MouseEvent) 
+    RaiseEvent MouseEntered()
+End Sub 
+
+Public Sub mouseExited(e As MouseEvent) 
+    RaiseEvent MouseExited()
+End Sub
+
+' ******************************** DEFAULT KEY - EVENTS ********************************
+
+Public Sub keyReleased(e As KeyEvent) 
+   RaiseEvent KeyUp(e.getKeyCode, KeyEventToShiftConstant(e))
+End Sub
+
+Public Sub keyTyped(e As KeyEvent)
+   RaiseEvent KeyPress(e.getKeyChar)
+End Sub
+
+Public Sub keyPressed(e As KeyEvent)
+   RaiseEvent KeyDown(e.getKeyCode, KeyEventToShiftConstant(e))
+End Sub 
+
+' ******************************** SPECIAL FUNCTIONS ********************************
+
+Private Function GetBufferedImage() As java#awt#Image
+   Static myWidth As Single, myHeight As Single 
+   If (myBufferedImage = Null) Then
+      myWidth = 0
+      myHeight = 0
+   End If
+   If (myWidth <> Width) Or (myHeight <> Height) Then
+   'If (myWidth <> Width) Or (myHeight <> Height) Or (myBufferedImage = Null) Then
+      Dim oldImage As Image
+      oldImage = myBufferedImage 
+   '      Dim ge As GraphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment
+   '      Dim gs As GraphicsDevice = ge.getDefaultScreenDevice()
+   '      Dim gc As GraphicsConfiguration = gs.getDefaultConfiguration()
+   '      myBufferedImage = gc.createCompatibleImage(Width, Height, Transparency.BITMASK)
+      Dim TmpGraphics2D As Graphics2D
+      TmpGraphics2D = Cast(Base.getGraphics(), Graphics2D)
+      If TmpGraphics2D = Nothing Then Exit Function
+      myBufferedImage = TmpGraphics2D.getDeviceConfiguration().createCompatibleImage(Width, Height, java#awt#Transparency.TRANSLUCENT)
+      If (oldImage <> Null) Then
+         myBufferedImage.getGraphics().drawImage(oldImage, 0, 0, Null)
+      End If
+      myWidth = Width
+      myHeight = Height
+   End If
+   GetBufferedImage = myBufferedImage
+End Function
+
+Public Function getGraphics() As Graphics2D
+   'On Error Resume Next
+   Dim getGraphics2D As Graphics2D
+   If DoubleBuffering Then
+      If Me.GetBufferedImage = Nothing Then Exit Function
+      getGraphics2D = Cast(Me.GetBufferedImage.getGraphics, Graphics2D)
+   Else
+      getGraphics2D = Cast(Base.getGraphics(), Graphics2D)
+   End If
+   Call getGraphics2D.setFont(Me.getFont())
+   Call getGraphics2D.setColor(Me.getForeground())
+   Dim tmpAlpha As java#awt#AlphaComposite, tmpAlphaValue As Single
+   tmpAlphaValue = ((100 - myTransparency) / 100)
+   tmpAlpha = java#awt#AlphaComposite.getInstance(java#awt#AlphaComposite.SRC_OVER, tmpAlphaValue)
+   Call getGraphics2D.setComposite( tmpAlpha )
+   Call getGraphics2D.setStroke ( New java#awt#BasicStroke(myDrawWidth) )
+   Call getGraphics2D.setBackground(Me.getBackground())
+   If myAntiAliasing Then
+      getGraphics2D.setRenderingHint RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON
+   End If
+   getGraphics = getGraphics2D
+End Function
+
+Public Sub disposeGraphics(v As Graphics)
+   If DoubleBuffering Then
+      Call Parent.Repaint(0, 0, width, height)
+   End If
+   v.dispose
+End Sub
+
+Private Sub SetZOrder(Component As java#awt#Component)
+   On Error Resume Next
+   Dim ParentV As Variant
+   ParentV = Parent
+   ParentV.setComponentZOrder Component, 0 ' set last component on top
+End Sub
+
+Public Sub add(Component As java#awt#Component)
+   Parent.add Component
+   Call SetZOrder(Component)
+   On Error Resume Next
+   Dim ComponentCB As javax#swing#JCheckBox 
+   ComponentCB = Cast(Component, javax#swing#JCheckBox)
+   If ComponentCB <> Null Then
+      Exit Sub ' not in abstractbutton-handler
+   End If
+   Dim ComponentAB As AbstractButton
+   ComponentAB = Cast(Component, AbstractButton)
+   If ComponentAB <> Null Then
+      RadioButtonGroup.add ComponentAB
+   End If
+End Sub
+
+Public Property Get Opaque() As Boolean
+   Opaque = Parent.isOpaque()
+End Property
+
+Public Property Let Opaque(v As Boolean)
+   Call Parent.setOpaque(v)   
+End Property
+
+Public Property Get CurrentX() As Long
+   CurrentX = myCurrentX
+End Property
+
+Public Property Let CurrentX(v As Long)
+   myCurrentX = v
+End Property
+
+Public Property Get CurrentY() As Long
+   CurrentY = myCurrentY
+End Property
+
+Public Property Let CurrentY(v As Long)
+   myCurrentY = v
+End Property
+
+Public Sub PSet(x As Single, y As Single)
+   Dim tmpGraphics As Graphics 
+   tmpGraphics = Me.getGraphics()
+   tmpGraphics.drawLine(x, y, x, y)
+   Call disposeGraphics(tmpGraphics)
+End Sub
+
+Public Sub Line(x As Single, y As Single)
+   Call Line(myCurrentX, myCurrentY, x, y)
+End Sub
+
+Public Sub Line(x1 As Single, y1 As Single, x2 As Single, y2 As Single)
+   Call Line(x1, y1, x2, y2, False)
+End Sub
+
+Public Sub Line(x1 As Single, y1 As Single, x2 As Single, y2 As Single, Rect As Boolean)
+   Call Line(x1, y1, x2, y2, Rect, -1)
+End Sub
+
+Public Sub Line(x1 As Single, y1 As Single, x2 As Single, y2 As Single, Rect As Boolean, FillColor As Long)
+   On Error Resume Next
+   Dim my2DGraphics As Graphics2D
+   my2DGraphics = getGraphics()
+   If Rect Then
+      If FillColor <> -1 Then
+         Dim tmpColor As Color
+         tmpColor = my2DGraphics.getColor
+         Call my2DGraphics.setColor(RGBToColor(FillColor))
+         Call my2DGraphics.fillRect(x1 + 1, y1 + 1, x2 - x1 - 1, y2 - x1 - 1)
+         Call my2DGraphics.setColor(tmpColor)
+      End If
+      Call my2DGraphics.drawRect(x1, y1, x2 - x1, y2 - y1)
+   Else
+      my2DGraphics.drawLine(x1, y1, x2, y2)
+   End If
+   Call disposeGraphics(my2DGraphics)
+   myCurrentX = x2
+   myCurrentY = y2
+End Sub
+
+'Public Sub PaintPicture(Picture As PictureBox, X1 As Integer, Y1 As Integer)
+'   Call PaintPicture(Picture.Image, X1, Y1)
+'End Sub
+'
+Public Sub PaintPicture(Picture As Image, X1 As Integer, Y1 As Integer)
+   Call PaintPicture(Picture, X1, Y1, vbSrcCopy)   
+End Sub
+
+Public Sub PaintPicture(Picture As Image, X1 As Integer, Y1 As Integer, Opcode As RasterOpConstants)
+   Dim my2DGraphics As Graphics2D
+   my2DGraphics = getGraphics()
+   my2DGraphics.drawImage Picture, X1, Y1, Nothing
+   Call disposeGraphics(my2DGraphics)
+End Sub
+
+Public Sub PaintPicture(Picture As Image, X1 As Integer, Y1 As Integer, Width As Integer, Height As Integer, X2 As Integer, Y2 As Integer, Width2 As Integer, Height2 As Integer)
+   Dim my2DGraphics As Graphics2D
+   my2DGraphics = getGraphics()
+   Call my2DGraphics.drawImage(Picture, X2, Y2, Width2, Height2, X1, Y1, Width, Height, Nothing)
+   Call disposeGraphics(my2DGraphics)
+End Sub
+
+'Public Property Get Redraw() As Boolean 
+'   Redraw = Not Parent.getIgnoreRepaint()
+'End Property
+
+'Public Property Let Redraw(v As Boolean)
+'   Call Parent.setIgnoreRepaint(Not v)   
+'End Property
+
+Public Sub Circle(x As Single, y As Single, width As Single, height As Single)
+   Call Circle(x, y, width, height, -1)
+End Sub
+
+Public Sub Circle(x As Single, y As Single, width As Single, height As Single, FillColor As Long)
+   Dim my2DGraphics As Graphics2D
+   my2DGraphics = getGraphics()
+   If FillColor <> -1 Then
+      Dim tmpColor As Color
+      tmpColor = my2DGraphics.getColor
+      Call my2DGraphics.setColor(RGBToColor(FillColor))
+      Call my2DGraphics.fillOval(x + 1,y + 1, width - 1, height - 1)
+      Call my2DGraphics.setColor(tmpColor)
+   End If
+   Call my2DGraphics.drawOval(x, y, width, height)
+   Call disposeGraphics(my2DGraphics)
+End Sub
+
+Public Function TextWidth(text As String) As Integer
+   TextWidth = Parent.getFontMetrics(Parent.getFont()).stringWidth(text)
+End Function
+
+Public Function TextHeight(text As String) As Integer
+   TextHeight = Parent.getFontMetrics(Parent.getFont()).getHeight()
+End Function
+
+Public Sub Print(text As String)
+   Call Print(text, CurrentX, CurrentY)
+End Sub
+
+Public Sub Print(text As String, x1 As Single, y1 As Single)
+   Dim my2DGraphics As Graphics2D
+   my2DGraphics = getGraphics()
+   my2DGraphics.drawString text, x1, y1
+   y1 = y1 + TextHeight(text)
+   Call disposeGraphics(my2DGraphics)
+End Sub
+
+Public Sub Cls() 
+   myCurrentX = 0: myCurrentY = 0
+   If (DoubleBuffering) Then
+      myBufferedImage = Null
+      Parent.repaint 
+   Else
+      Parent.repaint 
+   End If
+End Sub
+
+Public Property Get AutoRedraw() As Boolean
+   AutoRedraw = DoubleBuffering
+End Property
+
+Public Property Let AutoRedraw(v As Boolean)
+   DoubleBuffering = v
+   If (v = False) Then myBufferedImage = Null
+End Property
+
+Public Property Get AntiAliasing() As Boolean
+   AntiAliasing = myAntiAliasing
+End Property
+
+Public Property Let AntiAliasing(v As Boolean)
+   myAntiAliasing = v
+End Property
+
+Public Property Get Transparency() As Integer 
+   Transparency = myTransparency
+End Property
+
+Public Property Let Transparency(v As Integer)
+   If v < 0 Then v = 0 
+   If v > 99 Then v = 99
+   myTransparency = v
+End Property
+
+Public Property Get DrawWidth() As Integer 
+   DrawWidth = myDrawWidth
+End Property
+
+Public Property Let DrawWidth(v As Integer)
+   myDrawWidth = v
+End Property
+
+Public Property Get BorderColor() As Long
+   BorderColor = myBorderColor
+End Property
+
+Public Property Let BorderColor(v As Long)
+   myBorderColor = v
+End Property
+
+Public Property Get Picture() As #IResource
+    Picture = myImagePath
+End Property
+
+Public Property Let Picture(Path As #IResource)
+   On Error Goto ERROUT
+   If Len(Path) > 0 Then 
+      myImage = LoadPicture(Path)
+      If myImage <> Nothing Then
+         myImagePath = Path
+      End If
+   End If
+ERROUT:
+End Property
+
+Public Property Let Picture(refImage As Image)
+   On Error Goto ERROUT
+   Dim tmpImage As New VBImage(refImage) 
+   myImagePath = tmpImage
+   myImage = tmpImage.getImage()   
+ERROUT:
+End Property
+
+Public Property Get BorderStyle() As fmBorderStyle
+   BorderStyle = myBorderStyle
+End Property
+
+Public Property Let BorderStyle(v As fmBorderStyle)
+   myBorderStyle = v
+   Call SetMyBorder()
+End Property
+
+Public Property Get SpecialEffect() As fmSpecialEffect
+   SpecialEffect = mySpecialEffect
+End Property
+
+Public Property Let SpecialEffect(v As fmSpecialEffect)
+   mySpecialEffect = v
+   Call SetMyBorder()
+End Property
+
+Private Sub SetMyBorder()
+   Base.setBorder GetVBBorder(BorderStyle, SpecialEffect, BorderColor)
+End Sub
+
+Friend Sub paintComponent(g As Graphics)
+   On Error Resume Next
+   Base.paintComponent g
+   If (myImage <> Null) Then Call g.drawImage(myImage, 0, 0, Me)
+   If DoubleBuffering Then
+      Dim tmpImage As Image
+      tmpImage = GetBufferedImage
+      Dim dg As Graphics 
+      dg = tmpImage.getGraphics()
+      Raiseevent Paint(dg)
+      Call g.drawImage(tmpImage, 0, 0, Me)
+      Call dg.dispose()      
+   Else
+      Raiseevent Paint(g)
+   End If
+End Sub
+
+Public Property Get Image() As Image
+   Dim tmpImage As Image 
+   Dim TmpGraphics2D As Graphics2D
+   TmpGraphics2D = Me.getGraphics()
+   If TmpGraphics2D = Nothing Then Exit Property
+   tmpImage = TmpGraphics2D.getDeviceConfiguration().createCompatibleImage(Width, Height, java#awt#Transparency.TRANSLUCENT)
+   TmpGraphics2D.dispose 
+   TmpGraphics2D = Cast(tmpImage.getGraphics(), Graphics2D)
+   If (myImage <> Null) Then Call TmpGraphics2D.drawImage(myImage, 0, 0, Me)
+   Call TmpGraphics2D.drawImage(GetBufferedImage, 0, 0, Me)
+   Image = tmpImage
+   TmpGraphics2D.dispose 
+End Property
+
+Public Property Get ImageBuffer() As BufferedImage
+   ImageBuffer = createBufferedImage(Image)
+End Property
+
+Public Property Get Point(x As Single, y As Single) As Long 
+   Point = ColorToRGB(New Color(ImageBuffer.getRGB(x, y))) '// Java RGB => Jabaco RGB
+End Property
+
+'Public Property Get PictureAlignment() As fmPictureAlignment
+'End Property
+'Public Property Let PictureAlignment(v As fmPictureAlignment)
+'End Property
+
+
+Public Property Get ScaleLeft() As Single
+   ScaleLeft = Base.getRootPane.getLayeredPane.getLocation.x
+   
+End Property
+
+Public Property Get ScaleTop() As Single
+   ScaleTop = Base.getRootPane.getLayeredPane.getLocation.y
+   
+End Property
+
+Public Property Get ScaleWidth() As Single
+   ScaleWidth = Width
+End Property
+
+Public Property Get ScaleHeight() As Single
+   ScaleHeight = Height
+End Property
+
+
+
+' ******************************** SAME IN ALL JABACO CONTROLS ********************************
+
+Public Property Get FontName() As String 
+   FontName = Parent.getFont.GetFontName()
+End Property
+
+Public Property Let FontName(val As String)
+   Parent.setFont(New Font(val, IIF(FontBold, BOLD, 0) OR IIF(FontItalic, ITALIC, 0), VBFontSizeToJFontSize(FontSize)))
+End Property
+
+Public Property Get FontBold() As Boolean 
+   FontBold = Parent.getFont.isBold()
+End Property
+
+Public Property Let FontBold(val As Boolean)
+   Parent.setFont(New Font(FontName, IIF(val, BOLD, 0) OR IIF(FontItalic, ITALIC, 0), VBFontSizeToJFontSize(FontSize)))
+End Property
+
+Public Property Get FontItalic() As Boolean
+   FontItalic = Parent.getFont.isItalic()
+End Property
+
+Public Property Let FontItalic(val As Boolean)
+   Parent.setFont(New Font(FontName, IIF(FontBold, BOLD, 0) OR IIF(val, ITALIC, 0), VBFontSizeToJFontSize(FontSize)))
+End Property
+
+Public Property Get FontSize() As Integer 
+   FontSize = (JFontSizeToVBFontSize(Font.getSize()))
+End Property
+
+Public Property Let FontSize(val As Integer)
+   Parent.setFont(New Font(FontName, IIF(FontBold, BOLD, 0) Or IIF(FontItalic, ITALIC, 0), VBFontSizeToJFontSize(val)))
+End Property
+
+Public Property Get Font() As Font
+   Font = Parent.getFont()
+End Property
+
+Public Property Get BackColor() As Long
+   BackColor = ColortoRGB(Base.getBackground())
+End Property
+
+Public Property Let BackColor(v As Long)
+   Base.setBackground(RGBtoColor(v))
+End Property
+
+Public Property Get ForeColor() As Long
+   ForeColor = myForeColor 
+End Property
+
+Public Property Let ForeColor(v As Long)
+   myForeColor = v ' block the paint-event
+End Property
+
+Public Function getForeground() As Color
+   getForeground = RGBtoColor(myForeColor)
+End Function
+
+Public Property Get Width() As Single
+    Width = Me.getSize.Width
+End Property
+
+Public Property Let Width(v As Single)
+    Me.setSize(v, Me.getSize.Height)
+End Property
+
+Public Property Get Height() As Single
+    Height = Me.getSize.Height
+End Property
+
+Public Property Let Height(v As Single)
+    Me.setSize(Me.getSize.Width, v)
+End Property
+
+Public Property Get Left() As Single
+    Left = Me.getLocation.x
+End Property
+
+Public Property Let Left(v As Single)
+    Me.setLocation(v, Me.getLocation.y)
+End Property
+
+Public Property Get Top() As Single
+    Top = Me.getLocation.y
+End Property
+
+Public Property Let Top(v As Single)
+    Me.setLocation(Me.getLocation.x, v)
+End Property
+
+Public Property Get ToolTip() As String 
+    ToolTip = Parent.getToolTipText()
+End Property
+
+Public Property Let ToolTip(v As String)
+	If Len(v) = 0 Then 
+	    Parent.setToolTipText(Null)
+    Else
+	    Parent.setToolTipText(v)
+    End If
+End Property
+
+Public Property Get Enabled() As Boolean 
+   Enabled = Base.isEnabled()
+End Property
+
+Public Property Let Enabled(v As Boolean)
+   Call Base.setEnabled(v)
+End Property
+
+Public Property Get Visible() As Boolean 
+    Visible = Base.isVisible()
+End Property
+
+Public Property Let Visible(v As Boolean)
+    Base.setVisible v
+End Property
+
+Public Property Get Tag() As String 
+   Tag = myTag
+End Property
+
+Public Property Let Tag(v As String)
+   myTag = v
+End Property
+
+Public Property Get MousePointer() As MousePointerConstants
+   MousePointer = JCursorToVBMousePointer(Parent.getCursor())
+End Property
+
+Public Property Let MousePointer(v As MousePointerConstants)
+   Call Parent.setCursor(VBMousePointerToJCursor(v))
+End Property
+
+Public Property Get MouseIcon() As #IResource 
+   MouseIcon = myMouseIcon
+End Property
+
+Public Property Let MouseIcon(v As #IResource)
+   myMouseIcon = v
+   Call Parent.setCursor(VBMouseIconToJCursor(v, Me))
+End Property
+
+Public Property Get CanGetFocus() As Boolean
+   CanGetFocus = Parent.isFocusable
+End Property
+
+Public Property Let CanGetFocus(v As Boolean)
+   Call Parent.setFocusable(v)
+End Property
+
+Public Sub SetFocus()
+   Parent.requestFocus 
+End Sub
+
+Public Sub Refresh()
+   Call Parent.invalidate()
+   Call Parent.repaint(0, 0, 0, Me.Width, Me.Height)
+   Call Parent.revalidate()
+End Sub
+
+
+
+
+]]></Source><Param Name="(Name)" Value="PictureBox"/><Param Name="(SuperClass)" Value="javax/swing/JPanel"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VB"/></SourceFile>

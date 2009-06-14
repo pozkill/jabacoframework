@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Enum VBFileMode
+   Random
+   Append
+   Input
+   Output
+End Enum
+
+Enum VBFileAccess
+   Read
+   Write
+   ReadAndWrite
+End Enum
+
+Enum VBFileLock
+   Shared
+   LockRead
+   LockWrite
+   LockReadAndWrite
+End Enum
+
+Public Function Open(Path As String) As VBFileHandler
+   Open = Open(Path, Random)
+End Function
+
+Public Function Open(Path As String, Mode As VBFileMode) As VBFileHandler
+   Open = Open(Path, Mode, ReadAndWrite)
+End Function
+
+Public Function Open(Path As String, Mode As VBFileMode, Access As VBFileAccess) As VBFileHandler
+   Open = Open(Path, Mode, Access, Shared)
+End Function
+
+Public Function Open(Path As String, Mode As VBFileMode, Access As VBFileAccess, Lock As VBFileLock) As VBFileHandler
+   Dim tmpHandler As New VBFileHandler 
+   tmpHandler.Mode = Mode
+   tmpHandler.Access = Access
+   tmpHandler.Lock = Lock
+   tmpHandler.Filename = Path  
+   Open = tmpHandler 
+End Function
+   
+Public Function Write(Handler As VBFileHandler, Text As String) As VBFileHandler
+   If Handler = Nothing Then Exit Function
+   Handler.writeString Text
+End Function
+
+Public Function Append(Handler As VBFileHandler, Text As String) As VBFileHandler
+   If Handler = Nothing Then Exit Function
+   Handler.appendString Text
+End Function
+
+Public Function Put(Handler As VBFileHandler, Text As String, Pos As String) As VBFileHandler
+   If Handler = Nothing Then Exit Function
+   Handler.putString Text, Pos
+End Function
+
+Public Function ReadLine(Handler As VBFileHandler) As String 
+   If Handler = Nothing Then Exit Function
+   ReadLine = Handler.readLine 
+End Function
+
+Public Function Close(Handler As VBFileHandler) As Boolean 
+   If Handler = Nothing Then Exit Function
+   Handler.close    
+End Function
+
+Public Function FileExists(Path As String ) As Boolean 
+   Dim tmpHandler As New VBFileHandler 
+   tmpHandler.Filename = Path
+   FileExists = tmpHandler.exists
+End Function
+
+Public Function Kill(Path As String ) As Boolean 
+   Dim tmpHandler As New VBFileHandler 
+   tmpHandler.Filename = Path
+   Kill = tmpHandler.delete
+End Function
+
+Public Function FileLen(Path As String ) As Long 
+   Dim tmpHandler As New VBFileHandler 
+   tmpHandler.Filename = Path
+   FileLen = tmpHandler.length
+End Function
+
+]]></Source><Param Name="(Name)" Value="VBFile"/><Param Name="(SuperClass)" Value="java/lang/Object"/><Param Name="(Type)" Value="Module"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VB"/></SourceFile>

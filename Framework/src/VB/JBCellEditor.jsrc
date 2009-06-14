@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+Implements TableCellEditor
+Private Enum CELLEDITTYPE
+   CELLEDIT_TEXT
+   CELLEDIT_COMBO
+   CELLEDIT_CUSTOM
+   CELLEDIT_BUTTON
+End Enum
+
+Dim Withevents myText As TextBox
+Dim Withevents myCombo As ComboBox 
+
+Dim Withevents myButton As CommandButton
+Dim myLabel As New Label
+Dim ButtonFrame As New JPanel(New BorderLayout())
+
+Dim myEditMode As CELLEDITTYPE = CELLEDIT_TEXT
+Dim myGrid As JBGrid
+Dim lastObject As Object
+
+Public Property Get CellButton() As CommandButton 
+   CellButton = myButton
+End Property
+
+Public Property Get Value() As String
+   Select Case myEditMode
+      Case CELLEDIT_TEXT:   Value = myText.Text
+      Case CELLEDIT_COMBO:  Value = myCombo.Text
+      Case CELLEDIT_BUTTON: Value = myLabel.Caption
+   End Select
+End Property
+
+Public Property Let Value(v As String)
+   Select Case myEditMode
+      Case CELLEDIT_TEXT:   myText.Text = v
+      Case CELLEDIT_COMBO:  myCombo.Text = v
+      Case CELLEDIT_BUTTON: myLabel.Caption = v
+   End Select
+End Property
+
+Public Sub JBCellEditor(refGrid As JBGrid)
+   myGrid = refGrid
+   myText.VScrollBar = sbShowNever 
+   myText.HScrollBar = sbShowNever 
+   
+   Call myText.setBorder(New EmptyBorder(New Insets(0,0,0,0)))
+   Call myCombo.setBorder(New EmptyBorder(New Insets(0,0,0,0)))
+   Call myCombo.Parent.setFocusable(False)
+
+   Call myLabel.Parent.setLabelFor(myButton)
+   myLabel.Visible = True
+   myButton.Visible = True
+   myButton.Caption = "..."
+   myButton.CanGetFocus = False
+
+   Call myButton.Parent.setPreferredSize(New Dimension(23, 23))
+   Call ButtonFrame.add(myButton, BorderLayout.LINE_END)
+   Call ButtonFrame.add(myLabel, BorderLayout.LINE_START)
+   Call ButtonFrame.setVisible(True)
+   
+End Sub
+
+Public Function isCellEditable(e As EventObject) As Boolean 
+   If myGrid.Editable = jbNotEditable Then Exit Function
+   If IsClass(e, MouseEvent) Then
+      Dim tmpMouseEvent As MouseEvent = Cast(e, MouseEvent)
+      If tmpMouseEvent.getClickCount Mod 2 = 0 Then
+         isCellEditable = (myGrid.Editable = jbEditOnDblClick)
+      Else
+         isCellEditable = (myGrid.Editable = jbEditOnClick)
+      End If
+   End If
+End Function
+
+Public Function getCellEditorValue() As Object 
+   Select Case myEditMode
+      Case CELLEDIT_TEXT
+         If lastData <> Nothing Then
+            lastData.Text = myText.Text
+         End If
+      Case CELLEDIT_COMBO
+         If lastData <> Nothing Then
+            lastData.Text = myCombo.Text
+         End If
+   End Select
+   'Call myGrid.fireAfterEdit(row, col)
+   getCellEditorValue = lastObject
+End Function
+
+Public Property Get lastData() As JBCellData 
+   On Error Resume Next
+   lastData = Cast(lastObject, #JBCellData)
+End Property
+
+Public Function getTableCellEditorComponent(table As JTable, value As Object, isSelected As Boolean, row As Integer, col As Integer) As Component
+   Dim ret As #Component
+   lastObject = value
+   If lastData <> Nothing Then
+      ret = lastData.getEditorComponent(myGrid, isSelected, True)
+      myEditMode = CELLEDIT_CUSTOM
+      If ret = Nothing Then
+         If Len(myGrid.ComboList) > 0 Then 
+            If myGrid.ComboList = "..."  Then
+               Call ButtonFrame.setBackground(RGBToColor(myGrid.BackColorCells))
+               myLabel.Caption = lastData.Text
+               myLabel.ForeColor = myGrid.ForeColor 
+               Call myLabel.Parent.setFont(myGrid.Parent.getFont())
+               ret = ButtonFrame
+               myEditMode = CELLEDIT_BUTTON
+            Else
+               myCombo.BackColor = myGrid.BackColorCells
+               myCombo.ForeColor = myGrid.ForeColor
+               myCombo.ForeColorSel = myGrid.ForeColorSel 
+               myCombo.BackColorSel = myGrid.BackColorSel
+               myCombo.Text = lastData.Text
+               myCombo.ComboList = myGrid.ComboList
+               Call myCombo.SetFocus()               
+               Call myCombo.Parent.setFont(myGrid.Parent.getFont())
+               ret = myCombo
+               myEditMode = CELLEDIT_COMBO 
+            End If
+         Else
+            myText.BackColor = myGrid.BackColorCells
+            myText.ForeColor = myGrid.ForeColor 
+            myText.Text = lastData.Text
+            Call myText.Parent.setFont(myGrid.Parent.getFont())
+            Call myText.SetFocus()            
+            ret = myText
+            myEditMode = CELLEDIT_TEXT
+         End If
+      End If
+   Else
+      ret = Nothing
+   End If 
+   getTableCellEditorComponent = ret
+End Function
+
+Public Sub myButton_Click()
+   Call myGrid.fireCellButtonClick()
+End Sub
+
+Public Sub myText_KeyDown(KeyCode As Integer, Shift As Integer)
+   If KeyCode = 13 Then
+      Call Base.stopCellEditing()      
+   End If
+End Sub
+]]></Source><Param Name="(Name)" Value="JBCellEditor"/><Param Name="(SuperClass)" Value="javax/swing/AbstractCellEditor"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>

@@ -1,0 +1,759 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+Implements IJabacoControl
+Implements MouseListener 
+Implements MouseMotionListener
+Implements KeyListener
+Implements FocusListener 
+'Implements HyperlinkListener 
+Implements AdjustmentListener 
+
+Private Type RTFCursorState
+   SelStart As Integer
+   SelLength As Integer
+   VScrollPos As Integer
+   HScrollPos As Integer 
+   Redraw As Boolean
+End Type
+
+Event Click()
+Event DblClick()
+Event GotFocus()
+Event KeyDown(KeyCode As Integer, Shift As Integer)
+Event KeyPress(KeyAscii As Integer)
+Event KeyUp(KeyCode As Integer, Shift As Integer)
+Event LostFocus()
+Event MouseEntered()
+Event MouseExited() 
+Event MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Event MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Event MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Event Paint(g As java#awt#Graphics)
+Event Scroll(X As Single, Y As Single)
+Event Modified(action As MODTYPE, e As DocumentEvent)
+
+Dim myBorderStyle As fmBorderStyle
+Dim mySpecialEffect As fmSpecialEffect
+Dim myBorderColor As Long
+Dim myTag As String
+Dim myMouseIcon As IResource 
+Dim myStyle As New javax#swing#text#StyleContext 
+Dim myStyleCount As Long
+Dim myCursorHive As New Collection 
+Dim myCursorHiveLL As New java#util#LinkedList 
+
+Dim Withevents myText As RTTextPane
+
+' ******************************** INIT THIS CONTROL ********************************
+
+Public Property Get Parent() As JTextPane
+   Parent = myText
+End Property
+
+Public Sub Class_Initialize()
+   On Error Resume Next
+   
+   Call Parent.addFocusListener(Me)
+   Call Parent.addMouseListener(Me)
+   Call Parent.addMouseMotionListener(Me)
+   Call Parent.addKeyListener(Me)
+   Call Me.setViewportView(myText)
+   Call Base.setOpaque(False)
+   Call Base.getVerticalScrollBar.addAdjustmentListener(Me)
+   Call Base.getHorizontalScrollBar.addAdjustmentListener(Me)
+   
+   'Call Parent.addHyperlinkListener(Me)
+   'Call Parent.setEditorKit(myRTF)
+   'Parent.getStyledDocument.addDocumentListener
+
+End Sub
+
+' ******************************** DEFAULT FOCUS - EVENTS ********************************
+
+Public Sub focusGained(arg2 As FocusEvent)
+   Raiseevent GotFocus()
+End Sub
+
+Public Sub focusLost(arg2 As FocusEvent)
+   Raiseevent LostFocus()
+End Sub
+
+' ******************************** DEFAULT MOUSE - EVENTS ********************************
+
+Public Sub mouseMoved(e As MouseEvent) 
+    RaiseEvent MouseMove(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
+End Sub
+
+Public Sub mouseDragged(e As MouseEvent) 
+    RaiseEvent MouseMove(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
+End Sub
+
+Public Sub mousePressed(e As MouseEvent) 
+    RaiseEvent MouseDown(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
+End Sub
+
+Public Sub mouseReleased(e As MouseEvent) 
+   RaiseEvent MouseUp(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
+   If (e.getX > 0 And e.getY > 0 And e.getX < Me.getWidth And e.getY < Me.getHeight) Then
+      If (e.getClickCount() Mod 2) = 0 Then
+         RaiseEvent DblClick()
+      Else
+         RaiseEvent Click()
+      End If
+   End If
+End Sub
+
+Public Sub mouseClicked(e As MouseEvent) 
+    'done by actionlistener
+End Sub
+
+Public Sub mouseEntered(e As MouseEvent) 
+    RaiseEvent MouseEntered()
+End Sub 
+
+Public Sub mouseExited(e As MouseEvent) 
+    RaiseEvent MouseExited()
+End Sub
+
+' ******************************** DEFAULT KEY - EVENTS ********************************
+
+Public Sub keyReleased(e As KeyEvent) 
+   RaiseEvent KeyUp(e.getKeyCode, KeyEventToShiftConstant(e))
+End Sub
+
+Public Sub keyTyped(e As KeyEvent)
+   RaiseEvent KeyPress(e.getKeyChar)
+End Sub
+
+Public Sub keyPressed(e As KeyEvent)
+    RaiseEvent KeyDown(e.getKeyCode, KeyEventToShiftConstant(e))
+End Sub 
+
+' ******************************** SPECIAL - EVENTS ********************************
+
+Public Sub adjustmentValueChanged(arg2 As AdjustmentEvent)
+   On Error Resume Next
+   Raiseevent Scroll(HScrollPos, VScrollPos)
+End Sub
+
+'Public Sub hyperlinkUpdate(arg2 As HyperlinkEvent)
+'End Sub
+
+' ******************************** SPECIAL FUNCTIONS ********************************
+
+Public Property Get HScrollPos() As Integer
+   On Error Resume Next
+   If Base.getHorizontalScrollBar Then Exit Property
+   If Base.getHorizontalScrollBar.getModel Then Exit Property
+   HScrollPos = Base.getHorizontalScrollBar.getModel.getValue()
+End Property
+
+Public Property Let HScrollPos(v As Integer)
+   Call Base.getHorizontalScrollBar.getModel.setValue(v)
+End Property
+
+Public Property Get VScrollPos() As Integer
+   On Error Resume Next
+   If Base.getVerticalScrollBar Then Exit Property
+   If Base.getVerticalScrollBar.getModel Then Exit Property
+   VScrollPos = Base.getVerticalScrollBar.getModel.getValue()
+End Property
+
+Public Property Let VScrollPos(v As Integer)
+   Call Base.getVerticalScrollBar.getModel.setValue(v)
+End Property
+
+Public Property Get HScrollMax() As Integer
+   HScrollMax = Base.getHorizontalScrollBar.getModel.getMaximum() - Base.getViewport.getWidth()
+End Property
+
+Public Property Get VScrollMax() As Integer
+   VScrollMax = Base.getVerticalScrollBar.getModel.getMaximum() - Base.getViewport.getHeight()
+End Property
+
+
+
+Public Property Get HScrollBar() As vbScrollBarPolicy
+   HScrollBar = JScrollBarToVBScrollBarPolicy(Base.getHorizontalScrollBarPolicy)
+End Property
+
+Public Property Let HScrollBar(v As vbScrollBarPolicy)
+   Base.setHorizontalScrollBarPolicy(VBScrollBarToJScrollBarPolicy(v, True))
+End Property
+
+Public Property Get VScrollBar() As vbScrollBarPolicy
+   HScrollBar = JScrollBarToVBScrollBarPolicy(Base.getVerticalScrollBarPolicy)
+End Property
+
+Public Property Let VScrollBar(v As vbScrollBarPolicy)
+   Base.setVerticalScrollBarPolicy(VBScrollBarToJScrollBarPolicy(v, False))
+End Property
+
+Public Property Get SelStart() As Long 
+   SelStart = Parent.getSelectionStart
+End Property
+
+Public Property Let SelStart(v As Long)
+   Parent.setSelectionStart v
+End Property
+
+Public Property Get SelLength() As Long 
+   SelLength = Parent.getSelectionEnd - SelStart
+End Property
+
+Public Property Let SelLength(v As Long)
+   myText.setSelectionEnd SelStart + v
+End Property
+
+Public Property Get SelText() As String
+   SelText = Parent.getSelectedText
+End Property
+
+Public Property Let SelText(v As String)
+   Call Parent.replaceSelection(v)   
+End Property
+
+Public Sub appendText(text As String)
+   Call insertText(text, Parent.getStyledDocument.getLength)
+End Sub
+
+Public Sub replaceText(text As String, pos As Integer, length As Integer)
+   Call SaveCursorState()
+   SelStart = pos
+   SelLength = length
+   Dim MemLocked As Boolean = Locked
+   Locked = False
+   Call Parent.replaceSelection(text)
+   Locked = MemLocked
+   Call RestoreCursorState()
+End Sub
+
+Public Sub insertText(text As String, pos As Integer)
+   Call replaceText(text, pos, 0)
+End Sub
+
+Public Sub insertText(text As String, pos As Integer, Bold As Boolean, Italic As Boolean, TextColor As Long)
+   Dim tmpStyle As RTStyle
+   tmpStyle = createStyle()
+   tmpStyle.Bold = Bold
+   tmpStyle.Italic = Italic
+   tmpStyle.TextColor = TextColor
+   Call insertText(text, pos, tmpStyle)
+End Sub
+
+Public Sub insertText(text As String, pos As Integer, style As RTStyle)
+   Dim iOldLen As Integer = Len(Me.Text)
+   Call insertText(text, pos)
+   Call setStyle(pos, Len(text), style, True)
+End Sub
+
+Public Sub replaceText(text As String, pos As Integer, length As Integer, Bold As Boolean, Italic As Boolean, TextColor As Long)
+   Dim tmpStyle As RTStyle
+   tmpStyle = createStyle()
+   tmpStyle.Bold = Bold
+   tmpStyle.Italic = Italic
+   tmpStyle.TextColor = TextColor
+   Call replaceText(text, pos, length, tmpStyle)
+End Sub
+
+Public Sub replaceText(text As String, pos As Integer, length As Integer, style As RTStyle)
+   Call replaceText(text, pos, length)
+   msgbox  Len(text)
+   
+   Call setStyle(pos, Len(text), style, True)
+End Sub
+
+Public Sub appendText(text As String, Bold As Boolean, Italic As Boolean, TextColor As Long)
+   Dim tmpStyle As RTStyle 
+   tmpStyle = createStyle()
+   tmpStyle.Bold = Bold
+   tmpStyle.Italic = Italic
+   tmpStyle.TextColor = TextColor
+   Call appendText(text, tmpStyle)
+End Sub
+
+Public Sub appendText(text As String, style As RTStyle)
+   Dim iOldLen As Integer = Len(Me.Text)
+   Call appendText(text)
+   Call setStyle(iOldLen, Len(text), style, True)
+End Sub
+
+Private Sub saveCursorState()
+   Dim tmpItem As RTFCursorState 
+   tmpItem.Redraw = Redraw
+   tmpItem.SelStart = SelStart
+   tmpItem.SelLength = SelLength
+   tmpItem.VScrollPos = VScrollPos
+   tmpItem.HScrollPos = HScrollPos
+   myCursorHiveLL.addLast tmpItem
+End Sub
+
+Private Sub restoreCursorState()
+   Dim tmpItem As RTFCursorState 
+   If myCursorHiveLL.size < 1 Then Exit Sub
+   tmpItem = Cast(myCursorHiveLL.removeLast, RTFCursorState)
+   SelStart = tmpItem.SelStart
+   SelLength = tmpItem.SelLength
+   Call revalidateRT()
+   VScrollPos = tmpItem.VScrollPos
+   HScrollPos = tmpItem.HScrollPos
+   Redraw = tmpItem.Redraw
+End Sub
+
+Public Sub revalidateRT()
+   Parent.revalidate 
+   Parent.updateUI
+   Base.revalidate 
+   Base.updateUI 
+End Sub
+
+Public Property Get Redraw() As Boolean 
+   Redraw = (Parent.getIgnoreRepaint = False)
+End Property
+
+Public Property Let Redraw(v As Boolean)
+   Call Base.setIgnoreRepaint(v = False)
+   Call Parent.setIgnoreRepaint(v = False)
+End Property
+
+Public Function setStyle(start As Integer, length As Long, style As RTStyle, overwrite As Boolean) As #StyleContext 
+   Call StyledDoc.setCharacterAttributes(start, length, style.getStyle, overwrite)
+End Function
+
+Public Function setStyle(start As Integer, length As Long, style As javax#swing#text#Style, overwrite As Boolean) As #StyleContext 
+   Call StyledDoc.setCharacterAttributes(start, length, style, overwrite)
+End Function
+
+Public Function getStyle(pos As Integer) As RTStyle
+   Dim tmpStyle As Style
+   tmpStyle = StyledDoc.getLogicalStyle(pos)
+   If tmpStyle <> Nothing Then getStyle = New RTStyle(tmpStyle)
+End Function
+
+Public Function getText(start As Integer, length As Integer) As String 
+   If start < 1 Then Exit Function
+   If length < 0 Then Exit Function
+   getText = Mid(Text, start, length)
+End Function
+
+Public Function GetPosByXY(x As Integer, y As Integer) As Integer 
+   GetPosByXY = GetPosByXY(New Point(x, y))
+End Function
+
+Public Function GetPosByXY(v As Point) As Integer 
+   Dim ret As Integer
+   ret = Parent.viewToModel(v)
+   GetPosByXY = ret
+End Function
+
+Public Function GetXYByPos(pos As Integer) As Point 
+   GetXYByPos = Parent.modelToView(pos).getLocation   
+End Function
+
+Public Function GetRectByPos(pos As Integer) As Rectangle
+   GetRectByPos = Parent.modelToView(pos)
+End Function
+
+Public Sub setBidiLevel(start As Integer, length As Long, v As Integer)
+   Dim tmpStyle As RTStyle
+   tmpStyle = createStyle()
+   tmpStyle.BidiLevel = v
+   Call setStyle(start, length, tmpStyle, False)
+End Sub
+
+Public Sub setSuperscript(start As Integer, length As Long, v As Boolean)
+   Dim tmpStyle As RTStyle
+   tmpStyle = createStyle()
+   tmpStyle.Superscript = v
+   Call setStyle(start, length, tmpStyle, False)
+End Sub
+
+Public Sub setSubscript(start As Integer, length As Long, v As Boolean)
+   Dim tmpStyle As RTStyle
+   tmpStyle = createStyle()
+   tmpStyle.Subscript = v
+   Call setStyle(start, length, tmpStyle, False)
+End Sub
+
+Public Sub setSpaceAbove(start As Integer, length As Long, v As Single)
+   Dim tmpStyle As RTStyle
+   tmpStyle = createStyle()
+   tmpStyle.SpaceAbove = v
+   Call setStyle(start, length, tmpStyle, False)
+End Sub
+
+Public Sub setSpaceBelow(start As Integer, length As Long, v As Single)
+   Dim tmpStyle As RTStyle
+   tmpStyle = createStyle()
+   tmpStyle.SpaceBelow = v
+   Call setStyle(start, length, tmpStyle, False)
+End Sub
+
+Public Sub setRightIndent(start As Integer, length As Long, v As Single)
+   Dim tmpStyle As RTStyle
+   tmpStyle = createStyle()
+   tmpStyle.RightIndent = v
+   Call setStyle(start, length, tmpStyle, False)
+End Sub
+
+Public Sub setLeftIndent(start As Integer, length As Long, v As Single)
+   Dim tmpStyle As RTStyle
+   tmpStyle = createStyle()
+   tmpStyle.LeftIndent = v
+   Call setStyle(start, length, tmpStyle, False)
+End Sub
+
+Public Sub setFirstLineIndent(start As Integer, length As Long, v As Single)
+   Dim tmpStyle As RTStyle
+   tmpStyle = createStyle()
+   tmpStyle.FirstLineIndent = v
+   Call setStyle(start, length, tmpStyle, False)
+End Sub
+
+Public Sub setBold(start As Integer, length As Long, v As Boolean)
+   Dim tmpStyle As RTStyle
+   tmpStyle = createStyle()
+   tmpStyle.Bold = v
+   Call setStyle(start, length, tmpStyle, False)
+End Sub
+
+Public Sub setItalic(start As Integer, length As Long, v As Boolean)
+   Dim tmpStyle As RTStyle
+   tmpStyle = createStyle()
+   tmpStyle.Italic = v
+   Call setStyle(start, length, tmpStyle, False)
+End Sub
+
+Public Sub setUnderline(start As Integer, length As Long, v As Boolean)
+   Dim tmpStyle As RTStyle
+   tmpStyle = createStyle()
+   tmpStyle.Underline = v
+   Call setStyle(start, length, tmpStyle, False)
+End Sub
+
+Public Sub setFontName(start As Integer, length As Long, v As String)
+   Dim tmpStyle As RTStyle
+   tmpStyle = createStyle()
+   tmpStyle.FontName = v
+   Call setStyle(start, length, tmpStyle, False)
+End Sub
+
+Public Sub setFontSize(start As Integer, length As Long, v As Integer)
+   Dim tmpStyle As RTStyle
+   tmpStyle = createStyle()
+   tmpStyle.FontSize = v
+   Call setStyle(start, length, tmpStyle, False)
+End Sub
+
+Public Sub setTextColor(start As Integer, length As Long, v As Long)
+   Dim tmpStyle As RTStyle
+   tmpStyle = createStyle()
+   tmpStyle.TextColor = v
+   Call setStyle(start, length, tmpStyle, False)
+End Sub
+
+Public Sub setBackColor(start As Integer, length As Long, v As Long)
+   Dim tmpStyle As RTStyle
+   tmpStyle = createStyle()
+   tmpStyle.BackColor = v
+   Call setStyle(start, length, tmpStyle, False)
+End Sub
+
+Public Sub setIcon(start As Integer, length As Long, v As #IResource)
+   Dim tmpStyle As RTStyle
+   tmpStyle = createStyle()
+   tmpStyle.Icon = v
+   Call setStyle(start, length, tmpStyle, False)
+End Sub
+
+Public Sub setStrikeThrough(start As Integer, length As Long, v As Boolean)
+   Dim tmpStyle As RTStyle
+   tmpStyle = createStyle()
+   tmpStyle.StrikeThrough = v
+   Call setStyle(start, length, tmpStyle, False)
+End Sub
+
+Public Function createStyle() As RTStyle
+   createStyle = New RTStyle(StyledDoc.addStyle(Nothing, Nothing))
+End Function
+
+Public Function createStyle(styleName As String) As RTStyle
+   createStyle = New RTStyle(StyledDoc.addStyle(styleName, Nothing))
+End Function
+
+Public Sub removeStyle(styleName As String)
+   Call StyledDoc.removeStyle(styleName)   
+End Sub
+
+Public Property Get StyledDoc() As StyledDocument
+   StyledDoc = Parent.getStyledDocument()
+End Property
+
+Public Property Get StyleContext() As StyleContext 
+   StyleContext = myStyle
+End Property
+
+Public Property Get Text() As String
+   Text = Parent.getDocument.getText(0, Parent.getDocument.getLength)
+End Property
+  
+Public Property Let Text(s As String)
+   Dim tmpDoc As Document = Parent.getDocument()
+   tmpDoc.remove 0, tmpDoc.getLength 
+   Call Parent.getEditorKit.read(New StringReader(s), tmpDoc, 0)
+   
+End Property
+
+'Public Property Get Text() As String
+'   Text = Parent.getText()
+'End Property
+'
+'Public Property Let TextRTF(s As String)
+'   Parent.setEditorKitForContentType "<html><body><b>test</b>test</body></html>", New javax#swing#text#html#HTMLEditorKit()
+'   'msgbox parent.getStyledDocument.getText(0, parent.getStyledDocument.getLength )
+'   Dim tmpHTMLEditorKit As New HTMLEditorKit 
+'   Dim r As New java#io#StringReader("<html><body><b>test</b>test</body></html>")
+'   tmpHTMLEditorKit.read r, Parent.getDocument, len("<html><body><b>test</b>test</body></html>")
+'   
+'   
+'End Property
+
+Public Property Get StyledText() As String
+   'StyledText = Parent.getStyledDocument.getText()
+   'StyledText = Parent.getDocument.getText
+End Property
+'
+'Public Property Let StyledText(s As String)
+'End Property
+
+Public Property Get Style() As javax#swing#text#StyledDocument
+   Style = Parent.getStyledDocument 
+End Property
+
+Public Sub InsertIcon(IconPath As #IResource, pos As Integer)
+   Call SaveCursorState()
+   SelStart = pos
+   SelLength = 0
+   Call InsertIcon(IconPath)
+   Call RestoreCursorState()
+End Sub
+
+Public Sub InsertComponent(v As Component, pos As Integer)
+   Call SaveCursorState()
+   SelStart = pos
+   SelLength = 0
+   Call InsertComponent(v)
+   Call RestoreCursorState()
+End Sub
+
+Public Sub InsertIcon(IconPath As #IResource)
+   Parent.insertIcon LoadIcon(IconPath)
+End Sub
+
+Public Sub InsertComponent(v As Component)
+   Parent.insertComponent v
+End Sub
+
+Public Property Get BackColorSel() As Long
+   BackColorSel = ColorToRGB(Parent.getSelectionColor())
+End Property
+
+Public Property Let BackColorSel(v As Long)
+   Parent.setSelectionColor(RGBtoColor(v))
+End Property
+
+Public Property Get ForeColorSel() As Long
+   BackColorSel = ColorToRGB(Parent.getSelectedTextColor())
+End Property
+
+Public Property Let ForeColorSel(v As Long)
+   Parent.setSelectedTextColor(RGBtoColor(v))
+End Property
+
+Public Function toString() As String
+   toString = Text
+End Function
+
+Public Property Get Locked() As Boolean 
+   Locked = Not Parent.isEditable
+End Property
+
+Public Property Let Locked(v As Boolean)
+   Call Parent.setEditable(v = False)   
+End Property
+
+Public Sub myText_Paint(g As Graphics)
+   Raiseevent Paint(g)
+End Sub
+
+
+
+
+
+
+' ******************************** SAME IN ALL JABACO CONTROLS ********************************
+
+Public Property Get FontName() As String 
+   FontName = Parent.getFont.GetFontName()
+End Property
+
+Public Property Let FontName(val As String)
+   Parent.setFont(New Font(val, IIF(FontBold, BOLD, 0) OR IIF(FontItalic, ITALIC, 0), VBFontSizeToJFontSize(FontSize)))
+End Property
+
+Public Property Get FontBold() As Boolean 
+   FontBold = Parent.getFont.isBold()
+End Property
+
+Public Property Let FontBold(val As Boolean)
+   Parent.setFont(New Font(FontName, IIF(val, BOLD, 0) OR IIF(FontItalic, ITALIC, 0), VBFontSizeToJFontSize(FontSize)))
+End Property
+
+Public Property Get FontItalic() As Boolean
+   FontItalic = Parent.getFont.isItalic()
+End Property
+
+Public Property Let FontItalic(val As Boolean)
+   Parent.setFont(New Font(FontName, IIF(FontBold, BOLD, 0) OR IIF(val, ITALIC, 0), VBFontSizeToJFontSize(FontSize)))
+End Property
+
+Public Property Get FontSize() As Integer 
+   FontSize = (JFontSizeToVBFontSize(Font.getSize()))
+End Property
+
+Public Property Let FontSize(val As Integer)
+   Parent.setFont(New Font(FontName, IIF(FontBold, BOLD, 0) Or IIF(FontItalic, ITALIC, 0), VBFontSizeToJFontSize(val)))
+End Property
+
+Public Property Get Font() As Font
+   Font = Parent.getFont()
+End Property
+
+Public Property Get BackColor() As Long
+   BackColor = ColortoRGB(Parent.getBackground())
+End Property
+
+Public Property Let BackColor(v As Long)
+   Parent.setBackground(RGBtoColor(v))
+   Base.setBackground(Parent.getBackground())
+End Property
+
+Public Property Get ForeColor() As Long
+   ForeColor = ColortoRGB(Parent.getForeground())
+End Property
+
+Public Property Let ForeColor(v As Long)
+    Parent.setForeground(RGBtoColor(v))
+    Base.setForeground(Parent.getForeground())
+End Property
+
+Public Property Get Width() As Single
+    Width = Me.getSize.Width
+End Property
+
+Public Property Let Width(v As Single)
+    Me.setSize(v, Me.getSize.Height)
+    Call Refresh()
+End Property
+
+Public Property Get Height() As Single
+    Height = Me.getSize.Height
+End Property
+
+Public Property Let Height(v As Single)
+    Me.setSize(Me.getSize.Width, v)
+    Call Refresh()
+End Property
+
+Public Property Get Left() As Single
+    Left = Me.getLocation.x
+End Property
+
+Public Property Let Left(v As Single)
+    Me.setLocation(v, Me.getLocation.y)
+End Property
+
+Public Property Get Top() As Single
+    Top = Me.getLocation.y
+End Property
+
+Public Property Let Top(v As Single)
+    Me.setLocation(Me.getLocation.x, v)
+End Property
+
+Public Property Get ToolTip() As String 
+    ToolTip = Parent.getToolTipText()
+End Property
+
+Public Property Let ToolTip(v As String)
+	If Len(v) = 0 Then 
+	    Parent.setToolTipText(Null)
+    Else
+	    Parent.setToolTipText(v)
+    End If
+End Property
+
+Public Property Get Enabled() As Boolean 
+   Enabled = Base.isEnabled()
+End Property
+
+Public Property Let Enabled(v As Boolean)
+   Call Base.setEnabled(v)
+End Property
+
+Public Property Get Visible() As Boolean 
+    Visible = Base.isVisible()
+End Property
+
+Public Property Let Visible(v As Boolean)
+    Base.setVisible v
+End Property
+
+Public Property Get Tag() As String 
+   Tag = myTag
+End Property
+
+Public Property Let Tag(v As String)
+   myTag = v
+End Property
+
+Public Property Get MousePointer() As MousePointerConstants
+   MousePointer = JCursorToVBMousePointer(Parent.getCursor())
+End Property
+
+Public Property Let MousePointer(v As MousePointerConstants)
+   Call Parent.setCursor(VBMousePointerToJCursor(v))
+End Property
+
+Public Property Get MouseIcon() As #IResource
+   MouseIcon = myMouseIcon
+End Property
+
+Public Property Let MouseIcon(v As #IResource)
+   myMouseIcon = v
+   Call Parent.setCursor(VBMouseIconToJCursor(v, Me))
+End Property
+
+Public Property Get CanGetFocus() As Boolean
+   CanGetFocus = Parent.isFocusable
+End Property
+
+Public Property Let CanGetFocus(v As Boolean)
+   Parent.setFocusable v
+End Property
+
+Public Sub SetFocus()
+   Parent.requestFocus 
+End Sub
+
+Public Sub Refresh()
+   Call Parent.invalidate()
+   Call Parent.repaint(0, 0, 0, Me.Width, Me.Height)
+   Call Parent.setSize(Me.getSize())
+End Sub
+
+Public Sub myText_Modified(action As MODTYPE, e As DocumentEvent)
+   Raiseevent Modified(action, e)
+End Sub
+
+]]></Source><Param Name="(Name)" Value="RichTextBox"/><Param Name="(SuperClass)" Value="javax/swing/JScrollPane"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VB"/></SourceFile>

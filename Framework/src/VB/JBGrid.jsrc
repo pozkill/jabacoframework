@@ -1,0 +1,715 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+
+Implements IJabacoControl
+Implements MouseListener 
+Implements MouseMotionListener
+Implements KeyListener
+Implements FocusListener
+
+Public Enum jbAutoResize
+   jbAutoResizeOff
+   jbAutoResizeNextColumn
+   jbAutoResizeSubSequentColumn
+   jbAutoResizeLastColumn
+   jbAutoResizeAllColumns
+End Enum 
+
+Public Enum JBEditable
+   jbNotEditable
+   jbEditOnClick
+   jbEditOnDblClick
+End Enum
+
+Event Click()
+Event DblClick()
+Event GotFocus()
+Event KeyDown(KeyCode As Integer, Shift As Integer)
+Event KeyPress(KeyAscii As Integer)
+Event KeyUp(KeyCode As Integer, Shift As Integer)
+Event LostFocus()
+Event MouseEntered()
+Event MouseExited() 
+Event MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Event MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Event MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Event Paint(g As Graphics)
+Event RowColChange()
+Event BeforeCellEdit(row As Integer, col As Integer)
+Event AfterCellEdit(row As Integer, col As Integer)
+Event CellButtonClick()
+
+Dim myModel As JBGridModel 
+Dim myTable As #JTable 
+Dim myRenderer As JBCellRenderer
+Dim myEditor As JBCellEditor 
+Dim myHeaderRenderer As JBHeaderRenderer
+Dim myFlatHeader As Boolean 
+
+Dim myBorderStyle As fmBorderStyle
+Dim mySpecialEffect As fmSpecialEffect
+
+Dim myHeaderHeight As Integer
+Dim myBorderColorSel As Long
+Dim myBorderColor As Long
+Dim myBackColorCells As Long
+Dim myTag As String
+Dim myComboList As String
+Dim myEditable As JBEditable 
+Dim myHeaderBorder As Border
+' ******************************** INIT THIS CONTROL ********************************
+
+Public Property Get Parent() As javax#swing#JTable 
+   Parent = myTable
+End Property
+
+Public Sub Class_Initialize()
+
+   myModel = New JBGridModel(Me)
+   myTable = New #JTable(myModel)   
+   
+   myHeaderRenderer = New JBHeaderRenderer(Me)
+   myRenderer = New JBCellRenderer(Me)
+   myEditor = New JBCellEditor(Me)
+      
+   Call Parent.addFocusListener(Me)
+   Call Base.setViewportView(myTable)
+   Call Parent.addMouseListener(Me)
+   Call Parent.addMouseMotionListener(Me)
+   Call Parent.addKeyListener(Me)
+
+   Dim tmpObject As New java#lang#Object()
+   
+   Call Parent.getTableHeader.setDefaultRenderer(myHeaderRenderer)
+   Call Parent.setDefaultRenderer(tmpObject.getClass(), myRenderer)
+   Call Parent.setDefaultEditor(tmpObject.getClass(), myEditor)
+   Call Parent.getTableHeader().setReorderingAllowed(False)
+   Call Parent.setDoubleBuffered(True)
+   Call Base.setDoubleBuffered(True)
+   Call Base.setIgnoreRepaint(False)
+
+   
+   
+
+End Sub
+
+' ******************************** DEFAULT FOCUS - EVENTS ********************************
+
+Public Sub focusGained(arg2 As FocusEvent)
+   Raiseevent GotFocus()
+End Sub
+
+Public Sub focusLost(arg2 As FocusEvent)
+   Raiseevent LostFocus()
+End Sub
+
+' ******************************** DEFAULT MOUSE - EVENTS ********************************
+
+Public Sub mouseMoved(e As MouseEvent) 
+    RaiseEvent MouseMove(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
+End Sub
+
+Public Sub mouseDragged(e As MouseEvent) 
+    RaiseEvent MouseMove(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
+End Sub
+
+Public Sub mousePressed(e As MouseEvent) 
+    RaiseEvent MouseDown(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
+End Sub
+
+Public Sub mouseReleased(e As MouseEvent) 
+   RaiseEvent MouseUp(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
+   If (e.getX > 0 And e.getY > 0 And e.getX < Me.getWidth And e.getY < Me.getHeight) Then
+      If e.getClickCount() Mod 2 = 0 Then
+         RaiseEvent DblClick()
+      Else
+         RaiseEvent Click()
+      End If
+   End If
+End Sub
+
+Public Sub mouseClicked(e As MouseEvent) 
+    'done by actionlistener
+End Sub
+
+Public Sub mouseEntered(e As MouseEvent) 
+    RaiseEvent MouseEntered()
+End Sub 
+
+Public Sub mouseExited(e As MouseEvent) 
+    RaiseEvent MouseExited()
+End Sub
+
+' ******************************** DEFAULT KEY - EVENTS ********************************
+
+Public Sub keyReleased(e As KeyEvent) 
+   RaiseEvent KeyUp(e.getKeyCode, KeyEventToShiftConstant(e))
+End Sub
+
+Public Sub keyTyped(e As KeyEvent)
+   RaiseEvent KeyPress(e.getKeyChar)
+End Sub
+
+Public Sub keyPressed(e As KeyEvent)
+    RaiseEvent KeyDown(e.getKeyCode, KeyEventToShiftConstant(e))
+End Sub 
+
+
+' ******************************** SPECIAL FUNCTIONS ********************************
+
+Public Sub StartEdit(row As Integer, col As Integer)
+   Call Parent.editCellAt(row, col)
+End Sub
+
+Public Sub StopEdit()
+   If myModel.registerStopEditEvent = False Then
+      Call myEditor.stopCellEditing()   
+   End If
+End Sub#
+
+Public Function isCellSelected(row As Integer, col As Integer)
+   isCellSelected = Parent.isCellSelected(row, col)   
+End Function
+
+'Public Property Get Sortable() As Boolean ' DON'T USE THAT !
+'   Sortable = Parent
+'End Property
+'
+'Public Property Let Sortable(v As Boolean)
+'   Call Parent.setAutoCreateRowSorter(v)
+'End Property
+Public Property Get BorderColorSel() As Long
+   BorderColorSel = myBorderColorSel
+End Property
+
+Public Property Let BorderColorSel(v As Long)
+   myBorderColorSel = v
+End Property
+
+Public Property Get GridColor() As Long
+   GridColor = ColortoRGB(Parent.getGridColor())
+End Property
+
+Public Property Let GridColor(v As Long)
+   Parent.setGridColor RGBtoColor(v)
+End Property
+
+Public Property Get BackColorSel() As Long
+   BackColorSel = ColorToRGB(Parent.getSelectionBackground())
+End Property
+
+Public Property Let BackColorSel(v As Long)
+   Parent.setSelectionBackground(RGBtoColor(v))
+End Property
+
+Public Property Get ForeColorSel() As Long
+   ForeColorSel = ColorToRGB(Parent.getSelectionForeground())
+End Property
+
+Public Property Let ForeColorSel(v As Long)
+   Parent.setSelectionForeground(RGBtoColor(v))
+End Property
+
+Public Property Get SelectionMode() As SelectionModeSettings
+   Select Case Parent.getSelectionModel.getSelectionMode
+      Case #ListSelectionModel.SINGLE_SELECTION:            SelectionMode = flexSelectionFree
+      Case #ListSelectionModel.SINGLE_INTERVAL_SELECTION:   SelectionMode = flexSelectionByRow
+      Case #ListSelectionModel.MULTIPLE_INTERVAL_SELECTION: SelectionMode = flexSelectionByColumn
+   End Select
+End Property
+
+Public Property Let SelectionMode(v As SelectionModeSettings)
+   Select Case v
+      Case flexSelectionFree: 
+         Parent.setSelectionMode #ListSelectionModel.SINGLE_SELECTION
+      Case flexSelectionByRow
+         Parent.setSelectionMode #ListSelectionModel.SINGLE_INTERVAL_SELECTION
+      Case flexSelectionByColumn
+         Parent.setSelectionMode #ListSelectionModel.MULTIPLE_INTERVAL_SELECTION
+   End Select
+End Property
+
+Public Property Get AutoResize() As jbAutoResize
+   Select Case Parent.getAutoResizeMode 
+      Case AUTO_RESIZE_OFF:               : AutoResize = jbAutoResizeOff
+      Case AUTO_RESIZE_NEXT_COLUMN        : AutoResize = jbAutoResizeNextColumn
+      Case AUTO_RESIZE_SUBSEQUENT_COLUMNS : AutoResize = jbAutoResizeSubSequentColumn
+      Case AUTO_RESIZE_LAST_COLUMN        : AutoResize = jbAutoResizeLastColumn
+      Case AUTO_RESIZE_ALL_COLUMNS        : AutoResize = jbAutoResizeAllColumns
+   End Select
+End Property
+
+Public Property Let AutoResize(v As jbAutoResize)
+   Select Case v
+      Case jbAutoResizeOff:               Call Parent.setAutoResizeMode(JTable.AUTO_RESIZE_OFF)
+      Case jbAutoResizeNextColumn:        Call Parent.setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN)
+      Case jbAutoResizeSubSequentColumn:  Call Parent.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS)
+      Case jbAutoResizeLastColumn:        Call Parent.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN)
+      Case jbAutoResizeAllColumns:        Call Parent.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS)
+   End Select
+End Property
+
+
+Public Property Get BackColorHeader() As Long
+   BackColorHeader = ColorToRGB(Parent.getTableHeader.getBackground())
+End Property
+
+Public Property Let BackColorHeader(v As Long)
+   Call Parent.getTableHeader.setBackground(RGBToColor(v))
+End Property
+
+Public Property Get ForeColorHeader() As Long
+   ForeColorHeader = ColorToRGB(Parent.getTableHeader.getForeground())
+End Property
+
+Public Property Let ForeColorHeader(v As Long)
+   Call Parent.getTableHeader.setForeground(RGBToColor(v))
+End Property
+
+Public Property Get BackColorCells() As Long
+   BackColorCells = myBackColorCells
+End Property
+
+Public Property Let BackColorCells(v As Long)
+   myBackColorCells = v
+End Property
+
+'Public Property Get FirstVisibleRow() As Long
+'   FirstRow = Parent.getrowat
+'End Property
+'
+'Public Property Let FirstVisibleRow(v As Long)
+'   FirstVisibleRow = Base.getrow
+'End Property
+Public Property Get FlatHeader() As Boolean
+   FlatHeader = myFlatHeader
+End Property
+
+Public Property Let FlatHeader(v As Boolean)
+   myFlatHeader = v
+End Property
+
+Public Property Get BorderColor() As Long
+   BorderColor = myBorderColor
+End Property
+
+Public Property Let BorderColor(v As Long)
+   myBorderColor = v
+End Property
+
+Public Property Get BorderStyle() As fmBorderStyle
+   BorderStyle = myBorderStyle
+End Property
+
+Public Property Let BorderStyle(v As fmBorderStyle)
+   myBorderStyle = v
+   Call SetMyBorder()
+End Property
+
+Public Property Get SpecialEffect() As fmSpecialEffect
+   SpecialEffect = mySpecialEffect
+End Property
+
+Public Property Let SpecialEffect(v As fmSpecialEffect)
+   mySpecialEffect = v
+   Call SetMyBorder()
+End Property
+
+Private Sub SetMyBorder()
+   Dim myBorder As Border
+   myBorder = GetVBBorder(BorderStyle, SpecialEffect, BorderColor)
+   Call Base.setBorder(myBorder)   
+End Sub
+
+Public Property Get Editable() As JBEditable 
+   Editable = myEditable
+End Property
+
+Public Property Let Editable(v As JBEditable)
+   myEditable = v
+End Property
+
+Public Property Get Redraw() As Boolean 
+   Redraw = (Parent.getIgnoreRepaint = False)
+End Property
+
+Public Property Let Redraw(v As Boolean)
+   Call Parent.setIgnoreRepaint(v = False)
+End Property
+
+Public Property Get Header(Index As Integer) As String
+   Header = myModel.getColumnName(Index)
+End Property
+
+Public Property Let Header(Index As Integer, value As String)
+   Dim tmpHeaderItem As New JBCellData(value)
+   Call myModel.setColumnName(Index, tmpHeaderItem)
+   Call Me.Refresh()
+End Property
+
+Public Function isEditing() As Boolean
+   isEditing = Parent.isEditing()
+End Function
+
+Public Function isEditing(row As Integer, col As Integer) As Boolean
+   If Me.isEditing Then
+      If Me.Col = col And Me.Row = row Then
+         isEditing = True
+      End If
+   End If
+End Function
+
+Public Property Let Cols(v As Integer)
+   Call myModel.setColumnCount(v)
+End Property
+
+Public Property Get Cols() As Integer 
+   Cols = myModel.getColumnCount()
+End Property
+
+Public Property Let Rows(v As Integer)
+   Call myModel.setRowCount(v)
+End Property
+
+Public Property Get Rows() As Integer 
+   Rows = myModel.getRowCount()
+End Property
+
+Public Property Let HeaderHeight(v As Integer)
+   myHeaderHeight = v
+   'Call Parent.getTableHeader.setPreferredSize(New Dimension(Parent.getTableHeader.getPreferredSize().getWidth(), v))
+End Property
+
+Public Property Get HeaderHeight() As Integer
+   HeaderHeight = myHeaderHeight
+   'HeaderHeight = Parent.getTableHeader.getPreferredSize().getHeight()
+End Property
+
+Public Property Let TextMatrix(row As Long, col As Long, text As String)
+   On Error Resume Next
+   Dim tmpCellItem As JBCellData 
+   tmpCellItem = Cast(myModel.getValueAt(row, col), JBCellData)
+   If tmpCellItem = Nothing Then 
+      tmpCellItem = New JBCellData
+   End If
+   tmpCellItem.Text = text
+   Call myModel.setValueAt(tmpCellItem, row, col)
+   Call Me.Refresh()
+End Property
+
+Public Property Get TextMatrix(row As Long, col As Long) As String 
+   Dim tmpCellItem As JBCellData, tmpData As Object
+   tmpData = myModel.getValueAt(row, col)
+   tmpCellItem = Cast(tmpData, JBCellData)
+   If tmpCellItem <> Nothing Then 
+      TextMatrix = tmpCellItem.Text
+   Else
+      TextMatrix = tmpData.toString()
+   End If  
+End Property
+
+Public Property Let CellBackColor(row As Long, col As Long, backcolor As Long)
+   On Error Resume Next
+   Dim tmpCellItem As JBCellData 
+   tmpCellItem = Cast(myModel.getValueAt(row, col), JBCellData)
+   If tmpCellItem = Nothing Then 
+      tmpCellItem = New JBCellData
+   End If
+   tmpCellItem.CellBackColor = backcolor
+   Call myModel.setValueAt(tmpCellItem, row, col)
+   Call Me.Refresh()
+End Property
+
+Public Property Get CellBackColor(row As Long, col As Long) As Long 
+   Dim tmpCellItem As JBCellData, tmpData As Object
+   tmpData = myModel.getValueAt(row, col)
+   tmpCellItem = Cast(tmpData, JBCellData)
+   If tmpCellItem <> Nothing Then 
+      CellBackColor = tmpCellItem.CellBackColor
+   Else
+      CellBackColor = -1
+   End If  
+End Property
+
+Public Property Let CellForeColor(row As Long, col As Long, forecolor As Long)
+   On Error Resume Next
+   Dim tmpCellItem As JBCellData 
+   tmpCellItem = Cast(myModel.getValueAt(row, col), JBCellData)
+   If tmpCellItem = Nothing Then 
+      tmpCellItem = New JBCellData
+   End If
+   tmpCellItem.CellForeColor = forecolor
+   Call myModel.setValueAt(tmpCellItem, row, col)
+   Call Me.Refresh()
+End Property
+
+Public Property Get CellForeColor(row As Long, col As Long) As Long 
+   Dim tmpCellItem As JBCellData, tmpData As Object
+   tmpData = myModel.getValueAt(row, col)
+   tmpCellItem = Cast(tmpData, JBCellData)
+   If tmpCellItem <> Nothing Then 
+      CellForeColor = tmpCellItem.CellForeColor
+   Else
+      CellForeColor = -1
+   End If  
+End Property
+
+Public Property Let DataMatrix(row As Long, col As Long, data As JBCellData)
+   Call myModel.setValueAt(data, row, col)
+End Property
+
+Public Property Get DataMatrix(row As Long, col As Long) As JBCellData 
+   On Error Resume Next
+   DataMatrix = Cast(myModel.getValueAt(row, col), JBCellData)
+End Property
+
+Public Function getDefaultRenderer(columnClass As Class) As TableCellRenderer
+   getDefaultRenderer = Nothing
+End Function
+
+Public Sub fireBeforeEdit(row As Integer, col As Integer)
+   Raiseevent BeforeCellEdit(row, col)   
+End Sub
+
+Public Sub fireAfterEdit(row As Integer, col As Integer)
+   Raiseevent AfterCellEdit(row, col)   
+End Sub
+
+Public Sub fireCellButtonClick()
+   Raiseevent CellButtonClick()
+End Sub
+
+Public Property Get CellButton() As CommandButton
+   CellButton = myEditor.CellButton 
+End Property
+
+Public Property Get Renderer() As JBCellRenderer
+   Renderer = myRenderer
+End Property
+
+Public Property Get Editor() As JBCellEditor
+   Editor = myEditor
+End Property
+
+Public Property Let ComboList(v As String)
+   myComboList = v
+End Property
+
+Public Property Get ComboList() As String
+   ComboList = myComboList
+End Property
+
+Public Property Let Row(val As Long)
+   Call Parent.setEditingRow(val)
+End Property
+
+Public Property Get Row() As Long
+   Row = Parent.getEditingRow()
+End Property
+
+Public Property Let Col(val As Long)
+   Call Parent.setEditingColumn(val)   
+End Property
+
+Public Property Get Col() As Long
+   Col = Parent.getEditingColumn 
+End Property
+
+Public Property Let ColWidth(col As Long, val As Long)
+   Call Parent.getColumnModel().getColumn(col).setPreferredWidth(val)
+End Property
+
+Public Property Get ColWidth(col As Long) As Long
+   ColWidth = Parent.getColumnModel().getColumn(col).getPreferredWidth()
+End Property
+
+Public Property Let RowHeightGlobal(v As Integer)
+   If v < 1 Then Exit Property
+   Call Parent.setRowHeight(v)
+End Property
+
+Public Property Get RowHeightGlobal() As Integer 
+   RowHeightGlobal = Parent.getRowHeight()
+End Property
+
+Public Property Let RowHeight(row As Long, v As Integer)
+   If v < 1 Then Exit Property
+   Call Parent.setRowHeight(row, v)
+End Property
+
+Public Property Get RowHeight(row As Long) As Integer 
+   RowHeight = Parent.getRowHeight(row)
+End Property
+
+Public Property Let ShowHorizontalLines(v As Boolean)
+   Call Parent.setShowHorizontalLines(v)
+End Property
+
+Public Property Get ShowHorizontalLines() As Boolean
+   ShowHorizontalLines = Parent.getShowHorizontalLines()
+End Property
+
+Public Property Let ShowVerticalLines(v As Boolean)
+   Call Parent.setShowVerticalLines(v)
+End Property
+
+Public Property Get ShowVerticalLines() As Boolean
+   ShowVerticalLines = Parent.getShowVerticalLines()
+End Property
+
+Public Property Let HeaderVisible(v As Boolean)
+   Call Parent.getTableHeader.setVisible(v)
+End Property
+
+Public Property Get HeaderVisible() As Boolean
+   HeaderVisible = Parent.getTableHeader.isVisible()  
+End Property
+
+' ******************************** SAME IN ALL JABACO CONTROLS ********************************
+
+Public Property Get FontName() As String 
+   FontName = Parent.getFont.GetFontName()
+End Property
+
+Public Property Let FontName(val As String)
+   Call setFont(New Font(val, IIF(FontBold, BOLD, 0) OR IIF(FontItalic, ITALIC, 0), VBFontSizeToJFontSize(FontSize)))
+End Property
+
+Public Property Get FontBold() As Boolean 
+   FontBold = Parent.getFont.isBold()
+End Property
+
+Public Property Let FontBold(val As Boolean)
+   Call setFont(New Font(FontName, IIF(val, BOLD, 0) OR IIF(FontItalic, ITALIC, 0), VBFontSizeToJFontSize(FontSize)))
+End Property
+
+Public Property Get FontItalic() As Boolean
+   FontItalic = Parent.getFont.isItalic()
+End Property
+
+Public Property Let FontItalic(val As Boolean)
+   Call setFont(New Font(FontName, IIF(FontBold, BOLD, 0) OR IIF(val, ITALIC, 0), VBFontSizeToJFontSize(FontSize)))
+End Property
+
+Public Property Get FontSize() As Integer 
+   FontSize = (JFontSizeToVBFontSize(Font.getSize()))
+End Property
+
+Public Property Let FontSize(val As Integer)
+   Call setFont(New Font(FontName, IIF(FontBold, BOLD, 0) Or IIF(FontItalic, ITALIC, 0), VBFontSizeToJFontSize(val)))
+End Property
+
+Public Sub setFont(refFont As Font)
+   Call Base.setFont(refFont)
+   If Parent <> Nothing Then
+      Call Parent.setFont(refFont)
+      Call Parent.getTableHeader().setFont(refFont)
+   End If
+End Sub
+
+Public Property Get Font() As Font
+   Font = Parent.getFont()
+End Property
+
+Public Property Get BackColor() As Long
+   BackColor = ColortoRGB(Parent.getBackground())
+End Property
+
+Public Property Let BackColor(v As Long)
+   Call Base.setBackground(RGBtoColor(v))
+   Call Base.getViewport.setBackground(rgbtocolor(v))  
+End Property
+
+Public Property Get ForeColor() As Long
+   ForeColor = ColortoRGB(Parent.getForeground())
+End Property
+
+Public Property Let ForeColor(v As Long)
+    Parent.setForeground(RGBtoColor(v))
+End Property
+
+Public Property Get Width() As Single
+    Width = Me.getSize.Width
+End Property
+
+Public Property Let Width(v As Single)
+    Me.setSize(v, Me.getSize.Height)
+    Call Refresh()
+End Property
+
+Public Property Get Height() As Single
+    Height = Me.getSize.Height
+End Property
+
+Public Property Let Height(v As Single)
+    Me.setSize(Me.getSize.Width, v)
+    Call Refresh()
+End Property
+
+Public Property Get Left() As Single
+    Left = Me.getLocation.x
+End Property
+
+Public Property Let Left(v As Single)
+    Me.setLocation(v, Me.getLocation.y)
+End Property
+
+Public Property Get Top() As Single
+    Top = Me.getLocation.y
+End Property
+
+Public Property Let Top(v As Single)
+    Me.setLocation(Me.getLocation.x, v)
+End Property
+
+Public Property Get ToolTip() As String 
+    ToolTip = Parent.getToolTipText()
+End Property
+
+Public Property Let ToolTip(v As String)
+	If Len(v) = 0 Then 
+	    Parent.setToolTipText(Null)
+    Else
+	    Parent.setToolTipText(v)
+    End If
+End Property
+
+Public Property Get Enabled() As Boolean 
+   Enabled = Base.isEnabled()
+End Property
+
+Public Property Let Enabled(v As Boolean)
+   Call Base.setEnabled(v)
+End Property
+
+Public Property Get Visible() As Boolean 
+    Visible = Base.isVisible()
+End Property
+
+Public Property Let Visible(v As Boolean)
+    Base.setVisible v
+End Property
+
+Public Property Get Tag() As String 
+   Tag = myTag
+End Property
+
+Public Property Let Tag(v As String)
+   myTag = v
+End Property
+
+Public Sub Refresh()
+   Call Parent.invalidate()
+   Call Parent.repaint(0, 0, 0, Me.Width, Me.Height)
+   Call Parent.setSize(Me.getSize())
+   Call Parent.revalidate()   
+End Sub
+
+
+
+
+
+
+
+
+]]></Source><Param Name="(Name)" Value="JBGrid"/><Param Name="(SuperClass)" Value="javax/swing/JScrollPane"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VB"/></SourceFile>

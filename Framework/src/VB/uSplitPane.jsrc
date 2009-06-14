@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[
+
+Public Sub Usercontrol_Initialize()
+   SplitPane1.setFrame New uControlTest, fmComponentLeft
+   SplitPane1.setFrame New uControlTest, fmComponentRight
+   
+   
+End Sub
+
+Public Sub Usercontrol_Resize()
+   SplitPane1.DividerLocation = SplitPane1.Width / 2
+   SplitPane1.Width = ScaleWidth
+   SplitPane1.Height = ScaleHeight
+End Sub
+]]></Source><Param Name="(Name)" Value="uSplitPane"/><Param Name="(SuperClass)" Value="VB/Usercontrol"/><Param Name="(NameSpace)" Value=""/><Param Name="(Type)" Value="Usercontrol"/><Param Name="(Access)" Value="Public"/><Param Name="Opaque" Value="True"/><Param Name="AutoRedraw" Value="False"/><Param Name="AntiAliasing" Value="False"/><Param Name="Transparency" Value=""/><Param Name="DrawWidth" Value="1"/><Param Name="BorderColor" Value=""/><Param Name="Picture" Value="Nothing"/><Param Name="BorderStyle" Value="fmBorderStyleNone"/><Param Name="SpecialEffect" Value="fmSpecialEffectFlat"/><Param Name="FontName" Value="Arial"/><Param Name="FontBold" Value="False"/><Param Name="FontItalic" Value="False"/><Param Name="FontSize" Value="9"/><Param Name="BackColor" Value="-2147483633"/><Param Name="ForeColor" Value=""/><Param Name="Width" Value="881"/><Param Name="Height" Value="569"/><Param Name="Left" Value="0"/><Param Name="Top" Value="0"/><Param Name="ToolTip" Value=""/><Param Name="Enabled" Value="True"/><Param Name="Visible" Value="True"/><Param Name="Tag" Value=""/><Param Name="MousePointer" Value="vbDefault"/><Param Name="MouseIcon" Value="Nothing"/><Param Name="CanGetFocus" Value="True"/><Object Type="VB/SplitPane"><Param Name="Orientation" Value="fmOrientationVertical"/><Param Name="BorderStyle" Value="fmBorderStyleNone"/><Param Name="SpecialEffect" Value="fmSpecialEffectFlat"/><Param Name="DividerLocation" Value="200"/><Param Name="BackColor" Value="-2147483633"/><Param Name="ForeColor" Value="-2147483630"/><Param Name="Width" Value="721"/><Param Name="Height" Value="457"/><Param Name="Left" Value="0"/><Param Name="Top" Value="0"/><Param Name="ToolTip" Value=""/><Param Name="Enabled" Value="True"/><Param Name="Visible" Value="True"/><Param Name="Tag" Value=""/><Param Name="MousePointer" Value="vbDefault"/><Param Name="MouseIcon" Value="Nothing"/><Param Name="CanGetFocus" Value="True"/><Param Name="(Name)" Value="SplitPane1"/><Param Name="Index" Value=""/></Object></SourceFile>

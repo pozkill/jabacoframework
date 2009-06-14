@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+Implements CellEditorListener 
+
+Dim myOwner As TreeView 
+Dim myRenderer As javax#swing#tree#DefaultTreeCellRenderer 
+Dim myRegisterStartEdit As Boolean 
+Dim myRegisterStopEdit As Boolean 
+
+Public Property Get Parent() As #DefaultTreeCellEditor
+   Parent = Base
+End Property
+
+Public Property Get Owner() As TreeView
+   Owner = myOwner
+End Property
+
+Public Property Let Owner(tree As TreeView)
+   myOwner = tree
+End Property
+
+Public Sub TreeViewEditor(tree As JTree, renderer As javax#swing#tree#DefaultTreeCellRenderer) 
+   myRenderer = renderer
+   Call Parent.addCellEditorListener(Me)
+
+End Sub
+
+Public Sub registerStartEdit()
+   myRegisterStartEdit = True
+End Sub
+
+Public Sub registerStopEdit()
+   myRegisterStopEdit = True
+End Sub
+
+Public Function isCellEditable(anEvent As EventObject) As Boolean 
+   Dim MemRegisterStartEdit As Boolean
+   MemRegisterStartEdit = myRegisterStartEdit 
+   myRegisterStartEdit = False
+   If myOwner = Nothing Then 
+      isCellEditable = Base.isCellEditable(anEvent)
+      Exit Function
+   Else
+      If myOwner.LabelEdit = lvwAutomatic Or MemRegisterStartEdit Then
+         myRegisterStopEdit = False
+         Call Owner.fireBeforeLabelEdit()
+         If myRegisterStopEdit Then
+            isCellEditable = False
+         Else
+            isCellEditable = Base.isCellEditable(anEvent)
+         End If      
+      Else
+         isCellEditable = False
+      End If
+   End If
+End Function
+
+Public Function getTreeCellEditorComponent(pTree As JTree, pValue As Object, pIsSelected As Boolean, pIsExpanded As Boolean, pIsLeaf As Boolean, pRow As Integer) As Component
+   getTreeCellEditorComponent = Base.getTreeCellEditorComponent(pTree, pValue, pIsSelected, pIsExpanded, pIsLeaf, pRow)   
+End Function
+
+Public Sub editingStopped(arg2 As ChangeEvent)
+   Call Owner.fireAfterLabelEdit(False)
+End Sub
+
+Public Sub editingCanceled(arg2 As ChangeEvent)
+   Call Owner.fireAfterLabelEdit(True)
+End Sub
+]]></Source><Param Name="(Name)" Value="TreeViewEditor"/><Param Name="(SuperClass)" Value="javax/swing/tree/DefaultTreeCellEditor"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>

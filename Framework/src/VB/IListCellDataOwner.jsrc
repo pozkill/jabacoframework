@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SourceFile><Source><![CDATA[Public Property Let BackColorSel(color As Long)
+End Property
+
+Public Property Get BackColorSel() As Long
+End Property
+
+Public Property Let MarginItem(margin As Long)
+End Property
+
+Public Property Get MarginItem() As Long
+End Property
+
+Public Property Let BorderColorSel(color As Long)
+End Property
+
+Public Property Get BorderColorSel() As Long
+End Property
+
+Public Property Get ForeColorSel() As Long
+End Property
+
+Public Property Let ForeColorSel(color As Long)
+End Property
+
+Public Function getFont() As Font
+End Function
+
+Public Function getSelectionBackground() As Color
+End Function
+
+Public Function getSelectionForeground() As Color
+End Function
+
+Public Function getBackground() As Color
+End Function
+
+Public Function getForeground() As Color
+End Function
+
+Public Sub Refresh()
+End Sub
+]]></Source><Param Name="(Name)" Value="IListCellDataOwner"/><Param Name="(SuperClass)" Value="java/lang/Object"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Interface"/><Param Name="(Access)" Value="Public"/></SourceFile>
