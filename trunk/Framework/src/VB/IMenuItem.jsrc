@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Implements IJabacoClass 
+
+Public Property Get ControlID() As String
+End Property
+
+Public Property Let ControlID(s As String)
+End Property
+
+Public Property Get Caption() As String
+End Property
+
+Public Property Let Caption(s As String)
+End Property
+
+Public Property Get Icon() As #IResource
+End Property
+
+Public Property Let Icon(Path As #IResource)
+End Property
+
+Public Property Get Visible() As Boolean 
+End Property
+
+Public Property Let Visible(v As Boolean)
+End Property
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+]]></Source><Param Name="(Name)" Value="IMenuItem"/><Param Name="(SuperClass)" Value="java/lang/Object"/><Param Name="(Type)" Value="Interface"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VB"/></SourceFile>

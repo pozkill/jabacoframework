@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+Implements ILoadAdapter
+Implements IJabacoContainer
+Implements ComponentListener 
+Dim bLoaded As Boolean
+
+Public Sub Usercontrol()
+   Call Parent.addComponentListener(Me)
+End Sub
+
+Public Sub componentHidden(e As ComponentEvent)
+End Sub
+
+Public Sub componentMoved(e As ComponentEvent)
+End Sub
+
+Public Sub componentResized(e As ComponentEvent)
+   On Error Resume Next
+   If bLoaded Then 
+      Me.Usercontrol_Resize()
+   End If
+End Sub
+
+Public Sub componentShown(e As ComponentEvent)
+End Sub
+
+Public Property Get ScaleWidth() As Single
+   ScaleWidth = Width
+End Property
+
+Public Property Get ScaleHeight() As Single
+   ScaleHeight = Height
+End Property
+
+Public Sub fireLoaded()
+   Dim tmpFireAdapter As New LoadAdapter(Me, Me)
+   tmpFireAdapter.fireLoaded()
+End Sub
+
+Public Sub fireLoaded(sender As Object)
+   Me.Usercontrol_Initialize()
+   bLoaded = True
+   Call Me.Usercontrol_Resize()
+End Sub
+
+Public Property Get Font() As Font
+   Font = Parent.getFont()
+End Property
+
+Public Sub Usercontrol_Initialize()
+End Sub
+Public Sub Usercontrol_Click()
+End Sub
+Public Sub Usercontrol_DblClick()
+End Sub
+Public Sub Usercontrol_GotFocus()
+End Sub
+Public Sub Usercontrol_KeyDown(KeyCode As Integer, Shift As Integer)
+End Sub
+Public Sub Usercontrol_KeyPress(KeyAscii As Integer)
+End Sub
+Public Sub Usercontrol_KeyUp(KeyCode As Integer, Shift As Integer)
+End Sub
+Public Sub Usercontrol_LostFocus()
+End Sub
+Public Sub Usercontrol_MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
+End Sub
+Public Sub Usercontrol_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+End Sub
+Public Sub Usercontrol_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+End Sub
+Public Sub Usercontrol_MouseEntered()
+End Sub
+Public Sub Usercontrol_MouseExited()
+End Sub
+Public Sub Usercontrol_Paint(g As java#awt#Graphics)
+End Sub
+Public Sub Usercontrol_Resize()
+End Sub
+Public Sub Usercontrol_MenuClick(MenuItem As IMenuItem)
+End Sub
+Public Sub Usercontrol_ToolBarClick(ToolBarItem As IToolBarItem)
+End Sub
+
+'Public Sub Usercontrol_Terminate()
+'End Sub
+Public Sub Usercontrol_Unload(Cancel As Integer)
+End Sub
+'Public Sub Class_Initialize()
+'   Call Base.Class_Initialize()
+'End Sub
+Public Sub _Click()
+   Me.Usercontrol_Click()
+End Sub
+Public Sub _DblClick()
+   Me.Usercontrol_DblClick()
+End Sub
+Public Sub _GotFocus()
+   Me.Usercontrol_GotFocus()
+End Sub
+Public Sub _KeyDown(KeyCode As Integer, Shift As Integer)
+   Me.Usercontrol_KeyDown(KeyCode, Shift)
+End Sub
+Public Sub _KeyPress(KeyAscii As Integer)
+   Me.Usercontrol_KeyPress(KeyAscii)
+End Sub
+Public Sub _KeyUp(KeyCode As Integer, Shift As Integer)
+   Me.Usercontrol_KeyUp(KeyCode, Shift)
+End Sub
+Public Sub _LostFocus()
+   Me.Usercontrol_LostFocus()
+End Sub
+Public Sub _MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
+   Me.Usercontrol_MouseDown(Button, Shift, X, Y)
+End Sub
+Public Sub _MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+   Me.Usercontrol_MouseMove(Button, Shift, X, Y)
+End Sub
+Public Sub _MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+   Me.Usercontrol_MouseUp(Button, Shift, X, Y)
+End Sub
+Public Sub _MouseEntered()
+   Me.Usercontrol_MouseEntered()
+End Sub
+Public Sub _MouseExited()
+   Me.Usercontrol_MouseExited()
+End Sub
+Public Sub _Paint(g As java#awt#Graphics)
+   Me.Usercontrol_Paint(g)
+End Sub
+
+'Public Sub _Terminate()
+'End Sub
+
+Public Sub _Unload(Cancel As Integer)
+   Me.Usercontrol_Unload(Cancel)
+End Sub
+
+Public Property Get ContentFrame() As PictureBox 
+   ContentFrame = Base
+End Property
+]]></Source><Param Name="(Name)" Value="Usercontrol"/><Param Name="(SuperClass)" Value="VB/PictureBox"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VB"/></SourceFile>

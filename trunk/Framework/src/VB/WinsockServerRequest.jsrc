@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+Implements Runnable 
+Dim mySocket As java#net#Socket
+Dim myOwner As Winsock
+
+Public Sub WinsockServerRequest(RefOwner As Winsock, RefSocket As java#net#Socket)
+   myOwner = RefOwner
+   mySocket = RefSocket
+   If SwingUtilities.isEventDispatchThread Then
+      Call run()
+   Else
+      SwingUtilities.invokeAndWait(Me)
+   End If
+End Sub
+
+Public Sub run()
+   Call myOwner.OnConnectionRequest(mySocket)
+End Sub]]></Source><Param Name="(Name)" Value="WinsockServerRequest"/><Param Name="(SuperClass)" Value="java/lang/Object"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>

@@ -1,0 +1,615 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+Implements IJabacoControl
+Implements IJabacoClass
+Implements IListCellDataOwner
+
+Implements MouseListener 
+Implements MouseMotionListener
+Implements KeyListener
+Implements FocusListener 
+Implements ListSelectionListener
+
+Public Enum lstOrientation
+   lstOrientationVertical
+   lstOrientationHorizontal
+End Enum
+
+Event Click()
+Event DblClick()
+Event GotFocus()
+Event KeyDown(KeyCode As Integer, Shift As Integer)
+Event KeyPress(KeyAscii As Integer)
+Event KeyUp(KeyCode As Integer, Shift As Integer)
+Event LostFocus()
+Event MouseEntered()
+Event MouseExited() 
+Event MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Event MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Event MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Event ItemCheck(Item As Integer)
+
+Dim myModel As New ListBoxModel 
+Dim myList As New JList(myModel)
+
+Dim myTag As String
+Dim myMargin As Long
+Dim myMarginItem As Long
+Dim myBorderStyle As fmBorderStyle
+Dim myDefaultBorder As Border
+
+Dim myRenderer As New ListCellDataRenderer(Me)
+Dim myStyle As ListBoxConstants
+Dim myMemListIndex As Integer = -1
+Dim myBorderColorSel As Long = -2147483638
+Dim myMouseIcon As IResource 
+
+' ******************************** INIT THIS CONTROL ********************************
+
+Public Property Get Parent() As JList
+   Parent = myList
+End Property
+
+Public Sub Class_Initialize()
+   On Error Resume Next
+   Call Parent.addFocusListener(Me)
+   Call Parent.addMouseListener(Me)
+   Call Parent.addMouseMotionListener(Me)
+   Call Parent.addKeyListener(Me)
+   Call Parent.addListSelectionListener(Me)
+   Call Parent.setCellRenderer(myRenderer)
+   Call Me.setViewportView(myList)
+   
+   myDefaultBorder = Base.getBorder()
+   Call Base.setOpaque(False)
+   
+End Sub
+
+' ******************************** DEFAULT FOCUS - EVENTS ********************************
+
+Public Sub focusGained(arg2 As FocusEvent)
+   Raiseevent GotFocus()
+End Sub
+
+Public Sub focusLost(arg2 As FocusEvent)
+   Raiseevent LostFocus()
+End Sub
+
+' ******************************** DEFAULT MOUSE - EVENTS ********************************
+
+Public Sub mouseMoved(e As MouseEvent) 
+   Call ReDispatch(e)
+   RaiseEvent MouseMove(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
+End Sub
+
+Public Sub mouseDragged(e As MouseEvent) 
+   RaiseEvent MouseMove(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
+End Sub
+
+Public Sub mousePressed(e As MouseEvent) 
+   Call ReDispatch(e)
+   Dim Index As Integer = HitTest(e.getX(), e.getY())
+   If (IsCheckBox(Index)) Then 
+       Selected(Index) = (Selected(Index) = False)
+   End If
+   RaiseEvent MouseDown(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
+End Sub
+
+Public Sub mouseReleased(e As MouseEvent) 
+   Call ReDispatch(e)
+   RaiseEvent MouseUp(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
+   If (e.getX > 0 And e.getY > 0 And e.getX < Me.getWidth And e.getY < Me.getHeight) Then
+      If (e.getClickCount() Mod 2) = 0 Then
+         RaiseEvent DblClick()
+      End If
+   End If
+End Sub
+
+Public Sub mouseClicked(e As MouseEvent) 
+   Call ReDispatch(e)
+    'done by actionlistener
+End Sub
+
+Public Sub mouseEntered(e As MouseEvent) 
+   RaiseEvent MouseEntered()
+End Sub 
+
+Public Sub mouseExited(e As MouseEvent) 
+   RaiseEvent MouseExited()
+End Sub
+
+' ******************************** DEFAULT KEY - EVENTS ********************************
+
+Public Sub keyReleased(e As KeyEvent) 
+   RaiseEvent KeyUp(e.getKeyCode, KeyEventToShiftConstant(e))
+End Sub
+
+Public Sub keyTyped(e As KeyEvent)
+   RaiseEvent KeyPress(e.getKeyChar)
+End Sub
+
+Public Sub keyPressed(e As KeyEvent)
+   RaiseEvent KeyDown(e.getKeyCode, KeyEventToShiftConstant(e))
+End Sub 
+
+Public Sub valueChanged(arg2 As ListSelectionEvent)
+   If myMemListIndex = ListIndex Then Exit Sub
+   myMemListIndex = ListIndex
+   RaiseEvent Click()
+End Sub
+
+
+' ******************************** SPECIAL FUNCTIONS ********************************
+
+Private Sub ReDispatch(e As MouseEvent)
+On Error Goto ERROUT
+
+    Dim vIndex As Integer '= HitTest(e.getX, e.getY)
+    Dim vCData As ListCellData '= GetCellData(vIndex)
+    If vCData = Nothing Then Exit Sub    
+    Dim vCDataComponent As Usercontrol' = vCData.myComponentOwn
+    If vCDataComponent <> Nothing Then
+        Dim tmpTarget As #Component, retTarget As #Component
+        Dim tmpLocation As Point '= myList.indexToLocation(vIndex)
+        Dim tx As Long = tmpLocation.x
+        Dim ty As Long = tmpLocation.y
+        If retTarget = Nothing Then retTarget = vCDataComponent
+        retTarget.setFocusable True
+        
+        Call retTarget.dispatchEvent(New MouseEvent(retTarget, e.getID(), e.getWhen(), e.getModifiers(), e.getX() - tx, e.getY() - ty, e.getClickCount(), e.isPopupTrigger(), e.getButton()))
+        Call Refresh()
+    End If
+    
+ERROUT:
+End Sub
+
+Public Property Get MultiSelect() As fmMultiSelect
+   If myList.getSelectionMode = ListSelectionModel.SINGLE_INTERVAL_SELECTION Then
+      MultiSelect = fmMultiSelectSingle
+   Else
+      MultiSelect = fmMultiSelectSingle
+   End If
+End Property
+
+Public Property Let MultiSelect(v As fmMultiSelect)
+   Select Case v 
+      Case fmMultiSelectExtended: Parent.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION)
+      Case fmMultiSelectMulti: Parent.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION)
+      Case fmMultiSelectSingle: Parent.setSelectionMode(ListSelectionModel.SINGLE_SELECTION)
+   End Select   
+End Property
+
+Public Property Get Margin() As Long
+   Margin = myMargin
+End Property
+
+Public Property Let Margin(v As Long)
+   myMargin = v
+   Call Parent.setBorder(BorderFactory.createEmptyBorder(v, v, v, v))
+End Property
+
+Public Property Let MarginItem(v As Long)
+   myMarginItem = v
+End Property
+
+Public Property Get MarginItem() As Long
+   MarginItem = myMarginItem
+End Property
+
+Public Property Get FixedCellHeight() As Long
+   FixedCellHeight = Parent.getFixedCellHeight
+End Property
+
+Public Property Let FixedCellHeight(v As Long)
+   Call Parent.setFixedCellHeight(v)
+End Property
+
+Public Property Get FixedCellWidth() As Long
+   FixedCellWidth = Parent.getFixedCellWidth
+End Property
+
+Public Property Let FixedCellWidth(v As Long)
+   Call Parent.setFixedCellWidth(v)
+End Property
+
+Public Property Get BorderColorSel() As Long
+   BorderColorSel = myBorderColorSel
+End Property
+
+Public Property Let BorderColorSel(v As Long)
+   myBorderColorSel = v
+End Property
+
+Public Property Get BackColorSel() As Long
+   BackColorSel = ColortoRGB(MyList.getSelectionBackground)
+End Property
+
+Public Property Let BackColorSel(v As Long)
+   myList.setSelectionBackground(RGBtoColor(v))
+End Property
+
+Public Property Get ForeColorSel() As Long
+   ForeColorSel = ColortoRGB(MyList.getSelectionForeground)
+End Property
+
+Public Property Let ForeColorSel(v As Long)
+   myList.setSelectionForeground(RGBtoColor(v))
+End Property
+
+Public Property Get BorderStyle() As fmBorderStyle
+   BorderStyle = myBorderStyle
+End Property
+
+Public Property Let BorderStyle(v As fmBorderStyle)
+   myBorderStyle = v
+   If v  = fmBorderStyleNone Then
+      Me.setBorder Nothing
+   Else
+      Me.setBorder myDefaultBorder
+   End If
+End Property
+
+Public Sub Clear()
+   myModel.clear()
+End Sub
+
+Public Sub ensureIndexIsVisible(Index As Integer)
+   Call Parent.ensureIndexIsVisible(Index)   
+End Sub
+
+Public Function getFirstVisibleIndex() As Integer 
+   getFirstVisibleIndex = Parent.getFirstVisibleIndex()
+End Function
+
+Public Function getVisibleRowCount() As Integer 
+   getVisibleRowCount = Parent.getVisibleRowCount()
+End Function
+
+Public Function HitTest(x As Integer, y As Integer) As Integer
+   HitTest = Parent.locationToIndex(New Point(x, y))   
+End Function
+
+Public Sub AddItem(Item As String)
+   Dim tmpCellData As New ListCellData(Item, Nothing, IIF(Style = vbListBoxCheckbox, True, False)) 
+   tmpCellData.Owner = Me
+   myModel.addElement(tmpCellData)
+   Call fireChange()
+End Sub
+
+Public Sub AddItem(Item As ListCellData)
+   Item.Owner = Me
+   myModel.addElement(Item)
+   Call fireChange()
+End Sub
+
+Public Sub AddItem(v As Usercontrol)
+   Dim tmpCellData As New ListCellData(v) 
+   tmpCellData.Owner = Me
+   myModel.addElement(tmpCellData)
+   Call fireChange()
+End Sub
+
+Public Sub AddItem(v As Usercontrol, Index As Integer)
+   Dim tmpCellData As New ListCellData(v) 
+   tmpCellData.Owner = Me
+   myModel.insertElementAt(tmpCellData, Index)
+   Call fireChange()
+End Sub
+
+Public Sub AddItem(Item As String, Index As Integer)
+   Dim tmpCellData As New ListCellData(Item, Nothing, IIF(Style = vbListBoxCheckbox, True, False)) 
+   tmpCellData.Owner = Me
+   myModel.insertElementAt(tmpCellData, Index)
+   Call fireChange()
+End Sub
+
+Public Sub AddItem(Item As ListCellData, Index As Integer)
+   Item.Owner = Me
+   myModel.insertElementAt(Item, Index)
+   Call fireChange()
+End Sub
+
+Private Sub fireChange()
+   Call myModel.fireChangeEvent(Parent.getFirstVisibleIndex, Parent.getLastVisibleIndex)
+End Sub
+
+Public Property Get ListCount() As Long
+   ListCount = myModel.getSize()
+End Property
+
+Private Function GetCellData(Index As Long) As ListCellData
+   On Error Resume Next
+   GetCellData = Cast(myModel.getElementAt(Index), ListCellData)
+End Function
+
+Private Function GetCellComponent(Index As Long) As Component
+   On Error Resume Next
+   GetCellComponent = Cast(GetCellData(Index).getComponent(Me, Selected(Index), (ListIndex = Index)), Component)
+End Function
+
+Public Property Get List(Index As Long) As String
+   On Error Resume Next
+   List = GetCellData(Index).Text
+End Property
+
+Public Property Let List(Index As Long, v As String)
+   On Error Resume Next
+   GetCellData(Index).Text = v
+End Property
+
+Public Property Get ListData(Index As Long) As String
+   On Error Resume Next
+   ListData = GetCellData(Index).Data 
+End Property
+
+Public Property Let ListData(Index As Long, v As String)
+   On Error Resume Next
+   GetCellData(Index).Data = v
+End Property
+
+Public Property Get ListIcon(Index As Long) As #IResource
+   On Error Resume Next
+   ListIcon = GetCellData(Index).Icon
+End Property
+
+Public Property Let ListIcon(Index As Long, v As #IResource)
+   On Error Resume Next
+   GetCellData(Index).Icon = v
+End Property
+
+Public Function IsCheckBox(Index As Long) As Boolean 
+   On Error Resume Next
+   IsCheckBox = GetCellData(Index).AsCheckBox
+End Function
+
+Public Property Let Selected(Index As Long, v As Boolean)
+   If IsCheckBox(Index) Then
+      GetCellData(Index).Checked = v
+      Raiseevent ItemCheck(Index)
+   Else
+      ListIndex = Index
+   End If
+End Property
+
+Public Property Get Selected(Index As Long) As Boolean
+   If IsCheckBox(Index) Then
+      Selected = GetCellData(Index).Checked
+   Else
+      Selected = (ListIndex = Index)
+   End If
+End Property
+
+Public Property Get ListIndex() As Integer 
+   ListIndex = Parent.getSelectedIndex()
+End Property
+
+Public Property Let ListIndex(val As Integer)
+   Call Parent.setSelectedIndex(val)
+   Call ensureIndexIsVisible(val)   
+End Property
+
+Public Property Get Style() As ListBoxConstants 
+   Style = myStyle
+End Property
+
+Public Property Let Style(val As ListBoxConstants)
+   myStyle = val
+End Property
+
+Public Property Get Orientation() As lstOrientation
+   If Parent.getLayoutOrientation = JList.VERTICAL Then 
+      Orientation = lstOrientationVertical
+   Else
+      Orientation = lstOrientationHorizontal
+   End If
+End Property
+
+Public Property Let Orientation(v As lstOrientation)
+   If v = lstOrientationVertical Then 
+      Parent.setLayoutOrientation(JList.VERTICAL)
+      Call Parent.setVisibleRowCount(8)
+   Else
+      Call Parent.setLayoutOrientation(JList.VERTICAL_WRAP)
+      Call Parent.setVisibleRowCount(-1)
+   End If
+End Property
+
+
+
+' ******************************** SAME IN ALL JABACO CONTROLS ********************************
+
+Public Property Get FontName() As String 
+   FontName = Parent.getFont.GetFontName()
+End Property
+
+Public Property Let FontName(val As String)
+   Parent.setFont(New Font(val, IIF(FontBold, BOLD, 0) OR IIF(FontItalic, ITALIC, 0), VBFontSizeToJFontSize(FontSize)))
+End Property
+
+Public Property Get FontBold() As Boolean 
+   FontBold = Parent.getFont.isBold()
+End Property
+
+Public Property Let FontBold(val As Boolean)
+   Parent.setFont(New Font(FontName, IIF(val, BOLD, 0) OR IIF(FontItalic, ITALIC, 0), VBFontSizeToJFontSize(FontSize)))
+End Property
+
+Public Property Get FontItalic() As Boolean
+   FontItalic = Parent.getFont.isItalic()
+End Property
+
+Public Property Let FontItalic(val As Boolean)
+   Parent.setFont(New Font(FontName, IIF(FontBold, BOLD, 0) OR IIF(val, ITALIC, 0), VBFontSizeToJFontSize(FontSize)))
+End Property
+
+Public Property Get FontSize() As Integer 
+   FontSize = (JFontSizeToVBFontSize(Font.getSize()))
+End Property
+
+Public Property Let FontSize(val As Integer)
+   Parent.setFont(New Font(FontName, IIF(FontBold, BOLD, 0) Or IIF(FontItalic, ITALIC, 0), VBFontSizeToJFontSize(val)))
+End Property
+
+Public Property Get Font() As Font
+   Font = Parent.getFont()
+End Property
+
+Public Property Get BackColor() As Long
+   BackColor = ColortoRGB(Parent.getBackground())
+   Call Base.setBackground(Parent.getBackground())   
+End Property
+
+Public Property Let BackColor(v As Long)
+   Parent.setBackground(RGBtoColor(v))
+End Property
+
+Public Property Get ForeColor() As Long
+   ForeColor = ColortoRGB(Parent.getForeground())
+End Property
+
+Public Property Let ForeColor(v As Long)
+    Parent.setForeground(RGBtoColor(v))
+    Call Base.setForeground(Parent.getForeground())
+End Property
+
+Public Property Get Width() As Single
+    Width = Me.getSize.Width
+End Property
+
+Public Property Let Width(v As Single)
+    Me.setSize(v, Me.getSize.Height)
+    Call Refresh()
+End Property
+
+Public Property Get Height() As Single
+    Height = Me.getSize.Height
+End Property
+
+Public Property Let Height(v As Single)
+    Me.setSize(Me.getSize.Width, v)
+    Call Refresh()
+End Property
+
+Public Property Get Left() As Single
+    Left = Me.getLocation.x
+End Property
+
+Public Property Let Left(v As Single)
+    Me.setLocation(v, Me.getLocation.y)
+End Property
+
+Public Property Get Top() As Single
+    Top = Me.getLocation.y
+End Property
+
+Public Property Let Top(v As Single)
+    Me.setLocation(Me.getLocation.x, v)
+End Property
+
+Public Property Get ToolTip() As String 
+    ToolTip = Parent.getToolTipText()
+End Property
+
+Public Property Let ToolTip(v As String)
+	If Len(v) = 0 Then 
+	    Parent.setToolTipText(Null)
+    Else
+	    Parent.setToolTipText(v)
+    End If
+End Property
+
+Public Property Get Enabled() As Boolean 
+   Enabled = Base.isEnabled()
+End Property
+
+Public Property Let Enabled(v As Boolean)
+   Call Base.setEnabled(v)
+End Property
+
+Public Property Get Visible() As Boolean 
+    Visible = Base.isVisible()
+End Property
+
+Public Property Let Visible(v As Boolean)
+    Base.setVisible v
+    Call Refresh()
+    Call RefreshModel()
+End Property
+
+Public Property Get Tag() As String 
+   Tag = myTag
+End Property
+
+Public Property Let Tag(v As String)
+   myTag = v
+End Property
+
+Public Property Get MousePointer() As MousePointerConstants
+   MousePointer = JCursorToVBMousePointer(Parent.getCursor())
+End Property
+
+Public Property Let MousePointer(v As MousePointerConstants)
+   Call Parent.setCursor(VBMousePointerToJCursor(v))
+End Property
+
+Public Property Get MouseIcon() As #IResource
+   MouseIcon = myMouseIcon
+End Property
+
+Public Property Let MouseIcon(v As #IResource)
+   myMouseIcon = v
+   Call Parent.setCursor(VBMouseIconToJCursor(v, Me))
+End Property
+
+Public Property Get CanGetFocus() As Boolean
+   CanGetFocus = Parent.isFocusable
+End Property
+
+Public Property Let CanGetFocus(v As Boolean)
+   Parent.setFocusable v
+End Property
+
+Public Sub SetFocus()
+   Parent.requestFocus 
+End Sub
+
+Public Sub RefreshModel()
+   On Error Resume Next
+   Call myModel.fireChangeEvent(0, ListCount)
+End Sub
+
+Public Sub Refresh()
+   On Error Resume Next
+   Call Parent.invalidate()
+   Call Parent.repaint(0, 0, 0, Me.Width, Me.Height)
+   Call Parent.setSize(Me.getSize())
+   Call Parent.revalidate()   
+End Sub
+
+Public Function getFont() As Font
+   On Error Resume Next
+   getFont = Parent.getFont()
+End Function
+
+Public Function getSelectionBackground() As Color
+   getSelectionBackground = Parent.getSelectionBackground()
+End Function
+
+Public Function getSelectionForeground() As Color
+   getSelectionForeground = Parent.getSelectionForeground()
+End Function
+
+Public Function getBackground() As Color
+   On Error Resume Next
+   getBackground = Parent.getBackground 
+End Function
+
+Public Function getForeground() As Color
+   On Error Resume Next
+   getForeground = Parent.getForeground 
+End Function
+
+
+
+
+]]></Source><Param Name="(Name)" Value="ListBox"/><Param Name="(SuperClass)" Value="javax/swing/JScrollPane"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VB"/></SourceFile>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+Implements IJabacoClass 
+Implements Runnable 
+
+Dim myOwner As Winsock 
+Dim mySocket As java#net#Socket
+Dim mySendThread As WinsockSendThread
+Dim myBytesReceived As Long
+Dim myBuffer As String
+
+Public Synchronized Property Get BytesReceived() As Long
+   BytesReceived = myBytesReceived + GetInputStream.available
+End Property
+ 
+Public Sub WinsockItem(RefOwner As Winsock)
+   myOwner = RefOwner
+End Sub
+
+Public Property Get Owner() As Winsock
+   Owner = myOwner
+End Property
+
+Public Function Connect() As Boolean
+   On Error Goto ERROUT
+   Dim tmpSocket As java#net#Socket
+   tmpSocket = New java#net#Socket(Owner.RemoteHost, Owner.RemotePort)
+   Connect = Connect(tmpSocket)   
+   Exit Function
+ERROUT:
+   Connect = False 
+End Function
+
+Public Function Connect(refSocket As java#net#Socket) As Boolean
+   mySocket = refSocket
+   Connect = True
+End Function
+
+Public Sub run()
+   On Error Goto ERROUT
+   If mySocket.isConnected() Then
+      Call Owner.OnConnect()
+      Do While mySocket.isConnected()
+         Call Sleep(1)
+         Dim tmpStream As InputStream, tmpRead(0) As Byte
+         tmpStream = mySocket.getInputStream
+         Dim tmpRet As Integer
+         tmpRet = tmpStream.read(tmpRead, 0, 1)
+         If tmpRet = 1 Then
+            myBuffer = myBuffer + tmpRead
+            Call Owner.OnDataArrival(tmpStream.available)    
+         Else
+            Call Owner.OnClose()
+            Exit Sub
+         End If    
+      Loop
+   End If
+   Call Owner.OnClose()
+   Exit Sub
+ERROUT:
+   Call Owner.OnClose()
+End Sub
+
+Public Function GetInputStream() As #InputStream   
+   On Error Resume Next
+   GetInputStream = mySocket.getInputStream()
+End Function
+
+Public Function GetOutputStream() As #OutputStream
+   On Error Resume Next
+   GetOutputStream = mySocket.getOutputStream()
+End Function
+
+Public Synchronized Function GetData() As String 
+   GetData = myBuffer + GetDataFromBuffer
+   myBuffer = vbNullString
+End Function
+
+Private Synchronized Function GetDataFromBuffer() As String 
+   Dim tmpStream As DataInputStream
+   tmpStream = New DataInputStream(GetInputStream())
+   myBytesReceived = myBytesReceived + tmpStream.available
+   GetDataFromBuffer = CStr(tmpStream)
+End Function
+
+'Private Synchronized Function GetDataFromBuffer() As String 
+'   Dim tmpStream As DataInputStream
+'   tmpStream = New DataInputStream(GetInputStream())
+'   Dim ret() As Byte, available As Long 
+'   available = tmpStream.available
+'   Redim ret(available - 1)
+'
+'   Call tmpStream.read(ret)
+'   myBytesReceived = myBytesReceived + available
+'   GetDataFromBuffer = ret
+'End Function
+
+Public Sub SendData(data As String)
+   Call mySendThread.AddData(data)
+End Sub
+
+Public Property Get Parent() As #Socket
+   Parent = mySocket
+End Property
+
+Public Sub Close()
+   On Error Resume Next
+   mySocket.close
+End Sub
+
+Public Sub Class_Initialize
+   mySendThread = New WinsockSendThread(Me)
+   Call mySendThread.start()   
+End Sub
+
+
+
+]]></Source><Param Name="(Name)" Value="WinsockItem"/><Param Name="(SuperClass)" Value="java/lang/Thread"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>

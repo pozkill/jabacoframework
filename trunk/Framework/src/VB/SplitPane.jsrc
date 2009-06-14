@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+Implements IJabacoControl
+Implements MouseListener 
+Implements MouseMotionListener
+Implements FocusListener 
+
+Event Click()
+Event GotFocus()
+Event LostFocus()
+Event MouseEntered()
+Event MouseExited() 
+Event MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Event MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Event MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+
+'Dim myScrollPane As New JScrollPane(Me)
+Dim myImage As BufferedImage 
+Dim myImagePath As #IResource
+Dim myMouseIcon As #IResource
+Dim RadioButtonGroup As New ButtonGroup
+Dim AutoResizeVal As Boolean
+Dim StartUpPositionVal As StartUpPositionConstants
+
+Dim myBorderStyle As fmBorderStyle
+Dim mySpecialEffect As fmSpecialEffect
+Dim myBorderColor As Long
+Dim myCaption As String
+Dim myTag As String
+Dim myLocation As Integer 
+
+' ******************************** INIT THIS CONTROL ********************************
+
+Public Sub SplitPane()
+   Call Clear()
+End Sub
+
+Public Property Get Parent() As #JSplitPane 
+   Parent = Base
+End Property
+
+Public Sub Class_Initialize()
+   Call Parent.addFocusListener(Me)
+   Call Parent.addMouseListener(Me)
+   Call Parent.addMouseMotionListener(Me)
+   Call Parent.setOpaque(False)
+   
+End Sub
+
+' ******************************** DEFAULT FOCUS - EVENTS ********************************
+
+Public Sub focusGained(arg2 As FocusEvent)
+   Raiseevent GotFocus()
+End Sub
+
+Public Sub focusLost(arg2 As FocusEvent)
+   Raiseevent LostFocus()
+End Sub
+
+' ******************************** DEFAULT MOUSE - EVENTS ********************************
+
+Public Sub mouseMoved(e As MouseEvent) 
+    RaiseEvent MouseMove(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
+End Sub
+
+Public Sub mouseDragged(e As MouseEvent) 
+    RaiseEvent MouseMove(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
+End Sub
+
+Public Sub mousePressed(e As MouseEvent) 
+    RaiseEvent MouseDown(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
+End Sub
+
+Public Sub mouseReleased(e As MouseEvent) 
+   RaiseEvent MouseUp(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
+End Sub
+
+Public Sub mouseClicked(e As MouseEvent) 
+    'done by actionlistener
+End Sub
+
+Public Sub mouseEntered(e As MouseEvent) 
+    RaiseEvent MouseEntered()
+End Sub 
+
+Public Sub mouseExited(e As MouseEvent) 
+    RaiseEvent MouseExited()
+End Sub
+
+' ******************************** SPECIAL FUNCTIONS ********************************
+
+Public Property Let Orientation(v As fmOrientation)
+   If v = fmOrientationVertical Then 
+      Base.setOrientation JSplitPane.HORIZONTAL_SPLIT
+   Else
+      Base.setOrientation JSplitPane.VERTICAL_SPLIT
+   End If
+End Property
+
+Public Property Get Orientation() As fmOrientation
+   If Base.getOrientation() = JSplitPane.HORIZONTAL_SPLIT Then 
+      Orientation = fmOrientationVertical
+   Else
+      Orientation = fmOrientationHorizontal
+   End If
+End Property
+
+Public Sub Clear()
+   On Error Resume Next
+   If Parent.getTopComponent <> Nothing Then Call Parent.setTopComponent(Nothing)
+   If Parent.getRightComponent <> Nothing Then Call Parent.setRightComponent(Nothing)
+   If Parent.getBottomComponent <> Nothing Then Call Parent.setBottomComponent(Nothing)
+   If Parent.getLeftComponent <> Nothing Then Call Parent.setLeftComponent(Nothing)
+End Sub
+
+Public Property Get BorderStyle() As fmBorderStyle
+   BorderStyle = myBorderStyle
+End Property
+
+Public Property Let BorderStyle(v As fmBorderStyle)
+   myBorderStyle = v
+   Call SetMyBorder()
+End Property
+
+Public Property Get SpecialEffect() As fmSpecialEffect
+   SpecialEffect = mySpecialEffect
+End Property
+
+Public Property Let SpecialEffect(v As fmSpecialEffect)
+   On Error Resume Next
+   mySpecialEffect = v
+   Call SetMyBorder()
+End Property
+
+Public Function setFrame(refComponent As #Component, Orientation As fmSplitOrientation) As Boolean 
+   setFrame = False
+   Select Case Orientation
+      Case fmComponentTop
+         Call Parent.setTopComponent(refComponent)
+         setFrame = True
+      Case fmComponentBottom
+         Call Parent.setBottomComponent(refComponent)
+         setFrame = True
+      Case fmComponentLeft
+         Call Parent.setLeftComponent(refComponent)
+         setFrame = True
+      Case fmComponentRight
+         Call Parent.setRightComponent(refComponent)
+         setFrame = True
+   End Select
+   Call Parent.setDividerLocation(myLocation)   
+End Function
+
+Public Property Get DividerLocation() As Integer
+   DividerLocation = Parent.getDividerLocation()
+End Property
+
+Public Property Let DividerLocation(v As Integer)
+   Parent.setDividerLocation v
+   myLocation = v
+End Property
+
+Private Sub SetMyBorder()
+   Base.setBorder GetVBBorder(BorderStyle, SpecialEffect, 0)
+End Sub
+
+
+' ******************************** SAME IN ALL JABACO CONTROLS ********************************
+
+'Public Property Get FontName() As String 
+'   FontName = Parent.getFont.GetFontName()
+'End Property
+'
+'Public Property Let FontName(val As String)
+'   Parent.setFont(New Font(val, IIF(FontBold, BOLD, 0) OR IIF(FontItalic, ITALIC, 0), FontSize))
+'End Property
+'
+'Public Property Get FontBold() As Boolean 
+'   FontBold = Parent.getFont.isBold()
+'End Property
+'
+'Public Property Let FontBold(val As Boolean)
+'   Parent.setFont(New Font(val, IIF(val, BOLD, 0) OR IIF(FontItalic, ITALIC, 0), FontSize))
+'End Property
+'
+'Public Property Get FontItalic() As Boolean
+'   FontItalic = Parent.getFont.isItalic()
+'End Property
+'
+'Public Property Let FontItalic(val As Boolean)
+'   Parent.setFont(New Font(val, IIF(FontBold, BOLD, 0) OR IIF(val, ITALIC, 0), FontSize))
+'End Property
+'
+'Public Property Get FontSize() As Integer 
+'   FontSize = (JFontSizeToVBFontSize(Font.getSize()))
+'End Property
+'
+'Public Property Let FontSize(val As Integer)
+'   Parent.setFont(New Font(FontName, IIF(FontBold, BOLD, 0) Or IIF(FontItalic, ITALIC, 0), VBFontSizeToJFontSize(val)))
+'End Property
+'
+'Public Property Get Font() As Font
+'   Font = Parent.getFont()
+'End Property
+
+Public Property Get BackColor() As Long
+   BackColor = ColortoRGB(Base.getBackground())
+End Property
+
+Public Property Let BackColor(v As Long)
+   Base.setBackground(RGBtoColor(v))
+End Property
+
+Public Property Get ForeColor() As Long
+   ForeColor = ColortoRGB(Base.getForeground())
+End Property
+
+Public Property Let ForeColor(v As Long)
+    Base.setForeground(RGBtoColor(v))
+End Property
+
+Public Property Get Width() As Single
+    Width = Me.getSize.Width
+End Property
+
+Public Property Let Width(v As Single)
+    Me.setSize(v, Me.getSize.Height)
+    Call Refresh()
+End Property
+
+Public Property Get Height() As Single
+    Height = Me.getSize.Height
+End Property
+
+Public Property Let Height(v As Single)
+    Me.setSize(Me.getSize.Width, v)
+    Call Refresh()
+End Property
+
+Public Property Get Left() As Single
+    Left = Me.getLocation.x
+End Property
+
+Public Property Let Left(v As Single)
+    Me.setLocation(v, Me.getLocation.y)
+End Property
+
+Public Property Get Top() As Single
+    Top = Me.getLocation.y
+End Property
+
+Public Property Let Top(v As Single)
+    Me.setLocation(Me.getLocation.x, v)
+End Property
+
+Public Property Get ToolTip() As String 
+    ToolTip = Parent.getToolTipText()
+End Property
+
+Public Property Let ToolTip(v As String)
+	If Len(v) = 0 Then 
+	    Parent.setToolTipText(Null)
+    Else
+	    Parent.setToolTipText(v)
+    End If
+End Property
+
+Public Property Get Enabled() As Boolean 
+   Enabled = Base.isEnabled()
+End Property
+
+Public Property Let Enabled(v As Boolean)
+   Call Base.setEnabled(v)
+End Property
+
+Public Property Get Visible() As Boolean 
+    Visible = Base.isVisible()
+End Property
+
+Public Property Let Visible(v As Boolean)
+    Base.setVisible v
+End Property
+
+Public Property Get Tag() As String 
+   Tag = myTag
+End Property
+
+Public Property Let Tag(v As String)
+   myTag = v
+End Property
+
+Public Property Get MousePointer() As MousePointerConstants
+   MousePointer = JCursorToVBMousePointer(Parent.getCursor())
+End Property
+
+Public Property Let MousePointer(v As MousePointerConstants)
+   Call Parent.setCursor(VBMousePointerToJCursor(v))
+End Property
+
+Public Property Get MouseIcon() As #IResource
+   MouseIcon = myMouseIcon
+End Property
+
+Public Property Let MouseIcon(v As #IResource)
+   myMouseIcon = v
+   Call Parent.setCursor(VBMouseIconToJCursor(v, Me))
+End Property
+
+Public Property Get CanGetFocus() As Boolean
+   CanGetFocus = Parent.isFocusable
+End Property
+
+Public Property Let CanGetFocus(v As Boolean)
+   Parent.setFocusable v
+End Property
+
+Public Sub SetFocus()
+   Parent.requestFocus 
+End Sub
+
+Public Sub Refresh()
+   Call Parent.invalidate()
+   Call Parent.repaint(0, 0, 0, Me.Width, Me.Height)
+   Call Parent.revalidate()
+End Sub
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+]]></Source><Param Name="(Name)" Value="SplitPane"/><Param Name="(SuperClass)" Value="javax/swing/JSplitPane"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VB"/></SourceFile>

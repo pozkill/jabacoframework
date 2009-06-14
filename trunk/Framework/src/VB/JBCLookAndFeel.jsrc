@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+Implements IJabacoClass 
+
+Public Sub Class_Initialize
+   Call setDefaultLookAndFeel()
+End Sub
+
+Public Sub setDefaultLookAndFeel()
+   setLookAndFeel( getSystemLookAndFeelClassName() ) 
+   Dim myOS As String = LCase(SysInfo.OperatingSystem)
+   If InStr(1, myOS, "windows") > 0 Then
+      If SysInfo.SecurityMode = False Then
+         'If LCase(myOS) <> "windows vista" Then
+            Call net#java#plaf#LookAndFeelPatchManager.initialize()
+         'End If
+      End If
+   End If
+End Sub
+
+Public Function setJabacoLookAndFeel(v As String) As Boolean
+   Call UIManager.setLookAndFeel(v)
+   SetJabacoLookAndFeel = True
+End Function
+
+Public Function isInitialized() As Boolean 
+   isInitialized = True
+End Function]]></Source><Param Name="(Name)" Value="JBCLookAndFeel"/><Param Name="(SuperClass)" Value="com/sun/java/swing/plaf/windows/WindowsLookAndFeel"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VB"/></SourceFile>

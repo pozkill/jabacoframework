@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+'Implements TableModelListener
+
+Dim myMatrix As New #HashMap 
+Dim myMaxRow As Integer 
+Dim myMaxCol As Integer 
+Dim myTmpIndex As New #Point(0, 0)
+Dim myColumnName() As String
+Dim myWatcher As #TableModelListener
+Dim myGrid As JBGrid
+Dim myStopEdit As Boolean 
+Dim insideCellEditable As Boolean 
+
+Public Sub JBGridModel(refGrid As JBGrid)
+   myGrid = refGrid
+   'Call Parent.addTableModelListener(Me)
+End Sub
+
+Public Property Get Parent() As #AbstractTableModel
+   Parent = Base
+End Property
+
+Private Function max(v1 As Long, v2 As Long) As Long
+   If v1 > v2 Then max = v1 Else max = v2
+End Function
+
+Public Sub fireTableCellUpdated(row As Integer, col As Integer)
+   If myGrid.isEditing(row, col) Then 
+      myGrid.Editor.Value = getValueAt(row, col)
+   End If
+   Call Base.fireTableCellUpdated(row, col)
+End Sub
+
+Public Sub setColumnName(col As Integer, val As String)
+   On Error Resume Next
+   Call refreshRowColCount(myMaxRow, col)
+   myColumnName(col) = val
+   Parent.fireTableStructureChanged() 
+End Sub
+
+Public Function getColumnName(col As Integer) As String
+   On Error Resume Next
+   getColumnName = myColumnName(col)
+End Function
+
+Public Function getColumnCount() As Integer 
+   getColumnCount = myMaxCol
+End Function
+
+Public Function setColumnCount(v As Integer)
+   On Error Resume Next
+   myMaxCol = v
+   Parent.fireTableStructureChanged() 
+End Function
+
+Public Function getRowCount() As Integer 
+   getRowCount = myMaxRow
+End Function
+
+Public Function setRowCount(v As Integer)
+   On Error Resume Next
+   myMaxRow = v
+   Parent.fireTableStructureChanged() 
+End Function
+
+Private Sub refreshRowColCount(row As Integer, col As Integer)
+   myMaxRow = max(row, myMaxRow)
+   myMaxCol = max(col, myMaxCol)
+   Redim Preserve myColumnName(myMaxCol)
+End Sub
+
+Public Function registerStopEditEvent() As Boolean
+   myStopEdit = True
+   registerStopEditEvent = insideCellEditable
+End Function
+
+Public Function isCellEditable(row As Integer, col As Integer) As Boolean
+   If myGrid.Editable = jbNotEditable Then Exit Function
+   insideCellEditable = True
+   If myGrid = Nothing Then 
+      isCellEditable = Base.isCellEditable(row, col)
+   Else
+      myStopEdit = False
+      Call myGrid.fireBeforeEdit(row, col)
+      If myStopEdit Then 
+         isCellEditable = False
+      Else
+         isCellEditable = (myGrid.Editable <> jbNotEditable)
+      End If
+   End If
+   insideCellEditable = False
+End Function
+
+Public Sub setValueAt(val As Object, row As Integer, col As Integer)
+   If (val = Nothing) Then
+      myMatrix.remove New point(col, row)
+      Exit Sub
+   End If
+   If IsClass(val, #JBCellData) Then
+      Dim myData As JBCellData = Cast(val, #JBCellData)
+      myData.Text = myData.Text
+      
+      Call myData.setOwner(myGrid, row, col)
+      
+   End If
+   Call refreshRowColCount(row, col)
+   'Base.setValueAt(val, row, col)   
+   Call myMatrix.put(New point(row, col), val)
+   Call Parent.fireTableCellUpdated(row, col)
+End Sub
+
+Public Function getValueAt(row As Integer, col As Integer) As #Object
+   Dim tmpRet As Object 
+   myTmpIndex.x = row
+   myTmpIndex.y = col
+   tmpRet = myMatrix.get(myTmpIndex)
+   'tmpRet = Base.getValueAt(row, col)
+   If tmpRet = Nothing Then
+      getValueAt = ""
+   Else
+      getValueAt = tmpRet
+   End If
+End Function  
+
+'Public Sub tableChanged(e As TableModelEvent)
+'End Sub
+
+
+  ]]></Source><Param Name="(Name)" Value="JBGridModel"/><Param Name="(SuperClass)" Value="javax/swing/table/AbstractTableModel"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VB"/></SourceFile>

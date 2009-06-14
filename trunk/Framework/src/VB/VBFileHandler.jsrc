@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+Implements IJabacoClass 
+
+' TODO's: replace read / readline / readall methods
+
+Dim myFile As java#io#File
+Dim myInput As java#io#FileInputStream 
+Dim myInputReader As java#io#BufferedReader
+Dim myOutput As java#io#FileOutputStream 
+Dim myInputReadLineMem As String = Nothing
+
+Dim myFilename As String
+Dim myMode As VBFileMode 
+Dim myAccess As VBFileAccess 
+Dim myLock As VBFileLock 
+
+Private Sub refresh() 
+   myFile = New File(myFilename)
+   If myMode = Input Or myMode = Random Then
+      If exists Then
+         myInput = New java#io#FileInputStream(myFile)
+         myInputReader = New BufferedReader(New InputStreamReader(myInput))
+         If myLock = LockReadAndWrite Or myLock = LockRead Then
+            myInput.getChannel().Lock()
+         End If
+      End If
+   End If
+   If myMode = Output Or myMode = Append Or myMode = Random Then
+      Dim bAppend As Boolean 
+      If myMode = Random Or myMode = Append Then
+         bAppend = True
+      Else
+         bAppend = False
+      End If
+      myOutput = New java#io#FileOutputStream(myFile, bAppend)
+      If myMode = Append Then
+         Call myOutput.getChannel().position(Me.length)
+      End If
+      If myLock = LockReadAndWrite Or myLock = LockWrite Then
+         myOutput.getChannel().Lock()
+      End If
+   End If
+End Sub
+
+Public Property Get InputStream() As FileInputStream 
+   InputStream = myInput
+End Property
+
+Public Property Get OutputStream() As FileOutputStream 
+   OutputStream = myOutput
+End Property
+
+Public Property Get Mode() As VBFileMode 
+   Mode = myMode
+End Property
+
+Public Property Let Mode(v As VBFileMode)
+   myMode = v
+End Property
+
+Public Property Get Access () As VBFileAccess 
+   Access = myAccess
+End Property
+
+Public Property Let Access(v As VBFileAccess)
+   myAccess = v
+End Property
+
+Public Property Get Lock() As VBFileLock 
+   Lock = myLock
+End Property
+
+Public Property Let Lock(v As VBFileLock)
+   myLock = v
+End Property
+
+Public Property Get Filename() As String
+   Filename = myFilename
+End Property
+
+Public Property Let Filename(s As String)
+   myFilename = s
+   Call refresh
+End Property
+
+Public Function writeString(s As String) As Boolean 
+   If myOutput = Nothing Then Exit Function
+   If myMode <> Append Then myOutput.getChannel.truncate 0
+   myOutput.write s
+   writeString = True
+End Function
+
+Public Function appendString(s As String) As Boolean 
+   If myOutput = Nothing Then Exit Function
+   If myMode = Append Then 
+      Call myOutput.write(s)
+   Else
+      appendString = writeString(s)
+   End If
+   appendString = True
+End Function
+
+Public Function putString(s As String, pos As Integer) As Boolean 
+   If myOutput = Nothing Then Exit Function
+   If myMode = Append Then Exit Function
+   myOutput.getChannel.position (pos-1)
+   myOutput.write s
+   putString = True
+End Function
+
+Public Property Get EOF() As Boolean 
+   If myInputReader = Nothing Then EOF = True: Exit Property
+   If myInputReadLineMem <> Nothing Then EOF = False: Exit Property
+   myInputReadLineMem = myInputReader.readLine()
+   If myInputReadLineMem = Nothing Then EOF = True Else EOF = False
+End Property
+
+Public Function read(offset As Integer, length As Integer) As String
+   If myInput = Nothing Then Exit Function
+   Dim myOffsetReader As New java#io#FileInputStream(myFile)
+   Dim tmp(length - 1) As Byte 
+   Call myOffsetReader.skip(offset)
+   Dim retLen As Integer = myOffsetReader.read(tmp, 0, length)
+   If retLen < 0 Then
+      read = vbNullString
+   Else
+      If retLen <> length Then 
+         ReDim Preserve tmp(retLen - 1)
+      End If
+      read = tmp
+   End If
+   Call myOffsetReader.close()   
+End Function
+
+Public Function readAll() As String 
+   If myInput = Nothing Then Exit Function
+   Dim myBufferedReader As New BufferedReader(New InputStreamReader(New java#io#FileInputStream(myFile)))
+   readAll = cStr(myBufferedReader)
+   Call myBufferedReader.close()   
+End Function
+
+Public Function readLine() As String 
+   Dim ret As String
+   If myInput = Nothing Then Exit Function
+   If myInputReader = Nothing Then Exit Function
+   If myInputReadLineMem = Nothing Then
+      ret = myInputReader.readLine()
+   Else
+      ret = myInputReadLineMem
+      myInputReadLineMem = Nothing
+   End If
+   If ret = Nothing Then 
+      readLine = "" 
+   Else 
+      readLine = ret
+   End If
+End Function
+
+Public Function close() As Boolean 
+   If myInput <> Nothing Then myInput.close
+   If myOutput <> Nothing Then myOutput.close
+   If myInputReader <> Nothing Then myInputReader.close
+   myInput = Nothing
+   myOutput = Nothing
+   myInputReader = Nothing
+End Function
+
+Public Function delete() As Boolean 
+   delete = parent.delete 
+End Function
+
+Public Property Get exists() As Boolean 
+   exists = parent.exists
+End Property
+
+Public Property Get length() As Long
+   If exists Then
+      length = myFile.length 
+   Else
+      length = -1
+   End If
+End Property
+
+Public Property Get Parent() As java#io#File
+   Parent = myFile
+End Property
+
+]]></Source><Param Name="(Name)" Value="VBFileHandler"/><Param Name="(SuperClass)" Value="java/lang/Object"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VB"/></SourceFile>

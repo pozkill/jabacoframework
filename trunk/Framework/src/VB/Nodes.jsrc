@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+
+Public Enum TreeRelationshipConstants
+   tvwFirst = 0
+   tvwLast = 1
+   tvwNext = 2
+   tvwPrevious = 3
+   tvwChild = 4
+End Enum
+
+Dim myTree As TreeView
+Dim myHash As New Collection 
+
+Public Sub Nodes(refTree As TreeView)
+   myTree = refTree
+End Sub
+
+Public Function Add(Relative As Node, Relationship As TreeRelationshipConstants, Key As String, Text As String) As Node
+   Add = Add(Relative, Relationship, Key, Text, Nothing)
+End Function
+
+Public Function Add(Relative As Node, Relationship As TreeRelationshipConstants, Key As String, Text As String, Image As #IResource) As Node
+   Dim myNode As New Node(myTree, Text)
+   myNode.Text = Text
+   myHash.Add myNode, Key
+
+   myNode.Icon = Image
+   myNode.ForeColor = myTree.ForeColor 
+   myNode.BackColor = myTree.BackColor 
+   myNode.ForeColorSel = myTree.ForeColorSel 
+   myNode.BackColorSel = myTree.BackColorSel 
+   myNode.FontName = myTree.FontName
+   myNode.FontBold = myTree.FontBold 
+   myNode.FontItalic = myTree.FontItalic 
+   myNode.FontSize = myTree.FontSize 
+
+   If Relative = Nothing Then
+      Call myTree.Model.insertNodeInto myNode, myTree.Root, myTree.Root.ChildCount
+   Else
+      Call myTree.Model.insertNodeInto myNode, Relative, Relative.ChildCount
+   End If
+
+   myTree.Root.Expand = True
+   Add = myNode
+End Function
+
+Public Sub Clear()
+   Call myHash.Clear()
+   Call myTree.Root.removeAllChildren()
+End Sub
+
+Public Property Get Count() As Integer
+   Count = myHash.Count
+End Property
+
+Public Property Get Item(Index As Integer) As Node
+   Item = myHash.Item(Index)
+End Property
+
+Public Property Get Item(Key As String) As Node
+   Item = myHash.Item(Key)
+End Property
+
+Public Function Remove(Index As Integer) As Boolean
+   Dim tmpNode As Node
+   tmpNode = myHash.Item(Index)
+   If Remove(tmpNode) Then
+      Call myHash.remove(Index)
+   End If
+End Function
+
+Public Function Remove(Key As String) As Boolean
+   Dim tmpNode As Node
+   tmpNode = myHash.Item(Key)
+   If Remove(tmpNode) Then
+      Call myHash.remove(Key)
+   End If
+End Function
+
+Public Function Remove(Node As Node) As Boolean
+   Call myTree.Model.removeNodeFromParent(Node)
+   Remove = True 
+End Function
+
+
+
+
+
+]]></Source><Param Name="(Name)" Value="Nodes"/><Param Name="(SuperClass)" Value="java/lang/Object"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>

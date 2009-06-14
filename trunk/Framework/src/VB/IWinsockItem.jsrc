@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SourceFile><Source><![CDATA[Public Property Get Owner() As Winsock
+End Property
+Public Function GetData() As String 
+End Function
+Public Sub SendData(data As String)
+End Sub
+Public Sub Close()
+End Sub
+]]></Source><Param Name="(Name)" Value="IWinsockItem"/><Param Name="(SuperClass)" Value="java/lang/Object"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Interface"/><Param Name="(Access)" Value="Public"/></SourceFile>

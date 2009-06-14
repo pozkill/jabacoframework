@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Dim tmpColorChooser As javax#swing#JColorChooser 
+
+Public Property Get IsCanceled() As String
+   IsCanceled = myFilter
+End Property
+
+Public Sub Class_Initialize
+   Me.RemoveContent 
+   tmpColorChooser = New javax#swing#JColorChooser 
+   Me.Parent.add tmpColorChooser
+   Me.Width = 450
+   Me.Height = 370
+   Me.Caption = "ColorChooser"
+   Me.BorderStyle = vbFixedDialog 
+   Me.StartUpPosition = vbStartUpScreen 
+   'Me.Parent.add New #JButton("Ok")
+   Me.show
+End Sub
+]]></Source><Param Name="(Name)" Value="VBColorChooser"/><Param Name="(SuperClass)" Value="Form"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SourceFile><Source><![CDATA[Implements Runnable 
+
+Dim myTargetObject As Object 
+Dim myTargetFunction As String
+
+Public Sub ThreadAdapter(TargetObject As Object, TargetFunction As String)
+   myTargetObject = TargetObject
+   myTargetFunction = TargetFunction
+End Sub
+
+Public Sub run()
+   Call CallByName(myTargetObject, myTargetFunction)   
+End Sub
+
+]]></Source><Param Name="(Name)" Value="ThreadAdapter"/><Param Name="(SuperClass)" Value="java/lang/Object"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>

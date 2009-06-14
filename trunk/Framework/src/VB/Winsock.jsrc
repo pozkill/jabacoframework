@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+Implements IJabacoClass 
+
+Public Enum ProtocolConstants
+   sckTCPProtocol = 0
+   sckUDPProtocol = 1
+End Enum
+
+Public Enum StateConstants
+   sckClosed = 0
+   sckOpen = 1
+   sckListening = 2
+   sckConnectionPending = 3
+   sckResolvingHost = 4
+   sckHostResolved = 5
+   sckConnecting = 6
+   sckConnected = 7
+   sckClosing = 8
+   sckError = 9
+End Enum
+
+Public Enum ErrorConstants
+   sckOutOfMemory = 7
+   sckInvalidPropertyValue = 380
+   sckSetNotSupported = 383
+   sckGetNotSupported = 394
+   sckOpCanceled = 10004
+   sckInvalidArgument = 10014 
+   sckWouldBlock = 10035
+   sckInProgress = 10036 
+   sckAlreadyComplete = 10037
+   sckNotSocket = 10038
+   sckMsgTooBig = 10040 
+   sckPortNotSupported = 10043 
+   sckAddressInUse = 10048
+   sckAddressNotAvailable = 10049
+   sckNetworkSubsystemFailed = 10050 
+   sckNetworkUnreachable = 10051
+   sckNetReset = 10052
+   sckConnectAborted = 10053 
+   sckConnectionReset = 10054 
+   sckNoBufferSpace = 10055
+   sckAlreadyConnected = 10056
+   sckNotConnected = 10057 
+   sckSocketShutdown = 10058 
+   sckTimedout = 10060 
+   sckConnectionRefused = 10061
+   sckNotInitialized = 10093 
+   sckHostNotFound = 11001 
+   sckHostNotFoundTryAgain = 11002 
+   sckNonRecoverableError = 11003
+   sckNoData = 11004
+   sckBadState = 40006
+   sckInvalidArg = 40014 
+   sckSuccess = 40017 
+   sckUnsupported = 40018
+   sckInvalidOp = 40020 
+   sckOutOfRange = 40021
+   sckWrongProtocol = 40026 
+End Enum
+
+Event Error(Number As ErrorConstants, Description As String)
+Event Connect()
+Event Close()
+Event SendProgress(bytesSent As Long, bytesRemaining As Long)
+Event DataArrival(bytesTotal As Long)
+Event ConnectionRequest(requestSocket As java#net#Socket)
+Event SendComplete()
+
+Dim mySocket As IWinsockItem
+Dim myServer As New WinsockServer(Me)
+
+Dim myRemoteHost As String
+Dim myRemotePort As Long
+
+Dim myLocalHost As String
+Dim myLocalPort As Long
+
+Dim myProtocol As ProtocolConstants
+Dim myBlockSize As Long
+Dim myState As StateConstants
+
+Public Property Get Parent() As IWinsockItem
+   Parent = mySocket
+End Property
+
+Public Property Get State() As StateConstants 
+   State = myState
+End Property
+
+Public Function Listen() As Boolean
+   myServer.startServer
+   Listen = False
+End Function
+
+Public Sub Accept(requestSocket As java#net#Socket)
+   Call Close()
+   Dim tmpSocket As New WinsockItemTCP(Me)
+   mySocket = tmpSocket
+   myState = sckConnected
+   If tmpSocket.Connect(requestSocket) Then Call tmpSocket.start()
+End Sub
+
+Public Sub OnDataArrival(bytesTotal As Long)
+   RaiseEvent DataArrival(bytesTotal)
+End Sub
+
+Public Sub OnConnect()
+   RaiseEvent Connect()
+End Sub
+
+Public Sub OnClose()
+   myState = sckClosing
+   Call Close()
+   RaiseEvent Close()
+End Sub
+
+Public Sub OnConnectionRequest(requestSocket As java#net#Socket)
+   RaiseEvent ConnectionRequest(requestSocket)
+End Sub
+
+Public Sub OnSendProgress(bytesSent As Long, bytesRemaining As Long)
+   RaiseEvent SendProgress(bytesSent, bytesRemaining)
+End Sub
+
+Public Sub OnSendComplete()
+   RaiseEvent SendComplete()
+End Sub
+
+Public Function GetData() As String 
+   GetData = mySocket.GetData()
+End Function
+
+Public Sub Connect()
+   myState = sckConnecting
+   Call Close()
+   Dim tmpSocket As New WinsockItemTCP(Me)
+   mySocket = tmpSocket
+   If tmpSocket.Connect() Then 
+      myState = sckConnected
+      Call tmpSocket.start()
+   End If
+End Sub
+
+Public Sub Connect(RefRemoteHost As String, RefRemotePort As Long)
+   RemoteHost = RefRemoteHost
+   RemotePort = RefRemotePort
+   Call Connect()
+End Sub
+
+Public Function isMulticastAddress() As Boolean
+   isMulticastAddress = InetAddress.getByName(RemoteHost).isMulticastAddress()
+End Function
+
+Public Sub SendData(data As String)
+   If mySocket = Nothing Then
+      Call OnError(sckNotInitialized)
+   Else
+      Call mySocket.SendData(data)
+   End If
+End Sub
+
+Public Sub Close()
+   If myServer <> Nothing Then 
+      Call myServer.closeServer()
+   End If
+   If mySocket <> Nothing Then
+      Call mySocket.Close()
+   End If
+   mySocket = Nothing
+   myState = sckClosed
+End Sub
+
+Public Property Let LocalHost(Host As String) 
+   myLocalHost = Host
+End Property
+
+Public Property Get LocalHost() As String
+   If Len(myLocalHost) = 0 Then
+      LocalHost = "127.0.0.1"
+   Else
+      LocalHost = myLocalHost
+   End If
+End Property
+
+Public Property Let LocalPort(Port As Long) 
+   myLocalPort = Port
+End Property
+
+Public Property Get LocalPort() As Long
+   LocalPort = myLocalPort
+End Property
+
+Public Property Let RemoteHost(Host As String) 
+   myRemoteHost = Host
+End Property
+
+Public Property Get RemoteHost() As String
+   RemoteHost = myRemoteHost
+End Property
+
+Public Property Let RemotePort(Port As Long) 
+   myRemotePort = Port
+End Property
+
+Public Property Get RemotePort() As Long
+   RemotePort = myRemotePort
+End Property
+
+Public Property Let Protocol(v As ProtocolConstants) 
+   myProtocol = v
+End Property
+
+Public Property Get Protocol() As ProtocolConstants
+   Protocol = myProtocol
+End Property
+
+Public Property Let BlockSize(v As Long) 
+   myBlockSize = v
+End Property
+
+Public Property Get BlockSize() As Long
+   If myBlockSize <= 0 Then
+      BlockSize = 16000
+   Else
+      BlockSize = myBlockSize
+   End If
+End Property
+
+Public Sub Class_Initialize
+   myBlockSize = 16000
+End Sub
+
+Public Sub OnError(Number As ErrorConstants)
+   Dim Description As String
+   Select Case Number
+      Case sckOutOfMemory: Description = "OutOfMemory"
+      Case sckInProgress: Description = "InProgress"
+      Case sckAlreadyComplete: Description = "AlreadyComplete"
+      Case sckNotSocket: Description = "NotSocket"
+      Case sckMsgTooBig: Description = "MsgTooBig"
+      Case sckPortNotSupported: Description = "PortNotSupported"
+      Case sckAddressInUse: Description = "AddressInUse"
+      Case sckAddressNotAvailable: Description = "AddressNotAvailable"
+      Case sckNetworkSubsystemFailed: Description = "NetworkSubsystemFailed"
+      Case sckNetworkUnreachable: Description = "NetworkUnreachable"
+      Case sckNetReset: Description = "NetReset"
+      Case sckConnectAborted: Description = "ConnectAborted"
+      Case sckConnectionReset: Description = "ConnectionReset"
+      Case sckNoBufferSpace: Description = "NoBufferSpace"
+      Case sckAlreadyConnected: Description = "AlreadyConnected"
+      Case sckNotConnected: Description = "NotConnected"
+      Case sckSocketShutdown: Description = "SocketShutdown"
+      Case sckTimedout: Description = "Timedout"
+      Case sckConnectionRefused: Description = "ConnectionRefused"
+      Case sckNotInitialized: Description = "NotInitialized"
+      Case sckHostNotFound: Description = "HostNotFound"
+      Case sckHostNotFoundTryAgain: Description = "HostNotFoundTryAgain"
+      Case sckNonRecoverableError: Description = "NonRecoverableError"
+      Case sckNoData: Description = "NoData"
+      Case sckBadState: Description = "BadState"
+      Case sckUnsupported: Description = "Unsupported"
+      Case sckInvalidOp: Description = "InvalidOp"
+      Case sckOutOfRange: Description = "OutOfRange"
+      Case sckWrongProtocol: Description = "WrongProtocol"
+      Case Else: Description = "Unknown"
+   End Select
+   Call OnError(Number, "[Socket] Error: " & Description)
+End Sub
+
+Public Sub OnError(Number As ErrorConstants, Description As String)
+   myState = sckError
+   RaiseEvent Error(Number, Description)
+End Sub
+]]></Source><Param Name="(Name)" Value="Winsock"/><Param Name="(SuperClass)" Value="java/lang/Object"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VB"/></SourceFile>

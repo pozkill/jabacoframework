@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Implements Runnable 
+Dim myContainer As IFireLoaded
+Dim mySender As Object 
+
+Public Sub FireLoadedAdapter(refSender As Object, refContainer As IFireLoaded)
+   mySender = refSender
+   myContainer = refContainer
+End Sub
+
+Public Sub fireLoaded()
+   Call SwingUtilities.invokeLater(Me)
+End Sub
+
+Public Sub run
+   Call myContainer.fireLoaded(mySender)
+End Sub]]></Source><Param Name="(Name)" Value="FireLoadedAdapter"/><Param Name="(SuperClass)" Value="java/lang/Object"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>

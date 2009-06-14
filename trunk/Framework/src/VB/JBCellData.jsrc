@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+
+Dim myGrid As JBGrid
+Dim myComponentOwn As Usercontrol 
+Dim myEditable As Boolean 
+Dim myCellBackColor As Long = -1
+Dim myCellForeColor As Long = -1
+Dim myRow As Integer, myCol As Integer 
+
+Public Sub JBCellData()
+End Sub
+
+Public Sub JBCellData(refText As String)
+   Base.Caption = refText
+End Sub
+
+Public Sub JBCellData(refText As String, refIcon As #IResource)
+   Base.Caption = refText
+   Base.Picture = refIcon
+End Sub
+
+Public Sub JBCellData(refText As String, refIcon As #IResource, refCellBackColor As Long)
+   Base.Caption = refText
+   Base.Picture = refIcon
+   myCellBackColor = refCellBackColor
+End Sub
+
+Public Sub JBCellData(refText As String, refIcon As #IResource, refCellBackColor As Long, refCellForeColor As Long)
+   Base.Caption = refText
+   Base.Picture = refIcon
+   myCellBackColor = refCellBackColor
+   myCellForeColor = refCellForeColor
+End Sub
+
+Public Sub JBCellData(refControl As Usercontrol)
+   myComponentOwn = refControl
+End Sub
+
+Public Function setOwner(v As JBGrid, row As Integer, col As Integer)
+   myGrid = v
+   myRow = row
+   myCol = col
+End Function
+
+Public Function getEditorComponent(table As JBGrid, isSelected As Boolean, hasFocus As Boolean) As Component
+   getEditorComponent = myComponentOwn
+End Function
+
+Private Function getBorderFocusSel() As Border
+   Dim bUseDefault As Boolean = True
+   If myGrid <> Nothing Then If myGrid.BorderColorSel <> -2147483638 Then bUseDefault = False
+   If bUseDefault Then
+      getBorderFocusSel = UIManager.getBorder("List.focusCellHighlightBorder")
+   Else
+      getBorderFocusSel = BorderFactory.createLineBorder(ColorToRGB(myGrid.BorderColorSel))
+   End If
+End Function
+
+Public Function getComponent(table As JBGrid, isSelected As Boolean, hasFocus As Boolean) As Component
+   If table = Nothing Then Exit Function
+   If myComponentOwn = Nothing Then
+      Me.BackStyle = vbSolid
+      Call Me.Parent.setVerticalTextPosition SwingConstants.CENTER
+      Me.BackColor = IIF(IsSelected, table.BackColorSel, table.BackColorCells)
+      Me.ForeColor = IIF(IsSelected, table.ForeColorSel, table.ForeColor)
+      Me.setBorder(IIF(hasFocus, getBorderFocusSel(), New #EmptyBorder(1,1,1,1)))
+      Me.setFont(table.Parent.getFont())
+      GetComponent = Me
+   Else
+      myComponentOwn.setBackground(IIF(IsSelected, table.Parent.getSelectionBackground(), RGBToColor(table.BackColorCells)))
+      myComponentOwn.setForeground(IIF(IsSelected, table.Parent.getSelectionForeground(), table.Parent.getForeground()))
+      myComponentOwn.setBorder(IIF(hasFocus, getBorderFocusSel(), New #EmptyBorder(1,1,1,1)))
+      myComponentOwn.setFont(table.Parent.getFont())
+      Call myComponentOwn.setPreferredSize(myComponentOwn.getPreferredSize())
+      GetComponent = myComponentOwn
+   End If
+   If isSelected = False Then
+      If CellBackColor <> -1 Then Call GetComponent.setBackground(RGBToColor(CellBackColor))
+      If CellForeColor <> -1 Then Call GetComponent.setForeground(RGBToColor(CellForeColor))
+   End If
+   
+   
+End Function
+
+Private Sub fireChanged()
+   If myGrid = Nothing Then Exit Sub
+   Dim refModel As AbstractTableModel = Cast(myGrid.Parent.getModel(), AbstractTableModel)
+   Call refModel.fireTableCellUpdated(myRow, myCol)   
+End Sub
+
+Public Property Let Caption(v As String)
+   Base.Caption = v
+   Call fireChanged()
+End Property
+
+Public Property Let Text(v As String)
+   Caption = v
+End Property
+
+Public Property Get Text() As String
+   Text = Caption
+End Property
+
+Public Property Let Editable(v As Boolean)
+   myEditable = v
+End Property
+
+Public Property Get Editable() As Boolean
+   Editable = myEditable
+End Property
+
+Public Property Let Picture(v As #IResource)
+   Base.Picture = v
+   Call fireChanged()
+End Property
+
+Public Property Let Icon(v As #IResource)
+   Picture = v
+End Property
+
+Public Property Get Icon() As #IResource
+   Icon = Picture
+End Property
+
+Public Function getIcon() As #Icon 
+   getIcon = LoadIcon(Icon)
+End Function
+
+Public Property Let CellBackColor(v As Long)
+   myCellBackColor = v
+   Call fireChanged()   
+End Property
+
+Public Property Get CellBackColor() As Long
+   CellBackColor = myCellBackColor
+End Property
+
+Public Property Let CellForeColor(v As Long)
+   myCellForeColor = v
+   Call fireChanged()
+End Property
+
+Public Property Get CellForeColor() As Long
+   CellForeColor = myCellForeColor
+End Property
+
+]]></Source><Param Name="(Name)" Value="JBCellData"/><Param Name="(SuperClass)" Value="VB/Label"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>

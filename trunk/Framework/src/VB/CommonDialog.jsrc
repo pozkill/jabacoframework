@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+Implements IJabacoClass 
+
+Dim myDialogTitle As String, myFileName As String, myFilter As String, myInitDir As String, myColor As Long, myIsCanceled As Boolean 
+
+Public Sub ShowColor()
+   Dim tmpColor As #Color
+   tmpColor = JColorChooser.showDialog(Nothing, DialogTitle, Color)
+   myIsCanceled = (tmpColor = Nothing)
+   If myIsCanceled = False Then 
+      myColor = ColorToRGB(tmpColor)
+   End If
+End Sub
+
+'Public Sub ShowFont()
+'End Sub
+
+'Public Sub ShowHelp()
+'End Sub
+
+'Public Sub ShowPrinter()
+'End Sub
+
+Public Sub ShowOpen()
+   Call ShowOpen(True) 
+End Sub
+
+Public Sub ShowOpen(Modal As Boolean)
+   Call ShowOpen(Modal, Nothing)
+End Sub
+
+Private Function createDialog(Parent As java#awt#Frame, Title As String, Flag As Integer) As java#awt#FileDialog
+   On Error Resume Next
+   createDialog = New java#awt#FileDialog(Nothing, Title, Flag)
+   If Parent = Nothing Then
+      Dim tmpParentFrame As java#awt#Frame
+      tmpParentFrame = Cast(SysInfo.FocusedWindow(), java#awt#Frame)
+      If tmpParentFrame = Nothing Then
+         createDialog = New java#awt#FileDialog(Nothing, Title, Flag)
+      Else
+         createDialog = New java#awt#FileDialog(tmpParentFrame, Title, Flag)
+      End If
+   Else
+      createDialog = New java#awt#FileDialog(Parent, Title, Flag)
+   End If
+End Function
+
+Public Sub ShowOpen(Modal As Boolean, Parent As java#awt#Frame)
+   On Error Resume Next
+   Dim tmpTitle As String
+   If Len(DialogTitle) = 0 Then tmpTitle = "Open" Else tmpTitle = DialogTitle
+   Dim tmpDialog As java#awt#FileDialog = createDialog(Parent, tmpTitle, FileDialog.LOAD)
+   'tmpDialog.setFilenameFilter tmpFilter
+   'tmpDialog.setDirectory InitDir
+   tmpDialog.setModal Modal 
+   tmpDialog.setFile FileName
+   Call tmpDialog.show()
+   myIsCanceled = (tmpDialog.getFile() = Nothing)
+   FileName = MergeFileAndFolder(tmpDialog.getDirectory(), tmpDialog.getFile())
+End Sub
+
+Public Sub ShowSave()
+   Call ShowSave(True) 
+End Sub
+
+Public Sub ShowSave(Modal As Boolean)
+   Dim tmpTitle As String
+   If Len(DialogTitle) = 0 Then tmpTitle = "Save" Else tmpTitle = DialogTitle
+   Dim tmpDialog As java#awt#FileDialog = createDialog(Nothing, tmpTitle, FileDialog.SAVE)
+   'tmpDialog.setFilenameFilter tmpFilter
+   'tmpDialog.setDirectory InitDir
+   tmpDialog.setModal Modal 
+   tmpDialog.setFile FileName
+   Call tmpDialog.show()
+   myIsCanceled = (tmpDialog.getFile() = Nothing)
+   FileName = MergeFileAndFolder(tmpDialog.getDirectory(), tmpDialog.getFile())
+End Sub
+
+Private Function MergeFileAndFolder(sFolder As String, sFile As String) As String
+   If sFile = Nothing Then sFile = vbNullString ' sFile could be nothing
+   If sFolder = Nothing Then sFolder = vbNullString ' sFile could be nothing
+   If Len(sFile) = 0 Then
+      MergeFileAndFolder = vbNullString
+      Exit Function
+   Else
+      If Right(sFolder, 1) <> "\" And Right(sFolder, 1) <> "/" Then
+         MergeFileAndFolder = sFolder + "\" + sFile
+      Else
+         MergeFileAndFolder = sFolder + sFile
+      End If
+   End If
+End Function
+
+Public Property Get IsCanceled() As Boolean 
+   IsCanceled = myIsCanceled
+End Property
+
+Public Property Let Filter(s As String)
+   myFilter = s
+End Property
+
+Public Property Get Filter() As String
+   Filter = myFilter
+End Property
+
+Public Property Let DialogTitle(s As String)
+   myDialogTitle = s
+End Property
+
+Public Property Get DialogTitle() As String
+   DialogTitle = myDialogTitle
+End Property
+
+Public Property Let FileName(s As String)
+   myFileName = s
+End Property
+
+Public Property Get FileName() As String
+   FileName = myFileName
+End Property
+
+Public Property Let InitDir(s As String)
+   myInitDir = s
+   myInitDir = Replace(myInitDir, "\\", "\") ' if it is \\ norm it to \
+   myInitDir = Replace(myInitDir, "\", "\\") ' then norm \ to \\
+End Property
+
+Public Property Get InitDir() As String
+   InitDir = myInitDir
+End Property
+
+Public Property Get Color() As Long
+   Color = myColor
+End Property
+
+Public Property Let Color(v As Long)
+   myColor = v
+End Property
+
+Public Property Get CancelError() As Boolean ' ignore
+End Property
+
+Public Property Let CancelError(v As Boolean) ' ignore
+End Property
+
+'Property Action As Integer
+'Property Copies As Integer
+'Property DefaultExt As String
+'Property DialogTitle As String
+'Property FileTitle As String
+'Property FilterIndex As Integer
+'Property Flags As Long
+'Property FontBold As Boolean
+'Property FontItalic As Boolean
+'Property FontName As String
+'Property FontSize As Single
+'Property FontStrikeThru As Boolean
+'Property FontUnderLine As Boolean
+'Property FromPage As Integer
+'Property Max As Integer
+'Property MaxFileSize As Integer
+'Property Min As Integer
+'Property Orientation As PrinterOrientationConstants
+'Property PrinterDefault As Boolean
+'Property ToPage As Integer
+
+]]></Source><Param Name="(Name)" Value="CommonDialog"/><Param Name="(SuperClass)" Value="java/lang/Object"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VB"/></SourceFile>

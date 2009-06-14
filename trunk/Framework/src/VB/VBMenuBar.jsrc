@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+
+Implements IJabacoClass 
+Implements ActionListener 
+
+Dim myForeColor As Long ' bug in swing?
+Dim myBackColor As Long ' bug in swing?
+Dim myOwner As IJabacoForm 
+
+Event Visible(b As Boolean)
+Event Click(MenuItem As IMenuItem)
+
+Public Property Get Owner() As IJabacoForm 
+   Owner = myOwner
+End Property
+
+Public Sub VBMenuBar(Owner As VB#IJabacoForm)
+   myOwner = Owner
+   Call Parent.setOpaque(True)
+   
+End Sub
+
+Public Function getBackground() As #Color
+   If myOwner = Nothing Then
+      getBackground = Base.getBackground()
+   Else
+      getBackground = RGBToColor(myOwner.MenuBackColor)
+   End If
+End Function
+
+Public Function getForeground() As #Color
+   If myOwner = Nothing Then
+      getForeground = Base.getForeground()
+   Else
+      getForeground = RGBToColor(myOwner.MenuForeColor)
+   End If
+End Function
+
+Public Function getFont() As #Font 
+   If myOwner = Nothing Then
+      getFont = Base.getFont 
+   Else
+      getFont = myOwner.Font
+   End If
+End Function
+
+Private Sub GoClick(e As java#lang#Object)
+   On Error Goto ERROUT
+   Dim tmpComponent As IMenuItem
+   tmpComponent = Cast(e, IMenuItem)
+   ERROUT:
+   RaiseEvent Click(tmpComponent)
+End Sub
+
+Public Sub add(Component As java#awt#Component) 
+   On Error Resume Next
+'   Dim tmpMenu As VBMenu
+'   tmpMenu = Component
+   Call Base.add(Component)
+   Visible = True 
+End Sub
+
+Public Function createMenuGroup(Owner As VBMenuGroup, ControlID As String, Caption As String) As VBMenuGroup
+   createMenuGroup = createMenuGroup(Owner, ControlID, Caption, True)
+End Function
+
+Public Function createMenuGroup(Owner As VBMenuGroup, ControlID As String, Caption As String, Visible As Boolean) As VBMenuGroup
+   createMenuGroup = createMenuGroup(Owner, ControlID, Caption, Visible, Nothing)
+End Function
+
+Public Function createMenuGroup(Owner As VBMenuGroup, ControlID As String, Caption As String, Visible As Boolean, IconPath As #IResource) As VBMenuGroup
+   createMenuGroup = New VBMenuGroup(Me, Owner, ControlID, Caption, Visible, IconPath)
+End Function
+
+Public Sub addSeperator()
+   Call addSeperator(Nothing)
+End Sub
+
+Public Sub addSeperator(Owner As VBMenuGroup)
+   Dim tmpMenuSep As New #JSeparator 
+   If Owner = Null Then
+      Me.add tmpMenuSep
+   Else
+      Owner.add tmpMenuSep
+   End If
+End Sub
+
+Public Function createMenu(Owner As VBMenuGroup, ControlID As String, Caption As String) As VBMenuItem 
+   createMenu = createMenu(Owner, ControlID, Caption, True)
+End Function
+
+Public Function createMenu(Owner As VBMenuGroup, ControlID As String, Caption As String, Visible As Boolean) As VBMenuItem 
+   createMenu = createMenu(Owner, ControlID, Caption, Visible, Nothing)
+End Function
+
+Public Function createMenu(Owner As VBMenuGroup, ControlID As String, Caption As String, Visible As Boolean, IconPath As #IResource) As VBMenuItem
+   createMenu = New VBMenuItem(Me, Owner, ControlID, Caption, Visible, IconPath)
+End Function
+
+Public Property Get Height() As Integer
+   If Visible Then
+      Height = Me.Parent.getHeight()
+      If Height = 0 Then Height = Me.Parent.getPreferredSize.getHeight()
+   Else
+      Height = 0
+   End If
+End Property
+
+Public Property Get Visible() As Boolean 
+   Visible = Me.isVisible()
+End Property
+
+Public Property Let Visible(v As Boolean)
+   If Parent.isVisible = v Then Exit Property
+   Parent.setVisible v
+   If Parent.isVisible = v Then Raiseevent Visible(v)
+End Property
+
+Public Property Get Parent() As #JMenuBar 
+   Parent = Base
+End Property
+
+Public Sub Class_Initialize
+   'parent.setMargin New Insets(20,20,20,20)
+End Sub
+
+Public Sub actionPerformed(e As ActionEvent)
+   Call GoClick(e.getSource())
+End Sub
+]]></Source><Param Name="(Name)" Value="VBMenuBar"/><Param Name="(SuperClass)" Value="javax/swing/JMenuBar"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VB"/></SourceFile>

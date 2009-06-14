@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Implements TableCellEditor
+
+Public Function getTableCellEditorComponent(table As JTable, value As Object, isSelected As Boolean, row As Integer, col As Integer) As Component
+
+   getTableCellEditorComponent = New jlabel("test")
+   
+End Function
+]]></Source><Param Name="(Name)" Value="JBGridCellEditor"/><Param Name="(SuperClass)" Value="javax/swing/table/AbstractTableModel"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>

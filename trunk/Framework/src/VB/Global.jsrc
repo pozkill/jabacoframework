@@ -1,0 +1,716 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA['Public Clipboard As New VBClipboard
+'Public Screen As New Screen
+'Public SysInfo As New SysInfo 
+'Public LookAndFeelManager As New JBCLookAndFeel
+
+Option Explicit
+
+Dim myDebug As Debug
+Dim myClipboard As VBClipboard
+Dim myScreen As Screen
+Dim mySysInfo As SysInfo 
+Dim myLookAndFeelManager As JBCLookAndFeel
+Dim myApp As App
+Dim myGlobalMDIForm As MDIForm 
+
+Enum FormShowConstants
+   vbModeless = 0
+   vbModal = 1
+End Enum
+
+Public Enum ColorConstants
+   vbBlack   =        0
+   vbRed     =      255
+   vbGreen   =    65280
+   vbYellow  =    65535
+   vbBlue    = 16711680
+   vbMagenta = 16711935
+   vbCyan    = 16776960
+   vbWhite   = 16777215
+End Enum
+
+Public Enum KeyCodeConstants
+   vbKeyLButton = 1
+   vbKeyRButton = 2
+   vbKeyCancel = 3
+   vbKeyMButton = 4
+   vbKeyBack = 8
+   vbKeyTab = 9
+   vbKeyClear = 12
+   vbKeyReturn = 13
+   vbKeyShift = 16
+   vbKeyControl = 17
+   vbKeyMenu = 18
+   vbKeyPause = 19
+   vbKeyCapital = 20
+   vbKeyEscape = 27
+   vbKeySpace = 32
+   vbKeyPageUp = 33
+   vbKeyEnd = 35
+   vbKeyHome = 36
+   vbKeyLeft = 37
+   vbKeyUp = 38
+   vbKeyRight = 39
+   vbKeyPageDown = 34
+   vbKeyDown = 40
+   vbKeySelect = 41
+   vbKeyPrint = 42
+   vbKeyExecute = 43
+   vbKeySnapshot = 44
+   vbKeyInsert = 45
+   vbKeyDelete = 46
+   vbKeyHelp = 47
+   vbKey0 = 48
+   vbKey1 = 49
+   vbKey2 = 50
+   vbKey3 = 51
+   vbKey4 = 52
+   vbKey5 = 53
+   vbKey6 = 54
+   vbKey7 = 55
+   vbKey8 = 56
+   vbKey9 = 57
+   vbKeyA = 65
+   vbKeyB = 66
+   vbKeyC = 67
+   vbKeyD = 68
+   vbKeyE = 69
+   vbKeyF = 70
+   vbKeyG = 71
+   vbKeyH = 72
+   vbKeyI = 73
+   vbKeyJ = 74
+   vbKeyK = 75
+   vbKeyL = 76
+   vbKeyM = 77
+   vbKeyN = 78
+   vbKeyO = 79
+   vbKeyP = 80
+   vbKeyQ = 81
+   vbKeyR = 82
+   vbKeyS = 83
+   vbKeyT = 84
+   vbKeyU = 85
+   vbKeyV = 86
+   vbKeyW = 87
+   vbKeyX = 88
+   vbKeyY = 89
+   vbKeyZ = 90
+   vbKeyNumpad0 = 96
+   vbKeyNumpad1 = 97
+   vbKeyNumpad2 = 98
+   vbKeyNumpad3 = 99
+   vbKeyNumpad4 = 100
+   vbKeyNumpad5 = 101
+   vbKeyNumpad6 = 102
+   vbKeyNumpad7 = 103
+   vbKeyNumpad8 = 104
+   vbKeyNumpad9 = 105
+   vbKeyMultiply = 106
+   vbKeyAdd = 107
+   vbKeySeparator = 108
+   vbKeySubtract = 109
+   vbKeyDecimal = 110
+   vbKeyDivide = 111
+   vbKeyF1 = 112
+   vbKeyF2 = 113
+   vbKeyF3 = 114
+   vbKeyF4 = 115
+   vbKeyF5 = 116
+   vbKeyF6 = 117
+   vbKeyF7 = 118
+   vbKeyF8 = 119
+   vbKeyF9 = 120
+   vbKeyF10 = 121
+   vbKeyF11 = 122
+   vbKeyF12 = 123
+   vbKeyF13 = 124
+   vbKeyF14 = 125
+   vbKeyF15 = 126
+   vbKeyF16 = 127
+   vbKeyNumlock = 144
+   vbKeyScrollLock = 145
+End Enum
+
+Public Enum RasterOpConstants
+   vbNotSrcErase = 1114278
+   vbNotSrcCopy = 3342344
+   vbSrcErase = 4457256
+   vbDstInvert = 5570569
+   vbPatInvert = 5898313
+   vbSrcInvert = 6684742
+   vbSrcAnd = 8913094
+   vbMergePaint = 12255782
+   vbMergeCopy = 12583114
+   vbSrcCopy = 13369376
+   vbSrcPaint = 15597702
+   vbPatCopy = 15728673
+   vbPatPaint = 16452105
+End Enum
+
+Public Enum ListBoxConstants
+   vbListBoxStandard = 0
+   vbListBoxCheckbox = 1
+End Enum
+
+Public Enum SystemColorConstants
+   vb3DDKShadow = -2147483627
+   vb3DFace = -2147483633
+'   vb3DHighlight = -2147483628                ' CURRENTLY NOT SUPPORTED
+'   vb3DLight = -2147483626                    ' CURRENTLY NOT SUPPORTED
+   vb3DShadow = -2147483632
+'   vbActiveBorder = -2147483638               ' CURRENTLY NOT SUPPORTED
+   vbActiveTitleBar = -2147483646 
+   vbActiveTitleBarText = -2147483639 
+'   vbApplicationWorkspace = -2147483636       ' CURRENTLY NOT SUPPORTED
+'   vbButtonFace = -2147483633                 ' CURRENTLY NOT SUPPORTED
+'   vbButtonShadow = -2147483632               ' CURRENTLY NOT SUPPORTED
+   vbButtonText = -2147483630
+   vbDesktop = -2147483647 
+   vbGrayText = -2147483631
+   vbHighlight = -2147483635 
+   vbHighlightText = -2147483634 
+'   vbInactiveBorder = -2147483637             ' CURRENTLY NOT SUPPORTED
+   vbInactiveCaptionText = -2147483629 
+   vbInactiveTitleBar = -2147483645 
+'   vbInactiveTitleBarText = -2147483629       ' CURRENTLY NOT SUPPORTED
+   vbInfoBackground = -2147483624
+   vbInfoText = -2147483625
+   vbMenuBar = -2147483644 
+   vbMenuText = -2147483641 
+   vbScrollBars = -2147483648 
+'   vbTitleBarText = -2147483639               ' CURRENTLY NOT SUPPORTED
+   vbWindowBackground = -2147483643
+   vbWindowFrame = -2147483642
+   vbWindowText = -2147483640
+End Enum
+
+Public Enum StartUpPositionConstants
+   vbStartUpManual
+'   vbStartUpOwner
+   vbStartUpScreen
+'   vbStartUpWindowsDefault
+End Enum
+
+Public Enum SelectionModeSettings
+   flexSelectionFree
+   flexSelectionByRow 
+   flexSelectionByColumn = 2
+End Enum
+
+Public Enum BackStyleConstants
+   vbTransparent
+   vbSolid
+End Enum
+
+Public Enum FormBorderStyleConstants
+   vbBSNone = 0
+   vbFixedSingle = 1
+   vbSizable = 2
+   vbFixedDialog = 3
+   vbFixedToolWindow = 4
+   vbSizableToolWindow = 5
+End Enum
+
+Public Enum ShapeConstants
+   vbShapeRectangle = 0
+   vbShapeSquare = 1
+   vbShapeOval = 2
+   vbShapeCircle = 3
+   vbShapeRoundedRectangle = 4
+   vbShapeRoundedSquare = 5
+End Enum
+
+Public Enum DrawModeConstants
+   vbDefaultDraw = 0
+   vbBlackness = 1
+   vbNotMergePen = 2
+   vbMaskNotPen = 3
+   vbNotCopyPen = 4
+   vbMaskPenNot = 5
+   vbInvert = 6
+   vbXorPen = 7
+   vbNotMaskPen = 8
+   vbMaskPen = 9
+   vbNotXorPen = 10
+   vbNop = 11
+   vbMergeNotPen = 12
+   vbCopyPen = 13
+   vbMergePenNot = 14
+   vbMergePen = 15
+   vbWhiteness = 16
+End Enum
+
+Public Enum MousePointerConstants
+   vbDefault = 0
+   vbArrow = 1
+   vbCrosshair = 2
+   vbIbeam = 3
+   vbIconPointer = 4
+   vbSizePointer = 5
+   vbSizeNESW = 6
+   vbSizeNS = 7
+   vbSizeNWSE = 8
+   vbSizeWE = 9
+   vbUpArrow = 10
+   vbHourglass = 11
+   vbNoDrop = 12
+   vbArrowHourglass = 13
+   vbArrowQuestion = 14
+   vbSizeAll = 15
+   vbHandCursor = 16
+End Enum
+
+'Public Enum AlignmentConstants
+'   vbLeftJustify 
+'   vbRightJustify 
+'   vbCenter
+'   vbLeftMiddleJustify 
+'   vbRightMiddleJustify 
+'   vbCenterMiddle
+'   vbLeftBottomJustify 
+'   vbRightBottomJustify 
+'   vbCenterBottom
+'End Enum
+
+Public Enum fmSplitOrientation
+   fmComponentTop = 0
+   fmComponentBottom = 1
+   fmComponentLeft = 2
+   fmComponentRight = 3
+End Enum
+
+Public Enum fmTabOrientation
+   fmTabOrientationTop = 0
+   fmTabOrientationBottom = 1
+   fmTabOrientationLeft = 2
+   fmTabOrientationRight = 3
+End Enum
+
+Public Enum vbScrollBarPolicy
+   sbShowAsNeeded = 0
+   sbShowNever = 1
+   sbShowAlways = 2
+End Enum
+
+Public Enum fmTextAlign
+   fmTextAlignLeft = 1
+   fmTextAlignCenter = 2
+   fmTextAlignRight = 3
+End Enum
+
+Public Enum FormWindowStateConstants
+   vbNormal
+   vbMinimized
+   vbMaximized
+End Enum
+
+Public Enum ButtonConstants
+   vbButtonStandard 
+   vbButtonGraphical 
+End Enum
+
+Public Enum TickStyleConstants
+   sldBottomRight
+   sldTopLeft
+   sldBoth
+   sldNoTicks
+End Enum
+
+Public Enum OrientationConstants
+   ccOrientationHorizontal
+   ccOrientationVertical 
+End Enum
+
+Public Enum fmMultiSelect
+   fmMultiSelectSingle = 0
+   fmMultiSelectMulti = 1
+   fmMultiSelectExtended = 2
+End Enum
+
+Public Enum fmOrientation
+   fmOrientationVertical
+   fmOrientationHorizontal
+End Enum
+
+'Public Enum ScrollingConstants
+'   ccScrollingStandard
+'   ccScrollingSmooth
+'End Enum
+
+Public Enum fmPictureAlignment
+   fmPictureAlignmentTopLeft 
+   fmPictureAlignmentTopRight 
+   fmPictureAlignmentCenter 
+   fmPictureAlignmentBottomLeft 
+   fmPictureAlignmentBottomRight 
+End Enum
+
+Public Enum fmPicturePosition
+   fmPicturePositionLeftTop
+   fmPicturePositionLeftCenter
+   fmPicturePositionLeftBottom
+   fmPicturePositionRightTop
+   fmPicturePositionRightCenter
+   fmPicturePositionRightBottom
+   fmPicturePositionAboveLeft
+   fmPicturePositionAboveCenter
+   fmPicturePositionAboveRight
+   fmPicturePositionBelowLeft
+   fmPicturePositionBelowCenter
+   fmPicturePositionBelowRight
+   fmPicturePositionCenter
+End Enum
+
+Public Enum MouseButtonConstants
+   vbLeftButton = 1
+   vbRightButton = 2
+   vbMiddleButton = 4
+End Enum
+
+Public Enum ShiftConstants
+   vbShiftMask = 1
+   vbCtrlMask = 2
+   vbAltMask = 4
+End Enum
+
+Public Enum BorderStyleConstants
+   vbTransparent = 0
+   vbBSSolid = 1
+   vbBSDash = 2
+   vbBSDot = 3
+   vbBSDashDot = 4
+   vbBSDashDotDot = 5
+   vbBSInsideSolid = 6
+End Enum
+
+Public Enum fmSpecialEffect
+   fmSpecialEffectFlat = 0
+   fmSpecialEffectRaised = 1
+   fmSpecialEffectSunken = 2
+   fmSpecialEffectEtched = 3
+End Enum
+
+Public Enum fmBorderStyle
+   fmBorderStyleNone = 0
+   fmBorderStyleSingle = 1
+End Enum
+
+Public Function setGlobalMDIForm(refMDI As MDIForm)
+   myGlobalMDIForm = refMDI
+End Function
+
+Public Property Get GlobalMDIForm() As MDIForm
+   GlobalMDIForm = myGlobalMDIForm
+End Property
+
+Public Function App() As VB#App
+   If myApp = Nothing Then myApp = New App()
+   App = myApp
+End Function
+
+Public Function Clipboard() As VBClipboard
+   If myClipboard = Nothing Then myClipboard = New VBClipboard()
+   Clipboard = myClipBoard
+End Function
+
+Public Function Screen() As Screen
+   If myScreen = Nothing Then myScreen = New Screen()
+   Screen = myScreen
+End Function
+
+Public Function Debug() As Debug
+   If myDebug = Nothing Then myDebug = New Debug()
+   Debug = myDebug
+End Function
+
+Public Function SysInfo() As SysInfo
+   If mySysInfo = Nothing Then mySysInfo = New SysInfo()
+   SysInfo = mySysInfo   
+End Function
+
+Public Function LookAndFeelManager() As JBCLookAndFeel
+   If myLookAndFeelManager = Nothing Then myLookAndFeelManager = New JBCLookAndFeel
+   LookAndFeelManager = myLookAndFeelManager
+End Function
+
+Public Sub Unload(Form As Form)
+   Form.Visible = False
+   Call Form.dispose   
+End Sub
+Public Sub Unload(Form As MDIForm)
+   Form.Visible = False
+   Call Form.dispose   
+End Sub
+Public Sub Unload(Form As MDIChild)
+   Form.Visible = False
+   Call Form.dispose   
+End Sub
+Public Sub Unload(Form As Dialog)
+   Form.Visible = False
+   Call Form.dispose   
+End Sub
+
+'Public Sub SetWindowToCenter(Window As java#awt#Window)
+'   Dim tmpDimension As java#awt#Dimension 
+'   tmpDimension = java#awt#Toolkit.getDefaultToolkit().getScreenSize
+'   Window.setLocation (tmpDimension.width - Window.getSize().width) / 2, (tmpDimension.Height - Window.getSize().height) / 2
+'End Sub
+
+Public Function CreateIcon(Width As Integer, Height As Integer) As ImageIcon
+   Dim tmpConfig As java#awt#GraphicsConfiguration
+   Dim tmpImageVirtual As #BufferedImage 
+   'Dim tmpImage As #Image
+   Dim tmpGFX As #Graphics 
+
+   'tmpImage = LoadPicture(Resource)
+   tmpConfig = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration()
+   tmpImageVirtual = tmpConfig.createCompatibleImage(Width, Height, java#awt#Transparency.BITMASK)
+
+'   tmpGFX = tmpImageVirtual.getGraphics()
+'   tmpGFX.drawImage(tmpImage, 0, 0, Nothing)
+'   tmpGFX.dispose 
+   
+   CreateIcon = New ImageIcon(tmpImageVirtual)
+   
+End Function
+
+'Public Function LoadIcon(Resource As String) As ImageIcon
+'   Dim tmpImage As #Image = LoadPicture(Resource)
+'   If tmpImage = Nothing Then Exit Function
+'   LoadIcon = New ImageIcon(tmpImage)
+'End Function
+
+Public Function LoadIcon(Resource As #IResource) As ImageIcon
+   On Error Resume Next
+   Dim tmpImage As #Image = LoadPicture(Resource)
+   If tmpImage = Nothing Then Exit Function
+   LoadIcon = New ImageIcon(tmpImage)
+End Function
+
+'Public Function LoadPicture(Resource As String) As Image
+'   LoadPicture = getImageFromResource(New Module1.getClass , resource)
+'End Function
+
+Public Function LoadResource(Resource As #IResource) As #ByteArrayOutputStream
+   On Error Resume Next
+   If Resource = Nothing Then Exit Function
+   LoadResource = getResourceAsByteArray(Resource.getClass, Resource.toString())
+End Function
+
+Public Function LoadPicture(Resource As String) As Image
+   LoadPicture = New VBImage(Resource).getImage()
+End Function
+
+Public Function LoadPicture(Resource As #IResource) As Image
+   On Error Resume Next
+   If Resource = Nothing Then Exit Function
+   If IsClass(Resource, VBImage) Then
+      LoadPicture = Cast(Resource, VBImage).getImage()
+   Else
+      LoadPicture = getResourceAsImage(Resource.getClass, Resource.toString())
+   End If
+End Function
+
+Public Function KeyEventToKeyCode(e As KeyEvent) As Integer
+   If e.getKeyCode = KeyEvent.VK_ENTER Then
+      KeyEventToKeyCode = 13
+   Else
+      KeyEventToKeyCode = e.getKeyCode()
+   End If
+End Function
+
+Public Function KeyEventToShiftConstant(e As KeyEvent) As Integer
+   Dim ret As Integer 
+   ret = 0
+   If e.isShiftDown Then ret = ret & vbShiftMask
+   If e.isControlDown Then ret = ret & vbCtrlMask
+   If e.isAltDown Then ret = ret & vbAltMask
+   KeyEventToShiftConstant = ret
+End Function
+
+Public Function GetVBBorder(style As fmBorderStyle, effect As fmSpecialEffect, bordercolor As Long) As Border
+   If style = Nothing Then Exit Function
+   Select Case style
+      Case fmBorderStyleNone
+         GetVBBorder = BorderFactory.createEmptyBorder() 
+      Case fmBorderStyleSingle
+         Select Case effect
+            Case fmSpecialEffectFlat
+                  GetVBBorder = BorderFactory.createLineBorder(RGBtoColor(bordercolor))
+            Case fmSpecialEffectRaised
+                  GetVBBorder = BorderFactory.createRaisedBevelBorder()
+            Case fmSpecialEffectSunken
+                  GetVBBorder = BorderFactory.createLoweredBevelBorder()
+            Case fmSpecialEffectEtched
+                  GetVBBorder = BorderFactory.createEtchedBorder()
+         End Select
+   End Select
+End Function
+
+'Public Function Timer() As Long
+'   Timer = java#lang#System.currentTimeMillis()
+'End Function
+
+Public Function VBScrollBarToJScrollBarPolicy(v As vbScrollBarPolicy, bHorizontal As Boolean) As Integer 
+   If bHorizontal Then
+      Select Case v
+         Case sbShowAsNeeded  
+            VBScrollBarToJScrollBarPolicy = ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED
+         Case sbShowNever
+            VBScrollBarToJScrollBarPolicy = ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER 
+         Case sbShowAlways 
+            VBScrollBarToJScrollBarPolicy = ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS 
+      End Select
+   Else
+      Select Case v
+         Case sbShowAsNeeded  
+            VBScrollBarToJScrollBarPolicy = ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED
+         Case sbShowNever
+            VBScrollBarToJScrollBarPolicy = ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER 
+         Case sbShowAlways 
+            VBScrollBarToJScrollBarPolicy = ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS
+      End Select
+   End If
+End Function
+
+Public Function JScrollBarToVBScrollBarPolicy(v As Integer) As vbScrollBarPolicy
+   Select Case v
+      Case ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED  
+         JScrollBarToVBScrollBarPolicy = sbShowAsNeeded
+      Case ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER 
+         JScrollBarToVBScrollBarPolicy = sbShowNever
+      Case ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS
+         JScrollBarToVBScrollBarPolicy = sbShowAlways
+      Case ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED  
+         JScrollBarToVBScrollBarPolicy = sbShowAsNeeded
+      Case ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER 
+         JScrollBarToVBScrollBarPolicy = sbShowNever
+      Case  ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS 
+         JScrollBarToVBScrollBarPolicy = sbShowAlways
+   End Select
+End Function
+
+Public Function JCursorToVBMousePointer(v As #Cursor) As MousePointerConstants
+   Select Case v
+      Case DEFAULT_CURSOR: JCursorToVBMousePointer = vbDefault 
+      Case CROSSHAIR_CURSOR: JCursorToVBMousePointer = vbCrosshair 
+      Case TEXT_CURSOR: JCursorToVBMousePointer = vbIbeam 
+      Case CUSTOM_CURSOR: JCursorToVBMousePointer = vbIconPointer 
+      Case MOVE_CURSOR: JCursorToVBMousePointer = vbSizePointer
+      Case SW_RESIZE_CURSOR, NE_RESIZE_CURSOR: JCursorToVBMousePointer = vbSizeNESW
+      Case N_RESIZE_CURSOR, S_RESIZE_CURSOR: JCursorToVBMousePointer = vbSizeNS
+      Case SE_RESIZE_CURSOR, NW_RESIZE_CURSOR: JCursorToVBMousePointer = vbSizeNWSE
+      Case E_RESIZE_CURSOR, W_RESIZE_CURSOR: JCursorToVBMousePointer = vbSizeWE
+      Case WAIT_CURSOR: JCursorToVBMousePointer = vbHourglass
+      Case MOVE_CURSOR: JCursorToVBMousePointer = vbSizeAll 
+      Case HAND_CURSOR: JCursorToVBMousePointer = vbHandCursor
+      Case Else: JCursorToVBMousePointer = vbDefault
+   End Select
+End Function
+
+Public Function VBMousePointerToJCursor(v As MousePointerConstants) As #Cursor
+   On Error Resume Next
+   Select Case v
+      Case vbDefault: VBMousePointerToJCursor = DEFAULT_CURSOR
+      Case vbArrow: VBMousePointerToJCursor = DEFAULT_CURSOR
+      Case vbCrosshair: VBMousePointerToJCursor = CROSSHAIR_CURSOR
+      Case vbIbeam: VBMousePointerToJCursor = TEXT_CURSOR
+      Case vbIconPointer: VBMousePointerToJCursor = DEFAULT_CURSOR ' == AUTOMATICALLY BY MOUSEICON
+      Case vbSizePointer: VBMousePointerToJCursor = MOVE_CURSOR
+      Case vbSizeNESW: VBMousePointerToJCursor = SW_RESIZE_CURSOR ' == NE_RESIZE_CURSOR
+      Case vbSizeNS: VBMousePointerToJCursor = N_RESIZE_CURSOR ' == S_RESIZE_CURSOR
+      Case vbSizeNWSE: VBMousePointerToJCursor = SE_RESIZE_CURSOR ' == NW_RESIZE_CURSOR
+      Case vbSizeWE: VBMousePointerToJCursor  = E_RESIZE_CURSOR ' == W_RESIZE_CURSOR
+      Case vbUpArrow: VBMousePointerToJCursor = DEFAULT_CURSOR ' !!! NOT AVAILABLE 
+      Case vbHourglass: VBMousePointerToJCursor = WAIT_CURSOR
+      Case vbNoDrop: VBMousePointerToJCursor = DEFAULT_CURSOR ' !!! NOT AVAILABLE 
+      Case vbArrowHourglass: VBMousePointerToJCursor = DEFAULT_CURSOR ' !!! NOT AVAILABLE 
+      Case vbArrowQuestion: VBMousePointerToJCursor = DEFAULT_CURSOR ' !!! NOT AVAILABLE 
+      Case vbSizeAll: VBMousePointerToJCursor = MOVE_CURSOR
+      Case vbHandCursor: VBMousePointerToJCursor = HAND_CURSOR
+      Case Else: VBMousePointerToJCursor = DEFAULT_CURSOR
+   End Select
+End Function
+
+Public Function VBMouseIconToJCursor(v As #IResource, c As #Component) As #Cursor
+   On Error Goto ERROUT
+   If v = Nothing Then 
+      VBMouseIconToJCursor = c.getCursor() 
+      Exit Function
+   End If
+   Dim img As #Image
+   img = LoadPicture(v)
+   If img = Nothing Then
+      VBMouseIconToJCursor = c.getCursor() 
+   Else
+      VBMouseIconToJCursor = Toolkit.getDefaultToolkit().createCustomCursor(img, New point(1,1), "VBMouseIcon")
+   End If
+   Exit Function
+ERROUT: VBMouseIconToJCursor = DEFAULT_CURSOR
+End Function
+
+Public Function VBFontSizeToJFontSize(v As Integer) As Integer 
+   VBFontSizeToJFontSize = v * GetFontFactor() ' * 1.4
+End Function
+
+Public Function JFontSizeToVBFontSize(v As Integer) As Integer 
+   JFontSizeToVBFontSize = v / GetFontFactor() ' / 1.4
+End Function
+
+Private Function GetFontFactor() As Double 
+   GetFontFactor = Toolkit.getDefaultToolkit.getScreenResolution() / 72 ' 72 dpi = java std.
+End Function
+
+Public Function SavePicture(picture As Image, filename As String) As Boolean 
+   SavePicture = SavePicture(picture, filename, "png")
+End Function
+
+Public Function SavePicture(image As Image, filename As String, filetype As String) As Boolean 
+   On Error Goto ERROUT
+   SavePicture = False 
+   Dim tmpBufferedImage As #BufferedImage = New createBufferedImage(image)
+   Dim tmpFile As New #File(Filename)
+   Call ImageIO.write(tmpBufferedImage, filetype, tmpFile)
+   SavePicture = True
+ERROUT:
+End Function
+
+Public Sub PopupMenu(MenuGroup As VBMenuGroup)
+   'KeyboardFocusManager.getCurrentKeyboardFocusManager();
+   Dim Owner As Component = KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner()
+   Dim OwnerV As Variant = Owner
+   Dim X As Integer, Y As Integer 
+   If Owner <> Nothing Then
+      X = OwnerV.getMousePosition().getX()
+      Y = OwnerV.getMousePosition().getY()
+   End If
+   MenuGroup.GetAsPopupMenu().show(Owner, X, Y)
+End Sub
+
+Public Sub PopupMenu(MenuGroup As VBMenuGroup, X As Integer, Y As Integer)
+   Dim Owner As Component = SysInfo.FocusedComponent()
+   MenuGroup.GetAsPopupMenu().show(Owner, X, Y)
+End Sub
+
+Public Sub PopupMenu(MenuGroup As VBMenuGroup, Owner As #JComponent, X As Integer, Y As Integer)
+   MenuGroup.GetAsPopupMenu().show(Owner, X, Y)
+End Sub
+
+Public Sub DoEvents()
+   On Error Resume Next
+   Call JabacoEventQueque.getJabacoEventQueque.dispatchEvents()
+End Sub
+
+Public Sub End()
+   Call System.exit(0)
+End Sub
+
+Public Sub Beep()
+   On Error Resume Next
+   Call java#awt#Toolkit.getDefaultToolkit.beep()
+End Sub
+
+
+]]></Source><Param Name="(Name)" Value="Global"/><Param Name="(SuperClass)" Value="java/lang/Object"/><Param Name="(Type)" Value="Module"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VB"/></SourceFile>

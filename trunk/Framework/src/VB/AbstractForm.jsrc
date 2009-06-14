@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+Implements ILoadAdapter
+Implements IJabacoForm
+Implements ComponentListener 
+Implements FocusListener
+
+Dim myInitLookAndFeelFlag As Boolean = LookAndFeelManager().isInitialized()
+Dim Withevents myMenuBar As New VBMenuBar(Me)
+Dim Withevents myToolBar As New VBToolBar(Me)
+
+Dim StartUpPositionVal As StartUpPositionConstants = vbStartUpScreen
+Dim StartVisibility As Boolean, StartLeft As Integer, StartTop As Integer, StartWidth As Single, StartHeight As Single 
+Dim FormLoaded As Boolean 
+Dim myTag As String
+
+Dim myMenuBarBackColor As Long
+Dim myMenuBarForeColor As Long
+Dim myToolBarBackColor As Long
+Dim myToolBarForeColor As Long
+
+Dim myMouseIcon As #IResource 
+Dim myIcon As #IResource 
+
+
+' ******************************** INIT THIS CONTROL ********************************
+
+Public Property Get Parent() As JFrame
+   Parent = Base
+End Property
+
+Public Sub AbstractForm()
+   Call Parent.setVisible(False)
+   FormLoaded = False
+   myMenuBar.Visible = False 
+   myToolBar.Visible = False
+   Parent.setJMenuBar myMenuBar
+   Parent.getContentPane().add myToolBar, BorderLayout.NORTH
+
+End Sub
+
+Public Sub fireLoaded()
+   Dim tmpFireAdapter As New LoadAdapter(Me, Me)
+   tmpFireAdapter.fireLoaded()
+End Sub
+
+Public Sub fireLoaded(sender As Object)
+
+   FormLoaded = True
+
+   ' **************** // BAD HACK * I DONT KNOW A BETTER SOLUTION AT THE MOMENT :(
+   Dim myMemWindowState As FormWindowStateConstants 
+   myMemWindowState = WindowState
+
+   Parent.setLocation -50000, -50000
+   Parent.setVisible True
+   Height = Height + (StartHeight - Parent.getContentPane.getHeight)
+   Width = Width + (StartWidth - Parent.getContentPane.getWidth) 
+   
+   Call Me.Form_Load()
+   Call DoEvents()
+   
+   If myMenuBar.Visible Then Me.Height = Me.Height + myMenuBar.Height
+   If myToolBar.Visible Then Me.Height = Me.Height + myToolBar.Height
+   Parent.setVisible False
+   ' **************** // BAD HACK
+   
+   StartUpPosition = StartUpPosition
+   WindowState = myMemWindowState 
+   Visible = StartVisibility
+   
+   Call Me.Form_Resize()
+
+   Call Parent.addFocusListener(Me)
+   Call Parent.addComponentListener(Me)
+   
+End Sub
+
+
+' ******************************** DEFAULT FOCUS - EVENTS ********************************
+
+Public Sub focusGained(arg2 As FocusEvent)
+   On Error Resume Next
+   Call Form_GotFocus()
+End Sub
+
+Public Sub focusLost(arg2 As FocusEvent)
+   On Error Resume Next
+   Call Form_LostFocus()
+End Sub
+
+' ******************************** DEFAULT Component - EVENTS ********************************
+
+Public Sub componentHidden(e As ComponentEvent)
+   On Error Resume Next
+   Me.Form_Deactivate()
+End Sub
+
+Public Sub componentMoved(e As ComponentEvent)
+   On Error Resume Next
+   Me.Form_Move()
+End Sub
+
+Public Sub componentResized(e As ComponentEvent)
+   On Error Resume Next
+   Me.Form_Resize()
+End Sub
+
+Public Sub componentShown(e As ComponentEvent)
+   On Error Resume Next
+   Me.Form_Activate()
+End Sub
+
+
+Public Sub Form_Activate()
+End Sub
+Public Sub Form_Deactivate()
+End Sub
+Public Sub Form_GotFocus()
+End Sub
+Public Sub Form_LostFocus()
+End Sub
+Public Sub Form_Load()
+End Sub
+Public Sub Form_Resize()
+End Sub
+Public Sub Form_Move()
+End Sub
+Public Sub Form_MenuClick(MenuItem As IMenuItem)
+End Sub
+Public Sub Form_ToolBarClick(ToolBarItem As IToolBarItem)
+End Sub
+Public Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
+End Sub
+Public Sub Form_KeyPress(KeyAscii As Integer)
+End Sub
+Public Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
+End Sub
+
+
+' ******************************** SPECIAL FUNCTIONS ********************************
+
+Public Sub Show()
+   Parent.show
+End Sub
+
+Public Sub SetDefaultClose()
+   Me.setDefaultCloseOperation( Me.EXIT_ON_CLOSE )
+End Sub
+
+Public Property Get StartUpPosition() As StartUpPositionConstants 
+   StartUpPosition = StartUpPositionVal
+End Property
+
+Public Property Let StartUpPosition(val As StartUpPositionConstants)
+   If val = vbStartUpScreen Then
+      Dim tmpDimension As java#awt#Dimension 
+      tmpDimension = java#awt#Toolkit.getDefaultToolkit().getScreenSize
+      Base.setLocation (tmpDimension.Width - Me.Width) / 2, (tmpDimension.Height - Me.Height) / 2
+   Elseif val = vbStartUpManual Then
+      Base.setLocation StartTop, StartLeft
+   End If
+   StartUpPositionVal = val
+End Property
+
+Public Property Get MenuBar() As VBMenuBar 
+   MenuBar = myMenuBar
+End Property
+
+Public Property Get ToolBar() As VBToolBar 
+   ToolBar = myToolBar
+End Property
+
+Public Property Get BorderStyle() As FormBorderStyleConstants 
+   If Base.isResizable Then
+      BorderStyle = vbSizable
+      'vbSizableToolWindow
+   Else
+      If Base.isUndecorated Then
+         BorderStyle = vbBSNone
+      Else
+         BorderStyle = vbFixedDialog
+         'vbFixedDialog
+         'vbFixedSingle
+         'vbFixedToolWindow
+      End If
+   End If
+End Property
+
+Public Sub Close()
+   Call Parent.dispose 
+End Sub
+
+Public Property Let BorderStyle(v As FormBorderStyleConstants)
+   Select Case v
+      Case vbBSNone 
+         Base.setResizable False
+         Base.setUndecorated True
+      Case vbFixedDialog 
+         Parent.setResizable False
+      Case vbFixedSingle 
+         Parent.setResizable False
+      Case vbFixedToolWindow 
+         Parent.setResizable False
+      Case vbSizable
+         Parent.setResizable True
+      Case vbSizableToolWindow 
+         Parent.setResizable True
+   End Select
+End Property
+
+Public Property Get Caption() As String
+   Caption = Me.getTitle
+End Property
+
+Public Property Let Caption(v As String)
+   Me.setTitle(v)
+End Property
+
+Public Property Get MenuBackColor() As Long
+   MenuBackColor = myMenuBarBackColor
+End Property
+
+Public Property Let MenuBackColor(v As Long)
+   myMenuBarBackColor = v
+   myToolBar.Parent.repaint 
+End Property
+
+Public Property Get MenuForeColor() As Long
+   MenuForeColor = myMenuBarForeColor
+End Property
+
+Public Property Let MenuForeColor(v As Long)
+   myMenuBarForeColor = v
+   myToolBar.Parent.repaint 
+End Property
+
+Public Property Get ToolBackColor() As Long
+   ToolBackColor = myToolBarBackColor
+End Property
+
+Public Property Let ToolBackColor(v As Long)
+   myToolBarBackColor = v
+   myToolBar.Parent.repaint 
+End Property
+
+Public Property Get ToolForeColor() As Long
+   ToolForeColor = myToolBarForeColor
+End Property
+
+Public Property Let ToolForeColor(v As Long)
+   myToolBarForeColor = v
+   myToolBar.Parent.repaint 
+End Property
+
+Public Property Get WindowState() As FormWindowStateConstants 
+   Select Case getExtendedState()
+      Case ICONIFIED
+         WindowState = vbMinimized
+      Case MAXIMIZED_BOTH
+         WindowState = vbMaximized
+      Case Else
+         WindowState = vbNormal
+   End Select
+End Property
+
+Public Property Let WindowState(val As FormWindowStateConstants)
+   Select Case val
+      Case vbNormal
+         Me.setExtendedState NORMAL
+      Case vbMinimized
+         Me.setExtendedState ICONIFIED
+      Case vbMaximized
+         Me.setExtendedState MAXIMIZED_BOTH
+   End Select
+End Property
+
+Public Property Get Icon() As #IResource
+   Icon = myIcon
+End Property
+
+Public Property Let Icon(Path As #IResource)
+   myIcon = Path
+   Call Parent.setIconImage(LoadPicture(Path))   
+End Property
+
+' ******************************** DEFAULT FORM FUNCTIONS ********************************
+
+Public Property Get Left() As Single
+   If FormLoaded = False Then 
+      Left = StartLeft
+   Else
+      Left = Me.getLocation.x
+   End If
+End Property
+
+Public Property Let Left(v As Single)
+   If FormLoaded = False Then StartLeft = v
+   Me.setLocation(v, Me.getLocation.y)
+End Property
+
+Public Property Get Top() As Single
+   If FormLoaded = False Then 
+      Top = StartTop
+   Else
+      Top = Me.getLocation.y
+   End If
+End Property
+
+Public Property Let Top(v As Single)
+   If FormLoaded = False Then StartTop = v
+   Me.setLocation(Me.getLocation.x, v)
+End Property
+
+Public Property Get Width() As Single
+   If FormLoaded = False Then 
+      Width = StartWidth
+   Else
+      Width = Me.getSize.Width
+   End If
+End Property
+
+Public Property Let Width(v As Single)
+   If FormLoaded = False Then StartWidth = v
+   Me.setSize(v, Me.getSize.Height)
+End Property
+
+Public Property Get Height() As Single
+   If FormLoaded = False Then 
+      Height = StartHeight
+   Else
+      Height = Me.getSize.Height
+   End If
+End Property
+
+Public Property Let Height(v As Single)
+   If FormLoaded = False Then StartHeight = v
+   Me.setSize(Me.getSize.Width, v)
+   Call Refresh
+End Property
+
+Public Property Get Enabled() As Boolean 
+   Enabled = Me.isEnabled()
+End Property
+
+Public Property Let Enabled(v As Boolean)
+   Call Me.setEnabled(v)
+End Property
+
+Public Property Get Visible() As Boolean 
+    Visible = Me.isVisible()
+End Property
+
+Public Property Let Visible(v As Boolean)
+   If Formloaded Then 
+      Me.setVisible v
+   Else
+      StartVisibility = v
+   End If
+End Property
+
+Public Property Get MousePointer() As MousePointerConstants
+   MousePointer = JCursorToVBMousePointer(Parent.getCursor())
+End Property
+
+Public Property Let MousePointer(v As MousePointerConstants)
+   Call Parent.setCursor(VBMousePointerToJCursor(v))
+End Property
+
+Public Property Get MouseIcon() As #IResource 
+   MouseIcon = myMouseIcon
+End Property
+
+Public Property Let MouseIcon(v As #IResource)
+   myMouseIcon = v
+   Call Parent.setCursor(VBMouseIconToJCursor(v, Me))
+End Property
+
+Public Property Get CanGetFocus() As Boolean
+   CanGetFocus = Parent.isFocusable
+End Property
+
+Public Property Let CanGetFocus(v As Boolean)
+   Parent.setFocusable v
+End Property
+
+Public Sub SetFocus()
+   Parent.requestFocus 
+End Sub
+
+Public Sub Refresh()
+   Call Parent.invalidate()
+   Call Parent.repaint(0, 0, 0, Me.Width, Me.Height)
+End Sub
+
+Public Property Get Font() As Font
+   Font = Base.getFont()
+End Property
+
+Public Sub myMenuBar_Click(MenuItem As IMenuItem)
+   Call Me.Form_MenuClick(MenuItem)
+End Sub
+
+Public Sub myToolBar_Click(ToolBarItem As IToolBarItem)
+   Call Me.Form_ToolBarClick(ToolBarItem)
+End Sub
+]]></Source><Param Name="(Name)" Value="AbstractForm"/><Param Name="(SuperClass)" Value="javax/swing/JFrame"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>

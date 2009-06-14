@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA['Implements TableCellRenderer
+
+Public Function getTableCellRendererComponent(table As JTable, value As Object, isSelected As Boolean, hasFocus As Boolean, row As Integer, col As Integer) As Component
+   getTableCellRendererComponent = Base.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col)
+   
+End Function
+
+]]></Source><Param Name="(Name)" Value="JBGridCellRenderer"/><Param Name="(SuperClass)" Value="javax/swing/table/DefaultTableCellRenderer"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>

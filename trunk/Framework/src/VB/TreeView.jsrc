@@ -1,0 +1,535 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+Implements IJabacoControl
+Implements MouseListener 
+Implements MouseMotionListener
+Implements KeyListener
+Implements FocusListener 
+Implements TreeSelectionListener 
+Implements TreeWillExpandListener 
+
+Public Enum TreeStyleConstants
+   tvwTextOnly = 0
+   tvwPictureText = 1
+   tvwPlusMinusText = 2
+   tvwPlusPictureText = 3
+   tvwTreelinesText = 4
+   tvwTreelinesPictureText = 5	
+   tvwTreelinesPlusMinusText = 6
+   tvwTreelinesPlusMinusPictureText = 7
+End Enum
+
+Public Enum TreeLineStyleConstants
+	tvwTreeLines = 0
+	tvwRootLines = 1
+End Enum
+
+Public Enum LabelEditConstants
+	lvwAutomatic = 0
+	lvwManual = 1
+End Enum
+
+Event Click()
+Event DblClick()
+Event GotFocus()
+Event KeyDown(KeyCode As Integer, Shift As Integer)
+Event KeyPress(KeyAscii As Integer)
+Event KeyUp(KeyCode As Integer, Shift As Integer)
+Event LostFocus()
+Event MouseEntered()
+Event MouseExited() 
+Event MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Event MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Event MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Event NodeClick(Node As Node)
+Event Collapse(Node As Node)
+Event Expand(Node As Node)
+Event AfterLabelEdit(Canceled As Boolean)
+Event BeforeLabelEdit()
+
+Dim myRenderer As VB#TreeViewRenderer
+Dim myEditor As VB#TreeViewEditor
+Dim rootNode As New Node(Me, "ROOT")
+Dim myModel As New javax#swing#tree#DefaultTreeModel(rootNode)
+Dim myTree As New JTree(myModel)
+Dim myNodes As New Nodes(Me)
+Dim myTag As String
+Dim myLabelEdit As LabelEditConstants = lvwAutomatic
+
+Dim myMouseIcon As #IResource
+Dim myForeColorSel As Long, myBackColorSel As Long
+Dim myStyle As TreeStyleConstants
+Dim myMargin As Long
+Dim myDefaultBorder As Border
+Dim myBorderStyle As fmBorderStyle 
+
+' ******************************** INIT THIS CONTROL ********************************
+
+Public Property Get Parent() As JTree
+   Parent = myTree
+End Property
+
+Public Sub Class_Initialize()
+   On Error Resume Next
+   
+   myRenderer = New VB#TreeViewRenderer(Me)
+   myEditor = New VB#TreeViewEditor(Parent, myRenderer)
+   myEditor.Owner = Me   
+   
+   Call Parent.setCellRenderer(myRenderer)
+   Call Parent.setCellEditor(myEditor)
+
+   Call Parent.addFocusListener(Me)
+   Call Parent.addMouseListener(Me)
+   Call Parent.addMouseMotionListener(Me)
+   Call Parent.addKeyListener(Me)
+   Call Parent.addTreeSelectionListener(Me)
+   Call Parent.addTreeWillExpandListener(Me)
+   
+   Call Base.setViewportView(myTree)
+   Call Parent.setRootVisible(False)
+   Call Parent.setEditable(True)
+   Call Parent.setInvokesStopCellEditing(True)
+   
+   myDefaultBorder = Base.getBorder()
+End Sub
+
+
+' ******************************** DEFAULT FOCUS - EVENTS ********************************
+
+Public Sub focusGained(arg2 As FocusEvent)
+   Raiseevent GotFocus()
+End Sub
+
+Public Sub focusLost(arg2 As FocusEvent)
+   Raiseevent LostFocus()
+End Sub
+
+' ******************************** DEFAULT MOUSE - EVENTS ********************************
+
+Public Sub mouseMoved(e As MouseEvent) 
+    RaiseEvent MouseMove(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
+End Sub
+
+Public Sub mouseDragged(e As MouseEvent) 
+    RaiseEvent MouseMove(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
+End Sub
+
+Public Sub mousePressed(e As MouseEvent) 
+    RaiseEvent MouseDown(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
+End Sub
+
+Public Sub mouseReleased(e As MouseEvent) 
+   RaiseEvent MouseUp(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
+   If (e.getX > 0 And e.getY > 0 And e.getX < Me.getWidth And e.getY < Me.getHeight) Then
+      If (e.getClickCount() Mod 2) = 0 Then
+         RaiseEvent DblClick()
+      Else
+         RaiseEvent Click()
+      End If
+   End If
+End Sub
+
+Public Sub mouseClicked(e As MouseEvent) 
+    'done by actionlistener
+End Sub
+
+Public Sub mouseEntered(e As MouseEvent) 
+    RaiseEvent MouseEntered()
+End Sub 
+
+Public Sub mouseExited(e As MouseEvent) 
+    RaiseEvent MouseExited()
+End Sub
+
+' ******************************** DEFAULT KEY - EVENTS ********************************
+
+Public Sub keyReleased(e As KeyEvent) 
+   RaiseEvent KeyUp(e.getKeyCode, KeyEventToShiftConstant(e))
+End Sub
+
+Public Sub keyTyped(e As KeyEvent)
+   RaiseEvent KeyPress(e.getKeyChar)
+End Sub
+
+Public Sub keyPressed(e As KeyEvent)
+    RaiseEvent KeyDown(e.getKeyCode, KeyEventToShiftConstant(e))
+End Sub 
+
+
+' ******************************** SPECIAL EVENTS ********************************
+
+Public Property Get BorderStyle() As fmBorderStyle
+   BorderStyle = myBorderStyle
+End Property
+
+Public Property Let BorderStyle(v As fmBorderStyle)
+   myBorderStyle = v
+   If v  = fmBorderStyleNone Then
+      Me.setBorder Nothing
+   Else
+      Me.setBorder myDefaultBorder
+   End If
+End Property
+
+Public Property Get Margin() As Long
+   Margin = myMargin
+End Property
+
+Public Property Let Margin(v As Long)
+   myMargin = v
+   Call Parent.setBorder(BorderFactory.createEmptyBorder(v, v, v, v))
+End Property
+
+Public Sub valueChanged(arg2 As TreeSelectionEvent)
+   If PathToNode(arg2.getPath) <> Nothing Then
+      Parent.stopEditing 
+      Raiseevent NodeClick(PathToNode(arg2.getPath))
+   End If
+End Sub
+
+Public Sub treeWillExpand(arg2 As TreeExpansionEvent)
+   If PathToNode(arg2.getPath) <> Nothing Then
+      Raiseevent Expand(PathToNode(arg2.getPath))
+   End If
+End Sub
+
+Public Sub treeWillCollapse(arg2 As TreeExpansionEvent)
+   If PathToNode(arg2.getPath) <> Nothing Then
+      Raiseevent Collapse(PathToNode(arg2.getPath))
+   End If
+End Sub
+
+' ******************************** SPECIAL FUNCTIONS ********************************
+
+Public Function PathToNode(TreePath As #TreePath) As Node 
+   If TreePath = Nothing Then 
+      PathToNode = Nothing
+      Exit Function
+   End If
+   PathToNode = Cast(TreePath.getLastPathComponent, Node)
+   If (PathToNode = RootNode) Then
+       PathToNode = Nothing
+   End If
+End Function
+
+Public Sub fireAfterLabelEdit(Canceled As Boolean)
+   Raiseevent AfterLabelEdit(Canceled)
+End Sub
+
+Public Sub fireBeforeLabelEdit()
+   Raiseevent BeforeLabelEdit()
+End Sub
+
+Public Function isExpanded(val As Node) As Boolean 
+   isExpanded = Parent.isExpanded(val.TreePath)
+End Function
+
+Public Function isVisible(val As Node) As Boolean 
+   isVisible = Parent.isVisible(val.TreePath)
+End Function
+
+Public Sub expandNode(val As Node)
+   If isExpanded(val) Then Exit Sub
+   Call Parent.expandPath(val.TreePath)
+End Sub
+
+Public Sub collapseNode(val As Node)
+   If isExpanded(val) = False Then Exit Sub
+   Call Parent.collapsePath(val.TreePath)
+End Sub
+
+Public Sub makeVisible(val As Node)
+   Call Parent.makeVisible(val.TreePath)
+End Sub
+
+Public Property Get BackColorSel() As Long
+   BackColorSel = myBackColorSel
+End Property
+
+Public Property Let BackColorSel(v As Long)
+   myBackColorSel = v
+End Property
+
+Public Property Get ForeColorSel() As Long
+   ForeColorSel = myForeColorSel
+End Property
+
+Public Property Let ForeColorSel(v As Long)
+   myForeColorSel = v
+End Property
+
+Public Property Get SelectedItem() As Node
+   On Error Resume Next
+   SelectedItem = PathToNode(Parent.getSelectionPath)
+End Property
+
+Public Property Let SelectedItem(v As Node)
+   On Error Resume Next
+   Call Parent.setSelectionPath(v.TreePath)
+End Property
+
+Public Sub StartLabelEdit()
+   Call StartLabelEdit(SelectedItem)   
+End Sub
+
+Public Sub StartLabelEdit(v As node)
+   On Error Resume Next
+   Call myEditor.registerStartEdit()   
+   Call Parent.startEditingAtPath(v.TreePath)
+End Sub
+
+Public Sub StopLabelEdit()
+   On Error Resume Next
+   Call Parent.stopEditing()
+End Sub
+
+Public Property Get LabelEdit() As LabelEditConstants
+   LabelEdit = myLabelEdit
+End Property
+
+Public Property Let LabelEdit(v As LabelEditConstants)
+   myLabelEdit = v
+End Property
+
+Public Property Get LineStyle() As TreeLineStyleConstants
+   If Parent.getShowsRootHandles Then
+      LineStyle = tvwRootLines
+   Else
+      LineStyle = tvwTreeLines
+   End If
+End Property
+
+Public Property Let LineStyle(v As TreeLineStyleConstants)
+   Call Parent.setShowsRootHandles(v = tvwRootLines)
+End Property
+
+Public Property Get Style() As TreeStyleConstants
+   Style = myStyle
+End Property
+
+Public Property Let Style(v As TreeStyleConstants)
+   myStyle = v
+   
+   Select Case myStyle
+      Case tvwTextOnly
+         Parent.putClientProperty("JTree.lineStyle", "None")
+         
+      Case tvwPictureText
+         Parent.putClientProperty("JTree.lineStyle", "None")
+
+      Case tvwPlusMinusText
+         Parent.putClientProperty("JTree.lineStyle", "None")
+
+      Case tvwPlusPictureText
+         Parent.putClientProperty("JTree.lineStyle", "None")
+
+      Case tvwTreelinesText
+         Parent.putClientProperty("JTree.lineStyle", "Angled")
+
+      Case tvwTreelinesPictureText
+         Parent.putClientProperty("JTree.lineStyle", "Angled")
+
+      Case tvwTreelinesPlusMinusText
+         Parent.putClientProperty("JTree.lineStyle", "Angled")
+
+      Case tvwTreelinesPlusMinusPictureText
+         Parent.putClientProperty("JTree.lineStyle", "Angled")
+
+   End Select
+   
+   
+End Property
+
+Public Function HitTest(x As Integer, y As Integer) As Node
+   HitTest = PathToNode(Parent.getPathForLocation(x, y))
+End Function
+
+Public Property Get Model() As #DefaultTreeModel 
+   Model = myModel
+End Property
+
+Public Property Get Nodes() As Nodes
+   Nodes = myNodes
+End Property
+
+Public Property Get Root() As Node
+   Root = rootNode
+End Property
+
+
+
+
+
+
+
+' ******************************** SAME IN ALL JABACO CONTROLS ********************************
+
+Public Property Get FontName() As String 
+   FontName = Parent.getFont.GetFontName()
+End Property
+
+Public Property Let FontName(val As String)
+   Parent.setFont(New Font(val, IIF(FontBold, BOLD, 0) OR IIF(FontItalic, ITALIC, 0), VBFontSizeToJFontSize(FontSize)))
+End Property
+
+Public Property Get FontBold() As Boolean 
+   FontBold = Parent.getFont.isBold()
+End Property
+
+Public Property Let FontBold(val As Boolean)
+   Parent.setFont(New Font(FontName, IIF(val, BOLD, 0) OR IIF(FontItalic, ITALIC, 0), VBFontSizeToJFontSize(FontSize)))
+End Property
+
+Public Property Get FontItalic() As Boolean
+   FontItalic = Parent.getFont.isItalic()
+End Property
+
+Public Property Let FontItalic(val As Boolean)
+   Parent.setFont(New Font(FontName, IIF(FontBold, BOLD, 0) OR IIF(val, ITALIC, 0), VBFontSizeToJFontSize(FontSize)))
+End Property
+
+Public Property Get FontSize() As Integer 
+   FontSize = (JFontSizeToVBFontSize(Font.getSize()))
+End Property
+
+Public Property Let FontSize(val As Integer)
+   Parent.setFont(New Font(FontName, IIF(FontBold, BOLD, 0) Or IIF(FontItalic, ITALIC, 0), VBFontSizeToJFontSize(val)))
+End Property
+
+Public Property Get Font() As Font
+   Font = Parent.getFont()
+End Property
+
+Public Property Get BackColor() As Long
+   BackColor = ColortoRGB(Parent.getBackground())
+End Property
+
+Public Property Let BackColor(v As Long)
+   Parent.setBackground(RGBtoColor(v))
+   Call Base.setBackground(Parent.getBackground())
+End Property
+
+Public Property Get ForeColor() As Long
+   ForeColor = ColortoRGB(Parent.getForeground())
+End Property
+
+Public Property Let ForeColor(v As Long)
+    Parent.setForeground(RGBtoColor(v))
+   Call Base.setForeground(Parent.getForeground())
+End Property
+
+Public Property Get Width() As Single
+    Width = Me.getSize.Width
+End Property
+
+Public Property Let Width(v As Single)
+    Me.setSize(v, Me.getSize.Height)
+    Call Refresh()
+End Property
+
+Public Property Get Height() As Single
+    Height = Me.getSize.Height
+End Property
+
+Public Property Let Height(v As Single)
+    Me.setSize(Me.getSize.Width, v)
+    Call Refresh()
+End Property
+
+Public Property Get Left() As Single
+    Left = Me.getLocation.x
+End Property
+
+Public Property Let Left(v As Single)
+    Me.setLocation(v, Me.getLocation.y)
+End Property
+
+Public Property Get Top() As Single
+    Top = Me.getLocation.y
+End Property
+
+Public Property Let Top(v As Single)
+    Me.setLocation(Me.getLocation.x, v)
+End Property
+
+Public Property Get ToolTip() As String 
+    ToolTip = Parent.getToolTipText()
+End Property
+
+Public Property Let ToolTip(v As String)
+	If Len(v) = 0 Then 
+	    Parent.setToolTipText(Null)
+    Else
+	    Parent.setToolTipText(v)
+    End If
+End Property
+
+Public Property Get Enabled() As Boolean 
+   Enabled = Base.isEnabled()
+End Property
+
+Public Property Let Enabled(v As Boolean)
+   Call Base.setEnabled(v)
+End Property
+
+Public Property Get Visible() As Boolean 
+    Visible = Base.isVisible()
+End Property
+
+Public Property Let Visible(v As Boolean)
+    Base.setVisible v
+End Property
+
+Public Property Get Tag() As String 
+   Tag = myTag
+End Property
+
+Public Property Let Tag(v As String)
+   myTag = v
+End Property
+
+Public Property Get MousePointer() As MousePointerConstants
+   MousePointer = JCursorToVBMousePointer(Parent.getCursor())
+End Property
+
+Public Property Let MousePointer(v As MousePointerConstants)
+   Call Parent.setCursor(VBMousePointerToJCursor(v))
+End Property
+
+Public Property Get MouseIcon() As #IResource
+   MouseIcon = myMouseIcon
+End Property
+
+Public Property Let MouseIcon(v As #IResource)
+   myMouseIcon = v
+   Call Parent.setCursor(VBMouseIconToJCursor(v, Me))
+End Property
+
+Public Property Get CanGetFocus() As Boolean
+   CanGetFocus = Parent.isFocusable
+End Property
+
+Public Property Let CanGetFocus(v As Boolean)
+   Parent.setFocusable v
+End Property
+
+Public Sub SetFocus()
+   Parent.requestFocus 
+End Sub
+
+Public Sub Refresh()
+   On Error Resume Next
+   Call Parent.invalidate()
+   Call Parent.repaint(0, 0, 0, Me.Width, Me.Height)
+   Call Parent.setSize(Me.getSize())
+   Call Parent.revalidate()
+End Sub
+
+
+
+
+
+
+
+]]></Source><Param Name="(Name)" Value="TreeView"/><Param Name="(SuperClass)" Value="javax/swing/JScrollPane"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VB"/></SourceFile>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+'Implements TableCellRenderer
+
+Dim myGrid As JBGrid
+
+Public Sub JBHeaderRenderer(refGrid As JBGrid)
+   myGrid = refGrid
+End Sub
+
+Private Function getMarginBorder(refBorder As Border, margin As Integer) As Border
+   getMarginBorder = New javax#swing#border#CompoundBorder(refBorder, New EmptyBorder(0, margin, 0, margin))
+End Function
+
+
+Public Function getTableCellRendererComponent(table As JTable, value As Object, isSelected As Boolean, hasFocus As Boolean, row As Integer, col As Integer) As Component
+   Dim myLabel As New Label, myBaseComponent As Component 
+   myBaseComponent = Base.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col)
+   
+   'Dim myHeader As New JLabel(value)
+   Dim myHeader As JLabel = Cast(myBaseComponent, #JLabel)
+   Call myHeader.setVerticalTextPosition(SwingConstants.CENTER)
+   
+   If myGrid.FlatHeader Then
+      Call myHeader.setBorder(getMarginBorder(BorderFactory.createEtchedBorder(), 1))
+   Else
+      Call myHeader.setBorder(getMarginBorder(BorderFactory.createRaisedBevelBorder(), 1))
+   End If
+   
+   Call myHeader.setFont(myBaseComponent.getFont)
+   Call myHeader.setBackground(RGBToColor(myGrid.BackColorHeader))
+   Call myHeader.setForeground(RGBToColor(myGrid.ForeColorHeader))
+   Call myHeader.setPreferredSize(New Dimension(myHeader.getPreferredSize().getWidth(), myGrid.HeaderHeight))
+   
+'   myLabel.Caption = value
+'   Call myLabel.Parent.setBorder(BorderFactory.createEtchedBorder())
+'   Call myLabel.Parent.setFont(myBaseComponent.getFont)
+'   Call myLabel.Parent.setBackground(RGBToColor(myGrid.BackColorHeader))
+'   Call myLabel.Parent.setForeground(RGBToColor(myGrid.ForeColorHeader))
+'   Call myLabel.Parent.setVerticalTextPosition(SwingConstants.CENTER)
+'   myLabel.Parent.setUI myLabel2.getUI
+  
+   getTableCellRendererComponent = myHeader
+End Function
+]]></Source><Param Name="(Name)" Value="JBHeaderRenderer"/><Param Name="(SuperClass)" Value="javax/swing/table/DefaultTableCellRenderer"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>

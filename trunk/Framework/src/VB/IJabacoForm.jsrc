@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Implements IJabacoClass
+
+Public Property Get MenuBackColor() As Long
+End Property
+
+Public Property Let MenuBackColor(v As Long)
+End Property
+
+Public Property Get MenuForeColor() As Long
+End Property
+
+Public Property Let MenuForeColor(v As Long)
+End Property
+
+Public Property Get ToolBackColor() As Long
+End Property
+
+Public Property Let ToolBackColor(v As Long)
+End Property
+
+Public Property Get ToolForeColor() As Long
+End Property
+
+Public Property Let ToolForeColor(v As Long)
+End Property
+
+'Public Property Get BackColor() As Long
+'End Property
+'
+'Public Property Let BackColor(v As Long)
+'End Property
+'
+'Public Property Get ForeColor() As Long
+'End Property
+'
+'Public Property Let ForeColor(v As Long)
+'End Property
+
+Public Property Get Width() As Single
+End Property
+
+Public Property Let Width(v As Single)
+End Property
+
+Public Property Get Height() As Single
+End Property
+
+Public Property Let Height(v As Single)
+End Property
+
+Public Property Get Left() As Single
+End Property
+
+Public Property Let Left(v As Single)
+End Property
+
+Public Property Get Top() As Single
+End Property
+
+Public Property Let Top(v As Single)
+End Property
+
+Public Property Get Visible() As Boolean
+End Property
+
+Public Property Let Visible(v As Boolean)
+End Property
+
+Public Property Get Font() As Font
+End Property
+
+'Public Property Get ContentFrame() As PictureBox 
+'End Property
+
+
+]]></Source><Param Name="(Name)" Value="IJabacoForm"/><Param Name="(SuperClass)" Value="java/lang/Object"/><Param Name="(Type)" Value="Interface"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VB"/></SourceFile>

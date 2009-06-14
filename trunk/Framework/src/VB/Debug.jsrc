@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SourceFile><Source><![CDATA[Implements IJabacoClass 
+
+Public Sub Print(data As String)
+End Sub
+
+Public Sub Assert(exp As Variant)
+End Sub
+]]></Source><Param Name="(Name)" Value="Debug"/><Param Name="(SuperClass)" Value="java/lang/Object"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>

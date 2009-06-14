@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+
+Public Sub fireChangeEvent(fromIndex As Integer, toIndex As Integer)
+   Call fireContentsChanged(Me, fromIndex, toIndex)
+End Sub]]></Source><Param Name="(Name)" Value="ListBoxModel"/><Param Name="(SuperClass)" Value="javax/swing/DefaultListModel"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>

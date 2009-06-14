@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+Implements IJabacoClass 
+
+Dim myCon As java#sql#Connection
+
+Public Sub Class_Initialize
+   Call Class.forName("sun.jdbc.odbc.JdbcOdbcDriver")
+End Sub
+
+Public Function Connect(url As String) As Boolean 
+   On Error Resume Next
+   myCon = Nothing
+   myCon = java#sql#DriverManager.getConnection(url)
+   If myCon = Nothing Then
+      Connect = False
+   Else
+      Connect = True
+   End If
+End Function
+
+Public Function Connect(url As String, user As String, password As String) As Boolean 
+   On Error Resume Next
+   myCon = Nothing
+   myCon = java#sql#DriverManager.getConnection(url, user, password)
+   If myCon = Nothing Then
+      Connect = False
+   Else
+      Connect = True
+   End If
+End Function
+
+Public Function ConnectMDB(path As String) As Boolean 
+   ConnectMDB = Connect("jdbc:odbc:Driver={Microsoft Access Driver (*.mdb)};DBQ=" + path)
+End Function
+
+Public Function ConnectMDB(path As String, user As String, password As String) As Boolean 
+   ConnectMDB = Connect("jdbc:odbc:Driver={Microsoft Access Driver (*.mdb)};DBQ=" + path, user, password)
+End Function
+
+Public Function ConnectDSN(dsn As String) As Boolean 
+   ConnectDSN = Connect("jdbc:odbc:" + dsn)
+End Function
+
+Public Function ConnectDSN(dsn As String, user As String, password As String) As Boolean 
+   ConnectDSN = Connect("jdbc:odbc:" + dsn, user, password)
+End Function
+
+Public Function ExecuteStatement(sql As String) As java#sql#ResultSet 
+   Dim myStmt As java#sql#Statement = myCon.createStatement()
+   ExecuteStatement = myStmt.executeQuery(sql)
+End Function
+
+Public Function Execute(sql As String) As Boolean
+   Dim myStmt As java#sql#Statement = myCon.createStatement()
+   Execute = myStmt.execute(sql)
+End Function
+
+Public Property Get Connection() As java#sql#Connection
+   Connection = myCon
+End Property
+
+Public Property Get Parent() As java#sql#Connection
+   Parent = myCon
+End Property
+]]></Source><Param Name="(Name)" Value="DataBase"/><Param Name="(SuperClass)" Value="java/lang/Object"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VB"/></SourceFile>

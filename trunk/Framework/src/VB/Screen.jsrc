@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+Implements IJabacoClass 
+
+'Public Property Get ActiveControl() As #JComponent 
+'   ActiveControl = Nothing
+'End Property
+
+'Public Property Get ActiveForm() As IJabacoForm
+'   ActiveForm = Nothing
+'End Property
+
+Public Property Get Width As Single
+   Width = Toolkit.getDefaultToolkit().getScreenSize().width 
+End Property
+
+Public Property Get Height As Single
+   Height = Toolkit.getDefaultToolkit().getScreenSize().height
+End Property
+
+Public Property Get Fonts(Index As Integer) As String
+   On Error Resume Next
+   Dim tmpList() As String
+   tmpList = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames()
+   Fonts = tmpList(Index)
+End Property
+
+Public Property Get FontCount() As Integer
+   On Error Resume Next
+   Dim tmpList() As String
+   tmpList = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames()
+   FontCount = UBound(tmpList)
+End Property
+
+'Public Property Get Fonts(Index As Integer) As String
+'   On Error Resume Next
+'   Dim tmpList() As String
+'   tmpList = Toolkit.getDefaultToolkit().getFontList()
+'   Fonts = tmpList(Index)
+'End Property
+'
+'Public Property Get FontCount() As Integer
+'   On Error Resume Next
+'   Dim tmpList() As String
+'   tmpList = Toolkit.getDefaultToolkit().getFontList()
+'   FontCount = UBound(tmpList)
+'End Property
+
+Public Property Get TwipsPerPixelX As Single
+   TwipsPerPixelX = 1 ' not used
+End Property
+
+Public Property Get TwipsPerPixelY As Single
+   TwipsPerPixelY = 1 ' not used
+End Property
+
+]]></Source><Param Name="(Name)" Value="Screen"/><Param Name="(SuperClass)" Value="java/lang/Object"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>

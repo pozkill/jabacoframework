@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+Implements VB#IJabacoClass 
+Implements ActionListener 
+Dim myForeColor As Long ' bug in swing?
+Dim myBackColor As Long ' bug in swing?
+Dim myOwner As IJabacoForm 
+
+Event Visible(b As Boolean)
+Event Click(ToolBarItem As IToolBarItem)
+
+
+Public Function getBackground() As #Color
+   If myOwner = Nothing Then
+      getBackground = Base.getBackground()
+   Else
+      getBackground = RGBToColor(myOwner.ToolBackColor)
+   End If
+End Function
+
+Public Function getForeground() As #Color
+   If myOwner = Nothing Then
+      getForeground = Base.getForeground()
+   Else
+      getForeground = RGBToColor(myOwner.ToolForeColor)
+   End If
+End Function
+
+Public Function getFont() As #Font 
+   If myOwner = Nothing Then
+      getFont = Base.getFont 
+   Else
+      getFont = myOwner.Font
+   End If
+End Function
+
+Public Sub VBToolBar(Owner As IJabacoForm)
+   myOwner = Owner
+End Sub
+
+Private Sub GoClick(e As java#lang#Object)
+   On Error Goto ERROUT
+   Dim tmpComponent As IToolBarItem
+   tmpComponent = Cast(e, IToolBarItem)
+   ERROUT:
+   RaiseEvent Click(tmpComponent)
+End Sub
+
+Public Sub Add(Component As java#awt#Component) 
+   On Error Resume Next
+   Dim tmpItem As VBToolBarItem
+   tmpItem = Cast(Component, VBToolBarItem)
+   Call Base.Add(Component)
+   Visible = True 
+End Sub
+
+Public Property Get Visible() As Boolean 
+   Visible = Me.isVisible()
+End Property
+
+Public Property Let Visible(v As Boolean)
+   If Parent.isVisible = v Then Exit Property
+   Parent.setVisible v
+   If Parent.isVisible = v Then Raiseevent Visible(v)
+End Property
+
+Public Property Get Parent() As JToolBar
+   Parent = Me
+End Property
+
+Public Property Get Height() As Integer
+   If Visible Then
+      Height = Me.Parent.getHeight()
+      If Height = 0 Then Height = Me.Parent.getPreferredSize.getHeight()
+   Else
+      Height = 0
+   End If
+End Property
+
+'Public Property Get FontName() As String 
+'   FontName = me.getFont.GetFontName()
+'End Property
+'
+'Public Property Let FontName(val As String)
+'   Me.setFont(New Font(val, IIF(FontBold, BOLD, 0) OR IIF(FontItalic, ITALIC, 0), VBFontSizeToJFontSize(FontSize)))
+'End Property
+'
+'Public Property Get FontBold() As Boolean 
+'   FontBold = Me.getFont.isBold()
+'End Property
+'
+'Public Property Let FontBold(val As Boolean)
+'   Me.setFont(New Font(val, IIF(val, BOLD, 0) OR IIF(FontItalic, ITALIC, 0), VBFontSizeToJFontSize(FontSize)))
+'End Property
+'
+'Public Property Get FontItalic() As Boolean
+'   FontItalic = Me.getFont.isItalic()
+'End Property
+'
+'Public Property Let FontItalic(val As Boolean)
+'   Me.setFont(New Font(val, IIF(FontBold, BOLD, 0) OR IIF(val, ITALIC, 0), VBFontSizeToJFontSize(FontSize)))
+'End Property
+'
+'Public Property Get FontSize() As Integer 
+'   FontSize = (JFontSizeToVBFontSize(Font.getSize()))
+'End Property
+'
+'Public Property Let FontSize(val As Integer)
+'   Me.setFont(New Font(FontName, IIF(FontBold, BOLD, 0) Or IIF(FontItalic, ITALIC, 0), VBFontSizeToJFontSize(val)))
+'End Property
+'
+'Public Property Get Font() As Font
+'   Font = Me.getFont()
+'End Property
+
+Public Sub addSeperator()
+   Call addSeperator(20)
+End Sub
+
+Public Sub addSeperator(width As Integer)
+   Call Parent.addSeparator()
+End Sub
+
+Public Function createToolBarItem(ControlID As String, Caption As String) As VBToolBarItem 
+   createToolBarItem = createToolBarItem(ControlID, Caption, vbNullString)
+End Function
+
+Public Function createToolBarItem(ControlID As String, Caption As String, ToolTip As String) As VBToolBarItem 
+   createToolBarItem = createToolBarItem(ControlID, Caption, ToolTip, Nothing)
+End Function
+
+Public Function createToolBarItem(ControlID As String, Caption As String, ToolTip As String, IconPath As #IResource) As VBToolBarItem 
+   createToolBarItem = createToolBarItem(ControlID, Caption, ToolTip, IconPath, fmPicturePositionLeftCenter)    
+End Function
+
+Public Function createToolBarItem(ControlID As String, Caption As String, ToolTip As String, IconPath As #IResource, IconPosition As fmPicturePosition) As VBToolBarItem 
+   createToolBarItem = createToolBarItem(ControlID, Caption, ToolTip, IconPath, fmPicturePositionLeftCenter, Nothing)
+End Function
+
+Public Function createToolBarItem(ControlID As String, Caption As String, ToolTip As String, IconPath As #IResource, IconPosition As fmPicturePosition, RolloverIconPath As #IResource) As VBToolBarItem 
+   Dim tmpItem As New VBToolBarItem(Me)
+   Call tmpItem.Parent.addActionListener(Me)
+   tmpItem.Caption = Caption
+   tmpItem.ControlID = ControlID
+   tmpItem.ToolTip = ToolTip
+   tmpItem.Visible = True
+   Call tmpItem.Parent.setFont(getFont)
+   tmpItem.Picture = IconPath
+   tmpItem.PicturePosition = IconPosition
+   tmpItem.RolloverPicture = RolloverIconPath
+   Me.Add tmpItem
+   createToolBarItem = tmpItem
+End Function
+
+Public Sub Class_Initialize
+   Parent.setFocusable False
+   Parent.setMinimumSize New Dimension(400,400)
+   Parent.setRollover True
+End Sub
+
+Public Sub actionPerformed(e As ActionEvent)
+   Call GoClick(e.getSource())
+End Sub
+
+
+
+
+]]></Source><Param Name="(Name)" Value="VBToolBar"/><Param Name="(SuperClass)" Value="javax/swing/JToolBar"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VB"/></SourceFile>

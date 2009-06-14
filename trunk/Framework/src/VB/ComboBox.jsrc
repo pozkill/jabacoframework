@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile><Source><![CDATA[Option Explicit
+Implements IJabacoControl
+Implements IListCellDataOwner
+
+Implements MouseListener 
+Implements MouseMotionListener
+Implements KeyListener
+Implements ActionListener 
+Implements FocusListener 
+
+Event Click()
+Event Change()
+Event GotFocus()
+Event KeyDown(KeyCode As Integer, Shift As Integer)
+Event KeyPress(KeyAscii As Integer)
+Event KeyUp(KeyCode As Integer, Shift As Integer)
+Event LostFocus()
+Event MouseEntered()
+Event MouseExited() 
+Event MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Event MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Event MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+
+Dim myTag As String
+Dim myMouseIcon As IResource 
+Dim myRenderer As New ListCellDataRenderer(Me)
+
+Dim myBorderColorSel As Long
+Dim myMarginItem As Long
+Dim myForeColorSel As Long
+Dim myBackColorSel As Long
+
+
+' ******************************** INIT THIS CONTROL ********************************
+
+Public Property Get Parent() As JComboBox
+   Parent = Base
+End Property
+
+Public Sub Class_Initialize()
+   Call Parent.addFocusListener(Me)
+   Call Parent.addMouseListener(Me)
+   Call Parent.addMouseMotionListener(Me)
+   Call Parent.addKeyListener(Me)
+   Call Parent.addActionListener(Me)
+   Call Parent.setRenderer(myRenderer)
+End Sub
+
+' ******************************** DEFAULT FOCUS - EVENTS ********************************
+
+Public Sub focusGained(arg2 As FocusEvent)
+   Raiseevent GotFocus()
+End Sub
+
+Public Sub focusLost(arg2 As FocusEvent)
+   Raiseevent LostFocus()
+End Sub
+
+' ******************************** DEFAULT MOUSE - EVENTS ********************************
+
+Public Sub mouseMoved(e As MouseEvent) 
+    RaiseEvent MouseMove(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
+End Sub
+
+Public Sub mouseDragged(e As MouseEvent) 
+    RaiseEvent MouseMove(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
+End Sub
+
+Public Sub mousePressed(e As MouseEvent) 
+    RaiseEvent MouseDown(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
+End Sub
+
+Public Sub mouseReleased(e As MouseEvent) 
+   RaiseEvent MouseUp(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
+End Sub
+
+Public Sub mouseClicked(e As MouseEvent) 
+    'done by actionlistener
+End Sub
+
+Public Sub mouseEntered(e As MouseEvent) 
+    RaiseEvent MouseEntered()
+End Sub 
+
+Public Sub mouseExited(e As MouseEvent) 
+    RaiseEvent MouseExited()
+End Sub
+
+' ******************************** DEFAULT KEY - EVENTS ********************************
+
+Public Sub keyReleased(e As KeyEvent) 
+   RaiseEvent KeyUp(e.getKeyCode, KeyEventToShiftConstant(e))
+End Sub
+
+Public Sub keyTyped(e As KeyEvent)
+   RaiseEvent KeyPress(e.getKeyChar)
+End Sub
+
+Public Sub keyPressed(e As KeyEvent)
+    RaiseEvent KeyDown(e.getKeyCode, KeyEventToShiftConstant(e))
+End Sub 
+
+Public Sub actionPerformed(arg As ActionEvent)
+   RaiseEvent Click()
+   RaiseEvent Change()
+End Sub
+
+' ******************************** SPECIAL FUNCTIONS ********************************
+
+Public Sub Clear()
+   Parent.removeAllItems()
+End Sub
+
+Public Sub AddItem(Item As String)
+   Dim tmpCellData As New ListCellData(Item, Nothing, False) 
+   tmpCellData.Owner = Me
+   Parent.addItem(tmpCellData)
+   Call fireChange()
+End Sub
+
+Public Sub AddItem(Item As ListCellData)
+   Item.Owner = Me
+   Parent.addItem(Item)
+   Call fireChange()
+End Sub
+
+Public Sub AddItem(v As Usercontrol)
+   Dim tmpCellData As New ListCellData(v) 
+   tmpCellData.Owner = Me
+   Parent.addItem(tmpCellData)
+   Call fireChange()
+End Sub
+
+Public Sub AddItem(v As Usercontrol, Index As Integer)
+   Dim tmpCellData As New ListCellData(v) 
+   tmpCellData.Owner = Me
+   Parent.insertItemAt(tmpCellData, Index)
+   Call fireChange()
+End Sub
+
+Public Sub AddItem(Item As String, Index As Integer)
+   Dim tmpCellData As New ListCellData(Item, Nothing, False) 
+   tmpCellData.Owner = Me
+   Parent.insertItemAt(tmpCellData, Index)
+   Call fireChange()
+End Sub
+
+Public Sub AddItem(Item As ListCellData, Index As Integer)
+   Item.Owner = Me
+   Parent.insertItemAt(Item, Index)
+   Call fireChange()
+End Sub
+
+Public Sub RemoveItem(Index As Integer)
+   Call Parent.removeItemAt(Index)
+End Sub
+
+Public Property Get ListCount() As Long
+   ListCount = Parent.getItemCount()
+End Property
+
+Public Property Get ListData(Index As Long) As String
+   On Error Resume Next
+   ListData = GetCellData(Index).Data 
+End Property
+
+Public Property Let ListData(Index As Long, v As String)
+   On Error Resume Next
+   GetCellData(Index).Data = v
+End Property
+
+Public Function List(Index As Long) As String
+   On Error Resume Next
+   List = Parent.getItemAt(Index)
+End Function
+
+Public Property Get ListIndex() As Integer 
+   ListIndex = Parent.getSelectedIndex()
+End Property
+
+Public Property Let ListIndex(val As Integer)
+   If val > 0 And val < ListCount Then
+      Call Parent.setSelectedIndex(val)
+   End If
+End Property
+
+Private Function GetCellData(Index As Long) As ListCellData
+   On Error Resume Next
+   GetCellData = Cast(Parent.getItemAt(Index), ListCellData)
+End Function
+
+Private Function GetCellComponent(Index As Long) As Component
+   On Error Resume Next
+   GetCellComponent = Cast(GetCellData(Index).getComponent(Me, (ListIndex = Index), (ListIndex = Index)), Component)
+End Function
+
+Public Property Get Text() As String 
+   Text = List(ListIndex)
+End Property
+
+Public Property Let Text(v As String)
+   Dim i As Integer 
+   For i = 0 To ListCount
+       If List(i) = v Then
+          ListIndex = i
+          Exit Property
+       End If
+   Next   
+End Property
+
+Public Property Let ComboList(v As String)
+   Dim ary() As String, i As Integer
+   ary = Split(v, "|")
+   Call Clear()   
+   For i = 0 To UBound(ary)
+      Call AddItem(ary(i))      
+   Next
+End Property
+
+' ******************************** SAME IN ALL JABACO CONTROLS ********************************
+
+Public Function toString() As String
+   toString = Text   
+End Function
+
+Public Property Get FontName() As String 
+   On Error Resume Next
+   FontName = Parent.getFont.GetFontName()
+End Property
+
+Public Property Let FontName(val As String)
+   Parent.setFont(New Font(val, IIF(FontBold, BOLD, 0) OR IIF(FontItalic, ITALIC, 0), VBFontSizeToJFontSize(FontSize)))
+End Property
+
+Public Property Get FontBold() As Boolean 
+   On Error Resume Next
+   FontBold = Parent.getFont.isBold()
+End Property
+
+Public Property Let FontBold(val As Boolean)
+   Parent.setFont(New Font(FontName, IIF(val, BOLD, 0) OR IIF(FontItalic, ITALIC, 0), VBFontSizeToJFontSize(FontSize)))
+End Property
+
+Public Property Get FontItalic() As Boolean
+   On Error Resume Next
+   FontItalic = Parent.getFont.isItalic()
+End Property
+
+Public Property Let FontItalic(val As Boolean)
+   Parent.setFont(New Font(FontName, IIF(FontBold, BOLD, 0) OR IIF(val, ITALIC, 0), VBFontSizeToJFontSize(FontSize)))
+End Property
+
+Public Property Get FontSize() As Integer 
+   On Error Resume Next
+   FontSize = (JFontSizeToVBFontSize(Font.getSize()))
+End Property
+
+Public Property Let FontSize(val As Integer)
+   Parent.setFont(New Font(FontName, IIF(FontBold, BOLD, 0) Or IIF(FontItalic, ITALIC, 0), VBFontSizeToJFontSize(val)))
+End Property
+
+Public Property Get Font() As Font
+   On Error Resume Next
+   Font = Parent.getFont()
+End Property
+
+Public Property Get BackColor() As Long
+   BackColor = ColortoRGB(Base.getBackground())
+End Property
+
+Public Property Let BackColor(v As Long)
+   Base.setBackground(RGBtoColor(v))
+End Property
+
+Public Property Get ForeColor() As Long
+   ForeColor = ColortoRGB(Base.getForeground())
+End Property
+
+Public Property Let ForeColor(v As Long)
+    Base.setForeground(RGBtoColor(v))
+End Property
+
+Public Property Get Width() As Single
+    Width = Me.getSize.Width
+End Property
+
+Public Property Let Width(v As Single)
+    Me.setSize(v, Me.getSize.Height)
+End Property
+
+Public Property Get Height() As Single
+    Height = Me.getSize.Height
+End Property
+
+Public Property Let Height(v As Single)
+    Me.setSize(Me.getSize.Width, v)
+End Property
+
+Public Property Get Left() As Single
+    Left = Me.getLocation.x
+End Property
+
+Public Property Let Left(v As Single)
+    Me.setLocation(v, Me.getLocation.y)
+End Property
+
+Public Property Get Top() As Single
+    Top = Me.getLocation.y
+End Property
+
+Public Property Let Top(v As Single)
+    Me.setLocation(Me.getLocation.x, v)
+End Property
+
+Public Property Get ToolTip() As String 
+    ToolTip = Parent.getToolTipText()
+End Property
+
+Public Property Let ToolTip(v As String)
+	If Len(v) = 0 Then 
+	    Parent.setToolTipText(Null)
+    Else
+	    Parent.setToolTipText(v)
+    End If
+End Property
+
+Public Property Get Enabled() As Boolean 
+   Enabled = Base.isEnabled()
+End Property
+
+Public Property Let Enabled(v As Boolean)
+   Call Base.setEnabled(v)
+End Property
+
+Public Property Get Visible() As Boolean 
+    Visible = Base.isVisible()
+End Property
+
+Public Property Let Visible(v As Boolean)
+    Base.setVisible v
+End Property
+
+Public Property Get Tag() As String 
+   Tag = myTag
+End Property
+
+Public Property Let Tag(v As String)
+   myTag = v
+End Property
+
+Public Property Get MousePointer() As MousePointerConstants
+   MousePointer = JCursorToVBMousePointer(Parent.getCursor())
+End Property
+
+Public Property Let MousePointer(v As MousePointerConstants)
+   Call Parent.setCursor(VBMousePointerToJCursor(v))
+End Property
+
+Public Property Get MouseIcon() As #IResource
+   MouseIcon = myMouseIcon
+End Property
+
+Public Property Let MouseIcon(v As #IResource)
+   myMouseIcon = v
+   Call Parent.setCursor(VBMouseIconToJCursor(v, Me))
+End Property
+
+Public Property Get CanGetFocus() As Boolean
+   CanGetFocus = Parent.isFocusable
+End Property
+
+Public Property Let CanGetFocus(v As Boolean)
+   Parent.setFocusable v
+End Property
+
+Public Sub SetFocus()
+   Parent.requestFocus 
+End Sub
+
+Public Sub Refresh()
+   Call Parent.invalidate()
+   Call Parent.repaint(0, 0, 0, Me.Width, Me.Height)
+   Call Parent.revalidate()   
+End Sub
+
+Private Sub fireChange()
+   Call Refresh()
+End Sub
+
+Public Property Let BackColorSel(color As Long)
+   myBackColorSel = color
+End Property
+
+Public Property Get BackColorSel() As Long
+   BackColorSel = myBackColorSel
+End Property
+
+Public Property Let MarginItem(margin As Long)
+   myMarginItem = margin
+End Property
+
+Public Property Get MarginItem() As Long
+   MarginItem = myMarginItem
+End Property
+
+Public Property Let BorderColorSel(color As Long)
+   myBorderColorSel = color
+End Property
+
+Public Property Get BorderColorSel() As Long
+   BorderColorSel = myBorderColorSel
+End Property
+
+Public Property Get ForeColorSel() As Long
+   ForeColorSel = myForeColorSel
+End Property
+
+Public Property Let ForeColorSel(color As Long)
+   myForeColorSel = color
+End Property
+
+Public Function getFont() As Font
+   getFont = Base.getFont()
+End Function
+
+Public Function getSelectionBackground() As Color
+   getSelectionBackground = RGBtoColor(BackColorSel)
+End Function
+
+Public Function getSelectionForeground() As Color
+   getSelectionForeground = RGBtoColor(ForeColorSel)
+End Function
+
+Public Function getBackground() As Color
+   getBackground = Base.getBackground 
+End Function
+
+Public Function getForeground() As Color
+   getForeground = Base.getForeground 
+End Function
+
+
+
+]]></Source><Param Name="(Name)" Value="ComboBox"/><Param Name="(SuperClass)" Value="javax/swing/JComboBox"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VB"/></SourceFile>

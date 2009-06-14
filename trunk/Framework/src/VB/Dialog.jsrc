@@ -1,0 +1,646 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SourceFile><Source><![CDATA[Option Explicit
+Implements ILoadAdapter
+Implements IJabacoForm
+Implements ComponentListener 
+Implements FocusListener
+
+Dim myInitLookAndFeelFlag As Boolean = LookAndFeelManager().isInitialized()
+Dim Withevents myMenuBar As New VBMenuBar(Me)
+Dim Withevents myToolBar As New VBToolBar(Me)
+
+Dim StartUpPositionVal As StartUpPositionConstants = vbStartUpScreen
+Dim StartVisibility As Boolean, StartLeft As Integer, StartTop As Integer, StartWidth As Single, StartHeight As Single 
+Dim FormLoaded As Boolean 
+Dim myTag As String
+
+Dim myMenuBarBackColor As Long
+Dim myMenuBarForeColor As Long
+Dim myToolBarBackColor As Long
+Dim myToolBarForeColor As Long
+
+Dim myMouseIcon As #IResource 
+Dim myIcon As #IResource 
+
+Dim Withevents myContent As New PictureBox
+
+Public Sub add(Component As java#awt#Component) 
+   If (myContent = Nothing) Then
+      Call Base.getContentPane().add(Component)
+   Else
+      Call myContent.Add(Component)
+   End If
+End Sub
+
+' ******************************** INIT THIS CONTROL ********************************
+
+Public Sub Class_Initialize()
+   myContent.BorderStyle = fmBorderStyleNone
+   'Call Base.setContentPane(myContent)
+   Base.getContentPane.add myContent
+   myContent.Visible = True
+End Sub
+
+Public Property Get Parent() As JDialog
+   Parent = Base
+End Property
+
+Public Sub Dialog()
+   Call Parent.setVisible(False)
+   FormLoaded = False
+   myMenuBar.Visible = False 
+   myToolBar.Visible = False
+   Parent.setJMenuBar myMenuBar
+   Parent.getContentPane().add myToolBar, BorderLayout.NORTH
+
+End Sub
+
+Public Sub fireLoaded()
+   Dim tmpFireAdapter As New LoadAdapter(Me, Me)
+   tmpFireAdapter.fireLoaded()
+End Sub
+
+Public Sub fireLoaded(sender As Object)
+   FormLoaded = True
+
+   ' **************** // BAD HACK * I DONT KNOW A BETTER SOLUTION AT THE MOMENT :(
+   Parent.setLocation -30000, -30000
+   Parent.setVisible True
+   Height = Height + (StartHeight - Parent.getContentPane.getHeight)
+   Width = Width + (StartWidth - Parent.getContentPane.getWidth) 
+   
+   Call Me.Form_Load()
+   Call DoEvents()
+   If myMenuBar.Visible Then Me.Height = Me.Height + myMenuBar.Height
+   If myToolBar.Visible Then Me.Height = Me.Height + myToolBar.Height
+   Parent.setVisible False
+   ' **************** // BAD HACK
+
+   StartUpPosition = StartUpPosition
+  ' Visible = StartVisibility
+   Call Me.Form_Resize()
+   
+   Call Parent.addFocusListener(Me)
+   Call Parent.addComponentListener(Me)
+End Sub
+
+
+' ******************************** DEFAULT FOCUS - EVENTS ********************************
+
+Public Sub focusGained(arg2 As FocusEvent)
+   On Error Resume Next
+   Call Form_GotFocus()
+End Sub
+
+Public Sub focusLost(arg2 As FocusEvent)
+   On Error Resume Next
+   Call Form_LostFocus()
+End Sub
+
+' ******************************** DEFAULT Component - EVENTS ********************************
+
+Public Sub componentHidden(e As ComponentEvent)
+   On Error Resume Next
+   Me.Form_Deactivate()
+End Sub
+
+Public Sub componentMoved(e As ComponentEvent)
+   On Error Resume Next
+   Me.Form_Move()
+End Sub
+
+Public Sub componentResized(e As ComponentEvent)
+   On Error Resume Next
+   Me.Form_Resize()
+End Sub
+
+Public Sub componentShown(e As ComponentEvent)
+   On Error Resume Next
+   Me.Form_Activate()
+End Sub
+
+
+' ******************************** SPECIAL FUNCTIONS ********************************
+
+Public Sub Show()
+   Call Parent.show()
+End Sub
+
+Public Sub Show(Modal As FormShowConstants)
+   Call Parent.setModal(True)
+   
+   Call Parent.show()
+End Sub
+
+Public Sub SetDefaultClose()
+   Me.setDefaultCloseOperation( WindowConstants.DISPOSE_ON_CLOSE )
+End Sub
+
+Public Property Get StartUpPosition() As StartUpPositionConstants 
+   StartUpPosition = StartUpPositionVal
+End Property
+
+Public Property Let StartUpPosition(val As StartUpPositionConstants)
+   If val = vbStartUpScreen Then
+      Dim tmpDimension As java#awt#Dimension 
+      tmpDimension = java#awt#Toolkit.getDefaultToolkit().getScreenSize
+      Base.setLocation (tmpDimension.Width - Me.Width) / 2, (tmpDimension.Height - Me.Height) / 2
+   Elseif val = vbStartUpManual Then
+      Base.setLocation StartTop, StartLeft
+   End If
+   StartUpPositionVal = val
+End Property
+
+Public Property Get MenuBar() As VBMenuBar 
+   MenuBar = myMenuBar
+End Property
+
+Public Property Get ToolBar() As VBToolBar 
+   ToolBar = myToolBar
+End Property
+
+Public Property Get BorderStyle() As FormBorderStyleConstants 
+   If Base.isResizable Then
+      BorderStyle = vbSizable
+   Else
+      If Base.isUndecorated Then
+         BorderStyle = vbBSNone
+      Else
+         BorderStyle = vbFixedDialog
+      End If
+   End If
+End Property
+
+Public Sub Close()
+   Call Parent.dispose 
+End Sub
+
+Public Property Let BorderStyle(v As FormBorderStyleConstants)
+   Select Case v
+      Case vbBSNone 
+         Base.setResizable False
+         Base.setUndecorated True
+      Case vbFixedDialog 
+         Parent.setResizable False
+      Case vbFixedSingle 
+         Parent.setResizable False
+      Case vbFixedToolWindow 
+         Parent.setResizable False
+      Case vbSizable
+         Parent.setResizable True
+      Case vbSizableToolWindow 
+         Parent.setResizable True
+   End Select
+End Property
+
+Public Property Get Caption() As String
+   Caption = Me.getTitle
+End Property
+
+Public Property Let Caption(v As String)
+   Me.setTitle(v)
+End Property
+
+Public Property Get MenuBackColor() As Long
+   MenuBackColor = myMenuBarBackColor
+End Property
+
+Public Property Let MenuBackColor(v As Long)
+   myMenuBarBackColor = v
+   myToolBar.Parent.repaint 
+End Property
+
+Public Property Get MenuForeColor() As Long
+   MenuForeColor = myMenuBarForeColor
+End Property
+
+Public Property Let MenuForeColor(v As Long)
+   myMenuBarForeColor = v
+   myToolBar.Parent.repaint 
+End Property
+
+Public Property Get ToolBackColor() As Long
+   ToolBackColor = myToolBarBackColor
+End Property
+
+Public Property Let ToolBackColor(v As Long)
+   myToolBarBackColor = v
+   myToolBar.Parent.repaint 
+End Property
+
+Public Property Get ToolForeColor() As Long
+   ToolForeColor = myToolBarForeColor
+End Property
+
+Public Property Let ToolForeColor(v As Long)
+   myToolBarForeColor = v
+   myToolBar.Parent.repaint 
+End Property
+
+Public Property Get Icon() As #IResource
+   Icon = myIcon
+End Property
+
+Public Property Let Icon(Path As #IResource)
+   myIcon = Path
+   Call Parent.setIconImage(LoadPicture(Path))   
+End Property
+
+' ******************************** DEFAULT FORM FUNCTIONS ********************************
+
+Public Property Get Left() As Single
+   If FormLoaded = False Then 
+      Left = StartLeft
+   Else
+      Left = Me.getLocation.x
+   End If
+End Property
+
+Public Property Let Left(v As Single)
+   If FormLoaded = False Then StartLeft = v
+   Me.setLocation(v, Me.getLocation.y)
+End Property
+
+Public Property Get Top() As Single
+   If FormLoaded = False Then 
+      Top = StartTop
+   Else
+      Top = Me.getLocation.y
+   End If
+End Property
+
+Public Property Let Top(v As Single)
+   If FormLoaded = False Then StartTop = v
+   Me.setLocation(Me.getLocation.x, v)
+End Property
+
+Public Property Get Width() As Single
+   If FormLoaded = False Then 
+      Width = StartWidth
+   Else
+      Width = Me.getSize.Width
+   End If
+End Property
+
+Public Property Let Width(v As Single)
+   If FormLoaded = False Then StartWidth = v
+   Me.setSize(v, Me.getSize.Height)
+End Property
+
+Public Property Get Height() As Single
+   If FormLoaded = False Then 
+      Height = StartHeight
+   Else
+      Height = Me.getSize.Height
+   End If
+End Property
+
+Public Property Let Height(v As Single)
+   If FormLoaded = False Then StartHeight = v
+   Me.setSize(Me.getSize.Width, v)
+   Call Refresh
+End Property
+
+Public Property Get Enabled() As Boolean 
+   Enabled = Me.isEnabled()
+End Property
+
+Public Property Let Enabled(v As Boolean)
+   Call Me.setEnabled(v)
+End Property
+
+Public Property Get Visible() As Boolean 
+    Visible = Me.isVisible()
+End Property
+
+Public Property Let Visible(v As Boolean)
+   If Formloaded Then 
+      Me.setVisible v
+   Else
+      StartVisibility = v
+   End If
+End Property
+
+Public Property Get MousePointer() As MousePointerConstants
+   MousePointer = JCursorToVBMousePointer(Parent.getCursor())
+End Property
+
+Public Property Let MousePointer(v As MousePointerConstants)
+   Call Parent.setCursor(VBMousePointerToJCursor(v))
+End Property
+
+Public Property Get MouseIcon() As #IResource 
+   MouseIcon = myMouseIcon
+End Property
+
+Public Property Let MouseIcon(v As #IResource)
+   myMouseIcon = v
+   Call Parent.setCursor(VBMouseIconToJCursor(v, Me))
+End Property
+
+Public Property Get CanGetFocus() As Boolean
+   CanGetFocus = Parent.isFocusable
+End Property
+
+Public Property Let CanGetFocus(v As Boolean)
+   Parent.setFocusable v
+End Property
+
+Public Sub SetFocus()
+   Parent.requestFocus 
+End Sub
+
+Public Sub Refresh()
+   Call Parent.invalidate()
+   Call Parent.repaint(0, 0, 0, Me.Width, Me.Height)
+End Sub
+
+Public Sub myMenuBar_Click(MenuItem As IMenuItem)
+   Call Me.Form_MenuClick(MenuItem)
+End Sub
+
+Public Sub myToolBar_Click(ToolBarItem As IToolBarItem)
+   Call Me.Form_ToolBarClick(ToolBarItem)
+End Sub
+
+' ******************************** REDIRECT EVENTS ********************************
+
+Public Sub Form_Activate()
+End Sub
+Public Sub Form_Deactivate()
+End Sub
+Public Sub Form_GotFocus()
+End Sub
+Public Sub Form_LostFocus()
+End Sub
+Public Sub Form_Load()
+End Sub
+Public Sub Form_Resize()
+End Sub
+Public Sub Form_Move()
+End Sub
+Public Sub Form_MenuClick(MenuItem As IMenuItem)
+End Sub
+Public Sub Form_ToolBarClick(ToolBarItem As IToolBarItem)
+End Sub
+Public Sub Form_Click()
+End Sub
+Public Sub Form_DblClick()
+End Sub
+Public Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
+End Sub
+Public Sub Form_KeyPress(KeyAscii As Integer)
+End Sub
+Public Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
+End Sub
+Public Sub Form_MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
+End Sub
+Public Sub Form_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+End Sub
+Public Sub Form_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+End Sub
+Public Sub Form_Paint(g As java#awt#Graphics)
+End Sub
+
+Public Sub myContent_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+   Call Me.Form_MouseUp(Button, Shift, X, Y)
+End Sub
+Public Sub myContent_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+   Call Me.Form_MouseMove(Button, Shift, X, Y)
+End Sub
+Public Sub myContent_MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
+   Call Me.Form_MouseDown(Button, Shift, X, Y)
+End Sub
+Public Sub myContent_Click()
+   Call Me.Form_Click()
+End Sub
+Public Sub myContent_DblClick()
+   Call Me.Form_DblClick()
+End Sub
+Public Sub myContent_KeyDown(KeyCode As Integer, Shift As Integer)
+   Call Me.Form_KeyDown(KeyCode, Shift)
+End Sub
+Public Sub myContent_KeyPress(KeyAscii As Integer)
+   Call Me.Form_KeyPress(KeyAscii)
+End Sub
+Public Sub myContent_KeyUp(KeyCode As Integer, Shift As Integer)
+   Call Me.Form_KeyUp(KeyCode, Shift)
+End Sub
+Public Sub myContent_Paint(g As java#awt#Graphics)
+   Call Me.Form_Paint(g)
+End Sub
+
+' ******************************** CONTENTFRAME PROPERTYS ********************************
+
+Public Property Get Transparency() As Integer 
+   Transparency = myContent.Transparency
+End Property
+
+Public Property Let Transparency(v As Integer)
+   myContent.Transparency = v
+End Property
+
+Public Property Get AntiAliasing() As Boolean
+   AntiAliasing = myContent.AntiAliasing
+End Property
+
+Public Property Let AntiAliasing(v As Boolean)
+   myContent.AntiAliasing = v
+End Property
+
+Public Property Get AutoRedraw() As Boolean
+   AutoRedraw = myContent.AutoRedraw
+End Property
+
+Public Property Let AutoRedraw(v As Boolean)
+   myContent.AutoRedraw = v
+End Property
+
+Public Property Get Picture() As #IResource
+    Picture = myContent.Picture
+End Property
+
+Public Property Let Picture(Path As #IResource)
+   myContent.Picture = Path
+End Property
+
+Public Property Get DrawWidth() As Integer 
+   Transparency = myContent.DrawWidth
+End Property
+
+Public Property Let DrawWidth(v As Integer)
+   myContent.DrawWidth = v
+End Property
+
+Public Sub PSet(x As Single, y As Single)
+   myContent.PSet x, y
+End Sub
+
+Public Sub Line(x As Single, y As Single)
+   myContent.Line x, y
+End Sub
+
+Public Sub Line(x1 As Single, y1 As Single, x2 As Single, y2 As Single)
+   myContent.Line x1, y1, x2, y2
+End Sub
+
+Public Sub Line(x1 As Single, y1 As Single, x2 As Single, y2 As Single, Rect As Boolean)
+   myContent.Line x1, y1, x2, y2, Rect
+End Sub
+
+Public Sub Line(x1 As Single, y1 As Single, x2 As Single, y2 As Single, Rect As Boolean, FillColor As Long)
+   myContent.Line x1, y1, x2, y2, Rect, FillColor
+End Sub
+
+Public Sub Circle(x As Single, y As Single, width As Single, height As Single)
+   Call myContent.Circle(x, y, width, height)
+End Sub
+
+Public Sub Circle(x As Single, y As Single, width As Single, height As Single, FillColor As Long)
+   Call myContent.Circle(x, y, width, height, FillColor)
+End Sub
+
+Public Sub PaintPicture(refImage As Image, x As Single, y As Single)
+   myContent.PaintPicture refImage, x, y
+End Sub
+
+Public Sub Print(text As String, x1 As Single, y1 As Single)
+   myContent.Print text, x1, y1
+End Sub
+
+Public Sub Cls() 
+   myContent.Cls
+End Sub
+
+Public Property Get Image() As Image
+   Image = myContent.Image
+End Property
+
+Public Property Get ImageBuffer() As BufferedImage
+   ImageBuffer = myContent.ImageBuffer
+End Property
+
+Public Property Get Point(x As Single, y As Single) As Long 
+   Point = myContent.Point(x, y)
+End Property
+
+Public Function TextWidth(text As String) As Integer
+   TextWidth = myContent.TextWidth(text)
+End Function
+
+Public Function TextHeight(text As String) As Integer
+   TextHeight = myContent.TextHeight(text)
+End Function
+
+Public Sub Print(text As String)
+   Call myContent.Print(text)   
+End Sub
+
+Public Property Get CurrentX() As Long
+   CurrentX = myContent.CurrentX
+End Property
+
+Public Property Let CurrentX(v As Long)
+   myContent.CurrentX = v
+End Property
+
+Public Property Get CurrentY() As Long
+   CurrentY = myContent.CurrentY
+End Property
+
+Public Property Let CurrentY(v As Long)
+   myContent.CurrentY = v
+End Property
+
+Public Property Get ScaleLeft() As Single
+   ScaleLeft = myContent.Left
+End Property
+
+Public Property Get ScaleTop() As Single
+   ScaleTop = myContent.Top
+End Property
+
+Public Property Get ScaleWidth() As Single
+   ScaleWidth = myContent.Width
+End Property
+
+Public Property Get ScaleHeight() As Single
+   ScaleHeight = myContent.Height
+End Property
+
+Public Function getBackground() As Color
+   If myContent = Nothing Then
+      getBackground = Base.getBackground()
+   Else
+      getBackground = myContent.Parent.getBackground()
+   End If
+End Function
+
+Public Function getForeground() As Color
+   If myContent = Nothing Then
+      getForeground = Base.getForeground()
+   Else
+      getForeground = myContent.Parent.getForeground()
+   End If
+End Function
+
+Public Property Get BackColor() As Long
+   BackColor = myContent.BackColor
+End Property
+
+Public Property Let BackColor(v As Long)
+   myContent.BackColor = v
+End Property
+
+Public Property Get ForeColor() As Long
+   ForeColor = MyContent.ForeColor 
+End Property
+
+Public Property Let ForeColor(v As Long)
+   MyContent.ForeColor = v
+End Property
+
+' ******************************** FONT PROPERTYS ********************************
+
+Public Property Get FontName() As String 
+   FontName = myContent.FontName 
+End Property
+
+Public Property Let FontName(val As String)
+   myContent.FontName = val
+End Property
+
+Public Property Get FontBold() As Boolean 
+   FontBold = myContent.FontBold
+End Property
+
+Public Property Let FontBold(val As Boolean)
+   myContent.FontBold = val
+End Property
+
+Public Property Get FontItalic() As Boolean
+   FontItalic = myContent.FontItalic
+End Property
+
+Public Property Let FontItalic(val As Boolean)
+   myContent.FontItalic = val
+End Property
+
+Public Property Get FontSize() As Integer 
+   FontSize = myContent.FontSize
+End Property
+
+Public Property Let FontSize(val As Integer)
+   myContent.FontSize = val
+End Property
+
+Public Property Get Font() As Font
+   Font = myContent.getFont()
+End Property
+
+Public Property Get ContentFrame() As PictureBox
+   ContentFrame = myContent
+End Property
+
+
+]]></Source><Param Name="(Name)" Value="Dialog"/><Param Name="(SuperClass)" Value="javax/swing/JDialog"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>

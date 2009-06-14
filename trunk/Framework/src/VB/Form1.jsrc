@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SourceFile>
+	<Param Name="(Name)" Value="Form1"/>
+	<Param Name="(SuperClass)" Value="VB/Form"/>
+	<Param Name="(Type)" Value="Form"/>
+	<Param Name="(Access)" Value="Public"/>
+	<Param Name="Width" Value="960"/>
+	<Param Name="Height" Value="798"/>
+	<Param Name="Caption" Value="Test Form"/>
+	<Param Name="BackColor" Value="10991559"/>
+	<Param Name="ForeColor" Value=""/>
+	<Source>
+		<![CDATA[Dim myFileSystem As New uFileSystem 
+Dim myWinsock As New uWinsock
+Dim myGrid As New uGrid
+
+Public Sub Form_Load()
+   TabStrip1.Tabs.Add myWinsock, "Winsock"
+   TabStrip1.Tabs.Add myFileSystem, "FileSystem"
+   TabStrip1.Tabs.Add New uSplitPane, "SplitPane"
+   TabStrip1.Tabs.Add New uTextBox, "TextBox"
+   TabStrip1.Tabs.Add New uGrid, "Grid"   
+   TabStrip1.Tabs.Add New uGraphics, "Graphics"   
+   TabStrip1.Tabs.Add New uDatabase, "Database"
+   TabStrip1.Tabs.Add New uListBox, "ListBox"
+   
+   TabStrip1.SelectedIndex = 6
+   
+   Dim myFileMenu As VBMenuGroup
+   myFileMenu = Me.MenuBar.createMenuGroup(Null, "File", "File")
+   Me.MenuBar.createMenu myFileMenu, "FileOpen", "Open", True, ApplicationlinkPng
+   Me.MenuBar.createMenu myFileMenu, "FileClose", "Close", True, ApplicationputPng
+   
+   Dim myEditMenu As VBMenuGroup
+   myEditMenu = Me.MenuBar.createMenuGroup(Null, "Edit", "Edit")
+   Me.MenuBar.createMenu myEditMenu, "EditCopy", "Copy"
+   Me.MenuBar.createMenu myEditMenu, "EditPaste", "Paste"
+
+
+
+End Sub
+
+Public Sub Form_Resize()
+   TabStrip1.Width = ScaleWidth - TabStrip1.Left * 2
+   TabStrip1.Height = ScaleHeight - TabStrip1.Top * 2
+  
+End Sub
+
+Public Sub cmdTestDialog_Click()
+  Dim tmpDialog As New Dialog1
+  Call tmpDialog.Show(vbModal)
+  MsgBox tmpDialog.mReturnValue     
+End Sub
+
+Public Sub cmdTestMDI_Click()
+  Dim tmpMDI As New MDIForm1
+  Dim tmpChild As New MDIChild1 
+  Call tmpMDI.Show()  
+End Sub
+
+Public Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
+   out.println keycode
+   If keycode = vbKeyLeft Then 
+      out.println "LEFT !"
+   End If
+End Sub
+]]></Source>
+	<Param Name="AutoResize" Value="False"/><Param Name="StartUpPosition" Value="vbStartUpScreen"/><Param Name="Left" Value="0"/><Param Name="Top" Value="0"/><Param Name="WindowState" Value="vbNormal"/><Param Name="Picture" Value="Nothing"/>
+	<Param Name="AutoRedraw" Value="True"/><Param Name="Enabled" Value="True"/><Param Name="Visible" Value="True"/><Param Name="AntiAliasing" Value="False"/><Param Name="DrawWidth" Value="2"/><Param Name="Transparency" Value="0"/><Param Name="MenuBackColor" Value="-2147483644"/><Param Name="MenuForeColor" Value="-2147483641"/><Param Name="ToolBackColor" Value="-2147483644"/><Param Name="BorderStyle" Value="vbSizable"/><Param Name="AlwaysOnTop" Value="False"/><Param Name="(NameSpace)" Value=""/><Param Name="ToolForeColor" Value="-2147483641"/><Param Name="MousePointer" Value="vbArrow"/><Param Name="MouseIcon" Value="Nothing"/><Param Name="TabStop" Value="False"/><Param Name="CanGetFocus" Value="True"/><Param Name="ScaleWidth" Value=""/><Param Name="ScaleHeight" Value=""/><Param Name="Icon" Value="Nothing"/><Param Name="FontName" Value="Arial"/><Param Name="FontBold" Value="False"/><Param Name="FontItalic" Value="False"/><Param Name="FontSize" Value="9"/><Param Name="CurrentX" Value=""/><Param Name="CurrentY" Value=""/><Param Name="MDIChild" Value="False"/><Object Type="VB/TabStrip"><Param Name="TabOrientation" Value="fmTabOrientationTop"/><Param Name="FontName" Value="Arial"/><Param Name="FontBold" Value="False"/><Param Name="FontItalic" Value="False"/><Param Name="FontSize" Value="9"/><Param Name="BackColor" Value="-2147483633"/><Param Name="ForeColor" Value="-2147483630"/><Param Name="Width" Value="945"/><Param Name="Height" Value="737"/><Param Name="Left" Value="8"/><Param Name="Top" Value="48"/><Param Name="ToolTip" Value=""/><Param Name="Enabled" Value="True"/><Param Name="Visible" Value="True"/><Param Name="Tag" Value=""/><Param Name="MousePointer" Value="vbDefault"/><Param Name="MouseIcon" Value="Nothing"/><Param Name="CanGetFocus" Value="True"/><Param Name="(Name)" Value="TabStrip1"/><Param Name="Index" Value=""/></Object><Object Type="VB/CommandButton"><Param Name="Caption" Value="Test Dialog"/><Param Name="Picture" Value="Nothing"/><Param Name="RolloverPicture" Value="Nothing"/><Param Name="PicturePosition" Value="fmPicturePositionLeftCenter"/><Param Name="FontName" Value="Arial"/><Param Name="FontBold" Value="False"/><Param Name="FontItalic" Value="False"/><Param Name="FontSize" Value="9"/><Param Name="BackColor" Value="-2147483633"/><Param Name="ForeColor" Value="-2147483630"/><Param Name="Width" Value="121"/><Param Name="Height" Value="25"/><Param Name="Left" Value="8"/><Param Name="Top" Value="16"/><Param Name="ToolTip" Value=""/><Param Name="Enabled" Value="True"/><Param Name="Visible" Value="True"/><Param Name="Tag" Value=""/><Param Name="MousePointer" Value="vbDefault"/><Param Name="MouseIcon" Value="Nothing"/><Param Name="CanGetFocus" Value="True"/><Param Name="(Name)" Value="cmdTestDialog"/><Param Name="Index" Value=""/></Object><Object Type="VB/CommandButton"><Param Name="Caption" Value="Test MDI"/><Param Name="Picture" Value="Nothing"/><Param Name="RolloverPicture" Value="Nothing"/><Param Name="PicturePosition" Value="fmPicturePositionLeftCenter"/><Param Name="FontName" Value="Arial"/><Param Name="FontBold" Value="False"/><Param Name="FontItalic" Value="False"/><Param Name="FontSize" Value="9"/><Param Name="BackColor" Value="-2147483633"/><Param Name="ForeColor" Value="-2147483630"/><Param Name="Width" Value="121"/><Param Name="Height" Value="25"/><Param Name="Left" Value="136"/><Param Name="Top" Value="16"/><Param Name="ToolTip" Value=""/><Param Name="Enabled" Value="True"/><Param Name="Visible" Value="True"/><Param Name="Tag" Value=""/><Param Name="MousePointer" Value="vbDefault"/><Param Name="MouseIcon" Value="Nothing"/><Param Name="CanGetFocus" Value="True"/><Param Name="(Name)" Value="cmdTestMDI"/><Param Name="Index" Value=""/></Object><Param Name="Index" Value=""/></SourceFile>
