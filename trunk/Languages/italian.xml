@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
  <Jabaco type="language">
 	<Information>
-		<Item Name="Name" value="Italiano"/>
+		<Item Name="Codepage" value="238" name="Central European"/>
+		<Item Name="Name" value="Italian"/>
 	</Information>
 	<MainForm>
+		<Item Name="Line" value="Line" />
 		<Item Name="mnuFile" value="File" />
 			<Item Name="mnuNew" value="Nuovo progetto..."/>
 			<Item Name="mnuOpen" value="Apri progetto..."/>
 			<Item Name="mnuSave" value="Salva progetto"/>
 			<Item Name="mnuSaveAs" value="Salva progetto con nome..."/>
 			<Item Name="mnuClose" value="Chiudi progetto"/>
+			<Item Name="mnuCreateDoc" value="Create Documentation..."/>
 			<Item Name="mnuCreate" value="Compila progetto..."/>
 			<Item Name="mnuEnd" value="Esci"/>
 		<Item Name="mnuEdit" value="Modifica"/>
@@ -20,6 +23,8 @@
 			<Item Name="mnuPaste" value="Incolla"/>
 			<Item Name="mnuDelete" value="Elimina"/>
 			<Item Name="mnuPrint" value="Stampa..."/>
+			<Item Name="mnuRefreshAC" value="Refresh Autocompletion"/>
+			<Item Name="mnuAddDoc" value="Add Documentation"/>
 			<Item Name="mnuSearch" value="Trova..."/>
 			<Item Name="mnuSearchThrough" value="Trova successivo"/>
 			<Item Name="mnuReplace" value="Sostituisci..."/>
@@ -31,7 +36,10 @@
 			<Item Name="mnuEndBlockStep" value="Procedurestep"/>
 			<Item Name="mnuSingleStep" value="Esegui istruzione/procedura"/>
 			<Item Name="mnuBlockStep" value="Esegui istruzione"/>
-			<Item Name="mnuMarker" value="Imposta/rimuovi segnalibro"/>
+			<Item Name="mnuReturnStep" value="Step Return"/>
+			<Item Name="mnuWorkingDirectory" value="Open Working Directory"/>
+			<Item Name="mnuToggleBreakpoint" value="Toggle Breakpoint"/>
+			<Item Name="mnuToggleMarker" value="Imposta/rimuovi segnalibro"/>
 			<Item Name="mnuGotoMarker" value="Segnalibro successivo"/>
 			<Item Name="mnuImports" value="Riferimenti (Classpath)..."/>
 		<Item Name="mnuLanguageList" value="Lingua"/>
@@ -39,10 +47,12 @@
 			<Item Name="mnuWebPage" value="Homepage"/>
 			<Item Name="mnuWebCommunity" value="Userforum"/>
 			<Item Name="mnuOrder" value="Ordina"/>
+			<Item Name="mnuUpdate" value="Update Jabaco"/>
 			<Item Name="mnuInfo" value="Info"/>
 		<Item Name="cmdAddClass" value="Inserisci File..."/>
 		<Item Name="mnuAddClass" value="Inserisci File..."/>
 			<Item Name="mnuForm" value="Form"/>
+			<Item Name="mnuDialog" value="Dialog"/>
 			<Item Name="mnuMDIForm" value="MDI-Form"/>
 			<Item Name="mnuMDIChild" value="MDI-Child"/>
 			<Item Name="mnuApplet" value="Applet"/>
@@ -51,21 +61,58 @@
 			<Item Name="mnuClass" value="Modulo di classe"/>
 			<Item Name="mnuInterface" value="Interfaccia"/>
 			<Item Name="mnuResource" value="Risorse"/>
+			<Item Name="mnuSaveFileAs" value="Save As..."/>
+			<Item Name="mnuAddFile" value="Add File..."/>
 			<Item Name="mnuDelete" value="Elimina"/>
 		<Item Name="mnuComment" value="Commenta blocco di testo"/>
 		<Item Name="mnuUnComment" value="Rimuovi commenti dal blocco di testo"/>
 		<Item Name="mnuNextPage" value="Pagina successiva"/>
 		<Item Name="mnuLastPage" value="Pagina precedente"/>
-		
+		<Item Name="mnuStop" value="Break"/>
+		<Item Name="mnuCancel" value="End"/>
+		<Item Name="mnuGotoFlag" value="Next Flag"/>
+		<Item Name="mnuAddFlag" value="Add Flag"/>
+		<Item Name="mnuRemoveFlag" value="Remove Flag"/>
+		<Item Name="mnuStackTrace" value="Show Stack Trace"/>
+		<Item Name="cmdRefresh" value="Refresh"/>
+		<Item Name="lblPropertiesTitle" value="Properties"/>
+		<Item Name="lblProjectExplorerTitle" value="Project"/>
+		<Item Name="lblToolBoxTitle" value="Tools"/>
+		<Item Name="cmdColorDialog" value="Show ColorDialog"/>
 		<Item Name="treeProject" value="Progetto"/>
 		<Item Name="treeForms" value="Forms"/>
 		<Item Name="treeModules" value="Moduli"/>
 		<Item Name="treeClasses" value="Moduli di classe"/>
 		<Item Name="treeInterfaces" value="Interfacce"/>
 		<Item Name="treeResources" value="Risorse"/>
+		<Item Name="lblImportStatusTitle" value="Importing..."/>
 		<Item Name="(General)" value="(Generale)"/>
 		<Item Name="(Declarations)" value="(Dichiarazioni)"/>
+		<Item Name="cmdDialogYes" value="Yes"/>
+		<Item Name="cmdDialogPerm" value="Permanent"/>
+		<Item Name="cmdDialogCancel" value="Cancel"/>
+		<Item Name="lblRemoveMessage" value="Would you really like to remove this file from the project?"/>
 	</MainForm>
+	<Register>
+		<Item Name="lblState" value="State:" />
+		<Item Name="lblMail" value="E-Mail:" />
+		<Item Name="lblKey" value="Key:" />
+		<Item Name="lblTopic" value="Unlock to become the fully-functional version of Jabaco." />		
+		<Item Name="lblInfo" value="Your license key was sent to you with your invoice." />
+		<Item Name="cmdActivate" value="Activate" />
+		<Item Name="cmdOrder" value="Order Now..." />
+		<Item Name="cmdLater" value="Later" />
+		<Item Name="cmdClose" value="Schließen" />
+	</Register>
+    <Update>
+		<Item Name="lblTopic" value="An update for Jabaco is available." />
+		<Item Name="lblDownloadCaption" value="Download:" />
+		<Item Name="lblVersionCaption" value="Version-History:" />
+		<Item Name="cmdClose" value="Close" />
+	</Update>
+	<InfoForm>
+		<Item Name="cmdClose" value="Close"/>
+	</InfoForm>
 	<Classbrowser>
 		<Item Name="lblTopic" value="Pacchetto / Cartella:"/>
 		<Item Name="lblMissingClasspath" value="Classi mancanti"/>
@@ -75,7 +122,6 @@
 		<Item Name="cmdDeleteClasspath" value="Rimuovi archivio"/>
 		<Item Name="cmdFindClass" value="Trova classe"/>
 		<Item Name="cmdShowClass" value="Mostra classe"/>
-		<Item Name="cmdCancel" value="Annulla"/>
 		<Item Name="cmdClose" value="Chiudi"/>
 		<Item Name="cmdClean" value="Pulisci"/>
 		<Item Name="cmdBack" value="Chiudi"/>
@@ -99,6 +145,8 @@
 		<Item Name="optWebProject" value="Web Applet"/>
 		<Item Name="optDOSProject" value="Applicazione Console"/>
 		<Item Name="optComponent" value="Class Library"/>
+		<Item Name="lblFile" value="File"/> 
+		<Item Name="lblPath" value="Path"/>
 	</NewProject>
 	<SearchDialog>
 		<Item Name="lblCaption" value="Trova"/>
@@ -124,6 +172,9 @@
 		<Item Name="cboDirectionUp" value="Giu'"/>
 		<Item Name="cboDirectionDown" value="Su"/>
 		<Item Name="cmdJumpTo" value="Vai a"/>
+		<Item Name="lblSource" value="Source"/>
+		<Item Name="lblLine" value="Line"/>
+		<Item Name="lblText" value="Text"/>
 	</SearchDialog>
 	<GeneralText>
 		<Item Name="ExeFile" value="File Exe"/>
@@ -131,7 +182,6 @@
 		<Item Name="JarFile" value="File Jar"/>
 		<Item Name="AllFiles" value="Tutti i files"/>
 	</GeneralText>
-
 	<Messages>
 		<Item Name="SEARCH_NOTFOUND" value="Testo di ricerca non trovato."/>
 		<Item Name="SEARCH_REPLACE_ELEMENTS" value="La ricerca e' stata eseguita nell'area specificata."/>
@@ -179,7 +229,7 @@
 		<Item Name="GLOBAL::UNEXPECTED_ARRAY" value="Non previsto: Array!"/>
 		<Item Name="GLOBAL::UNEXPECTED_EXITCODE" value="Non previsto: End o Exit!"/>
 		<Item Name="GLOBAL::UNEXPECTED_ERROR" value="Errore di compilazione: %1!"/>
-		<Item Name="GLOBAL::UNEXPECTED_OPERATOR" value="Non previsto: operatore '%s'!"/>
+		<Item Name="GLOBAL::UNEXPECTED_OPERATOR" value="Non previsto: operatore '%1'!"/>
 		<Item Name="GLOBAL::UNEXPECTED_OPERATOR_UNKNOWN" value="Non previsto: operatore!"/>
 		<Item Name="GLOBAL::UNEXPECTED_ENDLINE" value="Non previsto: fine linea!"/>
 		<Item Name="GLOBAL::UNEXPECTED_ELSE" value="Else senza If"/>
@@ -193,30 +243,20 @@
 		<Item Name="GLOBAL::UNEXPECTED_INSTRUCTION" value="Funzione o variabile non definita!"/>
 		<Item Name="GLOBAL::UNEXPECTED_ENUMVALUE" value="Tipo errato!"/>
 		
+		<Item Name="GLOBAL::EXPECTED" value="Previsto: %1"/>
 		<Item Name="GLOBAL::EXPECTED_IDENTIFIER" value="Previsto: identificatore"/>
 		<Item Name="GLOBAL::EXPECTED_FUNCTION_OR_VAR" value="Previsto: variabile o funzione"/>
-		<Item Name="GLOBAL::EXPECTED_ENDSYNC" value="Previsto: End Sync"/>
-		<Item Name="GLOBAL::EXPECTED_LOOP" value="Previsto: Loop"/>
-		<Item Name="GLOBAL::EXPECTED_NEXT" value="Previsto: Next"/>
-		<Item Name="GLOBAL::EXPECTED_THEN" value="Previsto: Then"/>
-		<Item Name="GLOBAL::EXPECTED_ENDIF" value="Previsto: End If"/>
-		<Item Name="GLOBAL::EXPECTED_ENDSELECT" value="Previsto: End Select"/>
-		<Item Name="GLOBAL::EXPECTED_ENDSTATEMENT" value="Previsto: %1"/>
 		<Item Name="GLOBAL::EXPECTED_LABEL" value="Previsto: Label"/>
 		<Item Name="GLOBAL::EXPECTED_GOTO_OR_RESUME" value="Previsto: GoTo o Resume"/>
 		<Item Name="GLOBAL::EXPECTED_EXPRESSION" value="Previsto: Expression"/>
-		<Item Name="GLOBAL::EXPECTED_EQUAL" value="Previsto: ="/>
 		<Item Name="GLOBAL::EXPECTED_OBJECT" value="Previsto: Oggetto"/>
-		<Item Name="GLOBAL::EXPECTED_CLIP_CLOSE" value="Previsto: )"/>
-		<Item Name="GLOBAL::EXPECTED_CLIP_OPEN" value="Previsto: ("/>
-		<Item Name="GLOBAL::EXPECTED_COMMA_SEPERATOR" value="Previsto: ,"/>
 		<Item Name="GLOBAL::EXPECTED_SYMBOL" value="Previsto: Symbol"/>
 		<Item Name="GLOBAL::EXPECTED_CLASS" value="Previsto: Class"/>
 		<Item Name="GLOBAL::EXPECTED_STATIC_METHOD" value="Previsto: Static method"/>
 		<Item Name="GLOBAL::EXPECTED_WHILE_OR_UNTIL" value="Previsto: While o Until o fine dell'istruzione"/>
 		<Item Name="GLOBAL::EXPECTED_ASSIGNMENT" value="Previsto: assegnazione"/>
-		<Item Name="GLOBAL::EXPECTED_TO" value="Previsto: To"/>
 		<Item Name="GLOBAL::EXPECTED_CONSTANT_OR_VAR_OR_EXPRESSION" value="Previsto: variabile o istruzione"/>
+		<Item Name="GLOBAL::EXPECTED_NUMBER" value="Previsto: Number!"/>
 		<Item Name="GLOBAL::EXPECTED_INSTRUCTIONEND" value="Previsto: fine dell'istruzione"/>
 		<Item Name="GLOBAL::EXPECTED_IDENTIFIER" value="Previsto: identificatore"/>
 		<Item Name="GLOBAL::EXPECTED_STEP_OR_INSTRUCTIONEND" value="Previsto: passo o fine dell'istruzione"/>
@@ -225,8 +265,6 @@
 		<Item Name="GLOBAL::EXPECTED_ARRAY_INDEX" value="Previsto: Array-Index"/>
 		<Item Name="GLOBAL::EXPECTED_VARIABLE" value="Previsto: Variable"/>
 		<Item Name="GLOBAL::EXPECTED_GET_OR_LET" value="Previsto: Get o Let o Set"/>
-		<Item Name="GLOBAL::EXPECTED_GET" value="Previsto: Get"/>
-		<Item Name="GLOBAL::EXPECTED_LIB" value="Previsto: Lib"/>
 		<Item Name="GLOBAL::EXPECTED_THROWABLE" value="Prevista variabile di tipo 'Throwable'"/>
 		<Item Name="GLOBAL::EXPECTED_GOTO_LABEL" value="Previsto: Label"/>
 		<Item Name="GLOBAL::EXPECTED_EVENT" value="Previsto: Event"/>
