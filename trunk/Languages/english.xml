@@ -182,7 +182,6 @@
 		<Item Name="JarFile" value="Jar-File"/>
 		<Item Name="AllFiles" value="All files"/>
 	</GeneralText>
-
 	<Messages>
 		<Item Name="SEARCH_NOTFOUND" value="Search text is not found."/>
 		<Item Name="SEARCH_REPLACE_ELEMENTS" value="The specified region has been searched."/>
@@ -247,7 +246,7 @@
 		<Item Name="GLOBAL::EXPECTED" value="Expected: %1"/>
 		<Item Name="GLOBAL::EXPECTED_IDENTIFIER" value="Expected: Identifier"/>
 		<Item Name="GLOBAL::EXPECTED_FUNCTION_OR_VAR" value="Expected: Variable or Function"/>
-		<Item Name="GLOBAL::EXPECTED_LABEL" value="Esperado: Etiqueta"/>
+		<Item Name="GLOBAL::EXPECTED_LABEL" value="Expected: Label"/>
 		<Item Name="GLOBAL::EXPECTED_GOTO_OR_RESUME" value="Expected: GoTo or Resume"/>
 		<Item Name="GLOBAL::EXPECTED_EXPRESSION" value="Expected: Expression"/>
 		<Item Name="GLOBAL::EXPECTED_OBJECT" value="Expected: Object"/>
