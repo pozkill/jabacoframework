@@ -18,7 +18,6 @@ End Property
 Public Sub VBMenuBar(Owner As VB#IJabacoForm)
    myOwner = Owner
    Call Parent.setOpaque(True)
-   
 End Sub
 
 Public Function getBackground() As #Color

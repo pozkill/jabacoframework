@@ -24,7 +24,7 @@ Public Sub Form_Load()
    TabStrip1.Tabs.Add New uDatabase, "Database"
    TabStrip1.Tabs.Add New uListBox, "ListBox"
    
-   TabStrip1.SelectedIndex = 6
+   TabStrip1.SelectedIndex = 1
    
    Dim myFileMenu As VBMenuGroup
    myFileMenu = Me.MenuBar.createMenuGroup(Null, "File", "File")
@@ -42,7 +42,7 @@ End Sub
 
 Public Sub Form_Resize()
    TabStrip1.Width = ScaleWidth - TabStrip1.Left * 2
-   TabStrip1.Height = ScaleHeight - TabStrip1.Top * 2
+   TabStrip1.Height = ScaleHeight - TabStrip1.Top - 10
   
 End Sub
 

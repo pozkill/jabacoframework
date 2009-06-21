@@ -79,7 +79,7 @@ Dim myLocalPort As Long
 
 Dim myProtocol As ProtocolConstants
 Dim myBlockSize As Long
-Dim myState As StateConstants
+Dim myState As StateConstants = sckClosed
 
 Public Property Get Parent() As IWinsockItem
    Parent = mySocket

@@ -24,13 +24,15 @@ public class VBVariant implements java.lang.Comparable {
 	public VBVariant(String s)  		{ setVal(s); }
 	public VBVariant(IVBArray a)  		{ setVal(a); }
 
-	public boolean equals(VBVariant o) {
-		if (o == null) return false;
+	public boolean equals(VBVariant TestVal) {
+		if (TestVal == null && Val == null) return true;
+		if (Val == null) return false;
+		if (TestVal == null) return false;
 		try {
-			if (this == o){
+			if (Val == TestVal){
 				return true;
 			} else {
-				if (o.toString().equals(this.toString())) {
+				if (TestVal.toString().equals(this.toString())) {
 					return true;
 				} else {
 					return false;
@@ -41,25 +43,32 @@ public class VBVariant implements java.lang.Comparable {
 		}
 	}
 	
-	public int compareTo(VBVariant var) throws ClassCastException {
-		if ( var == null ) throw new NullPointerException("Expected VBVariant");
-		if ( isNumeric() == false || var.isNumeric() == false ) {
-			if (isString() && var.isString()) {
-				return Strings.StrComp(toString(), var.toString());
+	public int compareTo(VBVariant TestVal) throws ClassCastException {
+		if ( TestVal == null ) return 1;
+		if ( TestVal.toObject() == null && toObject() == null ) return 0;
+		if ( TestVal.toObject() == null ) return 1;
+		if ( toObject() == null ) return -1;
+		if ( isNumeric() == false || TestVal.isNumeric() == false ) {
+			if (isString() && TestVal.isString()) {
+				return Strings.StrComp(toString(), TestVal.toString());
 			} else if (toObject() instanceof java.lang.Comparable) {
-				return ((java.lang.Comparable)toObject()).compareTo(var.toObject()); // java.util.Date implements Comparable
+				return ((java.lang.Comparable)toObject()).compareTo(TestVal.toObject()); 
+			} else {
+				return 1;
 			} 
 		}
 		double d1 = doubleValue(); 
-		double d2 = var.doubleValue();
+		double d2 = TestVal.doubleValue();
 		if (d1 < d2) return -1;
 		if (d1 > d2) return 1;
 		return 0;
 	}
 	
-	public int compareTo(Object o) throws ClassCastException {
-		if (o instanceof VBVariant) {
-			return compareTo((VBVariant)o);
+	public int compareTo(Object TestVal) throws ClassCastException {
+		if (TestVal instanceof VBVariant) {
+			return compareTo((VBVariant)TestVal);
+		} else if (toObject() instanceof java.lang.Comparable) {
+			return ((java.lang.Comparable)toObject()).compareTo(TestVal);
 		} else {
 			throw new ClassCastException("Expected: VBVariant");
 		}
