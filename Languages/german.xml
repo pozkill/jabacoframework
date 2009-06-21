@@ -51,7 +51,7 @@
 			<Item Name="mnuInfo" value="Info"/>
 		<Item Name="cmdAddClass" value="Hinzufügen"/>
 		<Item Name="mnuAddClass" value="Hinzufügen"/>
-			<Item Name="mnuForm" value="Formular"/>´
+			<Item Name="mnuForm" value="Formular"/>
 			<Item Name="mnuDialog" value="Dialog"/>
 			<Item Name="mnuMDIForm" value="MDI-Formular"/>
 			<Item Name="mnuMDIChild" value="MDI-Child"/>
@@ -104,7 +104,7 @@
 		<Item Name="cmdLater" value="Später" />
 		<Item Name="cmdClose" value="Schließen" />
 	</Register>
-    <Update>
+	<Update>
 		<Item Name="lblTopic" value="An update for Jabaco is available." />
 		<Item Name="lblDownloadCaption" value="Download:" />
 		<Item Name="lblVersionCaption" value="Version-History:" />

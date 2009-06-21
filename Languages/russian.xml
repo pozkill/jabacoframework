@@ -1,91 +1,97 @@
-ï»¿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml version="1.0" encoding="Windows-1251" standalone="yes"?>
  <Jabaco type="language">
 	<Information>
-		<Item Name="Codepage" value="204" name="Cyrillic"/>
 		<Item Name="Name" value="Russian"/>
+		<Item Name="Codepage" value="204" name="Cyrillic"/>
 	</Information>
 	<MainForm>
-		<Item Name="Line" value="Line" />
-		<Item Name="mnuFile" value="Ã”Ã Ã©Ã«" />
-			<Item Name="mnuNew" value="ÃÃ®Ã¢Ã»Ã© Ã¯Ã°Ã®Ã¥ÃªÃ²..."/>
-			<Item Name="mnuOpen" value="ÃŽÃ²ÃªÃ°Ã»Ã²Ã¼ Ã¯Ã°Ã®Ã¥ÃªÃ²..."/>
-			<Item Name="mnuSave" value="Ã‘Ã®ÃµÃ°Ã Ã­Ã¨Ã²Ã¼ Ã¯Ã°Ã®Ã¥ÃªÃ²"/>
-			<Item Name="mnuSaveAs" value="Ã‘Ã®ÃµÃ°Ã Ã­Ã¨Ã²Ã¼ Ã¯Ã°Ã®Ã¥ÃªÃ² ÃªÃ Ãª..."/>
-			<Item Name="mnuClose" value="Ã‡Ã ÃªÃ°Ã»Ã²Ã¼ Ã¯Ã°Ã®Ã¥ÃªÃ²"/>
-			<Item Name="mnuCreateDoc" value="Create Documentation..."/>
-			<Item Name="mnuCreate" value="Ã‘Ã®Ã§Ã¤Ã Ã²Ã¼ Ã¯Ã°Ã¨Ã«Ã®Ã¦Ã¥Ã­Ã¨Ã¥..."/>
-			<Item Name="mnuEnd" value="Ã‚Ã»ÃµÃ®Ã¤"/>
-		<Item Name="mnuEdit" value="ÃÃ°Ã Ã¢ÃªÃ "/>
-			<Item Name="mnuUndo" value="ÃŽÃ²Ã¬Ã¥Ã­Ã¨Ã²Ã¼"/>
-			<Item Name="mnuRedo" value="Ã‚Ã¥Ã°Ã­Ã³Ã²Ã¼"/>
-			<Item Name="mnuCut" value="Ã‚Ã»Ã°Ã¥Ã§Ã Ã²Ã¼"/>
-			<Item Name="mnuCopy" value="ÃŠÃ®Ã¯Ã¨Ã°Ã®Ã¢Ã Ã²Ã¼"/>
-			<Item Name="mnuPaste" value="Ã‚Ã±Ã²Ã Ã¢Ã¨Ã²Ã¼"/>
-			<Item Name="mnuDelete" value="Ã“Ã¤Ã Ã«Ã¨Ã²Ã¼"/>
-			<Item Name="mnuPrint" value="ÃÃ¥Ã·Ã Ã²Ã¼"/>
+		<Item Name="Line" value="Line" />		
+		<Item Name="mnuFile" value="Ôàéë" />
+			<Item Name="mnuNew" value="Íîâûé ïðîåêò..."/>
+			<Item Name="mnuOpen" value="Îòêðûòü ïðîåêò..."/>
+			<Item Name="mnuSave" value="Ñîõðàíèòü ïðîåêò"/>
+			<Item Name="mnuSaveAs" value="Ñîõðàíèòü ïðîåêò êàê..."/>
+			<Item Name="mnuClose" value="Çàêðûòü ïðîåêò"/>
+			<Item Name="mnuCreateDoc" value="Ñîçäàòü äîêóìåíòàöèþ..."/>
+			<Item Name="mnuCreate" value="Ñîçäàòü ïðèëîæåíèå..."/>
+			<Item Name="mnuEnd" value="Âûõîä"/>
+		<Item Name="mnuEdit" value="Ïðàâêà"/>
+			<Item Name="mnuUndo" value="Îòìåíèòü"/>
+			<Item Name="mnuRedo" value="Âåðíóòü"/>
+			<Item Name="mnuCut" value="Âûðåçàòü"/>
+			<Item Name="mnuCopy" value="Êîïèðîâàòü"/>
+			<Item Name="mnuPaste" value="Âñòàâèòü"/>
+			<Item Name="mnuDelete" value="Óäàëèòü"/>
+			<Item Name="mnuPrint" value="Ïå÷àòü"/>
 			<Item Name="mnuRefreshAC" value="Refresh Autocompletion"/>
 			<Item Name="mnuAddDoc" value="Add Documentation"/>
-			<Item Name="mnuSearch" value="ÃÃ Ã©Ã²Ã¨"/>
-			<Item Name="mnuSearchThrough" value="ÃÃ Ã©Ã²Ã¨ Ã¤Ã Ã«Ã¥Ã¥"/>
-			<Item Name="mnuReplace" value="ÃÃ Ã©Ã²Ã¨ Ã¨ Ã§Ã Ã¬Ã¥Ã­Ã¨Ã²Ã¼"/>
-			<Item Name="mnuGotoDefinition" value="ÃŽÃ¯Ã°Ã¥Ã¤Ã¥Ã«Ã¥Ã­Ã¨Ã¥"/>
-			<Item Name="mnuGotoLastPosition" value="ÃÃ°Ã¥Ã¤Ã»Ã¤Ã³Ã¹Ã¥Ã¥ Ã¯Ã®Ã«Ã®Ã¦Ã¥Ã­Ã¨Ã¥"/>
-		<Item Name="mnuProject" value="ÃÃ°Ã®Ã¥ÃªÃ²"/>
-			<Item Name="mnuRun" value="Ã‚Ã»Ã¯Ã®Ã«Ã­Ã¨Ã²Ã¼"/>
-			<Item Name="mnuRunFull" value="Ã‚Ã»Ã¯Ã®Ã«Ã­Ã¨Ã²Ã¼ Ã± Ã¯Ã®Ã«Ã­Ã®Ã© ÃªÃ®Ã¬Ã¯Ã¨Ã«Ã¿Ã¶Ã¨Ã¥Ã©"/>
-			<Item Name="mnuEndBlockStep" value="ÃÃ°Ã®Ã¶Ã¥Ã¤Ã³Ã°Ã  Ã¯Ã® Ã¸Ã Ã£Ã Ã¬"/>
-			<Item Name="mnuSingleStep" value="ÃÃ  Ã¸Ã Ã£ Ã¢Ã¯Ã¥Ã°Ã¥Ã¤"/>
-			<Item Name="mnuBlockStep" value="ÃŽÃ±Ã²Ã Ã­Ã®Ã¢Ã¨Ã²Ã¼"/>
+			<Item Name="mnuSearch" value="Íàéòè"/>
+			<Item Name="mnuSearchThrough" value="Íàéòè äàëåå"/>
+			<Item Name="mnuReplace" value="Íàéòè è çàìåíèòü"/>
+			<Item Name="mnuGotoDefinition" value="Îïðåäåëåíèå"/>
+			<Item Name="mnuGotoLastPosition" value="Ïðåäûäóùåå ïîëîæåíèå"/>
+		<Item Name="mnuProject" value="Ïðîåêò"/>
+			<Item Name="mnuRun" value="Âûïîëíèòü"/>
+			<Item Name="mnuRunFull" value="Âûïîëíèòü ñ ïîëíîé êîìïèëÿöèåé"/>
+			<Item Name="mnuEndBlockStep" value="Ïðîöåäóðà ïî øàãàì"/>
+			<Item Name="mnuSingleStep" value="Íà øàã âïåðåä"/>
+			<Item Name="mnuBlockStep" value="Îñòàíîâèòü"/>
+			<Item Name="mnuReturnStep" value="Step Return"/>
 			<Item Name="mnuWorkingDirectory" value="Open Working Directory"/>
-			<Item Name="mnuToggleBreakpoint" value="Toggle Breakpoint"/>
-			<Item Name="mnuToggleMarker" value="ÃÃ®Ã±Ã²Ã Ã¢Ã¨Ã²Ã¼ Ã§Ã ÃªÃ«Ã Ã¤ÃªÃ³"/>
-			<Item Name="mnuGotoMarker" value="ÃÃ¥Ã°Ã¥Ã©Ã²Ã¨ Ãª Ã§Ã ÃªÃ«Ã Ã¤ÃªÃ¥"/>
-			<Item Name="mnuImports" value="ÃÃ Ã±Ã²Ã°Ã®Ã©ÃªÃ¨"/>
-		<Item Name="mnuLanguageList" value="ÃŸÃ§Ã»Ãª Ã¨Ã­Ã²Ã¥Ã°Ã´Ã¥Ã©Ã±Ã "/>
-		<Item Name="mnuHelp" value="Ã‘Ã¯Ã°Ã Ã¢ÃªÃ "/>
-			<Item Name="mnuWebPage" value="Ã„Ã®Ã¬Ã Ã¸Ã­Ã¿Ã¿ Ã±Ã²Ã°Ã­Ã¨Ã¶Ã "/>
-			<Item Name="mnuWebCommunity" value="Ã”Ã®Ã°Ã³Ã¬ Ã±Ã®Ã®Ã¡Ã¹Ã¥Ã±Ã²Ã¢Ã "/>
-			<Item Name="mnuOrder" value="ÃÃ°Ã¨Ã®Ã¡Ã°Ã¥Ã±Ã²Ã¨"/>
-			<Item Name="mnuUpdate" value="Update Jabaco"/>
-			<Item Name="mnuInfo" value="ÃŽ Ã¯Ã°Ã®Ã£Ã°Ã Ã¬Ã¬Ã¥"/>
-		<Item Name="cmdAddClass" value="Add file..."/>
-		<Item Name="mnuAddClass" value="Ã„Ã®Ã¡Ã Ã¢Ã¨Ã²Ã¼..."/>
-			<Item Name="mnuForm" value="Ã”Ã®Ã°Ã¬Ã "/>
-			
-			<Item Name="mnuMDIForm" value="ÃŒÃ³Ã«Ã¼Ã²Ã¨Ã´Ã®Ã°Ã¬Ã "/>
-			<Item Name="mnuMDIChild" value="Ã‚Ã­Ã³Ã²Ã°Ã¥Ã­Ã¿Ã¿ Ã´Ã®Ã°Ã¬Ã "/>
-			<Item Name="mnuApplet" value="Ã€Ã¯Ã«Ã¥Ã²"/>
-			<Item Name="mnuUsercontrol" value="Ã‚ÃªÃ«Ã Ã¤ÃªÃ  Ã´Ã®Ã°Ã¬Ã»"/>
-			<Item Name="mnuModul" value="ÃŒÃ®Ã¤Ã³Ã«Ã¼"/>
-			<Item Name="mnuClass" value="ÃŠÃ«Ã Ã±Ã±"/>
-			<Item Name="mnuInterface" value="ÃˆÃ­Ã²Ã¥Ã°Ã´Ã¥Ã©Ã±"/>
-			<Item Name="mnuResource" value="ÃˆÃ±Ã²Ã®Ã·Ã­Ã¨Ãª"/>
-			<Item Name="mnuAddFile" value="Add File..."/>
-			<Item Name="mnuDelete" value="Ã“Ã¤Ã Ã«Ã¨Ã²Ã¼"/>
-		<Item Name="mnuComment" value="Ã‡Ã ÃªÃ®Ã¬Ã¬Ã¥Ã­Ã²Ã¨Ã°Ã®Ã¢Ã Ã²Ã¼"/>
-		<Item Name="mnuUnComment" value="Ã“Ã¡Ã°Ã Ã²Ã¼ ÃªÃ®Ã¬Ã¬Ã¥Ã­Ã²Ã Ã°Ã¨Ã©"/>
-		<Item Name="mnuNextPage" value="Ã‘Ã«Ã¥Ã¤Ã³Ã¾Ã¹Ã Ã¿ Ã±Ã²Ã°Ã Ã­Ã¨Ã¶Ã "/>
-		<Item Name="mnuLastPage" value="ÃÃ°Ã¥Ã¤Ã»Ã¤Ã³Ã¹Ã Ã¿ Ã±Ã²Ã°Ã Ã­Ã¨Ã¶Ã "/>
-		<Item Name="mnuStop" value="Break"/>
-		<Item Name="mnuCancel" value="End"/>
-		<Item Name="mnuGotoFlag" value="Next Flag"/>
-		<Item Name="mnuAddFlag" value="Add Flag"/>
-		<Item Name="mnuRemoveFlag" value="Remove Flag"/>
-		<Item Name="mnuStackTrace" value="Show Stack Trace"/>
-		<Item Name="cmdRefresh" value="Refresh"/>
-		<Item Name="lblPropertiesTitle" value="Properties"/>
-		<Item Name="lblProjectExplorerTitle" value="Project"/>
-		<Item Name="lblToolBoxTitle" value="Tools"/>
-		<Item Name="cmdColorDialog" value="Show ColorDialog"/>
-		<Item Name="treeProject" value="Project"/>
-		<Item Name="treeForms" value="Forms"/>
-		<Item Name="treeModules" value="Modules"/>
-		<Item Name="treeClasses" value="Class Modules"/>
-		<Item Name="treeInterfaces" value="Interfaces"/>
-		<Item Name="treeResources" value="Resources"/>
-		<Item Name="lblImportStatusTitle" value="Importing..."/>
+			<Item Name="mnuToggleBreakpoint" value="Óñòàíîâèòü òî÷êó îñòàíîâêè"/>
+			<Item Name="mnuToggleMarker" value="Ïîñòàâèòü çàêëàäêó"/>
+			<Item Name="mnuGotoMarker" value="Ïåðåéòè ê çàêëàäêå"/>
+			<Item Name="mnuImports" value="Íàñòðîéêè"/>
+		<Item Name="mnuLanguageList" value="ßçûê èíòåðôåéñà"/>
+		<Item Name="mnuHelp" value="Ñïðàâêà"/>
+			<Item Name="mnuWebPage" value="Äîìàøíÿÿ ñòðíèöà"/>
+			<Item Name="mnuWebCommunity" value="Ôîðóì ñîîáùåñòâà"/>
+			<Item Name="mnuOrder" value="Ïðèîáðåñòè"/>
+			<Item Name="mnuUpdate" value="Ïðîâåðèòü íàëè÷èå îáíîâëåíèé..."/>
+			<Item Name="mnuInfo" value="Î ïðîãðàììå"/>
+		<Item Name="cmdAddClass" value="Äîáàâèòü..."/>
+		<Item Name="mnuAddClass" value="Äîáàâèòü..."/>
+			<Item Name="mnuForm" value="Ôîðìà"/>
+			<Item Name="mnuDialog" value="Dialog"/>
+			<Item Name="mnuMDIForm" value="Ðîäèòåëüñêàÿ ôîðìà (êîíòåéíåð)"/>
+			<Item Name="mnuMDIChild" value="Äî÷åðíÿÿ ôîðìà"/>
+			<Item Name="mnuApplet" value="Àïëåò"/>
+			<Item Name="mnuUsercontrol" value="Âêëàäêà ôîðìû"/>
+			<Item Name="mnuModul" value="Ìîäóëü"/>
+			<Item Name="mnuClass" value="Êëàññ"/>
+			<Item Name="mnuInterface" value="Èíòåðôåéñ"/>
+			<Item Name="mnuResource" value="Èñòî÷íèê"/>
+			<Item Name="mnuSaveFileAs" value="Save As..."/>
+			<Item Name="mnuAddFile" value="Äîáàâèòü"/>
+			<Item Name="mnuDelete" value="Óäàëèòü"/>
+		<Item Name="mnuComment" value="Çàêîììåíòèðîâàòü"/>
+		<Item Name="mnuUnComment" value="Óáðàòü êîììåíòàðèé"/>
+		<Item Name="mnuNextPage" value="Ñëåäóþùàÿ ñòðàíèöà"/>
+		<Item Name="mnuLastPage" value="Ïðåäûäóùàÿ ñòðàíèöà"/>
+		<Item Name="mnuStop" value="Ïðèîñòàíîâèòü"/>
+		<Item Name="mnuCancel" value="Çàâåðøèòü"/>
+		<Item Name="mnuGotoFlag" value="Ïåðåéòè ê ôëàæêó"/>
+		<Item Name="mnuAddFlag" value="Ïîñòàâèòü ôëàæîê"/>
+		<Item Name="mnuRemoveFlag" value="Óäàëèòü ôëàæîê"/>
+		<Item Name="mnuStackTrace" value="Show Stack-Trace"/>
+		<Item Name="cmdRefresh" value="Îáíîâèòü"/>
+		<Item Name="lblPropertiesTitle" value="Ñâîéñòâà"/>
+		<Item Name="lblProjectExplorerTitle" value="Ïðîåêò"/>
+		<Item Name="lblToolBoxTitle" value="Ýëåìåíòû"/>
+		<Item Name="cmdColorDialog" value="Îòêðûòü ïàëèòðó"/>	
+		<Item Name="treeProject" value="Ïðîåêò"/>
+		<Item Name="treeForms" value="Ôîðìû"/>
+		<Item Name="treeModules" value="Ìîäóëè"/>
+		<Item Name="treeClasses" value="Êëàññû"/>
+		<Item Name="treeInterfaces" value="Èíòåðôåéñû"/>
+		<Item Name="treeResources" value="Èñòî÷íèêè"/>
+		<Item Name="lblImportStatusTitle" value="Èìïîðòèðîâàòü..."/>
 		<Item Name="(General)" value="(General)"/>
 		<Item Name="(Declarations)" value="(Declarations)"/>
+		<Item Name="cmdDialogYes" value="Yes"/>
+		<Item Name="cmdDialogPerm" value="Permanent"/>
+		<Item Name="cmdDialogCancel" value="Cancel"/>
+		<Item Name="lblRemoveMessage" value="Would you really like to remove this file from the project?"/>
 	</MainForm>
 	<Register>
 		<Item Name="lblState" value="State:" />
@@ -96,7 +102,7 @@
 		<Item Name="cmdActivate" value="Activate" />
 		<Item Name="cmdOrder" value="Order Now..." />
 		<Item Name="cmdLater" value="Later" />
-		<Item Name="cmdClose" value="SchlieÃŸen" />
+		<Item Name="cmdClose" value="Schließen" />
 	</Register>
     <Update>
 		<Item Name="lblTopic" value="An update for Jabaco is available." />
@@ -105,70 +111,70 @@
 		<Item Name="cmdClose" value="Close" />
 	</Update>
 	<InfoForm>
-		<Item Name="cmdClose" value="Close"/>
+		<Item Name="cmdClose" value="Çàêðûòü"/>
 	</InfoForm>
 	<Classbrowser>
-		<Item Name="lblTopic" value="Package / Folder:"/>
+		<Item Name="lblTopic" value="Äèðåêòîðèè:"/>
 		<Item Name="lblMissingClasspath" value="Missing classes"/>
-		<Item Name="lblClassName" value="Classname:"/>
-		<Item Name="cmdAddJar" value="Ã„Ã®Ã¡Ã Ã¢Ã¨Ã²Ã¼ Jar-Ã Ã°ÃµÃ¨Ã¢..."/>
-		<Item Name="cmdAddFolder" value="Ã„Ã®Ã¡Ã Ã¢Ã¨Ã²Ã¼ Ã¯Ã Ã¯ÃªÃ³..."/>
-		<Item Name="cmdDeleteClasspath" value="Ã“Ã¤Ã Ã«Ã¨Ã²Ã¼ Ã Ã°ÃµÃ¨Ã¢"/>
-		<Item Name="cmdFindClass" value="ÃÃ Ã©Ã²Ã¨"/>
-		<Item Name="cmdShowClass" value="ÃÃ®ÃªÃ Ã§Ã Ã²Ã¼"/>
-		<Item Name="cmdClose" value="Ã‡Ã ÃªÃ°Ã»Ã²Ã¼"/>
-		<Item Name="cmdClean" value="ÃŽÃ·Ã¨Ã±Ã²Ã¨Ã²Ã¼"/>
-		<Item Name="cmdBack" value="Ã‡Ã ÃªÃ°Ã»Ã²Ã¼"/>
-		<Item Name="mnuCopy" value="ÃŠÃ®Ã¯Ã¨Ã°Ã®Ã¢Ã Ã²Ã¼ Ã¨Ã¬Ã¿"/>
-		<Item Name="mnuCopyFull" value="ÃŠÃ®Ã¯Ã¨Ã°Ã®Ã¢Ã Ã²Ã¼ Ã¯Ã³Ã²Ã¼"/>
+		<Item Name="lblClassName" value="Ïîèñê:"/>
+		<Item Name="cmdAddJar" value="Äîáàâèòü Jar-àðõèâ..."/>
+		<Item Name="cmdAddFolder" value="Äîáàâèòü ïàïêó..."/>
+		<Item Name="cmdDeleteClasspath" value="Óäàëèòü àðõèâ"/>
+		<Item Name="cmdFindClass" value="Íàéòè"/>
+		<Item Name="cmdShowClass" value="Ïîêàçàòü"/>
+		<Item Name="cmdClose" value="Çàêðûòü"/>
+		<Item Name="cmdClean" value="Î÷èñòèòü"/>
+		<Item Name="cmdBack" value="Çàêðûòü"/>
+		<Item Name="mnuCopy" value="Êîïèðîâàòü èìÿ"/>
+		<Item Name="mnuCopyFull" value="Êîïèðîâàòü ïóòü"/>
 	</Classbrowser>
 	<Classfinder>
-		<Item Name="lblTopic" value="Select a Classfile:"/>
-		<Item Name="cmdSelect" value="{amp}Select"/>
-		<Item Name="cmdClose" value="{amp}Close"/>
+		<Item Name="lblTopic" value="Óêàæèòå êëàññ:"/>
+		<Item Name="cmdSelect" value="{amp}Âûáðàòü"/>
+		<Item Name="cmdClose" value="{amp}Çàêðûòü"/>
 	</Classfinder>
 	<NewProject>
-		<Item Name="lblCaption" value="New Project"/>
-		<Item Name="tabNew" value="New"/>
-		<Item Name="tabCurrent" value="Recent"/>
-		<Item Name="cmdOpenProject" value="ÃŽÃ²ÃªÃ°Ã»Ã²Ã¼ Ã¯Ã°Ã®Ã¥ÃªÃ²..."/>
-		<Item Name="cmdOpen" value="Ã‘Ã®Ã§Ã¤Ã Ã²Ã¼"/>
-		<Item Name="cmdCancel" value="Ã‚Ã»Ã©Ã²Ã¨"/>
-		<Item Name="optWinProject" value="SDI Application"/>
-		<Item Name="optMDIProject" value="MDI Application"/>
-		<Item Name="optWebProject" value="Web Applet"/>
-		<Item Name="optDOSProject" value="Console Application"/>
-		<Item Name="optComponent" value="Class Library"/>
-		<Item Name="lblFile" value="File"/> 
-		<Item Name="lblPath" value="Path"/>
+		<Item Name="lblCaption" value="Íà÷àëüíîå îêíî Jabaco"/>
+		<Item Name="tabNew" value="Íîâûé ïðîåêò"/>
+		<Item Name="tabCurrent" value="Íåäàâíèå ïðîåêòû"/>
+		<Item Name="cmdOpenProject" value="Îòêðûòü ïðîåêò..."/>
+		<Item Name="cmdOpen" value="Ñîçäàòü"/>
+		<Item Name="cmdCancel" value="Âûéòè"/>
+		<Item Name="optWinProject" value="Ïðîñòîå ïðèëîæåíèå"/>
+		<Item Name="optMDIProject" value="Ìóëüòèîêîííîå ïðèëîæåíèå"/>
+		<Item Name="optWebProject" value="Ïðèëîæåíèå èíòåðíåòà"/>
+		<Item Name="optDOSProject" value="Êîíñîëüíîå ïðèëîæåíèå"/>
+		<Item Name="optComponent" value="Áèáëèîòåêà êëàññà"/>
+		<Item Name="lblFile" value="Ïðîåêò"/>
+		<Item Name="lblPath" value="Äèðåêòîðèÿ"/>
 	</NewProject>
 	<SearchDialog>
-		<Item Name="lblCaption" value="ÃÃ Ã©Ã²Ã¨"/>
-		<Item Name="cmdSearch" value="ÃˆÃ±ÃªÃ Ã²Ã¼"/>
-		<Item Name="cmdSearchNormal" value="ÃˆÃ±ÃªÃ Ã²Ã¼ Ã¤Ã Ã«Ã¥Ã¥"/>
-		<Item Name="cmdSearchReplace" value="Ã‡Ã Ã¬Ã¥Ã­Ã¨Ã²Ã¼"/>
-		<Item Name="cmdCancel" value="Ã‡Ã ÃªÃ°Ã»Ã²Ã¼"/>
-		<Item Name="cmdSetReplaceModeOn" value="ÃÃ¥Ã¦Ã¨Ã¬ Ã§Ã Ã¬Ã¥Ã­Ã» ..."/>
-		<Item Name="cmdSetReplaceModeOff" value="ÃÃ¥Ã¦Ã¨Ã¬ Ã¯Ã®Ã¨Ã±ÃªÃ  ..."/>
-		<Item Name="cmdReplace" value="Ã‡Ã Ã¬Ã¥Ã­Ã¨Ã²Ã¼"/>
-		<Item Name="cmdReplaceAll" value="Ã‡Ã Ã¬Ã¥Ã­Ã¨Ã²Ã¼ Ã¢Ã±Ã¥"/>
-		<Item Name="lblSearch" value="Find what:"/>
-		<Item Name="lblReplace" value="Replace with:"/>
-		<Item Name="frmSearchLimit" value="ÃˆÃ±ÃªÃ Ã²Ã¼ Ã¢:"/>
-		<Item Name="optSearchBy1" value="Ã’Ã¥ÃªÃ±Ã²Ã¥"/>
-		<Item Name="optSearchBy2" value="ÃŒÃ®Ã¤Ã³Ã«Ã¥"/>
-		<Item Name="optSearchBy3" value="ÃÃ°Ã®Ã¥ÃªÃ²Ã¥"/>
-		<Item Name="chkSearchWord" value="ÃˆÃ±ÃªÃ Ã²Ã¼ Ã±Ã«Ã®Ã¢Ã® Ã¶Ã¥Ã«Ã¨ÃªÃ®Ã¬"/>
-		<Item Name="chkCaseSensitive" value="ÃÃ®ÃµÃ®Ã¦Ã¨Ã¥ Ã°Ã¥Ã§Ã³Ã«Ã¼Ã²Ã Ã²Ã»"/>
-		<Item Name="chkSearchList" value="ÃÃ®ÃªÃ Ã§Ã Ã²Ã¼ Ã°Ã¥Ã§Ã³Ã«Ã¼Ã²Ã Ã²Ã»"/>
-		<Item Name="lblListCountText" value="ÃÃ«Ã¥Ã¬Ã¥Ã­Ã²(Ã®Ã¢) Ã­Ã Ã©Ã¤Ã¥Ã­(Ã»)"/>
-		<Item Name="lblDirection" value="Direction:"/>
-		<Item Name="cboDirectionUp" value="Ã‚Ã»Ã¸Ã¥"/>
-		<Item Name="cboDirectionDown" value="ÃÃ¨Ã¦Ã¥"/>
-		<Item Name="cmdJumpTo" value="ÃÃ¥Ã°Ã¥Ã©Ã²Ã¨"/>
-		<Item Name="lblSource" value="Source"/>
-		<Item Name="lblLine" value="Line"/>
-		<Item Name="lblText" value="Text"/>
+		<Item Name="lblCaption" value="Íàéòè"/>
+		<Item Name="cmdSearch" value="Èñêàòü"/>
+		<Item Name="cmdSearchNormal" value="Èñêàòü äàëåå"/>
+		<Item Name="cmdSearchReplace" value="Çàìåíèòü"/>
+		<Item Name="cmdCancel" value="Çàêðûòü"/>
+		<Item Name="cmdSetReplaceModeOn" value="Ðåæèì çàìåíû ..."/>
+		<Item Name="cmdSetReplaceModeOff" value="Ðåæèì ïîèñêà ..."/>
+		<Item Name="cmdReplace" value="Çàìåíèòü"/>
+		<Item Name="cmdReplaceAll" value="Çàìåíèòü âñå"/>
+		<Item Name="lblSearch" value="Íàéòè ôðàçó:"/>
+		<Item Name="lblReplace" value="Çàìåíèòü íà:"/>
+		<Item Name="frmSearchLimit" value="Èñêàòü â:"/>
+		<Item Name="optSearchBy1" value="Òåêñòå"/>
+		<Item Name="optSearchBy2" value="Ìîäóëå"/>
+		<Item Name="optSearchBy3" value="Ïðîåêòå"/>
+		<Item Name="chkSearchWord" value="Èñêàòü ñëîâî öåëèêîì"/>
+		<Item Name="chkCaseSensitive" value="Ïîõîæèå ðåçóëüòàòû"/>
+		<Item Name="chkSearchList" value="Ïîêàçàòü ðåçóëüòàòû"/>
+		<Item Name="lblListCountText" value="Ýëåìåíò(îâ)"/>
+		<Item Name="lblDirection" value="Íàïðàâëåíèå:"/>
+		<Item Name="cboDirectionUp" value="Âûøå"/>
+		<Item Name="cboDirectionDown" value="Íèæå"/>
+		<Item Name="cmdJumpTo" value="Ïåðåéòè"/>
+		<Item Name="lblSource" value="Íàéäåíî â"/>
+		<Item Name="lblLine" value="Íîìåð ñòðîêè"/>
+		<Item Name="lblText" value="Ïîëíûé òåêñò êîäà"/>
 	</SearchDialog>
 	<GeneralText>
 		<Item Name="ExeFile" value="Exe-File"/>
@@ -176,128 +182,127 @@
 		<Item Name="JarFile" value="Jar-File"/>
 		<Item Name="AllFiles" value="All files"/>
 	</GeneralText>
-
 	<Messages>
-		<Item Name="SEARCH_NOTFOUND" value="ÃÃ¥ Ã¢Ã»Ã¡Ã°Ã Ã­ Ã²Ã¥ÃªÃ±Ã² Ã¤Ã«Ã¿ Ã¯Ã®Ã¨Ã±ÃªÃ "/>
-		<Item Name="SEARCH_REPLACE_ELEMENTS" value="Ã‚Ã»Ã¤Ã¥Ã«Ã¥Ã­Ã­Ã»Ã© Ã²Ã¥ÃªÃ±Ã² Ã¨Ã±Ã¯Ã°Ã Ã¢Ã«Ã¥Ã­"/>
-		<Item Name="SEARCH_REPLACE_ELEMENTS_COUNT" value="'%1' Ã¨Ã±Ã¯Ã°Ã Ã¢Ã«Ã¥Ã­Ã¨Ã¿ Ã§Ã Ã¢Ã¥Ã°Ã¸Ã¥Ã­Ã»"/>
-		<Item Name="FILE_NOT_FOUND" value="Ã”Ã Ã©Ã« Ã­Ã¥ Ã­Ã Ã©Ã¤Ã¥Ã­: '%1'!"/>
-		<Item Name="DEBUGGER_RESTART" value="ÃÃ²Ã® Ã¤Ã¥Ã©Ã±Ã²Ã¢Ã¨Ã¥ Ã¯Ã¥Ã°Ã¥Ã§Ã Ã¯Ã³Ã±Ã²Ã¨Ã² Ã¯Ã°Ã®Ã¥ÃªÃ². Ã‚Ã» ÃµÃ®Ã²Ã¨Ã²Ã¥ Ã¯Ã°Ã®Ã¤Ã®Ã«Ã¦Ã¨Ã²Ã¼?"/>
-		<Item Name="INTERFACE_NOT_IMPLEMENTED" value="ÃÃ²Ã®Ã² ÃªÃ«Ã Ã± Ã¢Ã»Ã¯Ã®Ã«Ã­Ã¿Ã¥Ã²Ã±Ã¿: '%1'. Ã‚Ã» ÃµÃ®Ã²Ã¨Ã²Ã¥ Ã¯Ã°Ã¨Ã¬Ã¥Ã­Ã¨Ã²Ã¼ Ã¢Ã±Ã¥ Ã­Ã¥Ã®Ã¡ÃµÃ®Ã¤Ã¨Ã¬Ã»Ã¥ Ã¬Ã¥Ã²Ã®Ã¤Ã» Ã¤Ã«Ã¿ Ã½Ã²Ã Ã£Ã® Ã¨Ã­Ã²Ã¥Ã°Ã´Ã¥Ã©Ã±Ã ?"/>
-		<Item Name="PROJECT_END_WHILERUNNING" value="ÃÃ²Ã® Ã¤Ã¥Ã©Ã±Ã²Ã¢Ã¨Ã¥ Ã¯Ã°Ã¨Ã¢Ã¥Ã¤Ã¥Ã² Ãª Ã®Ã±Ã²Ã Ã­Ã®Ã¢ÃªÃ¥ Ã®Ã²Ã«Ã Ã¤Ã·Ã¨ÃªÃ . Ã‚Ã» ÃµÃ®Ã²Ã¨Ã²Ã¥ Ã¯Ã°Ã®Ã¤Ã®Ã«Ã¦Ã¨Ã²Ã¼?"/>
-		<Item Name="PROJECT_END_SAVECHANGES" value="Ã‘Ã®ÃµÃ°Ã Ã­Ã¨Ã²Ã¼ Ã¨Ã§Ã¬Ã¥Ã­Ã¥Ã­Ã¨Ã¿?"/>
-		<Item Name="PROJECT_CREATEFILE_ERROR" value="ÃŽÃ¸Ã¨Ã¡ÃªÃ  Ã±Ã®Ã§Ã¤Ã Ã­Ã¨Ã¿ '%1'!"/>
-		<Item Name="PROJECT_SELECT_PROJECT" value="Ã‚Ã»Ã¡Ã¥Ã°Ã¥Ã²Ã¥ Ã¯Ã°Ã®Ã¥ÃªÃ²!"/>
-		<Item Name="GUICLASS_NOTFOUND" value="ÃŽÃ¸Ã¨Ã¡ÃªÃ  Ã§Ã Ã£Ã°Ã³Ã§ÃªÃ¨. ÃˆÃ±Ã¯Ã®Ã«Ã¼Ã§Ã³Ã¥Ã¬Ã»Ã© ÃªÃ«Ã Ã±Ã± '%2' '%1' Ã­Ã¥ Ã­Ã Ã©Ã¤Ã¥Ã­! Ã“Ã¤Ã Ã«Ã¨Ã²Ã¼ '%1'?"/>
-		<Item Name="CLASSBROWSER_NOSEL" value="ÃÃ Ã§Ã­Ã Ã·Ã¼Ã²Ã¥ ÃªÃ«Ã Ã±Ã±!"/>
-		<Item Name="CLASSBROWSER_CORESEL" value="ÃÃ¥Ã¢Ã®Ã§Ã¬Ã®Ã¦Ã­Ã® Ã³Ã¤Ã Ã«Ã¨Ã²Ã¼ Ã¨Ã±Ã¯Ã®Ã«Ã¼Ã§Ã³Ã¥Ã¬Ã»Ã© ÃªÃ«Ã Ã±Ã±!"/>
-		<Item Name="CLASSBROWSER_CONFIRMDELETE" value="Ã‚Ã» Ã¤Ã¥Ã©Ã±Ã²Ã¢Ã¨Ã²Ã¥Ã«Ã¼Ã­Ã® ÃµÃ®Ã²Ã¨Ã²Ã¥ Ã³Ã¤Ã Ã«Ã¨Ã²Ã¼ ÃªÃ«Ã Ã±Ã± '%1' Ã¨Ã§ Ã¯Ã°Ã®Ã¥ÃªÃ²Ã ?"/>
-		<Item Name="CLASSBROWSER_DELETE_ERROR" value="ÃÃ¥Ã¢Ã®Ã§Ã¬Ã®Ã¦Ã­Ã® Ã³Ã¤Ã Ã«Ã¨Ã²Ã¼ ÃªÃ«Ã Ã±Ã±!"/>
-		<Item Name="JABACO_CANTFIND_SIGNATURE" value="ÃŽÃ²Ã±Ã³Ã²Ã±Ã²Ã¢Ã³Ã¥Ã² Ã§Ã Ã¯Ã¨Ã±Ã¼. ÃÃ¥Ã°Ã¥Ã¬Ã¥Ã­Ã­Ã Ã¿: '%1' ÃŒÃ¥Ã²Ã®Ã¤: '%2' ÃŠÃ«Ã Ã±Ã±: '%3' !" />
-		<Item Name="GUIEDITOR_PASTE_SELCONTAINER" value="Ã‚Ã»Ã¡Ã¥Ã°Ã¥Ã²Ã¥ ÃªÃ®Ã­Ã²Ã¥Ã©Ã­Ã¥Ã°!"/>
-		<Item Name="GUIEDITOR_PASTE_INVALID" value="ÃÃ¥Ã¤Ã®Ã¯Ã³Ã±Ã²Ã¨Ã¬Ã»Ã© Ã´Ã®Ã°Ã¬Ã Ã²!"/>
-		<Item Name="PROJECT_LOAD_ERROR" value="ÃŽÃ¸Ã¨Ã¡ÃªÃ  Ã§Ã Ã£Ã°Ã³Ã§ÃªÃ¨. '%1' Ã­Ã¥ Ã¬Ã®Ã¦Ã¥Ã² Ã¡Ã»Ã²Ã¼ Ã§Ã Ã£Ã°Ã³Ã¦Ã¥Ã­!"/>
-		<Item Name="PROJECT_NOTFOUND" value="ÃÃ°Ã®Ã¥ÃªÃ² '%1' Ã­Ã¥ Ã­Ã Ã©Ã¤Ã¥Ã­"/>
-		<Item Name="COMPILER_ERROR" value="ÃŽÃ¸Ã¨Ã¡ÃªÃ  ÃªÃ®Ã¬Ã¯Ã¨Ã«Ã¿Ã¶Ã¨Ã¨. ÃŠÃ«Ã Ã±Ã±: '%1' Ã±Ã²Ã°Ã®ÃªÃ : %2{crlf}%3 Ã­Ã¥ Ã­Ã Ã©Ã¤Ã¥Ã­"/>
+		<Item Name="SEARCH_NOTFOUND" value="Íå âûáðàí òåêñò äëÿ ïîèñêà"/>
+		<Item Name="SEARCH_REPLACE_ELEMENTS" value="Âûäåëåííûé òåêñò èñïðàâëåí"/>
+		<Item Name="SEARCH_REPLACE_ELEMENTS_COUNT" value="Èñïðàâëåíèÿ â '%1' çàâåðøåíû"/>
+		<Item Name="FILE_NOT_FOUND" value="Ôàéë íå íàéäåí: '%1'!"/>
+		<Item Name="DEBUGGER_RESTART" value="Ýòî äåéñòâèå ïåðåçàïóñòèò ïðîåêò. Âû õîòèòå ïðîäîëæèòü?"/>
+		<Item Name="INTERFACE_NOT_IMPLEMENTED" value="Ýòîò êëàññ âûïîëíÿåòñÿ: '%1'. Âû õîòèòå ïðèìåíèòü âñå íåîáõîäèìûå ìåòîäû äëÿ ýòîãî èíòåðôåéñà?"/>
+		<Item Name="PROJECT_END_WHILERUNNING" value="Ýòî äåéñòâèå ïðèâåäåò ê îñòàíîâêå îòëàä÷èêà. Âû õîòèòå ïðîäîëæèòü?"/>
+		<Item Name="PROJECT_END_SAVECHANGES" value="Ñîõðàíèòü èçìåíåíèÿ?"/>
+		<Item Name="PROJECT_CREATEFILE_ERROR" value="Îøèáêà ñîçäàíèÿ '%1'!"/>
+		<Item Name="PROJECT_SELECT_PROJECT" value="Âûáåðåòå ïðîåêò!"/>
+		<Item Name="GUICLASS_NOTFOUND" value="Îøèáêà çàãðóçêè. Êëàññ '%2', èñïîëüçóåìûé '%1', íå íàéäåí! Óäàëèòü '%1'?"/>
+		<Item Name="CLASSBROWSER_NOSEL" value="Íàçíà÷üòå êëàññ!"/>
+		<Item Name="CLASSBROWSER_CORESEL" value="Íåâîçìîæíî óäàëèòü èñïîëüçóåìûé êëàññ!"/>
+		<Item Name="CLASSBROWSER_CONFIRMDELETE" value="Âû äåéñòâèòåëüíî õîòèòå óäàëèòü êëàññ '%1' èç ïðîåêòà?"/>
+		<Item Name="CLASSBROWSER_DELETE_ERROR" value="Íåâîçìîæíî óäàëèòü êëàññ!"/>
+		<Item Name="JABACO_CANTFIND_SIGNATURE" value="Îòñóòñòâóåò çàïèñü. Ïåðåìåííàÿ: '%1' Ìåòîä: '%2' Êëàññ: '%3' !" />
+		<Item Name="GUIEDITOR_PASTE_SELCONTAINER" value="Âûáåðåòå êîíòåéíåð!"/>
+		<Item Name="GUIEDITOR_PASTE_INVALID" value="Íåäîïóñòèìûé ôîðìàò!"/>
+		<Item Name="PROJECT_LOAD_ERROR" value="Îøèáêà çàãðóçêè. '%1' íå ìîæåò áûòü çàãðóæåí!"/>
+		<Item Name="PROJECT_NOTFOUND" value="Ïðîåêò '%1' íå íàéäåí"/>
+		<Item Name="COMPILER_ERROR" value="Îøèáêà êîìïèëÿöèè. Êëàññ: '%1' ñòðîêà: %2{crlf}%3 íå íàéäåí"/>
 	</Messages>
 	<CompilerMessages>
-		<Item Name="GLOBAL::MISSING_CONSTRUCTOR" value="Ã‘Ã¡Ã®Ã°Ã¹Ã¨Ãª Ã¤Ã«Ã¿ ÃªÃ«Ã Ã±Ã±Ã  '%1' Ã­Ã¥ Ã­Ã Ã©Ã¤Ã¥Ã­!"/>
-		<Item Name="GLOBAL::MISSING_CONSTRUCTOR_UNKNOWN" value="Ã‘Ã¡Ã®Ã°Ã¹Ã¨Ãª Ã­Ã¥ Ã­Ã Ã©Ã¤Ã¥Ã­!"/>
-		<Item Name="GLOBAL::MISSING_EVENT" value="Ã‘Ã«Ã³Ã·Ã Ã© Ã­Ã¥ Ã­Ã Ã©Ã¤Ã¥Ã­!"/>
-		<Item Name="GLOBAL::MISSING_BASECLASS" value="ÃŽÃ±Ã­Ã®Ã¢Ã­Ã®Ã© ÃªÃ«Ã Ã±Ã± '%1' Ã­Ã¥ Ã­Ã Ã©Ã¤Ã¥Ã­!"/>
-		<Item Name="GLOBAL::MISSING_BASECLASS_UNKNOWN" value="ÃŽÃ±Ã­Ã®Ã¢Ã­Ã®Ã© ÃªÃ«Ã Ã±Ã± Ã­Ã¥ Ã­Ã Ã©Ã¤Ã¥Ã­!"/>
-		<Item Name="GLOBAL::MISSING_CLASS" value="ÃŠÃ«Ã Ã±Ã± '%1' Ã­Ã¥ Ã­Ã Ã©Ã¤Ã¥Ã­!"/>
-		<Item Name="GLOBAL::MISSING_CLASS_UNKNOWN" value="ÃŠÃ«Ã Ã±Ã± Ã­Ã¥ Ã­Ã Ã©Ã¤Ã¥Ã­!"/>
-		<Item Name="GLOBAL::MISSING_CLASS_BYGUIOBJECT" value="ÃŠÃ«Ã Ã±Ã± Ã¤Ã«Ã¿ '%1' Ã­Ã¥ Ã­Ã Ã©Ã¤Ã¥Ã­!"/>
-		<Item Name="GLOBAL::MISSING_CLASS_BYPROPERTY" value="ÃŠÃ«Ã Ã±Ã± Ã¤Ã«Ã¿ Ã±Ã¢Ã®Ã©Ã±Ã²Ã¢Ã  '%1' Ã­Ã¥ Ã­Ã Ã©Ã¤Ã¥Ã­!"/>
-		<Item Name="GLOBAL::MISSING_VAR" value="ÃÃ¥Ã°Ã¥Ã¬Ã¥Ã­Ã­Ã Ã¿ '%1' Ã­Ã¥ Ã§Ã Ã¤Ã Ã­Ã !"/>
-		<Item Name="GLOBAL::MISSING_ENDENUM" value="Enum Ã­Ã¥ Ã§Ã Ã¢Ã¥Ã°Ã¸Ã¥Ã­ End Enum"/>
-		<Item Name="GLOBAL::MISSING_ENDTYPE" value="Type Ã­Ã¥ Ã§Ã Ã¢Ã¥Ã°Ã¸Ã¥Ã­ End Type"/>
-		<Item Name="GLOBAL::MISSING_ENDPROPERTY" value="Property Ã­Ã¥ Ã§Ã Ã¢Ã¥Ã°Ã¸Ã¥Ã­ End Property"/>
-		<Item Name="GLOBAL::MISSING_ENDSUB" value="Sub Ã­Ã¥ Ã§Ã Ã¢Ã¥Ã°Ã¸Ã¥Ã­ End Sub"/>
-		<Item Name="GLOBAL::MISSING_ENDFUNCTION" value="Function Ã­Ã¥ Ã§Ã Ã¢Ã¥Ã°Ã¸Ã¥Ã­ End Function"/>
-		<Item Name="GLOBAL::MISSING_FOR" value="Exit For Ã­Ã¥ Ã±Ã®Ã¤Ã¥Ã°Ã¦Ã¨Ã² For"/>
-		<Item Name="GLOBAL::MISSING_DO" value="Exit Do Ã­Ã¥ Ã±Ã®Ã¤Ã¥Ã°Ã¦Ã¨Ã² Do"/>
-		<Item Name="GLOBAL::MISSING_WEND" value="Function Ã­Ã¥ Ã§Ã Ã¢Ã¥Ã°Ã¸Ã¥Ã­ End Function"/>
+		<Item Name="GLOBAL::MISSING_CONSTRUCTOR" value="Ñáîðùèê äëÿ êëàññà '%1' íå íàéäåí!"/>
+		<Item Name="GLOBAL::MISSING_CONSTRUCTOR_UNKNOWN" value="Ñáîðùèê íå íàéäåí!"/>
+		<Item Name="GLOBAL::MISSING_EVENT" value="Ñîáûòèå íå íàéäåíî!"/>
+		<Item Name="GLOBAL::MISSING_BASECLASS" value="Îñíîâíîé êëàññ '%1' íå íàéäåí!"/>
+		<Item Name="GLOBAL::MISSING_BASECLASS_UNKNOWN" value="Îñíîâíîé êëàññ íå íàéäåí!"/>
+		<Item Name="GLOBAL::MISSING_CLASS" value="Êëàññ '%1' íå íàéäåí!"/>
+		<Item Name="GLOBAL::MISSING_CLASS_UNKNOWN" value="Êëàññ íå íàéäåí!"/>
+		<Item Name="GLOBAL::MISSING_CLASS_BYGUIOBJECT" value="Êëàññ äëÿ '%1' íå íàéäåí!"/>
+		<Item Name="GLOBAL::MISSING_CLASS_BYPROPERTY" value="Êëàññ äëÿ ñâîéñòâà '%1' íå íàéäåí!"/>
+		<Item Name="GLOBAL::MISSING_VAR" value="Ïåðåìåííàÿ '%1' íå çàäàíà!"/>
+		<Item Name="GLOBAL::MISSING_ENDENUM" value="Enum íå çàâåðøåí End Enum"/>
+		<Item Name="GLOBAL::MISSING_ENDTYPE" value="Type íå çàâåðøåí End Type"/>
+		<Item Name="GLOBAL::MISSING_ENDPROPERTY" value="Property íå çàâåðøåí End Property"/>
+		<Item Name="GLOBAL::MISSING_ENDSUB" value="Sub íå çàâåðøåí End Sub"/>
+		<Item Name="GLOBAL::MISSING_ENDFUNCTION" value="Function íå çàâåðøåí End Function"/>
+		<Item Name="GLOBAL::MISSING_FOR" value="Exit For íå ñîäåðæèò For"/>
+		<Item Name="GLOBAL::MISSING_DO" value="Exit Do íå ñîäåðæèò Do"/>
+		<Item Name="GLOBAL::MISSING_WEND" value="Function íå çàâåðøåí End Function"/>
 
-		<Item Name="GLOBAL::UNEXPECTED_END" value="ÃŽÃ¸Ã¨Ã¡ÃªÃ : Ã­Ã¥Ã®Ã¦Ã¨Ã¤Ã Ã­Ã­Ã®Ã¥ Ã§Ã Ã¢Ã¥Ã°Ã¸Ã¥Ã­Ã¨Ã¥ Ã¯Ã°Ã¥Ã¤Ã«Ã®Ã¦Ã¥Ã­Ã¨Ã¿!"/>
-		<Item Name="GLOBAL::UNEXPECTED_ARRAY" value="ÃŽÃ¸Ã¨Ã¡ÃªÃ : Ã¬Ã Ã±Ã±Ã¨Ã¢!"/>
-		<Item Name="GLOBAL::UNEXPECTED_EXITCODE" value="ÃŽÃ¸Ã¨Ã¡ÃªÃ  Ã§Ã Ã¢Ã¥Ã°Ã¸Ã¥Ã­Ã¨Ã¿ Ã¨Ã«Ã¨ Ã¢Ã»ÃµÃ®Ã¤Ã !"/>
-		<Item Name="GLOBAL::UNEXPECTED_ERROR" value="ÃŽÃ¸Ã¨Ã¡ÃªÃ  ÃªÃ®Ã¬Ã¯Ã¨Ã«Ã¿Ã¶Ã¨Ã¨: %1!"/>
-		<Item Name="GLOBAL::UNEXPECTED_OPERATOR" value="ÃŽÃ¸Ã¨Ã¡ÃªÃ : ÃŽÃ¯Ã¥Ã°Ã Ã²Ã®Ã° '%1'!"/>
-		<Item Name="GLOBAL::UNEXPECTED_OPERATOR_UNKNOWN" value="ÃŽÃ¸Ã¨Ã¡ÃªÃ : ÃÃ¥Ã¨Ã§Ã¢Ã¥Ã±Ã²Ã­Ã»Ã© Ã®Ã¯Ã¥Ã°Ã Ã²Ã®Ã°!"/>
-		<Item Name="GLOBAL::UNEXPECTED_ENDLINE" value="ÃŽÃ¸Ã¨Ã¡ÃªÃ : ÃªÃ®Ã­Ã¥Ã¶ Ã±Ã²Ã°Ã®ÃªÃ¨!"/>
-		<Item Name="GLOBAL::UNEXPECTED_ELSE" value="Else Ã¢Ã¬Ã¥Ã±Ã²Ã® If"/>
-		<Item Name="GLOBAL::UNEXPECTED_ELSEIF" value="ElseIf Ã¢Ã¬Ã¥Ã±Ã²Ã® If"/>
-		<Item Name="GLOBAL::UNEXPECTED_ELSECASE" value="Case Else Ã¢Ã¬Ã¥Ã±Ã²Ã® Select Case"/>
-		<Item Name="GLOBAL::UNEXPECTED_CASE" value="Case Ã¢Ã¬Ã¥Ã±Ã²Ã® Select Case"/>
-		<Item Name="GLOBAL::UNEXPECTED_BASECLASS_INTERFACE" value="ÃÃ¥Ã¤Ã®Ã¯Ã³Ã±Ã²Ã¨Ã¬Ã»Ã© Ã¡Ã Ã§Ã®Ã¢Ã»Ã© ÃªÃ«Ã Ã±Ã±!"/>
-		<Item Name="GLOBAL::UNEXPECTED_BYJAVA" value="ÃˆÃ¤Ã¥Ã­Ã²Ã¨Ã´Ã¨ÃªÃ Ã²Ã®Ã°!"/>
-		<Item Name="GLOBAL::UNEXPECTED_ASSIGN_BYJAVA_MULTIDIMENSION" value="ÃŽÃ¤Ã­Ã®Ã¬Ã¥Ã°Ã­Ã»Ã© Ã¬Ã Ã±Ã±Ã¨Ã¢!"/>
-		<Item Name="GLOBAL::UNEXPECTED_BYVAL" value="ÃˆÃ¤Ã¥Ã­Ã²Ã¨Ã´Ã¨ÃªÃ Ã²Ã®Ã°!'"/>
-		<Item Name="GLOBAL::UNEXPECTED_INSTRUCTION" value="Ã”Ã³Ã­ÃªÃ¶Ã¨Ã¿ Ã¨Ã«Ã¨ Ã¯Ã¥Ã°Ã¥Ã¬Ã¥Ã­Ã­Ã Ã¿ Ã­Ã¥ Ã®Ã¯Ã°Ã¥Ã¤Ã¥Ã«Ã¥Ã­Ã»!"/>
-		<Item Name="GLOBAL::UNEXPECTED_ENUMVALUE" value="Ã’Ã¨Ã¯ Ã­Ã¥Ã±Ã®Ã¢Ã¬Ã¥Ã±Ã²Ã¨Ã¬!"/>
+		<Item Name="GLOBAL::UNEXPECTED_END" value="Îøèáêà: íåîæèäàííîå çàâåðøåíèå ïðåäëîæåíèÿ!"/>
+		<Item Name="GLOBAL::UNEXPECTED_ARRAY" value="Îøèáêà: ìàññèâ!"/>
+		<Item Name="GLOBAL::UNEXPECTED_EXITCODE" value="Îøèáêà: End èëè Exit!"/>
+		<Item Name="GLOBAL::UNEXPECTED_ERROR" value="Îøèáêà êîìïèëÿöèè: '%1'!"/>
+		<Item Name="GLOBAL::UNEXPECTED_OPERATOR" value="Îøèáêà: Îïåðàòîð '%s'!"/>
+		<Item Name="GLOBAL::UNEXPECTED_OPERATOR_UNKNOWN" value="Îøèáêà: Íåèçâåñòíûé îïåðàòîð!"/>
+		<Item Name="GLOBAL::UNEXPECTED_ENDLINE" value="Îøèáêà: êîíåö ñòðîêè!"/>
+		<Item Name="GLOBAL::UNEXPECTED_ELSE" value="Else âìåñòî If"/>
+		<Item Name="GLOBAL::UNEXPECTED_ELSEIF" value="ElseIf âìåñòî If"/>
+		<Item Name="GLOBAL::UNEXPECTED_ELSECASE" value="Case Else âìåñòî Select Case"/>
+		<Item Name="GLOBAL::UNEXPECTED_CASE" value="Case âìåñòî Select Case"/>
+		<Item Name="GLOBAL::UNEXPECTED_BASECLASS_INTERFACE" value="Íåäîïóñòèìûé áàçîâûé êëàññ!"/>
+		<Item Name="GLOBAL::UNEXPECTED_BYJAVA" value="Èäåíòèôèêàòîð!"/>
+		<Item Name="GLOBAL::UNEXPECTED_ASSIGN_BYJAVA_MULTIDIMENSION" value="Îäíîìåðíûé ìàññèâ!"/>
+		<Item Name="GLOBAL::UNEXPECTED_BYVAL" value="Èäåíòèôèêàòîð!'"/>
+		<Item Name="GLOBAL::UNEXPECTED_INSTRUCTION" value="Ôóíêöèÿ èëè ïåðåìåííàÿ íå îïðåäåëåíû!"/>
+		<Item Name="GLOBAL::UNEXPECTED_ENUMVALUE" value="Òèï íåñîâìåñòèì!"/>
 		
-		<Item Name="GLOBAL::EXPECTED" value="ÃˆÃ¤Ã¥Ã­Ã²Ã¨Ã´Ã¨ÃªÃ Ã²Ã®Ã°: %1"/>
-		<Item Name="GLOBAL::EXPECTED_IDENTIFIER" value="ÃˆÃ¤Ã¥Ã­Ã²Ã¨Ã´Ã¨ÃªÃ Ã²Ã®Ã°!"/>
-		<Item Name="GLOBAL::EXPECTED_FUNCTION_OR_VAR" value="ÃÃ¥Ã°Ã¥Ã¬Ã¥Ã­Ã­Ã Ã¿ Ã¨Ã«Ã¨ Ã´Ã³Ã­ÃªÃ¶Ã¨Ã¿"/>
-		<Item Name="GLOBAL::EXPECTED_LABEL" value="Ã‡Ã Ã¤Ã Ã©Ã²Ã¥: Label"/>
-		<Item Name="GLOBAL::EXPECTED_GOTO_OR_RESUME" value="Ã“ÃªÃ Ã¦Ã¨Ã²Ã¥: GoTo Ã¨Ã«Ã¨ Resume"/>
-		<Item Name="GLOBAL::EXPECTED_EXPRESSION" value="Ã‡Ã Ã¤Ã Ã©Ã²Ã¥: Expression"/>
-		<Item Name="GLOBAL::EXPECTED_OBJECT" value="Ã‡Ã Ã¤Ã Ã©Ã²Ã¥: Object"/>
-		<Item Name="GLOBAL::EXPECTED_SYMBOL" value="Ã“ÃªÃ Ã¦Ã¨Ã²Ã¥: Symbol"/>
-		<Item Name="GLOBAL::EXPECTED_CLASS" value="Ã‡Ã Ã¤Ã Ã©Ã²Ã¥: Class"/>
-		<Item Name="GLOBAL::EXPECTED_STATIC_METHOD" value="Ã“ÃªÃ Ã¦Ã¨Ã²Ã¥: Static method"/>
-		<Item Name="GLOBAL::EXPECTED_WHILE_OR_UNTIL" value="Ã‡Ã Ã¤Ã Ã©Ã²Ã¥: While Ã¨Ã«Ã¨ Until Ã¨Ã«Ã¨ End Ã®Ã¯Ã¥Ã°Ã Ã²Ã®Ã°Ã "/>
-		<Item Name="GLOBAL::EXPECTED_ASSIGNMENT" value="Ã“ÃªÃ Ã¦Ã¨Ã²Ã¥ Ã­Ã Ã§Ã­Ã Ã·Ã¥Ã­Ã¨Ã¥"/>
-		<Item Name="GLOBAL::EXPECTED_CONSTANT_OR_VAR_OR_EXPRESSION" value="Ã‡Ã Ã¤Ã Ã©Ã²Ã¥ Ã¯Ã¥Ã°Ã¥Ã¬Ã¥Ã­Ã­Ã³Ã¾ Ã®Ã¯Ã¥Ã°Ã Ã²Ã®Ã°Ã "/>
-		<Item Name="GLOBAL::EXPECTED_NUMBER" value="ÃˆÃ¤Ã¥Ã­Ã²Ã¨Ã´Ã¨ÃªÃ Ã²Ã®Ã°: Number!"/>
-		<Item Name="GLOBAL::EXPECTED_INSTRUCTIONEND" value="Ã‡Ã Ã¤Ã Ã©Ã²Ã¥ End Ã®Ã¯Ã¥Ã°Ã Ã²Ã®Ã°Ã "/>
-		<Item Name="GLOBAL::EXPECTED_IDENTIFIER" value="Ã‡Ã Ã¤Ã Ã©Ã²Ã¥ Ã¨Ã¤Ã¥Ã­Ã²Ã¨Ã´Ã¨ÃªÃ Ã²Ã®Ã°"/>
-		<Item Name="GLOBAL::EXPECTED_STEP_OR_INSTRUCTIONEND" value="Ã‡Ã Ã¤Ã Ã©Ã²Ã¥ Step Ã¨Ã«Ã¨ End Ã®Ã¯Ã¥Ã°Ã Ã²Ã®Ã°Ã "/>
-		<Item Name="GLOBAL::EXPECTED_CASE" value="Ã“ÃªÃ Ã¦Ã¨Ã²Ã¥: Case"/>
-		<Item Name="GLOBAL::EXPECTED_ARRAY" value="Ã“ÃªÃ Ã¦Ã¨Ã²Ã¥ Ã¬Ã Ã±Ã±Ã¨Ã¢"/>
-		<Item Name="GLOBAL::EXPECTED_ARRAY_INDEX" value="Ã“ÃªÃ Ã¦Ã¨Ã²Ã¥ Ã¨Ã­Ã¤Ã¥ÃªÃ± Ã¬Ã Ã±Ã±Ã¨Ã¢Ã "/>
-		<Item Name="GLOBAL::EXPECTED_VARIABLE" value="Ã“ÃªÃ Ã¦Ã¨Ã²Ã¥ Ã¯Ã¥Ã°Ã¥Ã¬Ã¥Ã­Ã­Ã³Ã¾"/>
-		<Item Name="GLOBAL::EXPECTED_GET_OR_LET" value="Ã“ÃªÃ Ã¦Ã¨Ã²Ã¥: Get Ã¨Ã«Ã¨ Let Ã¨Ã«Ã¨ Set"/>
-		<Item Name="GLOBAL::EXPECTED_THROWABLE" value="Ã“ÃªÃ Ã¦Ã¨Ã²Ã¥ 'Throwable'-Ã¯Ã¥Ã°Ã¥Ã¬Ã¥Ã­Ã­Ã³Ã¾"/>
-		<Item Name="GLOBAL::EXPECTED_GOTO_LABEL" value="Ã“ÃªÃ Ã¦Ã¨Ã²Ã¥: Label"/>
-		<Item Name="GLOBAL::EXPECTED_EVENT" value="Ã“ÃªÃ Ã¦Ã¨Ã²Ã¥: Event"/>
-		<Item Name="GLOBAL::EXPECTED_BYJAVA_ASSIGN" value="Ã“ÃªÃ Ã¦Ã¨Ã²Ã¥: Ã¬Ã Ã±Ã±Ã¨Ã¢-Jabaco"/>
+		<Item Name="GLOBAL::EXPECTED" value="Çàäàéòå: %1"/>
+		<Item Name="GLOBAL::EXPECTED_IDENTIFIER" value="Èäåíòèôèêàòîð!"/>
+		<Item Name="GLOBAL::EXPECTED_FUNCTION_OR_VAR" value="Ïåðåìåííàÿ èëè ôóíêöèÿ!"/>
+		<Item Name="GLOBAL::EXPECTED_LABEL" value="Çàäàéòå: Label"/>
+		<Item Name="GLOBAL::EXPECTED_GOTO_OR_RESUME" value="Óêàæèòå: GoTo èëè Resume"/>
+		<Item Name="GLOBAL::EXPECTED_EXPRESSION" value="Çàäàéòå: Expression"/>
+		<Item Name="GLOBAL::EXPECTED_OBJECT" value="Çàäàéòå: Object"/>
+		<Item Name="GLOBAL::EXPECTED_SYMBOL" value="Óêàæèòå: Symbol"/>
+		<Item Name="GLOBAL::EXPECTED_CLASS" value="Çàäàéòå: Class"/>
+		<Item Name="GLOBAL::EXPECTED_STATIC_METHOD" value="Óêàæèòå: Ñòàòè÷åñêèé ìåòîä"/>
+		<Item Name="GLOBAL::EXPECTED_WHILE_OR_UNTIL" value="Çàäàéòå: While èëè Until èëè End îïåðàòîðà"/>
+		<Item Name="GLOBAL::EXPECTED_ASSIGNMENT" value="Óêàæèòå íàçíà÷åíèå"/>
+		<Item Name="GLOBAL::EXPECTED_CONSTANT_OR_VAR_OR_EXPRESSION" value="Çàäàéòå ïåðåìåííóþ îïåðàòîðà"/>
+		<Item Name="GLOBAL::EXPECTED_NUMBER" value="Çàäàéòå: Number!"/>
+		<Item Name="GLOBAL::EXPECTED_INSTRUCTIONEND" value="Çàäàéòå End îïåðàòîðà"/>
+		<Item Name="GLOBAL::EXPECTED_IDENTIFIER" value="Çàäàéòå èäåíòèôèêàòîð"/>
+		<Item Name="GLOBAL::EXPECTED_STEP_OR_INSTRUCTIONEND" value="Çàäàéòå Step èëè End îïåðàòîðà"/>
+		<Item Name="GLOBAL::EXPECTED_CASE" value="Óêàæèòå: Case"/>
+		<Item Name="GLOBAL::EXPECTED_ARRAY" value="Óêàæèòå Array"/>
+		<Item Name="GLOBAL::EXPECTED_ARRAY_INDEX" value="Óêàæèòå èíäåêñ ìàññèâà"/>
+		<Item Name="GLOBAL::EXPECTED_VARIABLE" value="Óêàæèòå ïåðåìåííóþ"/>
+		<Item Name="GLOBAL::EXPECTED_GET_OR_LET" value="Óêàæèòå: Get èëè Let èëè Set"/>
+		<Item Name="GLOBAL::EXPECTED_THROWABLE" value="Óêàæèòå 'Throwable'-ïåðåìåííóþ"/>
+		<Item Name="GLOBAL::EXPECTED_GOTO_LABEL" value="Óêàæèòå: Label"/>
+		<Item Name="GLOBAL::EXPECTED_EVENT" value="Óêàæèòå: Event"/>
+		<Item Name="GLOBAL::EXPECTED_BYJAVA_ASSIGN" value="Óêàæèòå: ìàññèâ-Jabaco"/>
 
-		<Item Name="GLOBAL::PROTECTED_CONST" value="ÃÃ°Ã¨Ã±Ã¢Ã®Ã¥Ã­Ã¨Ã¥ Ã§Ã Ã­Ã·Ã¥Ã­Ã¨Ã¿ Ã¯Ã®Ã±Ã²Ã®Ã¿Ã­Ã­Ã®Ã© Ã­Ã¥Ã¤Ã®Ã¯Ã³Ã±Ã²Ã¨Ã¬Ã®!"/>
-		<Item Name="GLOBAL::PROTECTED_WITHEVENTS" value="ÃÃ°Ã¨Ã±Ã¢Ã®Ã¥Ã­Ã¨Ã¥ WithEvent-Ã¯Ã¥Ã°Ã¥Ã¬Ã¥Ã­Ã­Ã®Ã© Ã­Ã¥Ã¤Ã®Ã¯Ã³Ã±Ã²Ã¨Ã¬Ã®!"/>
+		<Item Name="GLOBAL::PROTECTED_CONST" value="Ïðèñâîåíèå çàí÷åíèÿ ïîñòîÿííîé íåäîïóñòèìî!"/>
+		<Item Name="GLOBAL::PROTECTED_WITHEVENTS" value="Ïðèñâîåíèå WithEvent-ïåðåìåííîé íåäîïóñòèìî!"/>
 
-		<Item Name="GLOBAL::UNSUPPORTED_FEATURE" value="Ã…Ã¹Ã¥ Ã­Ã¥ Ã¯Ã°Ã¨Ã¬Ã¥Ã­Ã¨Ã¬Ã®: '%1'"/>
-		<Item Name="GLOBAL::UNSUPPORTED_ASSIGN" value="ÃÃ°Ã¨Ã±Ã¢Ã®Ã¥Ã­Ã¨Ã¥ Ã§Ã­Ã Ã·Ã¥Ã­Ã¨Ã¿ '%1' Ã­Ã¥ Ã¤Ã®Ã¯Ã³Ã±Ã²Ã¨Ã¬Ã®!"/>
-		<Item Name="GLOBAL::UNSUPPORTED_DATATYPE_FOR_OPERATION" value="ÃÃ¥Ã¤Ã®Ã¯Ã³Ã±Ã²Ã¨Ã¬Ã»Ã© Ã²Ã¨Ã¯ Ã¤Ã Ã­Ã­Ã»Ãµ '%1' Ã¤Ã«Ã¿ '%2'!"/>
-		<Item Name="GLOBAL::UNSUPPORTED_OUTSIDE_CLASSMODULES" value="Ã’Ã®Ã«Ã¼ÃªÃ® Ã¤Ã¥Ã©Ã±Ã²Ã¢Ã¨Ã²Ã¥Ã«Ã¼Ã­Ã»Ã¥ Ã¢ Ã®Ã¡ÃºÃ¥ÃªÃ²Ã­Ã®Ã¬ Ã¬Ã®Ã¤Ã³Ã«Ã¥!"/>
+		<Item Name="GLOBAL::UNSUPPORTED_FEATURE" value="Åùå íå ïðèìåíèìî: '%1'"/>
+		<Item Name="GLOBAL::UNSUPPORTED_ASSIGN" value="Ïðèñâîåíèå çíà÷åíèÿ '%1' íå äîïóñòèìî!"/>
+		<Item Name="GLOBAL::UNSUPPORTED_DATATYPE_FOR_OPERATION" value="Íåäîïóñòèìûé òèï äàííûõ '%1' äëÿ '%2'!"/>
+		<Item Name="GLOBAL::UNSUPPORTED_OUTSIDE_CLASSMODULES" value="Òîëüêî äåéñòâèòåëüíûå â îáúåêòíîì ìîäóëå!"/>
 
-		<Item Name="GLOBAL::ALREADYEXISTS_EVENT" value="Ã‚Ã»Ã¿Ã¢Ã«Ã¥Ã­ Ã­Ã¥Ã®Ã¤Ã­Ã®Ã§Ã­Ã Ã·Ã­Ã»Ã© Ã±Ã«Ã³Ã·Ã Ã©: '%1'"/>
-		<Item Name="GLOBAL::ALREADYEXISTS_PROPERTY" value="Ã‚Ã»Ã¿Ã¢Ã«Ã¥Ã­Ã® Ã­Ã¥Ã®Ã¤Ã­Ã®Ã§Ã­Ã Ã·Ã­Ã®Ã¥ Ã±Ã¢Ã®Ã©Ã±Ã²Ã¢Ã®: '%1'"/>
-		<Item Name="GLOBAL::ALREADYEXISTS_LABEL" value="Ã‚Ã»Ã¿Ã¢Ã«Ã¥Ã­Ã® Ã­Ã¥Ã®Ã¤Ã­Ã®Ã§Ã­Ã Ã·Ã­Ã®Ã¥ Ã±Ã¢Ã®Ã©Ã±Ã²Ã¢Ã® label: '%1'"/>
-		<Item Name="GLOBAL::ALREADYEXISTS_METHOD" value="Ã‚Ã»Ã¿Ã¢Ã«Ã¥Ã­ Ã­Ã¥Ã®Ã¤Ã­Ã®Ã§Ã­Ã Ã·Ã­Ã»Ã© Ã¬Ã¥Ã²Ã®Ã¤: %1"/>
-		<Item Name="GLOBAL::ALREADYEXISTS_VAR_BYMETHOD" value="Ã‚Ã»Ã¿Ã¢Ã«Ã¥Ã­Ã  Ã­Ã¥Ã®Ã¤Ã­Ã®Ã§Ã­Ã Ã·Ã­Ã Ã¿ Ã¯Ã¥Ã°Ã¥Ã¬Ã¥Ã­Ã­Ã Ã¿: %1"/>
-		<Item Name="GLOBAL::ALREADYEXISTS_VAR_BYCLASS" value="Ã‚Ã»Ã¿Ã¢Ã«Ã¥Ã­Ã  Ã­Ã¥Ã®Ã¤Ã­Ã®Ã§Ã­Ã Ã·Ã­Ã Ã¿ Ã¯Ã¥Ã°Ã¥Ã¬Ã¥Ã­Ã­Ã Ã¿: %1"/>
+		<Item Name="GLOBAL::ALREADYEXISTS_EVENT" value="Âûÿâëåí íåîäíîçíà÷íûé ñëó÷àé: '%1'"/>
+		<Item Name="GLOBAL::ALREADYEXISTS_PROPERTY" value="Âûÿâëåíî íåîäíîçíà÷íîå ñâîéñòâî: '%1'"/>
+		<Item Name="GLOBAL::ALREADYEXISTS_LABEL" value="Âûÿâëåíî íåîäíîçíà÷íîå ñâîéñòâî label: '%1'"/>
+		<Item Name="GLOBAL::ALREADYEXISTS_METHOD" value="Âûÿâëåí íåîäíîçíà÷íûé ìåòîä: '%1'"/>
+		<Item Name="GLOBAL::ALREADYEXISTS_VAR_BYMETHOD" value="Âûÿâëåíà íåîäíîçíà÷íàÿ ïåðåìåííàÿ: '%1'"/>
+		<Item Name="GLOBAL::ALREADYEXISTS_VAR_BYCLASS" value="Âûÿâëåíà íåîäíîçíà÷íàÿ ïåðåìåííàÿ: '%1'"/>
 
-		<Item Name="CONVERSION::FAILED" value="Ã’Ã¨Ã¯ Ã­Ã¥Ã±Ã®Ã¢Ã¬Ã¥Ã±Ã²Ã¨Ã¬"/>
-		<Item Name="CONVERSION::STACKCONVERSION_TYPE_NOTSUPPORTED" value="Ã€Ã¢Ã²Ã®Ã¬Ã Ã²Ã¨Ã·Ã¥Ã±ÃªÃ®Ã¥ Ã¯Ã°Ã¥Ã®Ã¡Ã°Ã Ã§Ã®Ã¢Ã Ã­Ã¨Ã¥ Ã¤Ã«Ã¿ Ã½Ã²Ã®Ã£Ã® Ã²Ã¨Ã¯Ã  Ã¤Ã Ã­Ã­Ã»Ãµ Ã­Ã¥ Ã¯Ã®Ã¤Ã¤Ã¥Ã°Ã¦Ã¨Ã¢Ã Ã¥Ã²Ã±Ã¿!"/>
-		<Item Name="CONVERSION::SWITCHSTACK_TYPE_NOTSUPPORTED" value="Ã€Ã¢Ã²Ã®Ã¬Ã Ã²Ã¨Ã·Ã¥Ã±ÃªÃ®Ã¥ Ã¯Ã°Ã¥Ã®Ã¡Ã°Ã Ã§Ã®Ã¢Ã Ã­Ã¨Ã¥ Ã¤Ã«Ã¿ Ã½Ã²Ã®Ã£Ã® Ã²Ã¨Ã¯Ã  Ã¤Ã Ã­Ã­Ã»Ãµ Ã­Ã¥ Ã¯Ã®Ã¤Ã¤Ã¥Ã°Ã¦Ã¨Ã¢Ã Ã¥Ã²Ã±Ã¿!"/>
-		<Item Name="CONVERSION::BOXING_CLASSNOTFOUND" value="ÃÃ¥Ã°Ã¥ÃµÃ®Ã¤Ã­Ã»Ã© ÃªÃ«Ã Ã±Ã± Ã¤Ã«Ã¿ Ã Ã¢Ã²Ã®Ã¯Ã°Ã¥Ã®Ã¡Ã°Ã Ã§Ã®Ã¢Ã Ã­Ã¨Ã¿ Ã­Ã¥ Ã­Ã Ã©Ã¤Ã¥Ã­!"/>
-		<Item Name="CONVERSION::NOT_SUPPORTED" value="Ã€Ã¢Ã²Ã®Ã¯Ã°Ã¥Ã®Ã¡Ã°Ã Ã§Ã®Ã¢Ã Ã­Ã¨Ã¥ '%1' Ã¢ '%2' Ã­Ã¥ Ã¯Ã®Ã¤Ã¤Ã¥Ã°Ã¦Ã¨Ã¢Ã Ã¥Ã²Ã±Ã¿!"/>
-		<Item Name="CONVERSION::NOT_POSSIBLE" value="Ã’Ã¨Ã¯ Ã­Ã¥Ã±Ã®Ã¢Ã¬Ã¥Ã±Ã²Ã¨Ã¬. ÃÃ Ã©Ã¤Ã¥Ã­Ã­Ã®Ã¬Ã³ '%1' Ã²Ã°Ã¥Ã¡Ã³Ã¥Ã²Ã±Ã¿ '%2'!"/>
+		<Item Name="CONVERSION::FAILED" value="Òèï íåñîâìåñòèì"/>
+		<Item Name="CONVERSION::STACKCONVERSION_TYPE_NOTSUPPORTED" value="Àâòîìàòè÷åñêîå ïðåîáðàçîâàíèå äëÿ ýòîãî òèïà äàííûõ íå ïîääåðæèâàåòñÿ!"/>
+		<Item Name="CONVERSION::SWITCHSTACK_TYPE_NOTSUPPORTED" value="Àâòîìàòè÷åñêîå ïðåîáðàçîâàíèå äëÿ ýòîãî òèïà äàííûõ íå ïîääåðæèâàåòñÿ!"/>
+		<Item Name="CONVERSION::BOXING_CLASSNOTFOUND" value="Ïåðåõîäíûé êëàññ äëÿ àâòîïðåîáðàçîâàíèÿ íå íàéäåí!"/>
+		<Item Name="CONVERSION::NOT_SUPPORTED" value="Àâòîïðåîáðàçîâàíèå '%1' â '%2' íå ïîääåðæèâàåòñÿ!"/>
+		<Item Name="CONVERSION::NOT_POSSIBLE" value="Òèï íåñîâìåñòèì. Íàéäåííîìó '%1' òðåáóåòñÿ '%2'!"/>
 		
-		<Item Name="CHECKINTERFACE::NEW_METHODS_FOUND_RESTART" value="ÃÃ Ã©Ã¤Ã¥Ã­ Ã­Ã®Ã¢Ã»Ã© Ã¬Ã¥Ã²Ã®Ã¤!"/>
-		<Item Name="CHECKINTERFACE::MISSING_METHODS" value="ÃŽÃ²Ã±Ã³Ã²Ã±Ã²Ã¢Ã³Ã¥Ã² Ã¬Ã¥Ã²Ã®Ã¤ '%1'!"/>
+		<Item Name="CHECKINTERFACE::NEW_METHODS_FOUND_RESTART" value="Íàéäåí íîâûé ìåòîä!"/>
+		<Item Name="CHECKINTERFACE::MISSING_METHODS" value="Îòñóòñòâóåò ìåòîä '%1'!"/>
 
-		<Item Name="ENUM::UNSUPPORTED_VALUE" value="ÃÃ¥Ã¤Ã®Ã¯Ã³Ã±Ã²Ã¨Ã¬Ã®Ã¥ Ã§Ã­Ã Ã·Ã¥Ã­Ã¨Ã¥ '%1' Ã¤Ã«Ã¿ Enum '%2'!"/>
-		<Item Name="ENUM::EMPTY_VALUE" value="ÃÃ°Ã®Ã¯Ã³Ã¹Ã¥Ã­Ã® Ã§Ã Ã­Ã·Ã¥Ã­Ã¨Ã¥ Ã¤Ã«Ã¿ Enum '%1'!"/>
+		<Item Name="ENUM::UNSUPPORTED_VALUE" value="Íåäîïóñòèìîå çíà÷åíèå '%1' äëÿ Enum '%2'!"/>
+		<Item Name="ENUM::EMPTY_VALUE" value="Ïðîïóùåíî çàí÷åíèå äëÿ Enum '%1'!"/>
 
-		<Item Name="INVOKE::SIGNATURE_ERROR" value="ÃÃ¥Ã¤Ã®Ã¯Ã³Ã±Ã²Ã¨Ã¬Ã Ã¿ Ã§Ã Ã¯Ã¨Ã±Ã¼ Ã¬Ã¥Ã²Ã®Ã¤Ã !"/>
-		<Item Name="INVOKE::STATICMETHOD_USE_CLASSNAME" value="ÃˆÃ±Ã¯Ã®Ã«Ã¼Ã§Ã³Ã©Ã²Ã¥ Ã¨Ã¬Ã¿ ÃªÃ«Ã Ã±Ã±Ã  Ã¤Ã«Ã¿ Ã±Ã²Ã Ã²Ã¨Ã·Ã¥Ã±ÃªÃ®Ã£Ã® Ã¬Ã¥Ã²Ã®Ã¤Ã  {crlf}%1"/>
-		<Item Name="INVOKE::MISSING_METHOD" value="ÃŒÃ¥Ã²Ã®Ã¤ '%1' Ã­Ã¥ Ã­Ã ÃµÃ®Ã¤Ã¨Ã² Ã±Ã¢Ã®Ã¨Ãµ Ã¯Ã Ã°Ã Ã¬Ã¥Ã²Ã°Ã®Ã¢!"/>
-		<Item Name="INVOKE::MISSING_METHOD_BYCLASS" value="ÃÃ°Ã®Ã¯Ã³Ã¹Ã¥Ã­ Ã¬Ã¥Ã²Ã®Ã¤ '%2.%1'!"/>
-		<Item Name="INVOKE::MISSING_CONSTRUCTOR" value="ÃÃ°Ã®Ã¯Ã³Ã¹Ã¥Ã­ Ã±Ã¡Ã®Ã°Ã¹Ã¨Ãª!"/>
-		<Item Name="INVOKE::MISSING_CONSTRUCTOR_BYCLASS" value="Ã‘Ã¡Ã®Ã°Ã¹Ã¨Ãª Ã¤Ã«Ã¿ ÃªÃ«Ã Ã±Ã±Ã  '%1' Ã­Ã¥ Ã­Ã ÃµÃ®Ã¤Ã¨Ã² Ã±Ã¢Ã®Ã¨Ãµ Ã¯Ã Ã°Ã Ã¬Ã¥Ã²Ã°Ã®Ã¢!"/>
+		<Item Name="INVOKE::SIGNATURE_ERROR" value="Íåäîïóñòèìàÿ çàïèñü ìåòîäà!"/>
+		<Item Name="INVOKE::STATICMETHOD_USE_CLASSNAME" value="Èñïîëüçóéòå èìÿ êëàññà äëÿ ñòàòè÷åñêîãî ìåòîäà. {crlf}%1"/>
+		<Item Name="INVOKE::MISSING_METHOD" value="Ìåòîä '%1' íå íàõîäèò ñâîèõ ïàðàìåòðîâ!"/>
+		<Item Name="INVOKE::MISSING_METHOD_BYCLASS" value="Ïðîïóùåí ìåòîä '%2.%1'!"/>
+		<Item Name="INVOKE::MISSING_CONSTRUCTOR" value="Ïðîïóùåí ñáîðùèê!"/>
+		<Item Name="INVOKE::MISSING_CONSTRUCTOR_BYCLASS" value="Ñáîðùèê äëÿ êëàññà '%1' íå íàõîäèò ñâîèõ ïàðàìåòðîâ!"/>
 	</CompilerMessages>
  </Jabaco>
