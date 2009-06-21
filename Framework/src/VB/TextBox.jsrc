@@ -364,6 +364,13 @@ Public Property Let Top(v As Single)
     Me.setLocation(Me.getLocation.x, v)
 End Property
 
+Public Function Move(Left As Single, Optional Top As Single = -1, Optional Width As Single = -1, Optional Height As Single = -1)
+   Me.Left = Left
+   If Top <> -1 Then Me.Top = Top
+   If Width <> -1 Then Me.Width = Width
+   If Height <> -1 Then Me.Height = Height
+End Function
+
 Public Property Get ToolTip() As String 
     ToolTip = Parent.getToolTipText()
 End Property

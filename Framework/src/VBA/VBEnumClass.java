@@ -4,8 +4,8 @@ public class VBEnumClass extends VBVariant implements IResource {
 	
 
 	// just flagging
-	public VBEnumClass() {}
-	public VBEnumClass(int i)    { super(i); }
+	public VBEnumClass() 		  { super(0); }
+	public VBEnumClass(int i)     { super(i); }
 	public VBEnumClass(long l)    { super(l); }
 	public VBEnumClass(String s)  { super(s); }
 	/*
