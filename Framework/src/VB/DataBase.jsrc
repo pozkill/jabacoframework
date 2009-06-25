@@ -56,6 +56,11 @@ Public Function Execute(sql As String) As Boolean
    Execute = myStmt.execute(sql)
 End Function
 
+Public Function ExecuteUpdate(sql As String) As Integer
+   Dim myStmt As java#sql#Statement = myCon.createStatement()
+   ExecuteUpdate = myStmt.executeUpdate(sql)
+End Function
+
 Public Property Get Connection() As java#sql#Connection
    Connection = myCon
 End Property
