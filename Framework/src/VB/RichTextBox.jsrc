@@ -505,7 +505,7 @@ Public Property Let Text(s As String)
 End Property
 
 'Public Property Get Text() As String
-'   Text = Parent.getText()
+'   Text = Parent.getText()    |
 'End Property
 '
 'Public Property Let TextRTF(s As String)
@@ -518,6 +518,23 @@ End Property
 '   
 'End Property
 
+Public Sub LoadFile(FileName As String)
+  '2009_07_22 OM: TODO: connect with TextRTF
+Try: On Error Goto Catch
+   Dim fis As New java#io#FileInputStream(FileName)
+   Dim doc As New javax#swing#text#DefaultStyledDocument(New StyleContext)
+   Dim kit As New javax#swing#text#rtf#RTFEditorKit
+   RTB.Parent.setEditorKit(kit)
+   RTB.Parent.setDocument(doc)  
+   kit.read(fis, doc, 0)
+   Goto Finally
+Catch: 
+   'If Err Then
+      MsgBox Err.getMessage
+   'End If
+Finally:
+   fis.close
+End Sub
 Public Property Get StyledText() As String
    'StyledText = Parent.getStyledDocument.getText()
    'StyledText = Parent.getDocument.getText
