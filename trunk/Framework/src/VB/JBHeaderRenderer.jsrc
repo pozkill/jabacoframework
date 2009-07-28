@@ -27,6 +27,8 @@ Public Function getTableCellRendererComponent(table As JTable, value As Object, 
       Call myHeader.setBorder(getMarginBorder(BorderFactory.createRaisedBevelBorder(), 1))
    End If
    
+   Call myHeader.setUI(New VBA#MultiLineLabelUI)
+   
    Call myHeader.setFont(myBaseComponent.getFont)
    Call myHeader.setBackground(RGBToColor(myGrid.BackColorHeader))
    Call myHeader.setForeground(RGBToColor(myGrid.ForeColorHeader))

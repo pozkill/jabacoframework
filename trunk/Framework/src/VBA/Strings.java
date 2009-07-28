@@ -122,17 +122,21 @@ public class Strings {
 	public static String Trim(String String1) {
 		return String1.trim();
 	}
+	private static function isWhitespace(String val, int index) {
+		String whitespaceChars =  " \t\n\r\f\0";
+		return (whitespaceChars.indexOf(val.charAt(index)) != -1);
+	}
 	public static String LTrim(String String1) {
 		int iStart = 0;
 		for (int i = 0; i < String1.length(); i++) {
-			if (String1.charAt(i) == (char)' ') iStart = i + 1; else i = String1.length();
+			if (isWhitespace(String1, i)) iStart = i + 1; else i = String1.length();
 		}
 		return String1.substring(iStart);
 	}
 	public static String RTrim(String String1) {
 		int iEnd = String1.length();
 		for (int i = String1.length()-1; i >= 0; i--) {
-			if (String1.charAt(i) == (char)' ') iEnd = i; else i = 0;
+			if (isWhitespace(String1, i)) iEnd = i; else i = 0;
 		}
 		return String1.substring(0, iEnd);
 	}

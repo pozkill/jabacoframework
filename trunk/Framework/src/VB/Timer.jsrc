@@ -47,6 +47,10 @@ Public Property Let Enabled(v As Boolean)
    InitTimer
 End Property
 
+Public Function 	booleanValue() As Boolean 
+   booleanValue = Enabled
+End Function
+
 Private Sub InitTimer()
    If (MyEnabled) Then
       If MyFirstInterval > 0 Then

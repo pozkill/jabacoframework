@@ -221,6 +221,10 @@ Public Sub PSet(x As Single, y As Single)
    myContent.PSet x, y
 End Sub
 
+Public Sub PSet(x As Single, y As Single, col As Long)
+   myContent.PSet x, y, col
+End Sub
+
 Public Sub Line(x As Single, y As Single)
    myContent.Line x, y
 End Sub
