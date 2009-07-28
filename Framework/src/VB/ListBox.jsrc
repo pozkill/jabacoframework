@@ -269,41 +269,41 @@ Public Function HitTest(x As Integer, y As Integer) As Integer
    HitTest = Parent.locationToIndex(New Point(x, y))   
 End Function
 
-Public Sub AddItem(Item As String)
+Public Synchronized Sub AddItem(Item As String)
    Dim tmpCellData As New ListCellData(Item, Nothing, IIF(Style = vbListBoxCheckbox, True, False)) 
    tmpCellData.Owner = Me
    myModel.addElement(tmpCellData)
    Call fireChange()
 End Sub
 
-Public Sub AddItem(Item As ListCellData)
+Public Synchronized Sub AddItem(Item As ListCellData)
    Item.Owner = Me
    myModel.addElement(Item)
    Call fireChange()
 End Sub
 
-Public Sub AddItem(v As Usercontrol)
+Public Synchronized Sub AddItem(v As Usercontrol)
    Dim tmpCellData As New ListCellData(v) 
    tmpCellData.Owner = Me
    myModel.addElement(tmpCellData)
    Call fireChange()
 End Sub
 
-Public Sub AddItem(v As Usercontrol, Index As Integer)
+Public Synchronized Sub AddItem(v As Usercontrol, Index As Integer)
    Dim tmpCellData As New ListCellData(v) 
    tmpCellData.Owner = Me
    myModel.insertElementAt(tmpCellData, Index)
    Call fireChange()
 End Sub
 
-Public Sub AddItem(Item As String, Index As Integer)
+Public Synchronized Sub AddItem(Item As String, Index As Integer)
    Dim tmpCellData As New ListCellData(Item, Nothing, IIF(Style = vbListBoxCheckbox, True, False)) 
    tmpCellData.Owner = Me
    myModel.insertElementAt(tmpCellData, Index)
    Call fireChange()
 End Sub
 
-Public Sub AddItem(Item As ListCellData, Index As Integer)
+Public Synchronized Sub AddItem(Item As ListCellData, Index As Integer)
    Item.Owner = Me
    myModel.insertElementAt(Item, Index)
    Call fireChange()

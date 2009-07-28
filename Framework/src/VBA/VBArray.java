@@ -478,6 +478,11 @@ public class VBArray implements Cloneable, VBArrayString, VBArrayVariant, VBArra
 	}*/
 	
 	/********************* STATIC CREATE VBARRY *********************/
+	public static VBArrayVariant createParamArray(int LBound, int UBound) throws Exception {
+		VBArrayVariant ret = new VBArray();
+		if (UBound > -1) ret.setBound(LBound, UBound, false);
+		return ret;
+	}
 	public static VBArrayVariant createParamArray(int UBound) throws Exception {
 		VBArrayVariant ret = new VBArray();
 		if (UBound > -1) ret.setBound(0, UBound, false);

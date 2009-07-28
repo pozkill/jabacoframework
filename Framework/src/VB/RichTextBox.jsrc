@@ -30,7 +30,7 @@ Event MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
 Event MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
 Event Paint(g As java#awt#Graphics)
 Event Scroll(X As Single, Y As Single)
-Event Modified(action As MODTYPE, e As DocumentEvent)
+Event Modified(action As MODTYPe, e As DocumentEvent)
 
 Dim myBorderStyle As fmBorderStyle
 Dim mySpecialEffect As fmSpecialEffect
@@ -58,13 +58,13 @@ Public Sub Class_Initialize()
    Call Parent.addMouseMotionListener(Me)
    Call Parent.addKeyListener(Me)
    Call Me.setViewportView(myText)
-   Call Base.setOpaque(False)
-   Call Base.getVerticalScrollBar.addAdjustmentListener(Me)
-   Call Base.getHorizontalScrollBar.addAdjustmentListener(Me)
+   Call base.setOpaque(False)
+   Call base.getVerticalScrollBar.addAdjustmentListener(Me)
+   Call base.getHorizontalScrollBar.addAdjustmentListener(Me)
    
    'Call Parent.addHyperlinkListener(Me)
    'Call Parent.setEditorKit(myRTF)
-   'Parent.getStyledDocument.addDocumentListener
+   'Parent.getStyledDocuMent.addDocumentListener
 
 End Sub
 
@@ -74,11 +74,11 @@ Public Sub focusGained(arg2 As FocusEvent)
    Raiseevent GotFocus()
 End Sub
 
-Public Sub focusLost(arg2 As FocusEvent)
+Public Sub focusLost(arg2 As Focusevent)
    Raiseevent LostFocus()
 End Sub
 
-' ******************************** DEFAULT MOUSE - EVENTS ********************************
+' ******************************** DeFAULT MOUSE - EVENTS ********************************
 
 Public Sub mouseMoved(e As MouseEvent) 
     RaiseEvent MouseMove(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
@@ -89,11 +89,11 @@ Public Sub mouseDragged(e As MouseEvent)
 End Sub
 
 Public Sub mousePressed(e As MouseEvent) 
-    RaiseEvent MouseDown(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
+    Raiseevent MouseDown(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
 End Sub
 
-Public Sub mouseReleased(e As MouseEvent) 
-   RaiseEvent MouseUp(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
+Public Sub mouseReleased(e As Mouseevent) 
+   Raiseevent MouseUp(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
    If (e.getX > 0 And e.getY > 0 And e.getX < Me.getWidth And e.getY < Me.getHeight) Then
       If (e.getClickCount() Mod 2) = 0 Then
          RaiseEvent DblClick()
@@ -115,17 +115,17 @@ Public Sub mouseExited(e As MouseEvent)
     RaiseEvent MouseExited()
 End Sub
 
-' ******************************** DEFAULT KEY - EVENTS ********************************
+' ******************************** DeFAULT KEY - EVENTS ********************************
 
 Public Sub keyReleased(e As KeyEvent) 
-   RaiseEvent KeyUp(e.getKeyCode, KeyEventToShiftConstant(e))
+   Raiseevent KeyUp(e.getKeyCode, KeyEventToShiftConstant(e))
 End Sub
 
 Public Sub keyTyped(e As KeyEvent)
    RaiseEvent KeyPress(e.getKeyChar)
 End Sub
 
-Public Sub keyPressed(e As KeyEvent)
+Public Sub keyPressed(e As Keyevent)
     RaiseEvent KeyDown(e.getKeyCode, KeyEventToShiftConstant(e))
 End Sub 
 
@@ -143,50 +143,50 @@ End Sub
 
 Public Property Get HScrollPos() As Integer
    On Error Resume Next
-   If Base.getHorizontalScrollBar Then Exit Property
-   If Base.getHorizontalScrollBar.getModel Then Exit Property
-   HScrollPos = Base.getHorizontalScrollBar.getModel.getValue()
+   If base.getHorizontalScrollBar Then Exit Property
+   If base.getHorizontalScrollBar.getModel Then Exit Property
+   HScrollPos = base.getHorizontalScrollBar.getModel.getValue()
 End Property
 
 Public Property Let HScrollPos(v As Integer)
-   Call Base.getHorizontalScrollBar.getModel.setValue(v)
+   Call base.getHorizontalScrollBar.getModel.setValue(v)
 End Property
 
 Public Property Get VScrollPos() As Integer
    On Error Resume Next
-   If Base.getVerticalScrollBar Then Exit Property
-   If Base.getVerticalScrollBar.getModel Then Exit Property
-   VScrollPos = Base.getVerticalScrollBar.getModel.getValue()
+   If base.getVerticalScrollBar Then Exit Property
+   If base.getVerticalScrollBar.getModel Then Exit Property
+   VScrollPos = base.getVerticalScrollBar.getModel.getValue()
 End Property
 
 Public Property Let VScrollPos(v As Integer)
-   Call Base.getVerticalScrollBar.getModel.setValue(v)
+   Call base.getVerticalScrollBar.getModel.setValue(v)
 End Property
 
 Public Property Get HScrollMax() As Integer
-   HScrollMax = Base.getHorizontalScrollBar.getModel.getMaximum() - Base.getViewport.getWidth()
+   HScrollMax = base.getHorizontalScrollBar.getModel.getMaximum() - base.getViewport.getWidth()
 End Property
 
 Public Property Get VScrollMax() As Integer
-   VScrollMax = Base.getVerticalScrollBar.getModel.getMaximum() - Base.getViewport.getHeight()
+   VScrollMax = base.getVerticalScrollBar.getModel.getMaximum() - base.getViewport.getHeight()
 End Property
 
 
 
 Public Property Get HScrollBar() As vbScrollBarPolicy
-   HScrollBar = JScrollBarToVBScrollBarPolicy(Base.getHorizontalScrollBarPolicy)
+   HScrollBar = JScrollBarToVBScrollBarPolicy(base.getHorizontalScrollBarPolicy)
 End Property
 
 Public Property Let HScrollBar(v As vbScrollBarPolicy)
-   Base.setHorizontalScrollBarPolicy(VBScrollBarToJScrollBarPolicy(v, True))
+   base.setHorizontalScrollBarPolicy(VBScrollBarToJScrollBarPolicy(v, True))
 End Property
 
 Public Property Get VScrollBar() As vbScrollBarPolicy
-   HScrollBar = JScrollBarToVBScrollBarPolicy(Base.getVerticalScrollBarPolicy)
+   HScrollBar = JScrollBarToVBScrollBarPolicy(base.getVerticalScrollBarPolicy)
 End Property
 
 Public Property Let VScrollBar(v As vbScrollBarPolicy)
-   Base.setVerticalScrollBarPolicy(VBScrollBarToJScrollBarPolicy(v, False))
+   base.setVerticalScrollBarPolicy(VBScrollBarToJScrollBarPolicy(v, False))
 End Property
 
 Public Property Get SelStart() As Long 
@@ -303,8 +303,8 @@ End Sub
 Public Sub revalidateRT()
    Parent.revalidate 
    Parent.updateUI
-   Base.revalidate 
-   Base.updateUI 
+   base.revalidate 
+   base.updateUI 
 End Sub
 
 Public Property Get Redraw() As Boolean 
@@ -312,7 +312,7 @@ Public Property Get Redraw() As Boolean
 End Property
 
 Public Property Let Redraw(v As Boolean)
-   Call Base.setIgnoreRepaint(v = False)
+   Call base.setIgnoreRepaint(v = False)
    Call Parent.setIgnoreRepaint(v = False)
 End Property
 
@@ -520,20 +520,19 @@ End Property
 
 Public Sub LoadFile(FileName As String)
   '2009_07_22 OM: TODO: connect with TextRTF
-Try: On Error Goto Catch
+   On Error Resume Next
    Dim fis As New java#io#FileInputStream(FileName)
    Dim doc As New javax#swing#text#DefaultStyledDocument(New StyleContext)
    Dim kit As New javax#swing#text#rtf#RTFEditorKit
-   RTB.Parent.setEditorKit(kit)
-   RTB.Parent.setDocument(doc)  
+   Parent.setEditorKit(kit)
+   Parent.setDocument(doc)  
    kit.read(fis, doc, 0)
-   Goto Finally
-Catch: 
-   'If Err Then
+   If Err <> Nothing Then
       MsgBox Err.getMessage
-   'End If
-Finally:
+   End If
    fis.close
+   
+   
 End Sub
 Public Property Get StyledText() As String
    'StyledText = Parent.getStyledDocument.getText()
@@ -652,7 +651,7 @@ End Property
 
 Public Property Let BackColor(v As Long)
    Parent.setBackground(RGBtoColor(v))
-   Base.setBackground(Parent.getBackground())
+   base.setBackground(Parent.getBackground())
 End Property
 
 Public Property Get ForeColor() As Long
@@ -661,24 +660,24 @@ End Property
 
 Public Property Let ForeColor(v As Long)
     Parent.setForeground(RGBtoColor(v))
-    Base.setForeground(Parent.getForeground())
+    base.setForeground(Parent.getForeground())
 End Property
 
 Public Property Get Width() As Single
-    Width = Me.getSize.Width
+    Width = Me.getSize.width
 End Property
 
 Public Property Let Width(v As Single)
-    Me.setSize(v, Me.getSize.Height)
+    Me.setSize(v, Me.getSize.height)
     Call Refresh()
 End Property
 
 Public Property Get Height() As Single
-    Height = Me.getSize.Height
+    Height = Me.getSize.height
 End Property
 
 Public Property Let Height(v As Single)
-    Me.setSize(Me.getSize.Width, v)
+    Me.setSize(Me.getSize.width, v)
     Call Refresh()
 End Property
 
@@ -718,19 +717,19 @@ Public Property Let ToolTip(v As String)
 End Property
 
 Public Property Get Enabled() As Boolean 
-   Enabled = Base.isEnabled()
+   Enabled = base.isEnabled()
 End Property
 
 Public Property Let Enabled(v As Boolean)
-   Call Base.setEnabled(v)
+   Call base.setEnabled(v)
 End Property
 
 Public Property Get Visible() As Boolean 
-    Visible = Base.isVisible()
+    Visible = base.isVisible()
 End Property
 
 Public Property Let Visible(v As Boolean)
-    Base.setVisible v
+    base.setVisible v
 End Property
 
 Public Property Get Tag() As String 

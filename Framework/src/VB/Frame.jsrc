@@ -30,6 +30,8 @@ Dim myCaption As String
 Dim myTag As String
 Dim myMouseIcon As IResource 
 
+
+
 ' ******************************** INIT THIS CONTROL ********************************
 
 Public Property Get Parent() As JPanel

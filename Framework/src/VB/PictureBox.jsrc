@@ -238,10 +238,15 @@ Public Property Let CurrentY(v As Long)
 End Property
 
 Public Sub PSet(x As Single, y As Single)
-   Dim tmpGraphics As Graphics 
-   tmpGraphics = Me.getGraphics()
-   tmpGraphics.drawLine(x, y, x, y)
-   Call disposeGraphics(tmpGraphics)
+   Call Line(x, y, x, y)
+End Sub
+
+Public Sub PSet(x As Single, y As Single, col As Long)
+   Dim MemCol As Long
+   MemCol = ForeColor
+   ForeColor = col
+   Call Line(x, y, x, y)
+   ForeColor = MemCol
 End Sub
 
 Public Sub Line(x As Single, y As Single)
@@ -265,7 +270,7 @@ Public Sub Line(x1 As Single, y1 As Single, x2 As Single, y2 As Single, Rect As 
          Dim tmpColor As Color
          tmpColor = my2DGraphics.getColor
          Call my2DGraphics.setColor(RGBToColor(FillColor))
-         Call my2DGraphics.fillRect(x1 + 1, y1 + 1, x2 - x1 - 1, y2 - x1 - 1)
+         Call my2DGraphics.fillRect(x1 + 1, y1 + 1, x2 - x1 - 1, y2 - y1 - 1)
          Call my2DGraphics.setColor(tmpColor)
       End If
       Call my2DGraphics.drawRect(x1, y1, x2 - x1, y2 - y1)
