@@ -122,7 +122,7 @@ public class Strings {
 	public static String Trim(String String1) {
 		return String1.trim();
 	}
-	private static function isWhitespace(String val, int index) {
+	private static boolean isWhitespace(String val, int index) {
 		String whitespaceChars =  " \t\n\r\f\0";
 		return (whitespaceChars.indexOf(val.charAt(index)) != -1);
 	}
