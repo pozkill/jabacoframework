@@ -168,7 +168,7 @@ public class Interaction {
 	}
 	public static VBVariant CallByName(Object obj, String ProcName, String Arg) throws Exception {
 		VBA.VBArrayVariant myArgs = new VBA.VBArray(0, 0, 0);
-		myArgs.setValue(0, new VB.VBVariant(Arg));
+		myArgs.setValue(0, new VBA.VBVariant(Arg));
 		return CallByName(obj, ProcName, VBCallType.VBMethod, myArgs);
 	}
 	public static VBVariant CallByName(Object obj, String ProcName, VBA.VBArrayVariant Args) throws Exception {
