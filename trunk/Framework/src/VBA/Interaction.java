@@ -285,7 +285,7 @@ public class Interaction {
 		return MsgBox (Prompt, Buttons, "");
 	}
 	public static VBMsgBoxResult MsgBox(String Prompt, VBMsgBoxStyle Buttons, String Title) {
-		return MsgBoxSwing (getJabacoFocusedWindow(), Prompt, Buttons, Title);
+		return MsgBox (getJabacoFocusedWindow(), Prompt, Buttons, Title);
 	}
 	public static VBMsgBoxResult MsgBox(Component Parent, String Prompt, VBMsgBoxStyle Buttons, String Title) {
 		try {
