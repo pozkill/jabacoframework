@@ -275,7 +275,9 @@ public class Interaction {
 			return "";
 		}
 	}
-
+	private static boolean checkBitMask(long Mask, long TestBit) {
+		return ((Mask & TestBit) == TestBit) ;
+	}
 	public static VBMsgBoxResult MsgBox(String Prompt) {
 		return MsgBox (Prompt, VBMsgBoxStyle.vbOKOnly);
 	}
@@ -283,14 +285,9 @@ public class Interaction {
 		return MsgBox (Prompt, Buttons, "");
 	}
 	public static VBMsgBoxResult MsgBox(String Prompt, VBMsgBoxStyle Buttons, String Title) {
-		return MsgBoxSwing (Prompt, Buttons, Title);
+		return MsgBoxSwing (getJabacoFocusedWindow(), Prompt, Buttons, Title);
 	}
-
-	private static boolean checkBitMask(long Mask, long TestBit) {
-		return ((Mask & TestBit) == TestBit) ;
-	}
-	public static VBMsgBoxResult MsgBoxSwing(Component Parent, String Prompt, VBMsgBoxStyle Buttons, String Title) {
-
+	public static VBMsgBoxResult MsgBox(Component Parent, String Prompt, VBMsgBoxStyle Buttons, String Title) {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName() );
 		} catch( Exception e ) { e.printStackTrace(); }
@@ -332,11 +329,7 @@ public class Interaction {
 		}
 		return retVB;
 	}
-	
-	public static VBMsgBoxResult MsgBoxSwing(String Prompt, VBMsgBoxStyle Buttons, String Title) {
-		return MsgBoxSwing(getJabacoFocusedWindow(), Prompt, Buttons, Title);
-	}
-	
+
 	public void Beep() {
 		java.awt.Toolkit.getDefaultToolkit().beep();
 	}
@@ -359,7 +352,7 @@ public class Interaction {
 		return null;
 	}
 	
-	public static void MsgBoxError(Exception ex) {
+	public static void MsgBox(Throwable ex) {
 		if (ex == null) return;
         String stackTrace = "";
         try {
@@ -370,24 +363,12 @@ public class Interaction {
 			sw.close();
 			stackTrace = sw.getBuffer().toString();
         } catch(Exception nex) {}
+		
 		ExceptionDialog exDialog = new ExceptionDialog(getJabacoFocusedFrame(), ex.toString(), stackTrace, "Jabaco Exception", true);
 		exDialog.show();
 	}	
 	
-	public static void MsgBoxErrorOLD(Exception ex) {
-		if (ex == null) return;
-        String stackTrace = "";
-        try {
-			StringWriter sw = new StringWriter();
-			PrintWriter pw = new PrintWriter(sw);
-			ex.printStackTrace(pw);
-			pw.close();
-			sw.close();
-			stackTrace = "\n\n"+sw.getBuffer().toString();
-        } catch(Exception nex) {}
-		MsgBoxSwing("Run-time error:\n" + ex.toString() + stackTrace, VBMsgBoxStyle.vbCritical, "Exception");
-	}	
-	
+
 	public static java.lang.Process Shell(String PathName) throws Exception { 
 		 return Shell(PathName, VBAppWinStyle.vbNormalFocus);
 	}
