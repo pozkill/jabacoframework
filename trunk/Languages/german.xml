@@ -23,6 +23,7 @@
 			<Item Name="mnuPaste" value="Einfügen"/>
 			<Item Name="mnuDelete" value="Löschen"/>
 			<Item Name="mnuPrint" value="Drucken"/>
+			<Item Name="mnuSelectAll" value="Alles auswählen"/>
 			<Item Name="mnuRefreshAC" value="Autocompletion aktualisieren"/>
 			<Item Name="mnuAddDoc" value="Dokumentation hinzufügen"/>
 			<Item Name="mnuSearch" value="Suchen"/>
@@ -30,6 +31,7 @@
 			<Item Name="mnuReplace" value="Ersetzen..."/>
 			<Item Name="mnuGotoDefinition" value="Definition"/>
 			<Item Name="mnuGotoLastPosition" value="Letzte Position"/>
+			<Item Name="mnuLookAndFeel" value="Vorschau"/>
 		<Item Name="mnuProject" value="{amp}Projekt"/>
 			<Item Name="mnuRun" value="Starten"/>
 			<Item Name="mnuRunFull" value="Starten, vollständige Kompilierung"/>
@@ -42,7 +44,9 @@
 			<Item Name="mnuToggleMarker" value="Lesezeichen ein/aus"/>
 			<Item Name="mnuGotoMarker" value="Nächstes Lesezeichen"/>
 			<Item Name="mnuImports" value="Projektverweise (Classpath)"/>
-		<Item Name="mnuLanguageList" value="Sprache"/>
+		<Item Name="mnuExtras" value="Extras"/>
+			<Item Name="mnuOptions" value="Optionen"/>
+			<Item Name="mnuLanguageList" value="Sprache"/>
 		<Item Name="mnuHelp" value="{amp}?"/>
 			<Item Name="mnuWebPage" value="Homepage"/>
 			<Item Name="mnuWebCommunity" value="Userforum"/>
@@ -65,7 +69,7 @@
 			<Item Name="mnuAddFile" value="Datei hinzufügen..."/>
 			<Item Name="mnuDelete" value="Löschen"/>
 		<Item Name="mnuComment" value="Block auskommentieren"/>
-		<Item Name="mnuUnComment" value="Auskommentieren des Blockes aufheben"/>
+		<Item Name="mnuUnComment" value="Auskommentieren aufheben"/>
 		<Item Name="mnuNextPage" value="Nächste Seite"/>
 		<Item Name="mnuLastPage" value="Letzte Seite"/>
 		<Item Name="mnuStop" value="Unterbrechen"/>

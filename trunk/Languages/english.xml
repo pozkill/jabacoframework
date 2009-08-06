@@ -23,6 +23,7 @@
 			<Item Name="mnuPaste" value="Paste"/>
 			<Item Name="mnuDelete" value="Delete"/>
 			<Item Name="mnuPrint" value="Print..."/>
+			<Item Name="mnuSelectAll" value="Select All"/>
 			<Item Name="mnuRefreshAC" value="Refresh Autocompletion"/>
 			<Item Name="mnuAddDoc" value="Add Documentation"/>
 			<Item Name="mnuSearch" value="Find..."/>
@@ -30,6 +31,7 @@
 			<Item Name="mnuReplace" value="Replace..."/>
 			<Item Name="mnuGotoDefinition" value="Definition"/>
 			<Item Name="mnuGotoLastPosition" value="Last Position"/>
+			<Item Name="mnuLookAndFeel" value="Preview"/>
 		<Item Name="mnuProject" value="Project"/>
 			<Item Name="mnuRun" value="Start"/>
 			<Item Name="mnuRunFull" value="Start With Full Compile"/>
@@ -42,7 +44,9 @@
 			<Item Name="mnuToggleMarker" value="Toggle Bookmark"/>
 			<Item Name="mnuGotoMarker" value="Next Bookmark"/>
 			<Item Name="mnuImports" value="References (Classpath)..."/>
-		<Item Name="mnuLanguageList" value="Language"/>
+		<Item Name="mnuExtras" value="Extras"/>
+			<Item Name="mnuOptions" value="Options"/>
+			<Item Name="mnuLanguageList" value="Language"/>
 		<Item Name="mnuHelp" value="?"/>
 			<Item Name="mnuWebPage" value="Homepage"/>
 			<Item Name="mnuWebCommunity" value="Userforum"/>

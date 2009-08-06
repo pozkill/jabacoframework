@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="Windows-1251" standalone="yes"?>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
  <Jabaco type="language">
 	<Information>
 		<Item Name="Name" value="Russian"/>
@@ -6,86 +6,90 @@
 	</Information>
 	<MainForm>
 		<Item Name="Line" value="Line" />		
-		<Item Name="mnuFile" value="Файл" />
-			<Item Name="mnuNew" value="Новый проект..."/>
-			<Item Name="mnuOpen" value="Открыть проект..."/>
-			<Item Name="mnuSave" value="Сохранить проект"/>
-			<Item Name="mnuSaveAs" value="Сохранить проект как..."/>
-			<Item Name="mnuClose" value="Закрыть проект"/>
-			<Item Name="mnuCreateDoc" value="Создать документацию..."/>
-			<Item Name="mnuCreate" value="Создать приложение..."/>
-			<Item Name="mnuEnd" value="Выход"/>
-		<Item Name="mnuEdit" value="Правка"/>
-			<Item Name="mnuUndo" value="Отменить"/>
-			<Item Name="mnuRedo" value="Вернуть"/>
-			<Item Name="mnuCut" value="Вырезать"/>
-			<Item Name="mnuCopy" value="Копировать"/>
-			<Item Name="mnuPaste" value="Вставить"/>
-			<Item Name="mnuDelete" value="Удалить"/>
-			<Item Name="mnuPrint" value="Печать"/>
+		<Item Name="mnuFile" value="Р¤Р°Р№Р»" />
+			<Item Name="mnuNew" value="РќРѕРІС‹Р№ РїСЂРѕРµРєС‚..."/>
+			<Item Name="mnuOpen" value="РћС‚РєСЂС‹С‚СЊ РїСЂРѕРµРєС‚..."/>
+			<Item Name="mnuSave" value="РЎРѕС…СЂР°РЅРёС‚СЊ РїСЂРѕРµРєС‚"/>
+			<Item Name="mnuSaveAs" value="РЎРѕС…СЂР°РЅРёС‚СЊ РїСЂРѕРµРєС‚ РєР°Рє..."/>
+			<Item Name="mnuClose" value="Р—Р°РєСЂС‹С‚СЊ РїСЂРѕРµРєС‚"/>
+			<Item Name="mnuCreateDoc" value="РЎРѕР·РґР°С‚СЊ РґРѕРєСѓРјРµРЅС‚Р°С†РёСЋ..."/>
+			<Item Name="mnuCreate" value="РЎРѕР·РґР°С‚СЊ РїСЂРёР»РѕР¶РµРЅРёРµ..."/>
+			<Item Name="mnuEnd" value="Р’С‹С…РѕРґ"/>
+		<Item Name="mnuEdit" value="РџСЂР°РІРєР°"/>
+			<Item Name="mnuUndo" value="РћС‚РјРµРЅРёС‚СЊ"/>
+			<Item Name="mnuRedo" value="Р’РµСЂРЅСѓС‚СЊ"/>
+			<Item Name="mnuCut" value="Р’С‹СЂРµР·Р°С‚СЊ"/>
+			<Item Name="mnuCopy" value="РљРѕРїРёСЂРѕРІР°С‚СЊ"/>
+			<Item Name="mnuPaste" value="Р’СЃС‚Р°РІРёС‚СЊ"/>
+			<Item Name="mnuDelete" value="РЈРґР°Р»РёС‚СЊ"/>
+			<Item Name="mnuPrint" value="РџРµС‡Р°С‚СЊ"/>
+			<Item Name="mnuSelectAll" value="Select All"/>
 			<Item Name="mnuRefreshAC" value="Refresh Autocompletion"/>
 			<Item Name="mnuAddDoc" value="Add Documentation"/>
-			<Item Name="mnuSearch" value="Найти"/>
-			<Item Name="mnuSearchThrough" value="Найти далее"/>
-			<Item Name="mnuReplace" value="Найти и заменить"/>
-			<Item Name="mnuGotoDefinition" value="Определение"/>
-			<Item Name="mnuGotoLastPosition" value="Предыдущее положение"/>
-		<Item Name="mnuProject" value="Проект"/>
-			<Item Name="mnuRun" value="Выполнить"/>
-			<Item Name="mnuRunFull" value="Выполнить с полной компиляцией"/>
-			<Item Name="mnuEndBlockStep" value="Процедура по шагам"/>
-			<Item Name="mnuSingleStep" value="На шаг вперед"/>
-			<Item Name="mnuBlockStep" value="Остановить"/>
+			<Item Name="mnuSearch" value="РќР°Р№С‚Рё"/>
+			<Item Name="mnuSearchThrough" value="РќР°Р№С‚Рё РґР°Р»РµРµ"/>
+			<Item Name="mnuReplace" value="РќР°Р№С‚Рё Рё Р·Р°РјРµРЅРёС‚СЊ"/>
+			<Item Name="mnuGotoDefinition" value="РћРїСЂРµРґРµР»РµРЅРёРµ"/>
+			<Item Name="mnuGotoLastPosition" value="РџСЂРµРґС‹РґСѓС‰РµРµ РїРѕР»РѕР¶РµРЅРёРµ"/>
+			<Item Name="mnuLookAndFeel" value="Preview"/>
+		<Item Name="mnuProject" value="РџСЂРѕРµРєС‚"/>
+			<Item Name="mnuRun" value="Р’С‹РїРѕР»РЅРёС‚СЊ"/>
+			<Item Name="mnuRunFull" value="Р’С‹РїРѕР»РЅРёС‚СЊ СЃ РїРѕР»РЅРѕР№ РєРѕРјРїРёР»СЏС†РёРµР№"/>
+			<Item Name="mnuEndBlockStep" value="РџСЂРѕС†РµРґСѓСЂР° РїРѕ С€Р°РіР°Рј"/>
+			<Item Name="mnuSingleStep" value="РќР° С€Р°Рі РІРїРµСЂРµРґ"/>
+			<Item Name="mnuBlockStep" value="РћСЃС‚Р°РЅРѕРІРёС‚СЊ"/>
 			<Item Name="mnuReturnStep" value="Step Return"/>
 			<Item Name="mnuWorkingDirectory" value="Open Working Directory"/>
-			<Item Name="mnuToggleBreakpoint" value="Установить точку остановки"/>
-			<Item Name="mnuToggleMarker" value="Поставить закладку"/>
-			<Item Name="mnuGotoMarker" value="Перейти к закладке"/>
-			<Item Name="mnuImports" value="Настройки"/>
-		<Item Name="mnuLanguageList" value="Язык интерфейса"/>
-		<Item Name="mnuHelp" value="Справка"/>
-			<Item Name="mnuWebPage" value="Домашняя стрница"/>
-			<Item Name="mnuWebCommunity" value="Форум сообщества"/>
-			<Item Name="mnuOrder" value="Приобрести"/>
-			<Item Name="mnuUpdate" value="Проверить наличие обновлений..."/>
-			<Item Name="mnuInfo" value="О программе"/>
-		<Item Name="cmdAddClass" value="Добавить..."/>
-		<Item Name="mnuAddClass" value="Добавить..."/>
-			<Item Name="mnuForm" value="Форма"/>
+			<Item Name="mnuToggleBreakpoint" value="РЈСЃС‚Р°РЅРѕРІРёС‚СЊ С‚РѕС‡РєСѓ РѕСЃС‚Р°РЅРѕРІРєРё"/>
+			<Item Name="mnuToggleMarker" value="РџРѕСЃС‚Р°РІРёС‚СЊ Р·Р°РєР»Р°РґРєСѓ"/>
+			<Item Name="mnuGotoMarker" value="РџРµСЂРµР№С‚Рё Рє Р·Р°РєР»Р°РґРєРµ"/>
+			<Item Name="mnuImports" value="РќР°СЃС‚СЂРѕР№РєРё"/>
+		<Item Name="mnuExtras" value="Extras"/>
+			<Item Name="mnuOptions" value="Options"/>
+			<Item Name="mnuLanguageList" value="РЇР·С‹Рє РёРЅС‚РµСЂС„РµР№СЃР°"/>
+		<Item Name="mnuHelp" value="РЎРїСЂР°РІРєР°"/>
+			<Item Name="mnuWebPage" value="Р”РѕРјР°С€РЅСЏСЏ СЃС‚СЂРЅРёС†Р°"/>
+			<Item Name="mnuWebCommunity" value="Р¤РѕСЂСѓРј СЃРѕРѕР±С‰РµСЃС‚РІР°"/>
+			<Item Name="mnuOrder" value="РџСЂРёРѕР±СЂРµСЃС‚Рё"/>
+			<Item Name="mnuUpdate" value="РџСЂРѕРІРµСЂРёС‚СЊ РЅР°Р»РёС‡РёРµ РѕР±РЅРѕРІР»РµРЅРёР№..."/>
+			<Item Name="mnuInfo" value="Рћ РїСЂРѕРіСЂР°РјРјРµ"/>
+		<Item Name="cmdAddClass" value="Р”РѕР±Р°РІРёС‚СЊ..."/>
+		<Item Name="mnuAddClass" value="Р”РѕР±Р°РІРёС‚СЊ..."/>
+			<Item Name="mnuForm" value="Р¤РѕСЂРјР°"/>
 			<Item Name="mnuDialog" value="Dialog"/>
-			<Item Name="mnuMDIForm" value="Родительская форма (контейнер)"/>
-			<Item Name="mnuMDIChild" value="Дочерняя форма"/>
-			<Item Name="mnuApplet" value="Аплет"/>
-			<Item Name="mnuUsercontrol" value="Вкладка формы"/>
-			<Item Name="mnuModul" value="Модуль"/>
-			<Item Name="mnuClass" value="Класс"/>
-			<Item Name="mnuInterface" value="Интерфейс"/>
-			<Item Name="mnuResource" value="Источник"/>
+			<Item Name="mnuMDIForm" value="Р РѕРґРёС‚РµР»СЊСЃРєР°СЏ С„РѕСЂРјР° (РєРѕРЅС‚РµР№РЅРµСЂ)"/>
+			<Item Name="mnuMDIChild" value="Р”РѕС‡РµСЂРЅСЏСЏ С„РѕСЂРјР°"/>
+			<Item Name="mnuApplet" value="РђРїР»РµС‚"/>
+			<Item Name="mnuUsercontrol" value="Р’РєР»Р°РґРєР° С„РѕСЂРјС‹"/>
+			<Item Name="mnuModul" value="РњРѕРґСѓР»СЊ"/>
+			<Item Name="mnuClass" value="РљР»Р°СЃСЃ"/>
+			<Item Name="mnuInterface" value="РРЅС‚РµСЂС„РµР№СЃ"/>
+			<Item Name="mnuResource" value="РСЃС‚РѕС‡РЅРёРє"/>
 			<Item Name="mnuSaveFileAs" value="Save As..."/>
-			<Item Name="mnuAddFile" value="Добавить"/>
-			<Item Name="mnuDelete" value="Удалить"/>
-		<Item Name="mnuComment" value="Закомментировать"/>
-		<Item Name="mnuUnComment" value="Убрать комментарий"/>
-		<Item Name="mnuNextPage" value="Следующая страница"/>
-		<Item Name="mnuLastPage" value="Предыдущая страница"/>
-		<Item Name="mnuStop" value="Приостановить"/>
-		<Item Name="mnuCancel" value="Завершить"/>
-		<Item Name="mnuGotoFlag" value="Перейти к флажку"/>
-		<Item Name="mnuAddFlag" value="Поставить флажок"/>
-		<Item Name="mnuRemoveFlag" value="Удалить флажок"/>
+			<Item Name="mnuAddFile" value="Р”РѕР±Р°РІРёС‚СЊ"/>
+			<Item Name="mnuDelete" value="РЈРґР°Р»РёС‚СЊ"/>
+		<Item Name="mnuComment" value="Р—Р°РєРѕРјРјРµРЅС‚РёСЂРѕРІР°С‚СЊ"/>
+		<Item Name="mnuUnComment" value="РЈР±СЂР°С‚СЊ РєРѕРјРјРµРЅС‚Р°СЂРёР№"/>
+		<Item Name="mnuNextPage" value="РЎР»РµРґСѓСЋС‰Р°СЏ СЃС‚СЂР°РЅРёС†Р°"/>
+		<Item Name="mnuLastPage" value="РџСЂРµРґС‹РґСѓС‰Р°СЏ СЃС‚СЂР°РЅРёС†Р°"/>
+		<Item Name="mnuStop" value="РџСЂРёРѕСЃС‚Р°РЅРѕРІРёС‚СЊ"/>
+		<Item Name="mnuCancel" value="Р—Р°РІРµСЂС€РёС‚СЊ"/>
+		<Item Name="mnuGotoFlag" value="РџРµСЂРµР№С‚Рё Рє С„Р»Р°Р¶РєСѓ"/>
+		<Item Name="mnuAddFlag" value="РџРѕСЃС‚Р°РІРёС‚СЊ С„Р»Р°Р¶РѕРє"/>
+		<Item Name="mnuRemoveFlag" value="РЈРґР°Р»РёС‚СЊ С„Р»Р°Р¶РѕРє"/>
 		<Item Name="mnuStackTrace" value="Show Stack-Trace"/>
-		<Item Name="cmdRefresh" value="Обновить"/>
-		<Item Name="lblPropertiesTitle" value="Свойства"/>
-		<Item Name="lblProjectExplorerTitle" value="Проект"/>
-		<Item Name="lblToolBoxTitle" value="Элементы"/>
-		<Item Name="cmdColorDialog" value="Открыть палитру"/>	
-		<Item Name="treeProject" value="Проект"/>
-		<Item Name="treeForms" value="Формы"/>
-		<Item Name="treeModules" value="Модули"/>
-		<Item Name="treeClasses" value="Классы"/>
-		<Item Name="treeInterfaces" value="Интерфейсы"/>
-		<Item Name="treeResources" value="Источники"/>
-		<Item Name="lblImportStatusTitle" value="Импортировать..."/>
+		<Item Name="cmdRefresh" value="РћР±РЅРѕРІРёС‚СЊ"/>
+		<Item Name="lblPropertiesTitle" value="РЎРІРѕР№СЃС‚РІР°"/>
+		<Item Name="lblProjectExplorerTitle" value="РџСЂРѕРµРєС‚"/>
+		<Item Name="lblToolBoxTitle" value="Р­Р»РµРјРµРЅС‚С‹"/>
+		<Item Name="cmdColorDialog" value="РћС‚РєСЂС‹С‚СЊ РїР°Р»РёС‚СЂСѓ"/>	
+		<Item Name="treeProject" value="РџСЂРѕРµРєС‚"/>
+		<Item Name="treeForms" value="Р¤РѕСЂРјС‹"/>
+		<Item Name="treeModules" value="РњРѕРґСѓР»Рё"/>
+		<Item Name="treeClasses" value="РљР»Р°СЃСЃС‹"/>
+		<Item Name="treeInterfaces" value="РРЅС‚РµСЂС„РµР№СЃС‹"/>
+		<Item Name="treeResources" value="РСЃС‚РѕС‡РЅРёРєРё"/>
+		<Item Name="lblImportStatusTitle" value="РРјРїРѕСЂС‚РёСЂРѕРІР°С‚СЊ..."/>
 		<Item Name="(General)" value="(General)"/>
 		<Item Name="(Declarations)" value="(Declarations)"/>
 		<Item Name="cmdDialogYes" value="Yes"/>
@@ -102,7 +106,7 @@
 		<Item Name="cmdActivate" value="Activate" />
 		<Item Name="cmdOrder" value="Order Now..." />
 		<Item Name="cmdLater" value="Later" />
-		<Item Name="cmdClose" value="SchlieЯen" />
+		<Item Name="cmdClose" value="SchlieРЇen" />
 	</Register>
     <Update>
 		<Item Name="lblTopic" value="An update for Jabaco is available." />
@@ -111,70 +115,70 @@
 		<Item Name="cmdClose" value="Close" />
 	</Update>
 	<InfoForm>
-		<Item Name="cmdClose" value="Закрыть"/>
+		<Item Name="cmdClose" value="Р—Р°РєСЂС‹С‚СЊ"/>
 	</InfoForm>
 	<Classbrowser>
-		<Item Name="lblTopic" value="Директории:"/>
+		<Item Name="lblTopic" value="Р”РёСЂРµРєС‚РѕСЂРёРё:"/>
 		<Item Name="lblMissingClasspath" value="Missing classes"/>
-		<Item Name="lblClassName" value="Поиск:"/>
-		<Item Name="cmdAddJar" value="Добавить Jar-архив..."/>
-		<Item Name="cmdAddFolder" value="Добавить папку..."/>
-		<Item Name="cmdDeleteClasspath" value="Удалить архив"/>
-		<Item Name="cmdFindClass" value="Найти"/>
-		<Item Name="cmdShowClass" value="Показать"/>
-		<Item Name="cmdClose" value="Закрыть"/>
-		<Item Name="cmdClean" value="Очистить"/>
-		<Item Name="cmdBack" value="Закрыть"/>
-		<Item Name="mnuCopy" value="Копировать имя"/>
-		<Item Name="mnuCopyFull" value="Копировать путь"/>
+		<Item Name="lblClassName" value="РџРѕРёСЃРє:"/>
+		<Item Name="cmdAddJar" value="Р”РѕР±Р°РІРёС‚СЊ Jar-Р°СЂС…РёРІ..."/>
+		<Item Name="cmdAddFolder" value="Р”РѕР±Р°РІРёС‚СЊ РїР°РїРєСѓ..."/>
+		<Item Name="cmdDeleteClasspath" value="РЈРґР°Р»РёС‚СЊ Р°СЂС…РёРІ"/>
+		<Item Name="cmdFindClass" value="РќР°Р№С‚Рё"/>
+		<Item Name="cmdShowClass" value="РџРѕРєР°Р·Р°С‚СЊ"/>
+		<Item Name="cmdClose" value="Р—Р°РєСЂС‹С‚СЊ"/>
+		<Item Name="cmdClean" value="РћС‡РёСЃС‚РёС‚СЊ"/>
+		<Item Name="cmdBack" value="Р—Р°РєСЂС‹С‚СЊ"/>
+		<Item Name="mnuCopy" value="РљРѕРїРёСЂРѕРІР°С‚СЊ РёРјСЏ"/>
+		<Item Name="mnuCopyFull" value="РљРѕРїРёСЂРѕРІР°С‚СЊ РїСѓС‚СЊ"/>
 	</Classbrowser>
 	<Classfinder>
-		<Item Name="lblTopic" value="Укажите класс:"/>
-		<Item Name="cmdSelect" value="{amp}Выбрать"/>
-		<Item Name="cmdClose" value="{amp}Закрыть"/>
+		<Item Name="lblTopic" value="РЈРєР°Р¶РёС‚Рµ РєР»Р°СЃСЃ:"/>
+		<Item Name="cmdSelect" value="{amp}Р’С‹Р±СЂР°С‚СЊ"/>
+		<Item Name="cmdClose" value="{amp}Р—Р°РєСЂС‹С‚СЊ"/>
 	</Classfinder>
 	<NewProject>
-		<Item Name="lblCaption" value="Начальное окно Jabaco"/>
-		<Item Name="tabNew" value="Новый проект"/>
-		<Item Name="tabCurrent" value="Недавние проекты"/>
-		<Item Name="cmdOpenProject" value="Открыть проект..."/>
-		<Item Name="cmdOpen" value="Создать"/>
-		<Item Name="cmdCancel" value="Выйти"/>
-		<Item Name="optWinProject" value="Простое приложение"/>
-		<Item Name="optMDIProject" value="Мультиоконное приложение"/>
-		<Item Name="optWebProject" value="Приложение интернета"/>
-		<Item Name="optDOSProject" value="Консольное приложение"/>
-		<Item Name="optComponent" value="Библиотека класса"/>
-		<Item Name="lblFile" value="Проект"/>
-		<Item Name="lblPath" value="Директория"/>
+		<Item Name="lblCaption" value="РќР°С‡Р°Р»СЊРЅРѕРµ РѕРєРЅРѕ Jabaco"/>
+		<Item Name="tabNew" value="РќРѕРІС‹Р№ РїСЂРѕРµРєС‚"/>
+		<Item Name="tabCurrent" value="РќРµРґР°РІРЅРёРµ РїСЂРѕРµРєС‚С‹"/>
+		<Item Name="cmdOpenProject" value="РћС‚РєСЂС‹С‚СЊ РїСЂРѕРµРєС‚..."/>
+		<Item Name="cmdOpen" value="РЎРѕР·РґР°С‚СЊ"/>
+		<Item Name="cmdCancel" value="Р’С‹Р№С‚Рё"/>
+		<Item Name="optWinProject" value="РџСЂРѕСЃС‚РѕРµ РїСЂРёР»РѕР¶РµРЅРёРµ"/>
+		<Item Name="optMDIProject" value="РњСѓР»СЊС‚РёРѕРєРѕРЅРЅРѕРµ РїСЂРёР»РѕР¶РµРЅРёРµ"/>
+		<Item Name="optWebProject" value="РџСЂРёР»РѕР¶РµРЅРёРµ РёРЅС‚РµСЂРЅРµС‚Р°"/>
+		<Item Name="optDOSProject" value="РљРѕРЅСЃРѕР»СЊРЅРѕРµ РїСЂРёР»РѕР¶РµРЅРёРµ"/>
+		<Item Name="optComponent" value="Р‘РёР±Р»РёРѕС‚РµРєР° РєР»Р°СЃСЃР°"/>
+		<Item Name="lblFile" value="РџСЂРѕРµРєС‚"/>
+		<Item Name="lblPath" value="Р”РёСЂРµРєС‚РѕСЂРёСЏ"/>
 	</NewProject>
 	<SearchDialog>
-		<Item Name="lblCaption" value="Найти"/>
-		<Item Name="cmdSearch" value="Искать"/>
-		<Item Name="cmdSearchNormal" value="Искать далее"/>
-		<Item Name="cmdSearchReplace" value="Заменить"/>
-		<Item Name="cmdCancel" value="Закрыть"/>
-		<Item Name="cmdSetReplaceModeOn" value="Режим замены ..."/>
-		<Item Name="cmdSetReplaceModeOff" value="Режим поиска ..."/>
-		<Item Name="cmdReplace" value="Заменить"/>
-		<Item Name="cmdReplaceAll" value="Заменить все"/>
-		<Item Name="lblSearch" value="Найти фразу:"/>
-		<Item Name="lblReplace" value="Заменить на:"/>
-		<Item Name="frmSearchLimit" value="Искать в:"/>
-		<Item Name="optSearchBy1" value="Тексте"/>
-		<Item Name="optSearchBy2" value="Модуле"/>
-		<Item Name="optSearchBy3" value="Проекте"/>
-		<Item Name="chkSearchWord" value="Искать слово целиком"/>
-		<Item Name="chkCaseSensitive" value="Похожие результаты"/>
-		<Item Name="chkSearchList" value="Показать результаты"/>
-		<Item Name="lblListCountText" value="Элемент(ов)"/>
-		<Item Name="lblDirection" value="Направление:"/>
-		<Item Name="cboDirectionUp" value="Выше"/>
-		<Item Name="cboDirectionDown" value="Ниже"/>
-		<Item Name="cmdJumpTo" value="Перейти"/>
-		<Item Name="lblSource" value="Найдено в"/>
-		<Item Name="lblLine" value="Номер строки"/>
-		<Item Name="lblText" value="Полный текст кода"/>
+		<Item Name="lblCaption" value="РќР°Р№С‚Рё"/>
+		<Item Name="cmdSearch" value="РСЃРєР°С‚СЊ"/>
+		<Item Name="cmdSearchNormal" value="РСЃРєР°С‚СЊ РґР°Р»РµРµ"/>
+		<Item Name="cmdSearchReplace" value="Р—Р°РјРµРЅРёС‚СЊ"/>
+		<Item Name="cmdCancel" value="Р—Р°РєСЂС‹С‚СЊ"/>
+		<Item Name="cmdSetReplaceModeOn" value="Р РµР¶РёРј Р·Р°РјРµРЅС‹ ..."/>
+		<Item Name="cmdSetReplaceModeOff" value="Р РµР¶РёРј РїРѕРёСЃРєР° ..."/>
+		<Item Name="cmdReplace" value="Р—Р°РјРµРЅРёС‚СЊ"/>
+		<Item Name="cmdReplaceAll" value="Р—Р°РјРµРЅРёС‚СЊ РІСЃРµ"/>
+		<Item Name="lblSearch" value="РќР°Р№С‚Рё С„СЂР°Р·Сѓ:"/>
+		<Item Name="lblReplace" value="Р—Р°РјРµРЅРёС‚СЊ РЅР°:"/>
+		<Item Name="frmSearchLimit" value="РСЃРєР°С‚СЊ РІ:"/>
+		<Item Name="optSearchBy1" value="РўРµРєСЃС‚Рµ"/>
+		<Item Name="optSearchBy2" value="РњРѕРґСѓР»Рµ"/>
+		<Item Name="optSearchBy3" value="РџСЂРѕРµРєС‚Рµ"/>
+		<Item Name="chkSearchWord" value="РСЃРєР°С‚СЊ СЃР»РѕРІРѕ С†РµР»РёРєРѕРј"/>
+		<Item Name="chkCaseSensitive" value="РџРѕС…РѕР¶РёРµ СЂРµР·СѓР»СЊС‚Р°С‚С‹"/>
+		<Item Name="chkSearchList" value="РџРѕРєР°Р·Р°С‚СЊ СЂРµР·СѓР»СЊС‚Р°С‚С‹"/>
+		<Item Name="lblListCountText" value="Р­Р»РµРјРµРЅС‚(РѕРІ)"/>
+		<Item Name="lblDirection" value="РќР°РїСЂР°РІР»РµРЅРёРµ:"/>
+		<Item Name="cboDirectionUp" value="Р’С‹С€Рµ"/>
+		<Item Name="cboDirectionDown" value="РќРёР¶Рµ"/>
+		<Item Name="cmdJumpTo" value="РџРµСЂРµР№С‚Рё"/>
+		<Item Name="lblSource" value="РќР°Р№РґРµРЅРѕ РІ"/>
+		<Item Name="lblLine" value="РќРѕРјРµСЂ СЃС‚СЂРѕРєРё"/>
+		<Item Name="lblText" value="РџРѕР»РЅС‹Р№ С‚РµРєСЃС‚ РєРѕРґР°"/>
 	</SearchDialog>
 	<GeneralText>
 		<Item Name="ExeFile" value="Exe-File"/>
@@ -183,126 +187,126 @@
 		<Item Name="AllFiles" value="All files"/>
 	</GeneralText>
 	<Messages>
-		<Item Name="SEARCH_NOTFOUND" value="Не выбран текст для поиска"/>
-		<Item Name="SEARCH_REPLACE_ELEMENTS" value="Выделенный текст исправлен"/>
-		<Item Name="SEARCH_REPLACE_ELEMENTS_COUNT" value="Исправления в '%1' завершены"/>
-		<Item Name="FILE_NOT_FOUND" value="Файл не найден: '%1'!"/>
-		<Item Name="DEBUGGER_RESTART" value="Это действие перезапустит проект. Вы хотите продолжить?"/>
-		<Item Name="INTERFACE_NOT_IMPLEMENTED" value="Этот класс выполняется: '%1'. Вы хотите применить все необходимые методы для этого интерфейса?"/>
-		<Item Name="PROJECT_END_WHILERUNNING" value="Это действие приведет к остановке отладчика. Вы хотите продолжить?"/>
-		<Item Name="PROJECT_END_SAVECHANGES" value="Сохранить изменения?"/>
-		<Item Name="PROJECT_CREATEFILE_ERROR" value="Ошибка создания '%1'!"/>
-		<Item Name="PROJECT_SELECT_PROJECT" value="Выберете проект!"/>
-		<Item Name="GUICLASS_NOTFOUND" value="Ошибка загрузки. Класс '%2', используемый '%1', не найден! Удалить '%1'?"/>
-		<Item Name="CLASSBROWSER_NOSEL" value="Назначьте класс!"/>
-		<Item Name="CLASSBROWSER_CORESEL" value="Невозможно удалить используемый класс!"/>
-		<Item Name="CLASSBROWSER_CONFIRMDELETE" value="Вы действительно хотите удалить класс '%1' из проекта?"/>
-		<Item Name="CLASSBROWSER_DELETE_ERROR" value="Невозможно удалить класс!"/>
-		<Item Name="JABACO_CANTFIND_SIGNATURE" value="Отсутствует запись. Переменная: '%1' Метод: '%2' Класс: '%3' !" />
-		<Item Name="GUIEDITOR_PASTE_SELCONTAINER" value="Выберете контейнер!"/>
-		<Item Name="GUIEDITOR_PASTE_INVALID" value="Недопустимый формат!"/>
-		<Item Name="PROJECT_LOAD_ERROR" value="Ошибка загрузки. '%1' не может быть загружен!"/>
-		<Item Name="PROJECT_NOTFOUND" value="Проект '%1' не найден"/>
-		<Item Name="COMPILER_ERROR" value="Ошибка компиляции. Класс: '%1' строка: %2{crlf}%3 не найден"/>
+		<Item Name="SEARCH_NOTFOUND" value="РќРµ РІС‹Р±СЂР°РЅ С‚РµРєСЃС‚ РґР»СЏ РїРѕРёСЃРєР°"/>
+		<Item Name="SEARCH_REPLACE_ELEMENTS" value="Р’С‹РґРµР»РµРЅРЅС‹Р№ С‚РµРєСЃС‚ РёСЃРїСЂР°РІР»РµРЅ"/>
+		<Item Name="SEARCH_REPLACE_ELEMENTS_COUNT" value="РСЃРїСЂР°РІР»РµРЅРёСЏ РІ '%1' Р·Р°РІРµСЂС€РµРЅС‹"/>
+		<Item Name="FILE_NOT_FOUND" value="Р¤Р°Р№Р» РЅРµ РЅР°Р№РґРµРЅ: '%1'!"/>
+		<Item Name="DEBUGGER_RESTART" value="Р­С‚Рѕ РґРµР№СЃС‚РІРёРµ РїРµСЂРµР·Р°РїСѓСЃС‚РёС‚ РїСЂРѕРµРєС‚. Р’С‹ С…РѕС‚РёС‚Рµ РїСЂРѕРґРѕР»Р¶РёС‚СЊ?"/>
+		<Item Name="INTERFACE_NOT_IMPLEMENTED" value="Р­С‚РѕС‚ РєР»Р°СЃСЃ РІС‹РїРѕР»РЅСЏРµС‚СЃСЏ: '%1'. Р’С‹ С…РѕС‚РёС‚Рµ РїСЂРёРјРµРЅРёС‚СЊ РІСЃРµ РЅРµРѕР±С…РѕРґРёРјС‹Рµ РјРµС‚РѕРґС‹ РґР»СЏ СЌС‚РѕРіРѕ РёРЅС‚РµСЂС„РµР№СЃР°?"/>
+		<Item Name="PROJECT_END_WHILERUNNING" value="Р­С‚Рѕ РґРµР№СЃС‚РІРёРµ РїСЂРёРІРµРґРµС‚ Рє РѕСЃС‚Р°РЅРѕРІРєРµ РѕС‚Р»Р°РґС‡РёРєР°. Р’С‹ С…РѕС‚РёС‚Рµ РїСЂРѕРґРѕР»Р¶РёС‚СЊ?"/>
+		<Item Name="PROJECT_END_SAVECHANGES" value="РЎРѕС…СЂР°РЅРёС‚СЊ РёР·РјРµРЅРµРЅРёСЏ?"/>
+		<Item Name="PROJECT_CREATEFILE_ERROR" value="РћС€РёР±РєР° СЃРѕР·РґР°РЅРёСЏ '%1'!"/>
+		<Item Name="PROJECT_SELECT_PROJECT" value="Р’С‹Р±РµСЂРµС‚Рµ РїСЂРѕРµРєС‚!"/>
+		<Item Name="GUICLASS_NOTFOUND" value="РћС€РёР±РєР° Р·Р°РіСЂСѓР·РєРё. РљР»Р°СЃСЃ '%2', РёСЃРїРѕР»СЊР·СѓРµРјС‹Р№ '%1', РЅРµ РЅР°Р№РґРµРЅ! РЈРґР°Р»РёС‚СЊ '%1'?"/>
+		<Item Name="CLASSBROWSER_NOSEL" value="РќР°Р·РЅР°С‡СЊС‚Рµ РєР»Р°СЃСЃ!"/>
+		<Item Name="CLASSBROWSER_CORESEL" value="РќРµРІРѕР·РјРѕР¶РЅРѕ СѓРґР°Р»РёС‚СЊ РёСЃРїРѕР»СЊР·СѓРµРјС‹Р№ РєР»Р°СЃСЃ!"/>
+		<Item Name="CLASSBROWSER_CONFIRMDELETE" value="Р’С‹ РґРµР№СЃС‚РІРёС‚РµР»СЊРЅРѕ С…РѕС‚РёС‚Рµ СѓРґР°Р»РёС‚СЊ РєР»Р°СЃСЃ '%1' РёР· РїСЂРѕРµРєС‚Р°?"/>
+		<Item Name="CLASSBROWSER_DELETE_ERROR" value="РќРµРІРѕР·РјРѕР¶РЅРѕ СѓРґР°Р»РёС‚СЊ РєР»Р°СЃСЃ!"/>
+		<Item Name="JABACO_CANTFIND_SIGNATURE" value="РћС‚СЃСѓС‚СЃС‚РІСѓРµС‚ Р·Р°РїРёСЃСЊ. РџРµСЂРµРјРµРЅРЅР°СЏ: '%1' РњРµС‚РѕРґ: '%2' РљР»Р°СЃСЃ: '%3' !" />
+		<Item Name="GUIEDITOR_PASTE_SELCONTAINER" value="Р’С‹Р±РµСЂРµС‚Рµ РєРѕРЅС‚РµР№РЅРµСЂ!"/>
+		<Item Name="GUIEDITOR_PASTE_INVALID" value="РќРµРґРѕРїСѓСЃС‚РёРјС‹Р№ С„РѕСЂРјР°С‚!"/>
+		<Item Name="PROJECT_LOAD_ERROR" value="РћС€РёР±РєР° Р·Р°РіСЂСѓР·РєРё. '%1' РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ Р·Р°РіСЂСѓР¶РµРЅ!"/>
+		<Item Name="PROJECT_NOTFOUND" value="РџСЂРѕРµРєС‚ '%1' РЅРµ РЅР°Р№РґРµРЅ"/>
+		<Item Name="COMPILER_ERROR" value="РћС€РёР±РєР° РєРѕРјРїРёР»СЏС†РёРё. РљР»Р°СЃСЃ: '%1' СЃС‚СЂРѕРєР°: %2{crlf}%3 РЅРµ РЅР°Р№РґРµРЅ"/>
 	</Messages>
 	<CompilerMessages>
-		<Item Name="GLOBAL::MISSING_CONSTRUCTOR" value="Сборщик для класса '%1' не найден!"/>
-		<Item Name="GLOBAL::MISSING_CONSTRUCTOR_UNKNOWN" value="Сборщик не найден!"/>
-		<Item Name="GLOBAL::MISSING_EVENT" value="Событие не найдено!"/>
-		<Item Name="GLOBAL::MISSING_BASECLASS" value="Основной класс '%1' не найден!"/>
-		<Item Name="GLOBAL::MISSING_BASECLASS_UNKNOWN" value="Основной класс не найден!"/>
-		<Item Name="GLOBAL::MISSING_CLASS" value="Класс '%1' не найден!"/>
-		<Item Name="GLOBAL::MISSING_CLASS_UNKNOWN" value="Класс не найден!"/>
-		<Item Name="GLOBAL::MISSING_CLASS_BYGUIOBJECT" value="Класс для '%1' не найден!"/>
-		<Item Name="GLOBAL::MISSING_CLASS_BYPROPERTY" value="Класс для свойства '%1' не найден!"/>
-		<Item Name="GLOBAL::MISSING_VAR" value="Переменная '%1' не задана!"/>
-		<Item Name="GLOBAL::MISSING_ENDENUM" value="Enum не завершен End Enum"/>
-		<Item Name="GLOBAL::MISSING_ENDTYPE" value="Type не завершен End Type"/>
-		<Item Name="GLOBAL::MISSING_ENDPROPERTY" value="Property не завершен End Property"/>
-		<Item Name="GLOBAL::MISSING_ENDSUB" value="Sub не завершен End Sub"/>
-		<Item Name="GLOBAL::MISSING_ENDFUNCTION" value="Function не завершен End Function"/>
-		<Item Name="GLOBAL::MISSING_FOR" value="Exit For не содержит For"/>
-		<Item Name="GLOBAL::MISSING_DO" value="Exit Do не содержит Do"/>
-		<Item Name="GLOBAL::MISSING_WEND" value="Function не завершен End Function"/>
+		<Item Name="GLOBAL::MISSING_CONSTRUCTOR" value="РЎР±РѕСЂС‰РёРє РґР»СЏ РєР»Р°СЃСЃР° '%1' РЅРµ РЅР°Р№РґРµРЅ!"/>
+		<Item Name="GLOBAL::MISSING_CONSTRUCTOR_UNKNOWN" value="РЎР±РѕСЂС‰РёРє РЅРµ РЅР°Р№РґРµРЅ!"/>
+		<Item Name="GLOBAL::MISSING_EVENT" value="РЎРѕР±С‹С‚РёРµ РЅРµ РЅР°Р№РґРµРЅРѕ!"/>
+		<Item Name="GLOBAL::MISSING_BASECLASS" value="РћСЃРЅРѕРІРЅРѕР№ РєР»Р°СЃСЃ '%1' РЅРµ РЅР°Р№РґРµРЅ!"/>
+		<Item Name="GLOBAL::MISSING_BASECLASS_UNKNOWN" value="РћСЃРЅРѕРІРЅРѕР№ РєР»Р°СЃСЃ РЅРµ РЅР°Р№РґРµРЅ!"/>
+		<Item Name="GLOBAL::MISSING_CLASS" value="РљР»Р°СЃСЃ '%1' РЅРµ РЅР°Р№РґРµРЅ!"/>
+		<Item Name="GLOBAL::MISSING_CLASS_UNKNOWN" value="РљР»Р°СЃСЃ РЅРµ РЅР°Р№РґРµРЅ!"/>
+		<Item Name="GLOBAL::MISSING_CLASS_BYGUIOBJECT" value="РљР»Р°СЃСЃ РґР»СЏ '%1' РЅРµ РЅР°Р№РґРµРЅ!"/>
+		<Item Name="GLOBAL::MISSING_CLASS_BYPROPERTY" value="РљР»Р°СЃСЃ РґР»СЏ СЃРІРѕР№СЃС‚РІР° '%1' РЅРµ РЅР°Р№РґРµРЅ!"/>
+		<Item Name="GLOBAL::MISSING_VAR" value="РџРµСЂРµРјРµРЅРЅР°СЏ '%1' РЅРµ Р·Р°РґР°РЅР°!"/>
+		<Item Name="GLOBAL::MISSING_ENDENUM" value="Enum РЅРµ Р·Р°РІРµСЂС€РµРЅ End Enum"/>
+		<Item Name="GLOBAL::MISSING_ENDTYPE" value="Type РЅРµ Р·Р°РІРµСЂС€РµРЅ End Type"/>
+		<Item Name="GLOBAL::MISSING_ENDPROPERTY" value="Property РЅРµ Р·Р°РІРµСЂС€РµРЅ End Property"/>
+		<Item Name="GLOBAL::MISSING_ENDSUB" value="Sub РЅРµ Р·Р°РІРµСЂС€РµРЅ End Sub"/>
+		<Item Name="GLOBAL::MISSING_ENDFUNCTION" value="Function РЅРµ Р·Р°РІРµСЂС€РµРЅ End Function"/>
+		<Item Name="GLOBAL::MISSING_FOR" value="Exit For РЅРµ СЃРѕРґРµСЂР¶РёС‚ For"/>
+		<Item Name="GLOBAL::MISSING_DO" value="Exit Do РЅРµ СЃРѕРґРµСЂР¶РёС‚ Do"/>
+		<Item Name="GLOBAL::MISSING_WEND" value="Function РЅРµ Р·Р°РІРµСЂС€РµРЅ End Function"/>
 
-		<Item Name="GLOBAL::UNEXPECTED_END" value="Ошибка: неожиданное завершение предложения!"/>
-		<Item Name="GLOBAL::UNEXPECTED_ARRAY" value="Ошибка: массив!"/>
-		<Item Name="GLOBAL::UNEXPECTED_EXITCODE" value="Ошибка: End или Exit!"/>
-		<Item Name="GLOBAL::UNEXPECTED_ERROR" value="Ошибка компиляции: '%1'!"/>
-		<Item Name="GLOBAL::UNEXPECTED_OPERATOR" value="Ошибка: Оператор '%s'!"/>
-		<Item Name="GLOBAL::UNEXPECTED_OPERATOR_UNKNOWN" value="Ошибка: Неизвестный оператор!"/>
-		<Item Name="GLOBAL::UNEXPECTED_ENDLINE" value="Ошибка: конец строки!"/>
-		<Item Name="GLOBAL::UNEXPECTED_ELSE" value="Else вместо If"/>
-		<Item Name="GLOBAL::UNEXPECTED_ELSEIF" value="ElseIf вместо If"/>
-		<Item Name="GLOBAL::UNEXPECTED_ELSECASE" value="Case Else вместо Select Case"/>
-		<Item Name="GLOBAL::UNEXPECTED_CASE" value="Case вместо Select Case"/>
-		<Item Name="GLOBAL::UNEXPECTED_BASECLASS_INTERFACE" value="Недопустимый базовый класс!"/>
-		<Item Name="GLOBAL::UNEXPECTED_BYJAVA" value="Идентификатор!"/>
-		<Item Name="GLOBAL::UNEXPECTED_ASSIGN_BYJAVA_MULTIDIMENSION" value="Одномерный массив!"/>
-		<Item Name="GLOBAL::UNEXPECTED_BYVAL" value="Идентификатор!'"/>
-		<Item Name="GLOBAL::UNEXPECTED_INSTRUCTION" value="Функция или переменная не определены!"/>
-		<Item Name="GLOBAL::UNEXPECTED_ENUMVALUE" value="Тип несовместим!"/>
+		<Item Name="GLOBAL::UNEXPECTED_END" value="РћС€РёР±РєР°: РЅРµРѕР¶РёРґР°РЅРЅРѕРµ Р·Р°РІРµСЂС€РµРЅРёРµ РїСЂРµРґР»РѕР¶РµРЅРёСЏ!"/>
+		<Item Name="GLOBAL::UNEXPECTED_ARRAY" value="РћС€РёР±РєР°: РјР°СЃСЃРёРІ!"/>
+		<Item Name="GLOBAL::UNEXPECTED_EXITCODE" value="РћС€РёР±РєР°: End РёР»Рё Exit!"/>
+		<Item Name="GLOBAL::UNEXPECTED_ERROR" value="РћС€РёР±РєР° РєРѕРјРїРёР»СЏС†РёРё: '%1'!"/>
+		<Item Name="GLOBAL::UNEXPECTED_OPERATOR" value="РћС€РёР±РєР°: РћРїРµСЂР°С‚РѕСЂ '%s'!"/>
+		<Item Name="GLOBAL::UNEXPECTED_OPERATOR_UNKNOWN" value="РћС€РёР±РєР°: РќРµРёР·РІРµСЃС‚РЅС‹Р№ РѕРїРµСЂР°С‚РѕСЂ!"/>
+		<Item Name="GLOBAL::UNEXPECTED_ENDLINE" value="РћС€РёР±РєР°: РєРѕРЅРµС† СЃС‚СЂРѕРєРё!"/>
+		<Item Name="GLOBAL::UNEXPECTED_ELSE" value="Else РІРјРµСЃС‚Рѕ If"/>
+		<Item Name="GLOBAL::UNEXPECTED_ELSEIF" value="ElseIf РІРјРµСЃС‚Рѕ If"/>
+		<Item Name="GLOBAL::UNEXPECTED_ELSECASE" value="Case Else РІРјРµСЃС‚Рѕ Select Case"/>
+		<Item Name="GLOBAL::UNEXPECTED_CASE" value="Case РІРјРµСЃС‚Рѕ Select Case"/>
+		<Item Name="GLOBAL::UNEXPECTED_BASECLASS_INTERFACE" value="РќРµРґРѕРїСѓСЃС‚РёРјС‹Р№ Р±Р°Р·РѕРІС‹Р№ РєР»Р°СЃСЃ!"/>
+		<Item Name="GLOBAL::UNEXPECTED_BYJAVA" value="РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ!"/>
+		<Item Name="GLOBAL::UNEXPECTED_ASSIGN_BYJAVA_MULTIDIMENSION" value="РћРґРЅРѕРјРµСЂРЅС‹Р№ РјР°СЃСЃРёРІ!"/>
+		<Item Name="GLOBAL::UNEXPECTED_BYVAL" value="РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ!'"/>
+		<Item Name="GLOBAL::UNEXPECTED_INSTRUCTION" value="Р¤СѓРЅРєС†РёСЏ РёР»Рё РїРµСЂРµРјРµРЅРЅР°СЏ РЅРµ РѕРїСЂРµРґРµР»РµРЅС‹!"/>
+		<Item Name="GLOBAL::UNEXPECTED_ENUMVALUE" value="РўРёРї РЅРµСЃРѕРІРјРµСЃС‚РёРј!"/>
 		
-		<Item Name="GLOBAL::EXPECTED" value="Задайте: %1"/>
-		<Item Name="GLOBAL::EXPECTED_IDENTIFIER" value="Идентификатор!"/>
-		<Item Name="GLOBAL::EXPECTED_FUNCTION_OR_VAR" value="Переменная или функция!"/>
-		<Item Name="GLOBAL::EXPECTED_LABEL" value="Задайте: Label"/>
-		<Item Name="GLOBAL::EXPECTED_GOTO_OR_RESUME" value="Укажите: GoTo или Resume"/>
-		<Item Name="GLOBAL::EXPECTED_EXPRESSION" value="Задайте: Expression"/>
-		<Item Name="GLOBAL::EXPECTED_OBJECT" value="Задайте: Object"/>
-		<Item Name="GLOBAL::EXPECTED_SYMBOL" value="Укажите: Symbol"/>
-		<Item Name="GLOBAL::EXPECTED_CLASS" value="Задайте: Class"/>
-		<Item Name="GLOBAL::EXPECTED_STATIC_METHOD" value="Укажите: Статический метод"/>
-		<Item Name="GLOBAL::EXPECTED_WHILE_OR_UNTIL" value="Задайте: While или Until или End оператора"/>
-		<Item Name="GLOBAL::EXPECTED_ASSIGNMENT" value="Укажите назначение"/>
-		<Item Name="GLOBAL::EXPECTED_CONSTANT_OR_VAR_OR_EXPRESSION" value="Задайте переменную оператора"/>
-		<Item Name="GLOBAL::EXPECTED_NUMBER" value="Задайте: Number!"/>
-		<Item Name="GLOBAL::EXPECTED_INSTRUCTIONEND" value="Задайте End оператора"/>
-		<Item Name="GLOBAL::EXPECTED_IDENTIFIER" value="Задайте идентификатор"/>
-		<Item Name="GLOBAL::EXPECTED_STEP_OR_INSTRUCTIONEND" value="Задайте Step или End оператора"/>
-		<Item Name="GLOBAL::EXPECTED_CASE" value="Укажите: Case"/>
-		<Item Name="GLOBAL::EXPECTED_ARRAY" value="Укажите Array"/>
-		<Item Name="GLOBAL::EXPECTED_ARRAY_INDEX" value="Укажите индекс массива"/>
-		<Item Name="GLOBAL::EXPECTED_VARIABLE" value="Укажите переменную"/>
-		<Item Name="GLOBAL::EXPECTED_GET_OR_LET" value="Укажите: Get или Let или Set"/>
-		<Item Name="GLOBAL::EXPECTED_THROWABLE" value="Укажите 'Throwable'-переменную"/>
-		<Item Name="GLOBAL::EXPECTED_GOTO_LABEL" value="Укажите: Label"/>
-		<Item Name="GLOBAL::EXPECTED_EVENT" value="Укажите: Event"/>
-		<Item Name="GLOBAL::EXPECTED_BYJAVA_ASSIGN" value="Укажите: массив-Jabaco"/>
+		<Item Name="GLOBAL::EXPECTED" value="Р—Р°РґР°Р№С‚Рµ: %1"/>
+		<Item Name="GLOBAL::EXPECTED_IDENTIFIER" value="РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ!"/>
+		<Item Name="GLOBAL::EXPECTED_FUNCTION_OR_VAR" value="РџРµСЂРµРјРµРЅРЅР°СЏ РёР»Рё С„СѓРЅРєС†РёСЏ!"/>
+		<Item Name="GLOBAL::EXPECTED_LABEL" value="Р—Р°РґР°Р№С‚Рµ: Label"/>
+		<Item Name="GLOBAL::EXPECTED_GOTO_OR_RESUME" value="РЈРєР°Р¶РёС‚Рµ: GoTo РёР»Рё Resume"/>
+		<Item Name="GLOBAL::EXPECTED_EXPRESSION" value="Р—Р°РґР°Р№С‚Рµ: Expression"/>
+		<Item Name="GLOBAL::EXPECTED_OBJECT" value="Р—Р°РґР°Р№С‚Рµ: Object"/>
+		<Item Name="GLOBAL::EXPECTED_SYMBOL" value="РЈРєР°Р¶РёС‚Рµ: Symbol"/>
+		<Item Name="GLOBAL::EXPECTED_CLASS" value="Р—Р°РґР°Р№С‚Рµ: Class"/>
+		<Item Name="GLOBAL::EXPECTED_STATIC_METHOD" value="РЈРєР°Р¶РёС‚Рµ: РЎС‚Р°С‚РёС‡РµСЃРєРёР№ РјРµС‚РѕРґ"/>
+		<Item Name="GLOBAL::EXPECTED_WHILE_OR_UNTIL" value="Р—Р°РґР°Р№С‚Рµ: While РёР»Рё Until РёР»Рё End РѕРїРµСЂР°С‚РѕСЂР°"/>
+		<Item Name="GLOBAL::EXPECTED_ASSIGNMENT" value="РЈРєР°Р¶РёС‚Рµ РЅР°Р·РЅР°С‡РµРЅРёРµ"/>
+		<Item Name="GLOBAL::EXPECTED_CONSTANT_OR_VAR_OR_EXPRESSION" value="Р—Р°РґР°Р№С‚Рµ РїРµСЂРµРјРµРЅРЅСѓСЋ РѕРїРµСЂР°С‚РѕСЂР°"/>
+		<Item Name="GLOBAL::EXPECTED_NUMBER" value="Р—Р°РґР°Р№С‚Рµ: Number!"/>
+		<Item Name="GLOBAL::EXPECTED_INSTRUCTIONEND" value="Р—Р°РґР°Р№С‚Рµ End РѕРїРµСЂР°С‚РѕСЂР°"/>
+		<Item Name="GLOBAL::EXPECTED_IDENTIFIER" value="Р—Р°РґР°Р№С‚Рµ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ"/>
+		<Item Name="GLOBAL::EXPECTED_STEP_OR_INSTRUCTIONEND" value="Р—Р°РґР°Р№С‚Рµ Step РёР»Рё End РѕРїРµСЂР°С‚РѕСЂР°"/>
+		<Item Name="GLOBAL::EXPECTED_CASE" value="РЈРєР°Р¶РёС‚Рµ: Case"/>
+		<Item Name="GLOBAL::EXPECTED_ARRAY" value="РЈРєР°Р¶РёС‚Рµ Array"/>
+		<Item Name="GLOBAL::EXPECTED_ARRAY_INDEX" value="РЈРєР°Р¶РёС‚Рµ РёРЅРґРµРєСЃ РјР°СЃСЃРёРІР°"/>
+		<Item Name="GLOBAL::EXPECTED_VARIABLE" value="РЈРєР°Р¶РёС‚Рµ РїРµСЂРµРјРµРЅРЅСѓСЋ"/>
+		<Item Name="GLOBAL::EXPECTED_GET_OR_LET" value="РЈРєР°Р¶РёС‚Рµ: Get РёР»Рё Let РёР»Рё Set"/>
+		<Item Name="GLOBAL::EXPECTED_THROWABLE" value="РЈРєР°Р¶РёС‚Рµ 'Throwable'-РїРµСЂРµРјРµРЅРЅСѓСЋ"/>
+		<Item Name="GLOBAL::EXPECTED_GOTO_LABEL" value="РЈРєР°Р¶РёС‚Рµ: Label"/>
+		<Item Name="GLOBAL::EXPECTED_EVENT" value="РЈРєР°Р¶РёС‚Рµ: Event"/>
+		<Item Name="GLOBAL::EXPECTED_BYJAVA_ASSIGN" value="РЈРєР°Р¶РёС‚Рµ: РјР°СЃСЃРёРІ-Jabaco"/>
 
-		<Item Name="GLOBAL::PROTECTED_CONST" value="Присвоение занчения постоянной недопустимо!"/>
-		<Item Name="GLOBAL::PROTECTED_WITHEVENTS" value="Присвоение WithEvent-переменной недопустимо!"/>
+		<Item Name="GLOBAL::PROTECTED_CONST" value="РџСЂРёСЃРІРѕРµРЅРёРµ Р·Р°РЅС‡РµРЅРёСЏ РїРѕСЃС‚РѕСЏРЅРЅРѕР№ РЅРµРґРѕРїСѓСЃС‚РёРјРѕ!"/>
+		<Item Name="GLOBAL::PROTECTED_WITHEVENTS" value="РџСЂРёСЃРІРѕРµРЅРёРµ WithEvent-РїРµСЂРµРјРµРЅРЅРѕР№ РЅРµРґРѕРїСѓСЃС‚РёРјРѕ!"/>
 
-		<Item Name="GLOBAL::UNSUPPORTED_FEATURE" value="Еще не применимо: '%1'"/>
-		<Item Name="GLOBAL::UNSUPPORTED_ASSIGN" value="Присвоение значения '%1' не допустимо!"/>
-		<Item Name="GLOBAL::UNSUPPORTED_DATATYPE_FOR_OPERATION" value="Недопустимый тип данных '%1' для '%2'!"/>
-		<Item Name="GLOBAL::UNSUPPORTED_OUTSIDE_CLASSMODULES" value="Только действительные в объектном модуле!"/>
+		<Item Name="GLOBAL::UNSUPPORTED_FEATURE" value="Р•С‰Рµ РЅРµ РїСЂРёРјРµРЅРёРјРѕ: '%1'"/>
+		<Item Name="GLOBAL::UNSUPPORTED_ASSIGN" value="РџСЂРёСЃРІРѕРµРЅРёРµ Р·РЅР°С‡РµРЅРёСЏ '%1' РЅРµ РґРѕРїСѓСЃС‚РёРјРѕ!"/>
+		<Item Name="GLOBAL::UNSUPPORTED_DATATYPE_FOR_OPERATION" value="РќРµРґРѕРїСѓСЃС‚РёРјС‹Р№ С‚РёРї РґР°РЅРЅС‹С… '%1' РґР»СЏ '%2'!"/>
+		<Item Name="GLOBAL::UNSUPPORTED_OUTSIDE_CLASSMODULES" value="РўРѕР»СЊРєРѕ РґРµР№СЃС‚РІРёС‚РµР»СЊРЅС‹Рµ РІ РѕР±СЉРµРєС‚РЅРѕРј РјРѕРґСѓР»Рµ!"/>
 
-		<Item Name="GLOBAL::ALREADYEXISTS_EVENT" value="Выявлен неоднозначный случай: '%1'"/>
-		<Item Name="GLOBAL::ALREADYEXISTS_PROPERTY" value="Выявлено неоднозначное свойство: '%1'"/>
-		<Item Name="GLOBAL::ALREADYEXISTS_LABEL" value="Выявлено неоднозначное свойство label: '%1'"/>
-		<Item Name="GLOBAL::ALREADYEXISTS_METHOD" value="Выявлен неоднозначный метод: '%1'"/>
-		<Item Name="GLOBAL::ALREADYEXISTS_VAR_BYMETHOD" value="Выявлена неоднозначная переменная: '%1'"/>
-		<Item Name="GLOBAL::ALREADYEXISTS_VAR_BYCLASS" value="Выявлена неоднозначная переменная: '%1'"/>
+		<Item Name="GLOBAL::ALREADYEXISTS_EVENT" value="Р’С‹СЏРІР»РµРЅ РЅРµРѕРґРЅРѕР·РЅР°С‡РЅС‹Р№ СЃР»СѓС‡Р°Р№: '%1'"/>
+		<Item Name="GLOBAL::ALREADYEXISTS_PROPERTY" value="Р’С‹СЏРІР»РµРЅРѕ РЅРµРѕРґРЅРѕР·РЅР°С‡РЅРѕРµ СЃРІРѕР№СЃС‚РІРѕ: '%1'"/>
+		<Item Name="GLOBAL::ALREADYEXISTS_LABEL" value="Р’С‹СЏРІР»РµРЅРѕ РЅРµРѕРґРЅРѕР·РЅР°С‡РЅРѕРµ СЃРІРѕР№СЃС‚РІРѕ label: '%1'"/>
+		<Item Name="GLOBAL::ALREADYEXISTS_METHOD" value="Р’С‹СЏРІР»РµРЅ РЅРµРѕРґРЅРѕР·РЅР°С‡РЅС‹Р№ РјРµС‚РѕРґ: '%1'"/>
+		<Item Name="GLOBAL::ALREADYEXISTS_VAR_BYMETHOD" value="Р’С‹СЏРІР»РµРЅР° РЅРµРѕРґРЅРѕР·РЅР°С‡РЅР°СЏ РїРµСЂРµРјРµРЅРЅР°СЏ: '%1'"/>
+		<Item Name="GLOBAL::ALREADYEXISTS_VAR_BYCLASS" value="Р’С‹СЏРІР»РµРЅР° РЅРµРѕРґРЅРѕР·РЅР°С‡РЅР°СЏ РїРµСЂРµРјРµРЅРЅР°СЏ: '%1'"/>
 
-		<Item Name="CONVERSION::FAILED" value="Тип несовместим"/>
-		<Item Name="CONVERSION::STACKCONVERSION_TYPE_NOTSUPPORTED" value="Автоматическое преобразование для этого типа данных не поддерживается!"/>
-		<Item Name="CONVERSION::SWITCHSTACK_TYPE_NOTSUPPORTED" value="Автоматическое преобразование для этого типа данных не поддерживается!"/>
-		<Item Name="CONVERSION::BOXING_CLASSNOTFOUND" value="Переходный класс для автопреобразования не найден!"/>
-		<Item Name="CONVERSION::NOT_SUPPORTED" value="Автопреобразование '%1' в '%2' не поддерживается!"/>
-		<Item Name="CONVERSION::NOT_POSSIBLE" value="Тип несовместим. Найденному '%1' требуется '%2'!"/>
+		<Item Name="CONVERSION::FAILED" value="РўРёРї РЅРµСЃРѕРІРјРµСЃС‚РёРј"/>
+		<Item Name="CONVERSION::STACKCONVERSION_TYPE_NOTSUPPORTED" value="РђРІС‚РѕРјР°С‚РёС‡РµСЃРєРѕРµ РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёРµ РґР»СЏ СЌС‚РѕРіРѕ С‚РёРїР° РґР°РЅРЅС‹С… РЅРµ РїРѕРґРґРµСЂР¶РёРІР°РµС‚СЃСЏ!"/>
+		<Item Name="CONVERSION::SWITCHSTACK_TYPE_NOTSUPPORTED" value="РђРІС‚РѕРјР°С‚РёС‡РµСЃРєРѕРµ РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёРµ РґР»СЏ СЌС‚РѕРіРѕ С‚РёРїР° РґР°РЅРЅС‹С… РЅРµ РїРѕРґРґРµСЂР¶РёРІР°РµС‚СЃСЏ!"/>
+		<Item Name="CONVERSION::BOXING_CLASSNOTFOUND" value="РџРµСЂРµС…РѕРґРЅС‹Р№ РєР»Р°СЃСЃ РґР»СЏ Р°РІС‚РѕРїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёСЏ РЅРµ РЅР°Р№РґРµРЅ!"/>
+		<Item Name="CONVERSION::NOT_SUPPORTED" value="РђРІС‚РѕРїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёРµ '%1' РІ '%2' РЅРµ РїРѕРґРґРµСЂР¶РёРІР°РµС‚СЃСЏ!"/>
+		<Item Name="CONVERSION::NOT_POSSIBLE" value="РўРёРї РЅРµСЃРѕРІРјРµСЃС‚РёРј. РќР°Р№РґРµРЅРЅРѕРјСѓ '%1' С‚СЂРµР±СѓРµС‚СЃСЏ '%2'!"/>
 		
-		<Item Name="CHECKINTERFACE::NEW_METHODS_FOUND_RESTART" value="Найден новый метод!"/>
-		<Item Name="CHECKINTERFACE::MISSING_METHODS" value="Отсутствует метод '%1'!"/>
+		<Item Name="CHECKINTERFACE::NEW_METHODS_FOUND_RESTART" value="РќР°Р№РґРµРЅ РЅРѕРІС‹Р№ РјРµС‚РѕРґ!"/>
+		<Item Name="CHECKINTERFACE::MISSING_METHODS" value="РћС‚СЃСѓС‚СЃС‚РІСѓРµС‚ РјРµС‚РѕРґ '%1'!"/>
 
-		<Item Name="ENUM::UNSUPPORTED_VALUE" value="Недопустимое значение '%1' для Enum '%2'!"/>
-		<Item Name="ENUM::EMPTY_VALUE" value="Пропущено занчение для Enum '%1'!"/>
+		<Item Name="ENUM::UNSUPPORTED_VALUE" value="РќРµРґРѕРїСѓСЃС‚РёРјРѕРµ Р·РЅР°С‡РµРЅРёРµ '%1' РґР»СЏ Enum '%2'!"/>
+		<Item Name="ENUM::EMPTY_VALUE" value="РџСЂРѕРїСѓС‰РµРЅРѕ Р·Р°РЅС‡РµРЅРёРµ РґР»СЏ Enum '%1'!"/>
 
-		<Item Name="INVOKE::SIGNATURE_ERROR" value="Недопустимая запись метода!"/>
-		<Item Name="INVOKE::STATICMETHOD_USE_CLASSNAME" value="Используйте имя класса для статического метода. {crlf}%1"/>
-		<Item Name="INVOKE::MISSING_METHOD" value="Метод '%1' не находит своих параметров!"/>
-		<Item Name="INVOKE::MISSING_METHOD_BYCLASS" value="Пропущен метод '%2.%1'!"/>
-		<Item Name="INVOKE::MISSING_CONSTRUCTOR" value="Пропущен сборщик!"/>
-		<Item Name="INVOKE::MISSING_CONSTRUCTOR_BYCLASS" value="Сборщик для класса '%1' не находит своих параметров!"/>
+		<Item Name="INVOKE::SIGNATURE_ERROR" value="РќРµРґРѕРїСѓСЃС‚РёРјР°СЏ Р·Р°РїРёСЃСЊ РјРµС‚РѕРґР°!"/>
+		<Item Name="INVOKE::STATICMETHOD_USE_CLASSNAME" value="РСЃРїРѕР»СЊР·СѓР№С‚Рµ РёРјСЏ РєР»Р°СЃСЃР° РґР»СЏ СЃС‚Р°С‚РёС‡РµСЃРєРѕРіРѕ РјРµС‚РѕРґР°. {crlf}%1"/>
+		<Item Name="INVOKE::MISSING_METHOD" value="РњРµС‚РѕРґ '%1' РЅРµ РЅР°С…РѕРґРёС‚ СЃРІРѕРёС… РїР°СЂР°РјРµС‚СЂРѕРІ!"/>
+		<Item Name="INVOKE::MISSING_METHOD_BYCLASS" value="РџСЂРѕРїСѓС‰РµРЅ РјРµС‚РѕРґ '%2.%1'!"/>
+		<Item Name="INVOKE::MISSING_CONSTRUCTOR" value="РџСЂРѕРїСѓС‰РµРЅ СЃР±РѕСЂС‰РёРє!"/>
+		<Item Name="INVOKE::MISSING_CONSTRUCTOR_BYCLASS" value="РЎР±РѕСЂС‰РёРє РґР»СЏ РєР»Р°СЃСЃР° '%1' РЅРµ РЅР°С…РѕРґРёС‚ СЃРІРѕРёС… РїР°СЂР°РјРµС‚СЂРѕРІ!"/>
 	</CompilerMessages>
  </Jabaco>
