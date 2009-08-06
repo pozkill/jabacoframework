@@ -23,6 +23,7 @@
 			<Item Name="mnuPaste" value="Plakken"/>
 			<Item Name="mnuDelete" value="Verwijderen"/>
 			<Item Name="mnuPrint" value="Afdrukken..."/>
+			<Item Name="mnuSelectAll" value="Select All"/>
 			<Item Name="mnuRefreshAC" value="Refresh Autocompletion"/>
 			<Item Name="mnuAddDoc" value="Add Documentation"/>
 			<Item Name="mnuSearch" value="Zoeken..."/>
@@ -30,6 +31,7 @@
 			<Item Name="mnuReplace" value="Vervangen..."/>
 			<Item Name="mnuGotoDefinition" value="Definitie"/>
 			<Item Name="mnuGotoLastPosition" value="Laatste positie"/>
+			<Item Name="mnuLookAndFeel" value="Preview"/>
 		<Item Name="mnuProject" value="Project"/>
 			<Item Name="mnuRun" value="Start"/>
 			<Item Name="mnuRunFull" value="Start met volledige compilatie"/>
@@ -42,7 +44,9 @@
 			<Item Name="mnuToggleMarker" value="Toggle Bookmark"/>
 			<Item Name="mnuGotoMarker" value="Next Bookmark"/>
 			<Item Name="mnuImports" value="Referenties (Classpath)..."/>
-		<Item Name="mnuLanguageList" value="Taal"/>
+		<Item Name="mnuExtras" value="Extras"/>
+			<Item Name="mnuOptions" value="Options"/>
+			<Item Name="mnuLanguageList" value="Taal"/>
 		<Item Name="mnuHelp" value="?"/>
 			<Item Name="mnuWebPage" value="Homepage"/>
 			<Item Name="mnuWebCommunity" value="Forum"/>
