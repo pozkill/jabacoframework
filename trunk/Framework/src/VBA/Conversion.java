@@ -87,14 +87,21 @@ public class Conversion {
 	* @param  Any valid numeric expression. 
 	*/
 	public static long CLng(VBVariant Expression) {
-		return (Expression.longValue());
+		/**
+		2009_08_03 OlimilO: must return rounded values
+		*/
+		return java.lang.Math.round(Expression.doubleValue());
+		//return (Expression.longValue());
 	}
 	/**
 	* Converts an expression into a Long.
 	* @author Manuel Siekmann
 	* @param  Any valid numeric expression. 
 	*/
-	public static long CLng(Object Expression) {
+	public static long CLng(Object Expression) {	   	   
+		/**
+		2009_08_03 OlimilO: must return rounded values
+		*/
 		return (CLng(CVar(Expression)));
 	}
 	/**
@@ -103,7 +110,10 @@ public class Conversion {
 	@param  Any valid numeric expression. 
 	*/
 	public static int CInt(VBVariant Expression) {
-		return (Expression.intValue());
+	    /**
+		2009_08_03 OlimilO: must return rounded values
+		*/
+		return java.lang.Math.round(Expression.doubleValue());
 	}
 	/**
 	Converts an expression into an Integer.
@@ -324,6 +334,33 @@ public class Conversion {
 		return CDate(Expression);
 	}	
 
+/**
+'   Conversion function list
+'   CBool
+'   CByte
+'   CCur
+'   CDate
+'   CDbl
+'   CDec
+'   CInt
+'   CLng
+'   CSng
+'   CStr
+'   CVar
+'   CVDate
+'   CVErr
+'   Error
+'   Error$
+'   Fix
+'   Hex
+'   Hex$
+'   Int
+'   Oct
+'   Oct$
+'   Str
+'   Str$
+'   Val
 
+*/
 
 }
