@@ -37,10 +37,13 @@ public class DateTime {
 	*/
 	public static VBVariant Month(Date DateValue) {
 		Calendar cal = Calendar.getInstance(); cal.setTime(DateValue);
-		return new VBVariant(cal.get(Calendar.MONTH));
+		return new VBVariant(cal.get(Calendar.MONTH) + 1);
+		
+		//2009_08_03 OlimilO: why not simply Date.getMonth + 1 ???
+		
 	}
 	/*
-	Returns an Integer value from 1 through 12 representing the month of the year.
+	Returns an Integer value from 1 through 31 representing the day of the month.
 	@author Manuel Siekmann
 	@param  Date value from which you want to extract the month.
 	*/
@@ -97,8 +100,19 @@ public class DateTime {
 	*/
 	public static VBVariant Now() {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date date = new Date();
-        return new VBVariant(dateFormat.format(date));
+        Date dat = Calendar.getInstance.getTime(); //new Date();
+        return new VBVariant(dateFormat.format(dat));
 	}
-	
+	/*
+	Returns a Date value.
+	@author OlimilO
+	@param  int year  year  of the date
+	@param  int month month of the date
+	@param  int day   day   of the date.
+	*/	
+	public static VBVariant DateSerial(int year, int month, int day){
+	    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date dat = new GregorianCalendar(year, month - 1, day);
+        return new VBVariant(dateFormat.format(dat));
+	}
 }
