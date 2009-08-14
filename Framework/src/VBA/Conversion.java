@@ -303,10 +303,16 @@ public class Conversion {
 		return null;
 	}
 	public static VBVariant Hex(VBVariant Expression) {
-		return (new VBVariant(Integer.toHexString(Expression.intValue())));
+	    /**
+		* 2009_08_14 OlimilO: nice to have also 64bit-hex
+		*/
+		return (new VBVariant(Integer.toHexString(Expression.longValue())));
 	}	
 	public static VBVariant Fix(VBVariant Expression) {
-		return new VBVariant(CInt(Expression));
+		/**
+		* 2009_08_14 OlimilO: must return only the integer part of the floatingpoint value
+		*/
+		return new VBVariant(Expression.longValue());
 	}
 	public static VBVariant Oct(VBVariant Expression) {
 		try {
