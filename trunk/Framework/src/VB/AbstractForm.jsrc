@@ -59,6 +59,8 @@ Public Sub fireLoaded(sender As Object)
    
    Call Me.Form_Load()
    Call DoEvents()
+   If Me.Left <> -50000 Then StartLeft = Me.Left
+   If Me.Top <> -50000 Then StartTop = Me.Top
    
    If myMenuBar.Visible Then Me.Height = Me.Height + myMenuBar.Height
    If myToolBar.Visible Then Me.Height = Me.Height + myToolBar.Height
