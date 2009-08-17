@@ -100,7 +100,8 @@ public class Conversion {
 	*/
 	public static long CLng(Object Expression) {	   	   
 		/**
-		2009_08_03 OlimilO: must return rounded values
+		*2009_08_03 OlimilO: must return rounded values
+		*
 		*/
 		return (CLng(CVar(Expression)));
 	}
@@ -111,7 +112,8 @@ public class Conversion {
 	*/
 	public static int CInt(VBVariant Expression) {
 	    /**
-		2009_08_03 OlimilO: must return rounded values
+		*2009_08_03 OlimilO: must return rounded values
+		*
 		*/
 		return java.lang.Math.round((float)Expression.doubleValue());
 	}
