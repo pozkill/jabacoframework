@@ -287,7 +287,7 @@ public class Interaction {
 	public static VBMsgBoxResult MsgBox(String Prompt, VBMsgBoxStyle Buttons, String Title) {
 		return MsgBox (getJabacoFocusedWindow(), Prompt, Buttons, Title);
 	}
-	public static VBMsgBoxResult MsgBox(Component Parent, String Prompt, VBMsgBoxStyle Buttons, String Title) {
+	private static VBMsgBoxResult MsgBox(Component Parent, String Prompt, VBMsgBoxStyle Buttons, String Title) {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName() );
 		} catch( Exception e ) { e.printStackTrace(); }
