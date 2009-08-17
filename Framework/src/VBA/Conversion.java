@@ -113,7 +113,7 @@ public class Conversion {
 	    /**
 		2009_08_03 OlimilO: must return rounded values
 		*/
-		return java.lang.Math.round(Expression.doubleValue());
+		return java.lang.Math.round((float)Expression.doubleValue());
 	}
 	/**
 	Converts an expression into an Integer.
@@ -306,7 +306,7 @@ public class Conversion {
 	    /**
 		* 2009_08_14 OlimilO: nice to have also 64bit-hex
 		*/
-		return (new VBVariant(Integer.toHexString(Expression.longValue())));
+		return (new VBVariant(Long.toHexString(Expression.longValue()).toUpperCase()));
 	}	
 	public static VBVariant Fix(VBVariant Expression) {
 		/**
@@ -316,7 +316,7 @@ public class Conversion {
 	}
 	public static VBVariant Oct(VBVariant Expression) {
 		try {
-			return (new VBVariant(Integer.toOctalString(Expression.intValue())));
+			return (new VBVariant(Long.toOctalString(Expression.longValue()).toUpperCase()));
 		} catch(Exception e) {}
 		return new VBVariant();
 	}

@@ -100,7 +100,8 @@ public class DateTime {
 	*/
 	public static VBVariant Now() {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date dat = Calendar.getInstance.getTime(); //new Date();
+		Calendar cal = Calendar.getInstance(); 
+        Date dat = cal.getTime(); //new Date();
         return new VBVariant(dateFormat.format(dat));
 	}
 	/*
@@ -112,7 +113,8 @@ public class DateTime {
 	*/	
 	public static VBVariant DateSerial(int year, int month, int day){
 	    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date dat = new GregorianCalendar(year, month - 1, day);
+		GregorianCalendar cal = new GregorianCalendar(year, month - 1, day);
+        Date dat = cal.getTime(); 
         return new VBVariant(dateFormat.format(dat));
 	}
 }
