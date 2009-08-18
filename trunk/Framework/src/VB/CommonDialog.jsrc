@@ -63,6 +63,7 @@ Private Function createDialog(Parent As java#awt#Frame, Title As String, Flag As
    Else
       createDialog = New java#awt#FileDialog(Parent, Title, Flag)
    End If
+   createDialog.setDirectory(myInitDir)
 End Function
 
 Public Sub ShowOpen(Modal As Boolean, Parent As java#awt#Frame)
