@@ -25,6 +25,9 @@ public class VBEnumClass extends VBVariant implements IResource {
 			return false;
 		}
 	}*/
+	/**
+	 * returns array of names of the constant static fields of the Enum
+	 */
 	public String[] getEnumNames() {
 	       java.lang.reflect.Field[] fs = this.getClass().getFields();
 	       String[] s = new String[fs.length];
