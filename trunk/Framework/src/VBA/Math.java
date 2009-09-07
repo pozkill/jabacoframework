@@ -1,12 +1,14 @@
 package VBA;
 
 import java.lang.*;
-
+	/**
+	 * @author Manuel Siekmann
+	 * @version 1.0 @since 2009-09-05
+	 */
 public class Math {
 	/**
 	 * Returns the sine of an angle. 
-	 * @author Manuel Siekmann
-	 * @param  The number argument can be any valid numeric expression that expresses an angle in radians. 
+	 * @param  Number can be any valid numeric expression that expresses an angle in radians. 
 	 */
 	public static double Sin(double Number) {
 		return java.lang.Math.sin(Number);
@@ -14,7 +16,7 @@ public class Math {
 	/**
 	 * Returns the cosine of an angle.
 	 * @author Manuel Siekmann
-	 * @param  The number argument can be any valid numeric expression that expresses an angle in radians. 
+	 * @param  Number can be any valid numeric expression that expresses an angle in radians. 
 	 */
 	public static double Cos(double Number) {
 		return java.lang.Math.cos(Number);
@@ -23,7 +25,6 @@ public class Math {
 	 * Returns the tangent of an angle. 
 	 * @author Manuel Siekmann
 	 * @param  The number argument can be any valid numeric expression that expresses an angle in radians. 
-	 * @since  2009-09-05
 	 */
 	public static double Tan(double Number) {
 		return java.lang.Math.tan(Number);
@@ -38,7 +39,7 @@ public class Math {
 		return 1 / java.lang.Math.sin(Number);
 	}
 	/**
-	 * Returns the secans of a number.
+	 * Returns the secant of a number.
 	 * @author OlimilO
 	 * @param  The number argument can be any valid numeric expression.
 	 * @since  2009-09-05
@@ -93,7 +94,7 @@ public class Math {
 	}
 
 	/**
-	 * Returns the arc cosecans of a number.
+	 * Returns the arc cosecant of a number.
 	 * @author OlimilO
 	 * @param  The number argument can be any valid numeric expression.
 	 * @since  2009-09-05
@@ -103,7 +104,7 @@ public class Math {
 	}
 
 	/**
-	 * Returns the arc secans of a number.
+	 * Returns the arc secant of a number.
 	 * @author OlimilO
 	 * @param  The number arguments can be any valid numeric expressions.
 	 * @since  2009-09-05
@@ -113,7 +114,7 @@ public class Math {
 	}
 
 	/**
-	 * Returns the arc cotantent of a number.
+	 * Returns the arc cotangent of a number.
 	 * @author OlimilO
 	 * @param  The number arguments can be any valid numeric expressions.
 	 * @since  2009-09-05
@@ -153,7 +154,7 @@ public class Math {
 	}
 
 	/**
-	 * Returns the hyperbolic cosecans of a number.
+	 * Returns the hyperbolic cosecant of a number.
 	 * @author OlimilO
 	 * @param  The number argument can be any valid numeric expression.
 	 * @since  2009-09-05
@@ -163,7 +164,7 @@ public class Math {
 	}
 
 	/**
-	 * Returns the hyperbolic secans of a number.
+	 * Returns the hyperbolic secant of a number.
 	 * @author OlimilO
 	 * @param  The number argument can be any valid numeric expression.
 	 * @since  2009-09-05
@@ -217,7 +218,7 @@ public class Math {
 	}
 
 	/**
-	 * Returns the area hyperbolic cosecans of a number.
+	 * Returns the area hyperbolic cosecant of a number.
 	 * @author OlimilO
 	 * @param  The number argument can be any valid numeric expression.
 	 * @since  2009-09-05
@@ -228,7 +229,7 @@ public class Math {
 	}
 
 	/**
-	 * Returns the area hyperbolic secans of a number.
+	 * Returns the area hyperbolic secant of a number.
 	 * @author OlimilO
 	 * @param  The number argument can be any valid numeric expression.
 	 * @since  2009-09-05
@@ -267,19 +268,19 @@ public class Math {
 	public static double Abs(double Number) {
 		return java.lang.Math.abs(Number);
 	}
-	/*
-	Returns e (the base of natural logarithms) raised to a power.
-	@author Manuel Siekmann
-	@param  The number argument can be any valid numeric expression. 
-	*/
+	/**
+	 * Returns e (the base of natural logarithms) raised to a power.
+	 * @author Manuel Siekmann
+	 * @param  The number argument can be any valid numeric expression. 
+	 */
 	public static double Exp(double Number) {
 		return java.lang.Math.exp(Number);
 	}
-	/*
-	Returns the natural logarithm of a number.
-	@author Manuel Siekmann
-	@param  The number argument can be any valid numeric expression. 
-	*/
+	/**
+	 * Returns the natural logarithm of a number.
+	 * @author Manuel Siekmann
+	 * @param  The number argument can be any valid numeric expression. 
+	 */
 	public static double Log(double Number) {
 		return java.lang.Math.log(Number);
 	}
@@ -287,26 +288,26 @@ public class Math {
 	public static void Randomize() {/**/}
 	/* Unneeded */
 	public static void Randomize(double Number) {/**/}
-	/*
-	Returns a random double value with a positive sign, greater than or equal to 0.0 and less than 1.0.
-	@author Manuel Siekmann
-	*/
+	/**
+	 * Returns a random double value with a positive sign, greater than or equal to 0.0 and less than 1.0.
+	 * @author Manuel Siekmann
+	 */
 	public static double Rnd() {
 		return Rnd(0);
 	}
-	/*
-	Returns a random double value with a positive sign, greater than or equal to 0.0 and less than 1.0.
-	@author Manuel Siekmann
-	@param  unused
-	*/
+	/**
+	 * Returns a random double value with a positive sign, greater than or equal to 0.0 and less than 1.0.
+	 * @author Manuel Siekmann
+	 * @param  unused
+	 */
 	public static double Rnd(double Number) {
 		return java.lang.Math.random();
 	}
-	/*
-	Returns a number rounded to a specified number of decimal places. 
-	@author Manuel Siekmann
-	@param  Numeric expression being rounded. 
-	*/
+	/**
+	 * Returns a number rounded to a specified number of decimal places. 
+	 * @author Manuel Siekmann
+	 * @param  Numeric expression being rounded. 
+	 */
 	public static double Round(double Number) {
 		return Round(Number, 0);
 	}
@@ -320,18 +321,18 @@ public class Math {
 		double faktor = java.lang.Math.pow(10, NumDigitsAfterDecimal);
 		return (java.lang.Math.round(Number * faktor) / faktor);
 	}
-	/*
-	Returns an integer indicating the sign of a number. 
-	@return  The Sgn function has the following return values:
+	/**
+	 * Returns an integer indicating the sign of a number. 
+	 * @return  The Sgn function has the following return values:
 	<div class="tableSection">
 	<tr><th>If number is</th><th>Sgn returns</th></tr>	
 	<tr><td>Greater than zero</td><td>1</td></tr>
 	<tr><td>Equal to zero</td><td>0</td></tr>
 	<tr><td>Less than zero</td><td>-1</td></tr>
 	</table>
-	@author Manuel Siekmann
-	@param  The number argument can be any valid numeric expression.
-	*/
+	 * @author Manuel Siekmann
+	 * @param  The number argument can be any valid numeric expression.
+	 */
 	public static double Sgn(double Number) {
 		if (Number > 0) return 1;
 		if (Number < 0) return -1;
