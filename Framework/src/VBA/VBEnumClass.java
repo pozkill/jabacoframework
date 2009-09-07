@@ -25,5 +25,12 @@ public class VBEnumClass extends VBVariant implements IResource {
 			return false;
 		}
 	}*/
-	
+	public String[] getEnumNames() {
+	       java.lang.reflect.Field[] fs = this.getClass().getFields();
+	       String[] s = new String[fs.length];
+	       for (int i = 0; i < fs.length; ++i) {
+               s[i] = fs[i].getName();
+           }
+	       return s;
+    } 
 }
