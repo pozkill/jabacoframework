@@ -12,7 +12,7 @@
 			<Item Name="mnuSave" value="Salva progetto"/>
 			<Item Name="mnuSaveAs" value="Salva progetto con nome..."/>
 			<Item Name="mnuClose" value="Chiudi progetto"/>
-			<Item Name="mnuCreateDoc" value="Create Documentation..."/>
+			<Item Name="mnuCreateDoc" value="Crea Documentazione..."/>
 			<Item Name="mnuCreate" value="Compila progetto..."/>
 			<Item Name="mnuEnd" value="Esci"/>
 		<Item Name="mnuEdit" value="Modifica"/>
@@ -23,35 +23,35 @@
 			<Item Name="mnuPaste" value="Incolla"/>
 			<Item Name="mnuDelete" value="Elimina"/>
 			<Item Name="mnuPrint" value="Stampa..."/>
-			<Item Name="mnuSelectAll" value="Select All"/>
-			<Item Name="mnuRefreshAC" value="Refresh Autocompletion"/>
-			<Item Name="mnuAddDoc" value="Add Documentation"/>
+			<Item Name="mnuSelectAll" value="Seleziona Tutto"/>
+			<Item Name="mnuRefreshAC" value="Rifai Autocompletamento"/>
+			<Item Name="mnuAddDoc" value="Aggiungi Documentazione"/>
 			<Item Name="mnuSearch" value="Trova..."/>
 			<Item Name="mnuSearchThrough" value="Trova successivo"/>
 			<Item Name="mnuReplace" value="Sostituisci..."/>
 			<Item Name="mnuGotoDefinition" value="Definizione"/>
 			<Item Name="mnuGotoLastPosition" value="Ultima posizione"/>
-			<Item Name="mnuLookAndFeel" value="Preview"/>
+			<Item Name="mnuLookAndFeel" value="Anteprima"/>
 		<Item Name="mnuProject" value="Progetto"/>
 			<Item Name="mnuRun" value="Avvia"/>
 			<Item Name="mnuRunFull" value="Avvia con compilazione completa"/>
-			<Item Name="mnuEndBlockStep" value="Procedurestep"/>
+			<Item Name="mnuEndBlockStep" value="Passa blocco"/>
 			<Item Name="mnuSingleStep" value="Esegui istruzione/procedura"/>
 			<Item Name="mnuBlockStep" value="Esegui istruzione"/>
-			<Item Name="mnuReturnStep" value="Step Return"/>
-			<Item Name="mnuWorkingDirectory" value="Open Working Directory"/>
-			<Item Name="mnuToggleBreakpoint" value="Toggle Breakpoint"/>
+			<Item Name="mnuReturnStep" value="Passo indietro"/>
+			<Item Name="mnuWorkingDirectory" value="Apri Directory di lavoro"/>
+			<Item Name="mnuToggleBreakpoint" value="Togli/imposta punto di rottura"/>
 			<Item Name="mnuToggleMarker" value="Imposta/rimuovi segnalibro"/>
 			<Item Name="mnuGotoMarker" value="Segnalibro successivo"/>
 			<Item Name="mnuImports" value="Riferimenti (Classpath)..."/>
-		<Item Name="mnuExtras" value="Extras"/>
-			<Item Name="mnuOptions" value="Options"/>
+		<Item Name="mnuExtras" value="Extra"/>
+			<Item Name="mnuOptions" value="Opzioni"/>
 			<Item Name="mnuLanguageList" value="Lingua"/>
-		<Item Name="mnuHelp" value="?"/>
-			<Item Name="mnuWebPage" value="Homepage"/>
-			<Item Name="mnuWebCommunity" value="Userforum"/>
+		<Item Name="mnuHelp" value="Aiuto"/>
+			<Item Name="mnuWebPage" value="Pagina iniziale"/>
+			<Item Name="mnuWebCommunity" value="Forum"/>
 			<Item Name="mnuOrder" value="Ordina"/>
-			<Item Name="mnuUpdate" value="Update Jabaco"/>
+			<Item Name="mnuUpdate" value="Aggiorna Jabaco"/>
 			<Item Name="mnuInfo" value="Info"/>
 		<Item Name="cmdAddClass" value="Inserisci File..."/>
 		<Item Name="mnuAddClass" value="Inserisci File..."/>
@@ -65,20 +65,20 @@
 			<Item Name="mnuClass" value="Modulo di classe"/>
 			<Item Name="mnuInterface" value="Interfaccia"/>
 			<Item Name="mnuResource" value="Risorse"/>
-			<Item Name="mnuSaveFileAs" value="Save As..."/>
-			<Item Name="mnuAddFile" value="Add File..."/>
+			<Item Name="mnuSaveFileAs" value="Salva come..."/>
+			<Item Name="mnuAddFile" value="Aggiungi File..."/>
 			<Item Name="mnuDelete" value="Elimina"/>
-		<Item Name="mnuComment" value="Commenta blocco di testo"/>
-		<Item Name="mnuUnComment" value="Rimuovi commenti dal blocco di testo"/>
+		<Item Name="mnuComment" value="Commenta"/>
+		<Item Name="mnuUnComment" value="Rimuovi commenti"/>
 		<Item Name="mnuNextPage" value="Pagina successiva"/>
 		<Item Name="mnuLastPage" value="Pagina precedente"/>
-		<Item Name="mnuStop" value="Break"/>
-		<Item Name="mnuCancel" value="End"/>
-		<Item Name="mnuGotoFlag" value="Next Flag"/>
-		<Item Name="mnuAddFlag" value="Add Flag"/>
-		<Item Name="mnuRemoveFlag" value="Remove Flag"/>
+		<Item Name="mnuStop" value="Interrompi"/>
+		<Item Name="mnuCancel" value="Fine"/>
+		<Item Name="mnuGotoFlag" value="Prossimo Flag"/>
+		<Item Name="mnuAddFlag" value="Aggiungi Flag"/>
+		<Item Name="mnuRemoveFlag" value="Rimuovi Flag"/>
 		<Item Name="mnuStackTrace" value="Show Stack Trace"/>
-		<Item Name="cmdRefresh" value="Refresh"/>
+		<Item Name="cmdRefresh" value="Rifai"/>
 		<Item Name="lblPropertiesTitle" value="Properties"/>
 		<Item Name="lblProjectExplorerTitle" value="Project"/>
 		<Item Name="lblToolBoxTitle" value="Tools"/>
@@ -95,7 +95,7 @@
 		<Item Name="cmdDialogYes" value="Yes"/>
 		<Item Name="cmdDialogPerm" value="Permanent"/>
 		<Item Name="cmdDialogCancel" value="Cancel"/>
-		<Item Name="lblRemoveMessage" value="Would you really like to remove this file from the project?"/>
+		<Item Name="lblRemoveMessage" value="Vuoi davvero rimuovere il file dal progetto?"/>
 	</MainForm>
 	<Register>
 		<Item Name="lblState" value="State:" />
@@ -159,7 +159,7 @@
 		<Item Name="cmdSearchReplace" value="Sostituisci"/>
 		<Item Name="cmdCancel" value="Chiudi"/>
 		<Item Name="cmdSetReplaceModeOn" value="Mod. sostituzione"/>
-		<Item Name="cmdSetReplaceModeOff" value="Modalita' ricerca"/>
+		<Item Name="cmdSetReplaceModeOff" value="Modalità ricerca"/>
 		<Item Name="cmdReplace" value="Sostituisci"/>
 		<Item Name="cmdReplaceAll" value="Sostituisci tutto"/>
 		<Item Name="lblSearch" value="Trova:"/>
@@ -173,33 +173,33 @@
 		<Item Name="chkSearchList" value="Mostra risultati"/>
 		<Item Name="lblListCountText" value="Elementi trovati."/>
 		<Item Name="lblDirection" value="Direzione:"/>
-		<Item Name="cboDirectionUp" value="Giu'"/>
+		<Item Name="cboDirectionUp" value="Giù"/>
 		<Item Name="cboDirectionDown" value="Su"/>
 		<Item Name="cmdJumpTo" value="Vai a"/>
 		<Item Name="lblSource" value="Source"/>
-		<Item Name="lblLine" value="Line"/>
-		<Item Name="lblText" value="Text"/>
+		<Item Name="lblLine" value="Linea"/>
+		<Item Name="lblText" value="Testo"/>
 	</SearchDialog>
 	<GeneralText>
 		<Item Name="ExeFile" value="File Exe"/>
 		<Item Name="JarFileWithHTML" value="File Jar + HTML"/>
 		<Item Name="JarFile" value="File Jar"/>
-		<Item Name="AllFiles" value="Tutti i files"/>
+		<Item Name="AllFiles" value="Tutti i file"/>
 	</GeneralText>
 	<Messages>
 		<Item Name="SEARCH_NOTFOUND" value="Testo di ricerca non trovato."/>
-		<Item Name="SEARCH_REPLACE_ELEMENTS" value="La ricerca e' stata eseguita nell'area specificata."/>
+		<Item Name="SEARCH_REPLACE_ELEMENTS" value="La ricerca è stata eseguita nell'area specificata."/>
 		<Item Name="SEARCH_REPLACE_ELEMENTS_COUNT" value="%1 sostituzioni eseguite."/>
 		<Item Name="FILE_NOT_FOUND" value="File non trovato: '%1'!"/>
-		<Item Name="DEBUGGER_RESTART" value="Questa operazione riavviera' il progetto. Vuoi riavviare?"/>
+		<Item Name="DEBUGGER_RESTART" value="Questa operazione riavvierà il progetto. Vuoi riavviare?"/>
 		<Item Name="INTERFACE_NOT_IMPLEMENTED" value="Questa classe implementa '%1'. Vuoi implementare tutti i metodi necessari per questa interfaccia?"/>
-		<Item Name="PROJECT_END_WHILERUNNING" value="Questa operazione terminera' il debugger. Vuoi continuare?"/>
+		<Item Name="PROJECT_END_WHILERUNNING" value="Questa operazione terminerà il debugger. Vuoi continuare?"/>
 		<Item Name="PROJECT_END_SAVECHANGES" value="Salvare le modifiche?"/>
 		<Item Name="PROJECT_CREATEFILE_ERROR" value="Errore durante la creazione di '%1'!"/>
 		<Item Name="PROJECT_SELECT_PROJECT" value="Seleziona un progetto!"/>
-		<Item Name="GUICLASS_NOTFOUND" value="Errori durante il caricamento. La classe '%2' utilizzata da '%1' non e' stata trovata! Rimuovere '%1'?"/>
+		<Item Name="GUICLASS_NOTFOUND" value="Errori durante il caricamento. La classe '%2' utilizzata da '%1' non è stata trovata! Rimuovere '%1'?"/>
 		<Item Name="CLASSBROWSER_NOSEL" value="Selezionare il classpath!"/>
-		<Item Name="CLASSBROWSER_CORESEL" value="Impossibile rimuovere il classpath perche' attualmente in uso!"/>
+		<Item Name="CLASSBROWSER_CORESEL" value="Impossibile rimuovere il classpath perché attualmente in uso!"/>
 		<Item Name="CLASSBROWSER_CONFIRMDELETE" value="Vuoi rimuovere il classpath '%1' dal progetto?"/>
 		<Item Name="CLASSBROWSER_DELETE_ERROR" value="Impossibile rimuovere il classpath!"/>
 		<Item Name="JABACO_CANTFIND_SIGNATURE" value="Firma mancante. Variabile: '%1' Metodo: '%2' Classe: '%3' !" />
@@ -218,7 +218,7 @@
 		<Item Name="GLOBAL::MISSING_CLASS" value="Impossibile trovare la classe '%1' !"/>
 		<Item Name="GLOBAL::MISSING_CLASS_UNKNOWN" value="Classe non trovata!"/>
 		<Item Name="GLOBAL::MISSING_CLASS_BYGUIOBJECT" value="Classe per '%1' non trovata!"/>
-		<Item Name="GLOBAL::MISSING_CLASS_BYPROPERTY" value="Classe per la proprieta' '%1' non trovata!"/>
+		<Item Name="GLOBAL::MISSING_CLASS_BYPROPERTY" value="Classe per la proprietà '%1' non trovata!"/>
 		<Item Name="GLOBAL::MISSING_VAR" value="Variabile '%1' non definita!"/>
 		<Item Name="GLOBAL::MISSING_ENDENUM" value="Enum senza End Enum"/>
 		<Item Name="GLOBAL::MISSING_ENDTYPE" value="Type senza End Type"/>
@@ -283,7 +283,7 @@
 		<Item Name="GLOBAL::UNSUPPORTED_OUTSIDE_CLASSMODULES" value="Valido solo in un oggetto!"/>
 
 		<Item Name="GLOBAL::ALREADYEXISTS_EVENT" value="Evento ambiguo: %1"/>
-		<Item Name="GLOBAL::ALREADYEXISTS_PROPERTY" value="Proprieta' ambigua: %1"/>
+		<Item Name="GLOBAL::ALREADYEXISTS_PROPERTY" value="Proprietà ambigua: %1"/>
 		<Item Name="GLOBAL::ALREADYEXISTS_LABEL" value="Label ambigua: %1"/>
 		<Item Name="GLOBAL::ALREADYEXISTS_METHOD" value="Metodo ambiguo: %1"/>
 		<Item Name="GLOBAL::ALREADYEXISTS_VAR_BYMETHOD" value="Variabile ambigua: %1"/>
@@ -293,7 +293,7 @@
 		<Item Name="CONVERSION::STACKCONVERSION_TYPE_NOTSUPPORTED" value="Conversione automatica per questo tipo non ancora supportata!"/>
 		<Item Name="CONVERSION::SWITCHSTACK_TYPE_NOTSUPPORTED" value="Conversione automatica per questo tipo non ancora supportata (SwitchStack)!"/>
 		<Item Name="CONVERSION::BOXING_CLASSNOTFOUND" value="Boxing class per la conversione automatica non trovata!"/>
-		<Item Name="CONVERSION::NOT_SUPPORTED" value="La conversione automatica di '%1' in '%2' non e' ancora supportata!"/>
+		<Item Name="CONVERSION::NOT_SUPPORTED" value="La conversione automatica di '%1' in '%2' non è ancora supportata!"/>
 		<Item Name="CONVERSION::NOT_POSSIBLE" value="Tipo errato. Trovato '%1' ma necessita di '%2'!"/>
 		
 		<Item Name="CHECKINTERFACE::NEW_METHODS_FOUND_RESTART" value="Trovati nuovi metodi!"/>
