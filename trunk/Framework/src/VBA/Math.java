@@ -120,7 +120,7 @@ public class Math {
 	 * @since  2009-09-05
 	 */
 	public static double Acot(double t) {
-		return java.lang.Math.PI * 0.5 - java.lang.Math.atn(t);
+		return java.lang.Math.PI * 0.5 - java.lang.Math.atan(t);
 	}
 
 	/**
@@ -181,7 +181,7 @@ public class Math {
 	 */
 	public static double Coth(double Number) {
 	    //(Exp(t) + Exp(-t)) / (Exp(t) - Exp(-t))
-        return ((java.lang.Math.exp(Number) + java.lang.Math.exp(-Number)) / ((java.lang.Math.exp(Number) - java.lang.Math.exp(-Number));
+        return ((java.lang.Math.exp(Number) + java.lang.Math.exp(-Number)) / (java.lang.Math.exp(Number) - java.lang.Math.exp(-Number)));
 	}
 
 	/**
