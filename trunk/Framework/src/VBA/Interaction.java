@@ -8,7 +8,8 @@ import java.io.*;
 public class Interaction {
 	private static Interaction MySelf = new Interaction();
 	public static Object RessourceClassOwner = null;
-	
+	private static java.awt.Robot SendKeysRob = null;
+
 	public static java.lang.reflect.Method getMethod(Object obj, String ProcName) throws Exception {
 		VBA.VBArrayVariant Args = new VBA.VBArray();
 		return getMethod(obj, ProcName, VBCallType.VBMethod, Args);
@@ -384,6 +385,16 @@ public class Interaction {
 		*/
 		return Runtime.getRuntime().exec(PathName); 
 	} 
-
-
+	/**
+	 * sends keystrokes to the current active window
+	 */
+	public void SendKeys(String sKey) {
+		SendKeys(sKey, 0);
+	} 
+	public void SendKeys(String sKey, int wait) {
+		if (SendKeysRob == null) {SendKeysRob = new java.awt.Robot();}
+		int a = Asc(skey);
+		SendKeysRob.keyPress(a);
+		if (wait > 0) {SendKeysRob.delay(wait);}
+	} 
 }
