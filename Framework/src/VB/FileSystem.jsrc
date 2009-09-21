@@ -245,4 +245,7 @@ Public Sub FileCopy(Source As String, Destination As String)
    Wend
 End Sub
 
-]]></Source><Param Name="(Name)" Value="MFileSystem"/><Param Name="(SuperClass)" Value="java/lang/Object"/><Param Name="(Type)" Value="Module"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VBA"/></SourceFile>
+Public Function CurDir() As String
+   CurDir = System.getProperties().getProperty("user.dir")
+End Function
+]]></Source><Param Name="(Name)" Value="FileSystem"/><Param Name="(SuperClass)" Value="java/lang/Object"/><Param Name="(Type)" Value="Module"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VBA"/></SourceFile>

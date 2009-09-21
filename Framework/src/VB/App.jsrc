@@ -2,7 +2,12 @@
 <SourceFile><Source><![CDATA[Option Explicit
 
 Public Property Get Path() As String
-   Path = System.getProperties().getProperty("user.dir")
+   'Path = System.getProperties().getProperty("user.dir")
+   Dim appURL As URL
+   appURL = getClass.getResource(".")
+   Dim s As String = appURL.getPath
+   Path = Replace(s, "%20", " ")
+   
 End Property
    
 Public Function ExeName() As String
