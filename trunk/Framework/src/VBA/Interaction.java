@@ -388,13 +388,55 @@ public class Interaction {
 	/**
 	 * sends keystrokes to the current active window
 	 */
-	public void SendKeys(String sKey) {
+	public static void SendKeys(String sKey) {
 		SendKeys(sKey, 0);
 	} 
-	public void SendKeys(String sKey, int wait) {
+	public static void SendKeys(String sKey, boolean wait) {
+		if (wait) {
+			SendKeys(sKey, -1);
+		}
+		else {
+			SendKeys(sKey, 0);
+		};
+	}
+	public static void SendKeys(String sKey, int wait) {
 		if (SendKeysRob == null) {SendKeysRob = new java.awt.Robot();}
 		int a = Asc(skey);
 		SendKeysRob.keyPress(a);
-		if (wait > 0) {SendKeysRob.delay(wait);}
-	} 
+		if (wait > 0) {
+			SendKeysRob.delay(wait);
+		}
+		else if (wait < 0) {
+			SendKeysRob.wait();
+		}
+	}
+	public static java.awt.Robot SendKeys(int iKey, int wait) {
+		if (SendKeysRob == null) {SendKeysRob = new java.awt.Robot();}
+		SendKeysRob.keyPress(iKey);
+		if (wait > 0) {
+			SendKeysRob.delay(wait);
+		}
+		else if (wait < 0) {
+			SendKeysRob.wait();
+		}
+		return SendKeysRob;
+	}	
+	public static java.awt.Robot SendKeys(int iKey) {
+		if (SendKeysRob == null) {SendKeysRob = new java.awt.Robot();}
+		SendKeysRob.keyPress(iKey);
+		return SendKeysRob;
+	}	
+	/**
+	 * simulates AppActivate simply by sending [Alt]+[Tab]
+	 */	
+	public static void AppActivate(Title_PID_ignored As VBVariant) {
+		AppActivate(Title_PID_ignored, 0);
+	}
+	public static void AppActivate(Title_PID_ignored As VBVariant, Wait As VBVariant) {
+		if (SendKeysRob == null) {SendKeysRob = new java.awt.Robot();}
+		SendKeysRob.keyPress(java.awt.event.KeyEvent.VK_ALT);
+		SendKeysRob.keyPress(java.awt.event.KeyEvent.VK_TAB);
+		SendKeysRob.keyRelease(java.awt.event.KeyEvent.VK_TAB);
+		SendKeysRob.keyRelease(java.awt.event.KeyEvent.VK_ALT);           
+	}  
 }

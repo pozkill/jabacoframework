@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SourceFile><Source><![CDATA[Enum VBFileMode
    Random
+   Binary
    Append
    Input
    Output
@@ -19,7 +20,29 @@ Enum VBFileLock
    LockReadAndWrite
 End Enum
 
+Dim myFHList   As New java#util#ArrayList '(1 to 10) As VBFileHandler 
+Dim myCurIndex As Integer
+Dim myCurFHnd  As VBFileHandler
+Dim myFilePos  As Integer = 1 ' aka Seek
 
+Public Function FreeFile() As Integer
+   If myFHList.size > 1 Then   
+      myCurIndex = myFHList.size
+   Else
+      myCurIndex = 1
+   End If
+   FreeFile = myCurIndex
+End Function
+Private Sub SetCurFileHandler(FileNr As Integer)
+   If myCurIndex <> FileNr Then
+      myCurIndex = FileNr
+      If myCurIndex > 0 Then
+         If myFHList.size >= myCurIndex Then
+            myCurFHnd = Cast(myFHList.get(myCurIndex - 1), VBFileHandler)
+         End If
+      End If
+   End If
+End Sub
 
 Public Function Open(Path As String) As VBFileHandler
    Open = Open(Path, Random)
@@ -42,22 +65,51 @@ Public Function Open(Path As String, Mode As VBFileMode, Access As VBFileAccess,
    Open = tmpHandler 
 End Function
 
+Public Sub Open(Path As String, Mode As VBFileMode, FileNr As Integer) 
+   Open(Path, Mode, ReadAndWrite, Shared, FileNr)   
+End Sub
+Public Sub Open(Path As String, Mode As VBFileMode, Access As VBFileAccess, FileNr As Integer) 
+   Open(Path, Mode, Access, Shared, FileNr)   
+End Sub
+Public Sub Open(Path As String, Mode As VBFileMode, Access As VBFileAccess, Lock As VBFileLock, FileNr As Integer) 
+   myCurFHnd = Open(Path, Mode, Access, Lock)   
+   myFHList.add(myCurFHnd)
+   myCurIndex = myFHList.size
+End Sub
+
 Public Function EOF(Handler As VBFileHandler) As Boolean
    If Handler = Nothing Then EOF = True: Exit Function
    EOF = Handler.EOF 
 End Function
+Public Function EOF(FileNr As Integer) As Boolean
+   SetCurFileHandler(FileNr)
+   EOF = myCurFHnd.EOF
+End Function
 
 Public Function Write(Handler As VBFileHandler, Text As String) As VBFileHandler
    If Handler = Nothing Then Exit Function
-   Handler.writeString Text
+   'Handler.writeString Text
+   Call Put(Handler, Text, myFilePos)
+   myFilePos = myFilePos + Len(Text)
 End Function
-
+Public Sub Write(FileNr As Integer, Text As String)
+   SetCurFileHandler(FileNr)
+   'Call Write(myCurFHnd, sLine & vbCrLf)
+   Call Put(myCurFHnd, Chr(34) & Text & Chr(34) & vbCrLf, myFilePos)   
+   myFilePos = myFilePos + Len(Text) + 4
+End Sub
+Public Sub Write(FileNr As Integer, Text As String, nx As Variant)
+   SetCurFileHandler(FileNr)
+   'Call Write(myCurFHnd, sLine & vbCrLf)
+   Call Put(myCurFHnd, Chr(34) & Text & Chr(34), myFilePos)
+   myFilePos = myFilePos + Len(Text) + 2
+End Sub
 Public Function Append(Handler As VBFileHandler, Text As String) As VBFileHandler
    If Handler = Nothing Then Exit Function
    Handler.appendString Text
 End Function
 
-Public Function Put(Handler As VBFileHandler, Text As String, Pos As String) As VBFileHandler
+Public Function Put(Handler As VBFileHandler, Text As String, Pos As Integer) As VBFileHandler
    If Handler = Nothing Then Exit Function
    Handler.putString Text, Pos
 End Function
@@ -67,10 +119,38 @@ Public Function ReadLine(Handler As VBFileHandler) As String
    ReadLine = Handler.readLine()
 End Function
 
+Public Sub Print(FileNr As Integer, Text As String)
+   SetCurFileHandler(FileNr)
+   'Call Write(myCurFHnd, sLine & vbCrLf)
+   Call Put(myCurFHnd, Text & vbCrLf, myFilePos)
+   myFilePos = myFilePos + Len(Text) + 2
+End Sub
+
+Public Sub Print(FileNr As Integer, Text As String, nx As Variant)
+   SetCurFileHandler(FileNr)
+   'Call Write(myCurFHnd, sLine & vbCrLf)
+   Call Put(myCurFHnd, Text, myFilePos)
+   myFilePos = myFilePos + Len(Text)
+End Sub
+
+Public Sub Line_Input(FileNr As Integer, sBuff As java#lang#StringBuffer)
+   SetCurFileHandler(FileNr)
+   sBuff.setLength(0)
+   sBuff.append(myCurFHnd.readLine)
+End Sub
+
 Public Function Close(Handler As VBFileHandler) As Boolean 
    If Handler = Nothing Then Exit Function
-   Handler.close    
+   Handler.close
+   myFilePos = 1
 End Function
+
+Public Sub Close(FileNr As Integer)
+   SetCurFileHandler(FileNr)
+   Close(myCurFHnd)
+   myCurFHnd = Nothing
+   myFHList.remove(FileNr - 1)
+End Sub
 
 'Public Function EOF(Handler As VBFileHandler) As Boolean 
 '   If Handler = Nothing Then Exit Function
@@ -94,4 +174,75 @@ Public Function FileLen(Path As String ) As Long
    FileLen = tmpHandler.length
 End Function
 
-]]></Source><Param Name="(Name)" Value="FileSystem"/><Param Name="(SuperClass)" Value="java/lang/Object"/><Param Name="(Type)" Value="Module"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VBA"/></SourceFile>
+Public Sub FileCopy(Source As String, Destination As String)
+'
+'http://www.java2s.com/Code/Java/File-Input-Output/CopyfilesusingJavaIOAPI.htm
+'OlimilO: 
+'VBFile-Class?
+'
+
+   Dim fromFile As New java#io#File(Source)
+   Dim toFile   As New java#io#File(Destination)
+   
+   If (Not fromFile.exists) Then
+      MsgBox("FileCopy: " & "no such source file: " & Source)
+      Exit Function
+   End If
+   If (Not fromFile.isFile) Then
+      MsgBox("FileCopy: " & "can't copy directory: " & Source)
+      Exit Function
+   End If
+   If (Not fromFile.canRead) Then
+      MsgBox("FileCopy: " & "source file is unreadable: " & Source)
+      Exit Function
+   End If
+   If (toFile.isDirectory) Then
+      toFile = New File(toFile, fromFile.getName)
+   End If
+   
+   If (toFile.exists) Then
+      If (Not toFile.canWrite()) Then
+         MsgBox("FileCopy: " & "destination file is unwriteable: " & Destination)
+      End If
+      Dim ms As String = "Overwrite existing file?" & vbCrLf & toFile.getName
+      If MsgBox(ms, vbOKCancel) <> vbOK Then
+         MsgBox("FileCopy: " & "existing file was not overwritten.")
+         Exit Function
+      End If
+   Else
+      Dim Parent As java#lang#String = toFile.getParent
+      If (Parent = Nothing) Then
+         Parent = System.getProperty("user.dir")
+      End If
+      Dim dir As New File(Parent)
+      If (Not dir.exists) Then
+         If MsgBox("FileCopy: " & "destination directory does not exist create it?: " & Parent) = vbOK Then
+            dir.mkdir
+         Else
+            Exit Function
+         End If
+      End If
+      If (dir.isFile) Then
+         MsgBox("FileCopy: " & "destination is not a directory: " & Parent)
+         Exit Function
+      End If
+      If (Not dir.canWrite) Then
+         MsgBox("FileCopy: " & "destination directory is unwriteable: " & Parent)
+         Exit Function
+      End If
+   End If
+   
+   Dim fisFrom As New java#io#FileInputStream(fromFile)
+   Dim fosTo   As New java#io#FileOutputStream(toFile)
+   Dim buffer() As Byte
+   Redim buffer(4096)
+   Dim bytesRead As Integer
+   
+   bytesRead = fisFrom.read(buffer)
+   While (bytesRead <> -1)
+      fosTo.write(buffer, 0, bytesRead)
+      bytesRead = fisFrom.read(buffer)
+   Wend
+End Sub
+
+]]></Source><Param Name="(Name)" Value="MFileSystem"/><Param Name="(SuperClass)" Value="java/lang/Object"/><Param Name="(Type)" Value="Module"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VBA"/></SourceFile>
