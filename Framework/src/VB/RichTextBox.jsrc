@@ -81,15 +81,15 @@ End Sub
 ' ******************************** DeFAULT MOUSE - EVENTS ********************************
 
 Public Sub mouseMoved(e As MouseEvent) 
-    RaiseEvent MouseMove(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
+   RaiseEvent MouseMove(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
 End Sub
 
 Public Sub mouseDragged(e As MouseEvent) 
-    RaiseEvent MouseMove(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
+   RaiseEvent MouseMove(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
 End Sub
 
 Public Sub mousePressed(e As MouseEvent) 
-    Raiseevent MouseDown(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
+   Raiseevent MouseDown(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
 End Sub
 
 Public Sub mouseReleased(e As Mouseevent) 
@@ -496,7 +496,7 @@ End Property
 Public Property Get Text() As String
    Text = Parent.getDocument.getText(0, Parent.getDocument.getLength)
 End Property
-  
+
 Public Property Let Text(s As String)
    Dim tmpDoc As Document = Parent.getDocument()
    tmpDoc.remove 0, tmpDoc.getLength 
@@ -530,10 +530,9 @@ Public Sub LoadFile(FileName As String)
    If Err <> Nothing Then
       MsgBox Err.getMessage
    End If
-   fis.close
-   
-   
+   fis.close   
 End Sub
+
 Public Property Get StyledText() As String
    'StyledText = Parent.getStyledDocument.getText()
    'StyledText = Parent.getDocument.getText
