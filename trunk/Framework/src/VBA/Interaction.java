@@ -388,10 +388,10 @@ public class Interaction {
 	/**
 	 * sends keystrokes to the current active window
 	 */
-	public static void SendKeys(String sKey) {
+	public static void SendKeys(String sKey) throws Exception {
 		SendKeys(sKey, 0);
 	} 
-	public static void SendKeys(String sKey, boolean wait) {
+	public static void SendKeys(String sKey, boolean wait) throws Exception {
 		if (wait) {
 			SendKeys(sKey, -1);
 		}
@@ -399,40 +399,42 @@ public class Interaction {
 			SendKeys(sKey, 0);
 		};
 	}
-	public static void SendKeys(String sKey, int wait) {
-		if (SendKeysRob == null) {SendKeysRob = new java.awt.Robot();}
-		int a = Asc(skey);
-		SendKeysRob.keyPress(a);
-		if (wait > 0) {
-			SendKeysRob.delay(wait);
-		}
-		else if (wait < 0) {
-			SendKeysRob.wait();
-		}
+	public static void SendKeys(String sKey, int wait) throws Exception {
+		int a = Strings.Asc(sKey);
+		java.awt.Robot r = SendKeys(a, wait);
+		r = null;
 	}
-	public static java.awt.Robot SendKeys(int iKey, int wait) {
+	public static java.awt.Robot SendKeys(int iKey) throws Exception {
+		return SendKeys(iKey, 0);
+	}	
+	public static java.awt.Robot SendKeys(int iKey, int wait) throws Exception {
 		if (SendKeysRob == null) {SendKeysRob = new java.awt.Robot();}
-		SendKeysRob.keyPress(iKey);
+		if ((65<=iKey) && (iKey<=90)) {
+			SendKeysRob.keyPress(java.awt.event.KeyEvent.VK_SHIFT);
+			SendKeysRob.keyPress(iKey);
+			SendKeysRob.keyRelease(java.awt.event.KeyEvent.VK_SHIFT);
+		}
+		else {
+			SendKeysRob.keyPress(iKey);
+		}
 		if (wait > 0) {
 			SendKeysRob.delay(wait);
 		}
 		else if (wait < 0) {
 			SendKeysRob.wait();
 		}
-		return SendKeysRob;
-	}	
-	public static java.awt.Robot SendKeys(int iKey) {
-		if (SendKeysRob == null) {SendKeysRob = new java.awt.Robot();}
-		SendKeysRob.keyPress(iKey);
 		return SendKeysRob;
 	}	
 	/**
 	 * simulates AppActivate simply by sending [Alt]+[Tab]
 	 */	
-	public static void AppActivate(Title_PID_ignored As VBVariant) {
-		AppActivate(Title_PID_ignored, 0);
+	public static void AppActivate(VBVariant Title_PID_ignored) {
+        try {
+			AppActivate(Title_PID_ignored, null);
+		} catch(Exception e) {}
+		
 	}
-	public static void AppActivate(Title_PID_ignored As VBVariant, Wait As VBVariant) {
+	public static void AppActivate(VBVariant Title_PID_ignored, VBVariant wait) throws Exception {
 		if (SendKeysRob == null) {SendKeysRob = new java.awt.Robot();}
 		SendKeysRob.keyPress(java.awt.event.KeyEvent.VK_ALT);
 		SendKeysRob.keyPress(java.awt.event.KeyEvent.VK_TAB);
