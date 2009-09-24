@@ -20,6 +20,17 @@ Enum VBFileLock
    LockReadAndWrite
 End Enum
 
+Enum VbFileAttribute
+   vbNormal    = &H0
+   vbReadOnly  = &H1
+   vbHidden    = &H2
+   vbSystem    = &H4
+   vbVolume    = &H8
+   vbDirectory = &H10
+   vbArchive   = &H20
+   vbAlias     = &H40
+End Enum
+
 Dim myFHList   As New java#util#ArrayList '(1 to 10) As VBFileHandler 
 Dim myCurIndex As Integer
 Dim myCurFHnd  As VBFileHandler
@@ -248,4 +259,60 @@ End Sub
 Public Function CurDir() As String
    CurDir = System.getProperties().getProperty("user.dir")
 End Function
+
+Public Sub MkDir(aPath As String)
+   Dim mydir As New java#io#File(aPath)
+   mydir.mkdirs
+End Sub
+
+Public Sub RmDir(aPath As String)
+   Dim mydir As New java#io#File(aPath)
+   If mydir.isDirectory Then
+      mydir.delete
+   End If
+End Sub
+
+Public Function DirExists(aPath As String) As Boolean
+   Dim mydir As New java#io#File(aPath)
+   DirExists = mydir.isDirectory
+End Function
+
+Public Function Dir(PathName As String, Optional Attributes As VbFileAttribute = vbNormal) As String
+   Dim mydir As New java#io#File(PathName)
+   If ((Attributes And vbDirectory) = vbDirectory) And mydir.isDirectory Then
+      Dir = mydir.getParent
+      If (Attributes And vbHidden) = vbHidden Then
+         If Not mydir.isHidden Then Dir = ""
+      End If
+   ElseIf (Attributes = vbNormal) And mydir.isFile Then
+      Dir = mydir.getCanonicalFile
+      If (Attributes And vbHidden) = vbHidden Then
+         If Not mydir.isHidden Then Dir = ""
+      End If
+   End If
+End Function
+
+Public Function GetAttr(PathName As String) As VbFileAttribute
+   Dim mydir As New java#io#File(PathName)
+   GetAttr = vbNormal
+   If mydir.isDirectory Then GetAttr = GetAttr Or vbDirectory
+   If mydir.isHidden    Then GetAttr = GetAttr Or vbHidden
+   If mydir.canRead And (Not mydir.canWrite) Then _
+                             GetAttr = GetAttr Or vbReadOnly
+   'If Not mydir.canExecute Then _
+   '                          GetAttr = GetAttr Or vbArchive
+   'not necessarily
+End Function
+
+Public Sub SetAttr(PathName As String, Attributes As VbFileAttribute)
+   Dim mydir As New java#io#File(PathName)
+   If Attributes = vbNormal Then
+      mydir.setWritable(True
+   Else
+      If (Attributes And vbReadOnly) = vbReadOnly Then
+         mydir.setReadOnly
+      Elseif Attributes = vbNormal
+   End If
+End Sub
+
 ]]></Source><Param Name="(Name)" Value="FileSystem"/><Param Name="(SuperClass)" Value="java/lang/Object"/><Param Name="(Type)" Value="Module"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VBA"/></SourceFile>
