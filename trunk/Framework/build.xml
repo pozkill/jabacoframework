@@ -1,6 +1,26 @@
 ﻿<?xml version="1.0"?>
  <project name="JabacoFramework" basedir="." default="build">
+
 	<property name="name" value="Jabaco" />
+	
+	<tstamp>
+		<format property="build.timestamp" pattern="yyyy-MM-dd HHmm"/>
+	</tstamp>
+
+	<tstamp>
+		<format property="build.timestamp.filename" pattern="yyyyMMddHHmm"/>
+	</tstamp>
+
+	<property name="svnant.dir" value = "D:\Inet_Download\JaBaco\Apache-Ant\apache-ant-1.7.1\lib" />
+	<property name="base.dir"   value = "D:\Inet_Download\JaBaco\Framework\Sources\SVN\Checkout\" />
+	<property name="winscp.dir" value = "C:\Programme\WinSCP\WinSCP.exe" />
+	<property name="jabaco.dir" value = "C:\Programme\Jabaco" />
+	
+	<property name="framework.dir"    value = "${base.dir}/Framework" />
+	<property name="history.dir"      value = "${base.dir}/History" />
+	<property name="upload.dir"       value = "${base.dir}/Upload" />
+	<property name="lastbuild.dir"    value = "${base.dir}/LastBuild" />
+	
 	<property name="bin.dir" value = "./bin" />
 	<property name="build.dir" value = "./bin-tmp" />
 	<property name="src.dir" value="./src" />
@@ -21,6 +41,8 @@
 		<!-- create the documentation output directory -->
 		<mkdir dir="${doc.dir}" />
 
+		<echo>${build.dir}</echo>
+			
 		<!--  compile the java sourcefiles -->
 		<javac srcdir="${src.dir}"
 					destdir="${build.dir}"
@@ -35,11 +57,11 @@
 		</javac>
 
 		<!--  compile the jabaco sourcefiles -->
-		<!--
-		<execx executable="jabaco">
-			<arg value="${src.project.path}" />
-		</execx>
-		-->
+		<echo>Compile the Jabaco sourcefiles to buildpath</echo>
+		<exec executable = "${jabaco.dir}/Jabaco.exe">
+			<arg value = "-projectpath=${framework.dir}/src/VB/Framework.jba"/>
+			<arg value = "-d=${build.dir}"/>
+		</exec>
 
 		<!-- create the framework documentation -->
 		<javadoc sourcepath="${src.dir}"
