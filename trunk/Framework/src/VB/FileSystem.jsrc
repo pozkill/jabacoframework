@@ -214,6 +214,7 @@ Public Sub FileCopy(Source As String, Destination As String)
    If (toFile.exists) Then
       If (Not toFile.canWrite()) Then
          MsgBox("FileCopy: " & "destination file is unwriteable: " & Destination)
+         Exit Function
       End If
       Dim ms As String = "Overwrite existing file?" & vbCrLf & toFile.getName
       If MsgBox(ms, vbOKCancel) <> vbOK Then
@@ -227,11 +228,11 @@ Public Sub FileCopy(Source As String, Destination As String)
       End If
       Dim dir As New File(Parent)
       If (Not dir.exists) Then
-         If MsgBox("FileCopy: " & "destination directory does not exist create it?: " & Parent) = vbOK Then
-            dir.mkdir
-         Else
-            Exit Function
-         End If
+         'If MsgBox("FileCopy: " & "destination directory does not exist create it?: " & Parent) = vbOK Then
+            dir.mkdirs
+         'Else
+         '   Exit Function
+         'End If
       End If
       If (dir.isFile) Then
          MsgBox("FileCopy: " & "destination is not a directory: " & Parent)
@@ -277,14 +278,14 @@ Public Function DirExists(aPath As String) As Boolean
    DirExists = mydir.isDirectory
 End Function
 
-Public Function Dir(PathName As String, Optional Attributes As VbFileAttribute = vbNormal) As String
+Public Function Dir(PathName As String, Optional Attributes As VbFileAttribute = VbFileAttribute.vbNormal) As String
    Dim mydir As New java#io#File(PathName)
    If ((Attributes And vbDirectory) = vbDirectory) And mydir.isDirectory Then
       Dir = mydir.getParent
       If (Attributes And vbHidden) = vbHidden Then
          If Not mydir.isHidden Then Dir = ""
       End If
-   ElseIf (Attributes = vbNormal) And mydir.isFile Then
+   ElseIf (Attributes = VbFileAttribute.vbNormal) And mydir.isFile Then
       Dir = mydir.getCanonicalFile
       If (Attributes And vbHidden) = vbHidden Then
          If Not mydir.isHidden Then Dir = ""
@@ -306,7 +307,7 @@ End Function
 
 Public Sub SetAttr(PathName As String, Attributes As VbFileAttribute)
    Dim mydir As New java#io#File(PathName)
-   If Attributes = vbNormal Then
+   If Attributes = VbFileAttribute.vbNormal Then
       mydir.setWritable(True
    Else
       If (Attributes And vbReadOnly) = vbReadOnly Then
