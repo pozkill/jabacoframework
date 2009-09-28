@@ -312,7 +312,7 @@ Public Sub SetAttr(PathName As String, Attributes As VbFileAttribute)
    Else
       If (Attributes And vbReadOnly) = vbReadOnly Then
          mydir.setReadOnly
-      Elseif Attributes = VbFileAttribute.vbNormal
+      End If
    End If
 End Sub
 
