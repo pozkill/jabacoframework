@@ -295,7 +295,7 @@ End Function
 
 Public Function GetAttr(PathName As String) As VbFileAttribute
    Dim mydir As New java#io#File(PathName)
-   GetAttr = vbNormal
+   GetAttr = VbFileAttribute.vbNormal
    If mydir.isDirectory Then GetAttr = GetAttr Or vbDirectory
    If mydir.isHidden    Then GetAttr = GetAttr Or vbHidden
    If mydir.canRead And (Not mydir.canWrite) Then _
@@ -308,11 +308,11 @@ End Function
 Public Sub SetAttr(PathName As String, Attributes As VbFileAttribute)
    Dim mydir As New java#io#File(PathName)
    If Attributes = VbFileAttribute.vbNormal Then
-      mydir.setWritable(True
+      mydir.setWritable(True)
    Else
       If (Attributes And vbReadOnly) = vbReadOnly Then
          mydir.setReadOnly
-      Elseif Attributes = vbNormal
+      Elseif Attributes = VbFileAttribute.vbNormal
    End If
 End Sub
 
