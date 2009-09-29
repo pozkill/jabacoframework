@@ -26,25 +26,39 @@ public class VBEnumClass extends VBVariant implements IResource {
 		}
 	}*/
 	/**
+	 * returns the name of this constant
+	 */
+	public String getName() throws Exception {
+		java.lang.reflect.Field[] fs = this.getClass().getFields();
+		String s = "";
+		for (int i = 0; i < fs.length; ++i) {
+		   if (fs[i].get(this) == this) {
+				s = fs[i].getName();
+				break;
+		   }
+		}
+		return s;
+	}
+	/**
 	 * returns array of names of the constant static fields of the enum
 	 */
 	public String[] getEnumNames() {
-	       java.lang.reflect.Field[] fs = this.getClass().getFields();
-	       String[] s = new String[fs.length];
-	       for (int i = 0; i < fs.length; ++i) {
-               s[i] = fs[i].getName();
-           }
-	       return s;
+		java.lang.reflect.Field[] fs = this.getClass().getFields();
+		String[] s = new String[fs.length];
+		for (int i = 0; i < fs.length; ++i) {
+			s[i] = fs[i].getName();
+		}
+		return s;
     }
 	/**
 	 * returns array of names of the constant static fields of the enum
 	 */
 	public VBVariant[] getEnumValues() throws Exception {
-	       java.lang.reflect.Field[] fs = this.getClass().getFields();
-	       VBVariant[] v = new VBVariant[fs.length];
-	       for (int i = 0; i < fs.length; ++i) {
-               v[i] = (VBVariant)fs[i].get(this);
-           }
-	       return v;
+		java.lang.reflect.Field[] fs = this.getClass().getFields();
+		VBVariant[] v = new VBVariant[fs.length];
+		for (int i = 0; i < fs.length; ++i) {
+			v[i] = (VBVariant)fs[i].get(this);
+		}
+		return v;
     }	
 }

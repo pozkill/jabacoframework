@@ -305,15 +305,22 @@ public class Conversion {
 		return null;
 	}
 	public static VBVariant Hex(VBVariant Expression) {
-	    /**
-		* 2009_08_14 OlimilO: nice to have also 64bit-hex
-		*/
+	    /*
+		 * 2009_08_14 OlimilO: nice to have also 64bit-hex
+		 */
 		return (new VBVariant(Long.toHexString(Expression.longValue()).toUpperCase()));
 	}	
+	public static String Hex(long Expression) {
+	    /*
+		 * 2009_08_14 OlimilO: nice to have also 64bit-hex
+		 */
+		return Long.toHexString(Expression).toUpperCase();
+	}	
+	
 	public static VBVariant Fix(VBVariant Expression) {
-		/**
-		* 2009_08_14 OlimilO: must return only the integer part of the floatingpoint value
-		*/
+		/*
+		 * 2009_08_14 OlimilO: must return only the integer part of the floatingpoint value
+		 */
 		return new VBVariant(Expression.longValue());
 	}
 	public static VBVariant Oct(VBVariant Expression) {
@@ -342,7 +349,7 @@ public class Conversion {
 		return CDate(Expression);
 	}	
 
-/**
+/*
 '   Conversion function list
 '   CBool
 '   CByte
