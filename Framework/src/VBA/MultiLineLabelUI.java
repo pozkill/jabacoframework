@@ -142,7 +142,8 @@ public class MultiLineLabelUI extends BasicLabelUI
         Rectangle textR,
         int textIconGap)
     {
-        /* Initialize the icon bounds rectangle iconR.
+		/*
+		 * Initialize the icon bounds rectangle iconR.
          */
 
         if (icon != null) {
@@ -153,7 +154,8 @@ public class MultiLineLabelUI extends BasicLabelUI
             iconR.width = iconR.height = 0;
         }
 
-        /* Initialize the text bounds rectangle textR.  If a null
+        /*
+		 * Initialize the text bounds rectangle textR.  If a null
          * or and empty String was specified we substitute "" here
          * and use 0,0,0,0 for textR.
          */
@@ -172,8 +174,9 @@ public class MultiLineLabelUI extends BasicLabelUI
             textR.height = dim.height;
         }
 
-        /* Unless both text and icon are non-null, we effectively ignore
-         * the value of textIconGap.  The code that follows uses the
+		/*
+		 * Unless both text and icon are non-null, we effectively ignore
+		 * the value of textIconGap.  The code that follows uses the
          * value of gap instead of textIconGap.
          */
 
