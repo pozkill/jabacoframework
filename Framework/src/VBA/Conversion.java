@@ -82,34 +82,33 @@ public class Conversion {
 		return (CLng(Expression));
 	}
 	/**
-	* Converts an expression into a Long.
-	* @author Manuel Siekmann
-	* @param  Any valid numeric expression. 
-	*/
+	 * Converts an expression into a Long.
+	 * @author Manuel Siekmann
+	 * @param  Any valid numeric expression. 
+	 */
 	public static long CLng(VBVariant Expression) {
-		/**
+		/*
 		2009_08_03 OlimilO: must return rounded values
 		*/
 		return java.lang.Math.round(Expression.doubleValue());
 		//return (Expression.longValue());
 	}
 	/**
-	* Converts an expression into a Long.
-	* @author Manuel Siekmann
-	* @param  Any valid numeric expression. 
-	*/
+	 * Converts an expression into a Long.
+	 * @author Manuel Siekmann
+	 * @param  Any valid numeric expression. 
+	 */
 	public static long CLng(Object Expression) {	   	   
-		/**
-		*2009_08_03 OlimilO: must return rounded values
-		*
+		/*
+		 2009_08_03 OlimilO: must return rounded values
 		*/
 		return (CLng(CVar(Expression)));
 	}
 	/**
-	Converts an expression into an Integer.
-	@author Manuel Siekmann
-	@param  Any valid numeric expression. 
-	*/
+	 * Converts an expression into an Integer.
+	 * @author Manuel Siekmann
+	 * @param  Any valid numeric expression. 
+	 */
 	public static int CInt(VBVariant Expression) {
 	    /**
 		*2009_08_03 OlimilO: must return rounded values
@@ -118,51 +117,51 @@ public class Conversion {
 		return java.lang.Math.round((float)Expression.doubleValue());
 	}
 	/**
-	Converts an expression into an Integer.
-	@author Manuel Siekmann
-	@param  Any valid numeric expression. 
-	*/
+	 * Converts an expression into an Integer.
+	 * @author Manuel Siekmann
+	 * @param  Any valid numeric expression. 
+	 */
 	public static int CInt(byte Expression) {
 		return (int)Expression;
 	}
 	
 	/**
-	Converts an expression into an Integer.
-	@author Manuel Siekmann
-	@param  Any valid numeric expression. 
-	*/
+	 * Converts an expression into an Integer.
+	 * @author Manuel Siekmann
+	 * @param  Any valid numeric expression. 
+	 */
 	public static int CInt(Object Expression) {
 		return (CInt(CVar(Expression)));
 	}
 	/**
-	Same like CInt
-	@author Manuel Siekmann
-	@param  Any valid numeric expression. 
-	*/
+	 * Same like CInt
+	 * @author Manuel Siekmann
+	 * @param  Any valid numeric expression. 
+	 */
 	public static int Int(VBVariant Expression) {
 		return CInt(Expression);
 	}
 	/**
-	Same like CDbl
-	@author Manuel Siekmann
-	@param  Any valid numeric expression. 
-	*/
+	 * Same like CDbl
+	 * @author Manuel Siekmann
+	 * @param  Any valid numeric expression. 
+	 */
 	public static double CDbl(VBVariant Expression) {
 		return (Expression.doubleValue());
 	}
 	/**
-	Same like CDbl
-	@author Manuel Siekmann
-	@param  Any valid numeric expression. 
-	*/
+	 * Same like CDbl
+	 * @author Manuel Siekmann
+	 * @param  Any valid numeric expression. 
+	 */
 	public static double CDbl(Object Expression) {
 		return (CDbl(CVar(Expression)));
 	}
 	/**
-	Returns the numbers contained in a string as a numeric value of appropriate type.
-	@author Manuel Siekmann
-	@param  Any valid numeric expression. 
-	*/
+	 * Returns the numbers contained in a string as a numeric value of appropriate type.
+	 * @author Manuel Siekmann
+	 * @param  Any valid numeric expression. 
+	 */
 	public static double Val(String Expression) {
 	    if (Expression == null) { return 0.0; }
 	    StringBuffer strBuff = new StringBuffer();
@@ -187,10 +186,10 @@ public class Conversion {
 		return (CDbl(new VBVariant(strBuff.toString())));
 	}
 	/**
-	Returns the numbers contained in a string as a numeric value of appropriate type.
-	@author Manuel Siekmann
-	@param Append all lines in a BufferedReader and return as String
-	*/
+	 * Returns the numbers contained in a string as a numeric value of appropriate type.
+	 * @author Manuel Siekmann
+	 * @param Append all lines in a BufferedReader and return as String
+	 */
 	public static String CStr(InputStream Expression) {
 		try {
 			byte[] tmp = new byte[Expression.available()];
@@ -202,10 +201,10 @@ public class Conversion {
 	}
 	
 	/**
-	Returns the numbers contained in a string as a numeric value of appropriate type.
-	@author Manuel Siekmann
-	@param Append all lines in a BufferedReader and return as String
-	*/
+	 * Returns the numbers contained in a string as a numeric value of appropriate type.
+	 * @author Manuel Siekmann
+	 * @param Append all lines in a BufferedReader and return as String
+	 */
 	public static String CStr(BufferedReader Expression) {
 		java.lang.StringBuffer ret = new java.lang.StringBuffer();
 		String tmp = null;
@@ -217,34 +216,34 @@ public class Conversion {
 		return ret.toString();
 	}
 	/**
-	Concatenate all lines in a BufferedReader and return as String
-	@author Manuel Siekmann
-	@param Concatenate all lines in a BufferedReader and return as String
-	*/
+	 * Concatenate all lines in a BufferedReader and return as String
+	 * @author Manuel Siekmann
+	 * @param Concatenate all lines in a BufferedReader and return as String
+	 */
 	public static String CStr(VBArrayByte Expression) {
 		return (Expression.toString());
 	}
 	/**
-	Concatenate all lines in a BufferedReader and return as String
-	@author Manuel Siekmann
-	@param Concatenate all lines in a BufferedReader and return as String
-	*/
+	 * Concatenate all lines in a BufferedReader and return as String
+	 * @author Manuel Siekmann
+	 * @param Concatenate all lines in a BufferedReader and return as String
+	 */
 	public static String CStr(VBArrayChar Expression) {
 		return (Expression.toString());
 	}
 	/**
-	Returns the numbers contained in a string as a numeric value of appropriate type.
-	@author Manuel Siekmann
-	@param Concatenate all lines in a BufferedReader and return as String
-	*/
+	 * Returns the numbers contained in a string as a numeric value of appropriate type.
+	 * @author Manuel Siekmann
+	 * @param Concatenate all lines in a BufferedReader and return as String
+	 */
 	public static String CStr(VBVariant Expression) {
 		return (Expression.toString());
 	}
 	/**
-	Returns the numbers contained in a string as a numeric value of appropriate type.
-	@author Manuel Siekmann
-	@param Concatenate all lines in a BufferedReader and return as String
-	*/
+	 * Returns the numbers contained in a string as a numeric value of appropriate type.
+	 * @author Manuel Siekmann
+	 * @param Concatenate all lines in a BufferedReader and return as String
+	 */
 	public static String CStr(Object Expression) {
 		return (CStr(CVar(Expression)));
 	}
@@ -309,14 +308,26 @@ public class Conversion {
 		 * 2009_08_14 OlimilO: nice to have also 64bit-hex
 		 */
 		return (new VBVariant(Long.toHexString(Expression.longValue()).toUpperCase()));
-	}	
+	}
 	public static String Hex(long Expression) {
-	    /*
+		/*
 		 * 2009_08_14 OlimilO: nice to have also 64bit-hex
 		 */
-		return Long.toHexString(Expression).toUpperCase();
+		return java.lang.Long.toHexString(Expression).toUpperCase();
 	}	
-	
+	public static String Hex(int Expression) {
+		/*
+		 * 2009_08_14 OlimilO: nice to have also 32bit-hex
+		 */
+		return java.lang.Integer.toHexString(Expression).toUpperCase();
+	}	
+	public static String Hex(short Expression) {
+		String h = java.lang.Integer.toHexString(Expression);
+		if (Expression < 0) {
+		   h = h.substring(4, 8);
+		}
+		return h.toUpperCase();
+	}
 	public static VBVariant Fix(VBVariant Expression) {
 		/*
 		 * 2009_08_14 OlimilO: must return only the integer part of the floatingpoint value

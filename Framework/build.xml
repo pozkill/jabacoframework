@@ -11,8 +11,8 @@
 		<format property="build.timestamp.filename" pattern="yyyyMMddHHmm"/>
 	</tstamp>
 
-	<property name="svnant.dir" value = "K:\Inet_Download\JaBaco\Apache-Ant\apache-ant-1.7.1\lib" />
-	<property name="base.dir"   value = "K:\Inet_Download\JaBaCo\Framework\SVNCheckOut" />
+	<property name="svnant.dir" value = "D:\Inet_Download\JaBaco\Apache-Ant\apache-ant-1.7.1\lib" />
+	<property name="base.dir"   value = "D:\Inet_Download\JaBaco\Framework\Sources\SVN\Checkout\" />
 	<property name="winscp.dir" value = "C:\Programme\WinSCP\WinSCP.exe" />
 	<property name="jabaco.dir" value = "C:\Programme\Jabaco" />
 	
