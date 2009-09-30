@@ -349,8 +349,8 @@ public class Math {
 	}
 	/**
 	 * shifts the bits of value shift-bits to the left.
-	 * @param value the value to be shifted. 
-	 * @param shift the amount of bits to shift the bits of value
+	 * @param value: the value to be shifted. 
+	 * @param shift: the amount of bits to shift the bits of value
 	 */
 	public static int ShL(int value, int shift) {
 		return value << shift;
@@ -360,8 +360,8 @@ public class Math {
 	}
 	/**
 	 * shifts the bits of value shift-bits to the right.
-	 * @param value the value to be shifted. 
-	 * @param shift the amount of bits to shift the bits of value
+	 * @param value: the value to be shifted. 
+	 * @param shift: the amount of bits to shift the bits of value
 	 */
 	public static int ShR(int value, int shift) {
 		return value >> shift;

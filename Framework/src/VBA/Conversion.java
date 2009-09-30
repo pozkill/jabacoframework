@@ -322,11 +322,7 @@ public class Conversion {
 		return java.lang.Integer.toHexString(Expression).toUpperCase();
 	}	
 	public static String Hex(short Expression) {
-		String h = java.lang.Integer.toHexString(Expression);
-		if (Expression < 0) {
-		   h = h.substring(4, 8);
-		}
-		return h.toUpperCase();
+		return java.lang.Integer.toHexString(CopyBytes(Expression)).toUpperCase();
 	}
 	public static VBVariant Fix(VBVariant Expression) {
 		/*
@@ -359,7 +355,28 @@ public class Conversion {
 	public static java.util.Date CVDate(VBVariant Expression) {
 		return CDate(Expression);
 	}	
-
+	public static int CopyBytes(short s) {
+		//return (s < 0) ? (int)s ^ 0xFFFF0000: (int)s;
+		//*
+		if (s < 0) {
+			return (int)s ^ 0xFFFF0000;	
+		}
+		else {
+			return (int)s;
+		}
+		//*/
+	}
+	public static long CopyBytes(int i) {
+		//return (i < 0) ? (long)i ^ 0xFFFFFFFF00000000L: (long)i;
+		//*
+		if (i < 0) {
+			return (long)i ^ 0xFFFFFFFF00000000L;	
+		}
+		else {
+			return (long)i;
+		}
+		//*/
+	}
 /*
 '   Conversion function list
 '   CBool
