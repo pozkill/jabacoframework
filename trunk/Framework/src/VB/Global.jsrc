@@ -13,10 +13,13 @@ Dim mySysInfo As SysInfo
 Dim myLookAndFeelManager As JBCLookAndFeel
 Dim myApp As App
 Dim myGlobalMDIForm As MDIForm 
+'OlimilO 2009_10_06:     ' unloading last form -> system.exit
+Dim myForms   As java#util#Hashtable
+Dim bEmptyEnd As Boolean ' handbrake if some forms not loaded with Load
 
 Enum FormShowConstants
    vbModeless = 0
-   vbModal = 1
+   vbModal    = 1
 End Enum
 
 Public Enum ColorConstants
@@ -31,56 +34,56 @@ Public Enum ColorConstants
 End Enum
 
 Public Enum KeyCodeConstants
-   vbKeyLButton = 1
-   vbKeyRButton = 2
-   vbKeyCancel = 3
-   vbKeyMButton = 4
-   vbKeyBack = 8
-   vbKeyTab = 9
-   vbKeyClear = 12
-   vbKeyReturn = 13
-   vbKeyShift = 16
-   vbKeyControl = 17
-   vbKeyMenu = 18
-   vbKeyPause = 19
-   vbKeyCapital = 20
-   vbKeyEscape = 27
-   vbKeySpace = 32
-   vbKeyPageUp = 33
-   vbKeyEnd = 35
-   vbKeyHome = 36
-   vbKeyLeft = 37
-   vbKeyUp = 38
-   vbKeyRight = 39
+   vbKeyLButton  = 1
+   vbKeyRButton  = 2
+   vbKeyCancel   = 3
+   vbKeyMButton  = 4
+   vbKeyBack     = 8
+   vbKeyTab      = 9
+   vbKeyClear    = 12
+   vbKeyReturn   = 13
+   vbKeyShift    = 16
+   vbKeyControl  = 17
+   vbKeyMenu     = 18
+   vbKeyPause    = 19
+   vbKeyCapital  = 20
+   vbKeyEscape   = 27
+   vbKeySpace    = 32
+   vbKeyPageUp   = 33
+   vbKeyEnd      = 35
+   vbKeyHome     = 36
+   vbKeyLeft     = 37
+   vbKeyUp       = 38
+   vbKeyRight    = 39
    vbKeyPageDown = 34
-   vbKeyDown = 40
-   vbKeySelect = 41
-   vbKeyPrint = 42
-   vbKeyExecute = 43
+   vbKeyDown     = 40
+   vbKeySelect   = 41
+   vbKeyPrint    = 42
+   vbKeyExecute  = 43
    vbKeySnapshot = 44
-   vbKeyInsert = 45
-   vbKeyDelete = 46
-   vbKeyHelp = 47
-   vbKey0 = 48
-   vbKey1 = 49
-   vbKey2 = 50
-   vbKey3 = 51
-   vbKey4 = 52
-   vbKey5 = 53
-   vbKey6 = 54
-   vbKey7 = 55
-   vbKey8 = 56
-   vbKey9 = 57
-   vbKeyA = 65
-   vbKeyB = 66
-   vbKeyC = 67
-   vbKeyD = 68
-   vbKeyE = 69
-   vbKeyF = 70
-   vbKeyG = 71
-   vbKeyH = 72
-   vbKeyI = 73
-   vbKeyJ = 74
+   vbKeyInsert   = 45
+   vbKeyDelete   = 46
+   vbKeyHelp     = 47
+   vbKey0        = 48
+   vbKey1        = 49
+   vbKey2        = 50
+   vbKey3        = 51
+   vbKey4        = 52
+   vbKey5        = 53
+   vbKey6        = 54
+   vbKey7        = 55
+   vbKey8        = 56
+   vbKey9        = 57
+   vbKeyA        = 65
+   vbKeyB        = 66
+   vbKeyC        = 67
+   vbKeyD        = 68
+   vbKeyE        = 69
+   vbKeyF        = 70
+   vbKeyG        = 71
+   vbKeyH        = 72
+   vbKeyI        = 73
+   vbKeyJ        = 74
    vbKeyK = 75
    vbKeyL = 76
    vbKeyM = 77
@@ -415,6 +418,11 @@ Public Function Clipboard() As VBClipboard
    Clipboard = myClipBoard
 End Function
 
+Public Function Forms() As java#util#Hashtable
+   if myForms = Nothing then myForms = New java#util#Hashtable
+   Forms = myForms
+End Function
+
 Public Function Screen() As Screen
    If myScreen = Nothing Then myScreen = New Screen()
    Screen = myScreen
@@ -435,23 +443,50 @@ Public Function LookAndFeelManager() As JBCLookAndFeel
    LookAndFeelManager = myLookAndFeelManager
 End Function
 
+Public Function Load(obj As Object) As Object
+   Dim o As Object
+   o = Forms.put(obj.hashCode, obj)
+   Load = obj
+End Function
+
 Public Sub Unload(Form As Form)
+   RemoveForm(Form)
    Form.Visible = False
-   Call Form.dispose   
+   Call Form.dispose
+   Set Form = Nothing
+   EmptyEnd   
 End Sub
 Public Sub Unload(Form As MDIForm)
+   RemoveForm(Form)
    Form.Visible = False
-   Call Form.dispose   
+   Call Form.dispose
+   Set Form = Nothing
+   EmptyEnd
 End Sub
 Public Sub Unload(Form As MDIChild)
+   RemoveForm(Form)
    Form.Visible = False
-   Call Form.dispose   
+   Call Form.dispose
+   Set Form = Nothing
+   EmptyEnd
 End Sub
 Public Sub Unload(Form As Dialog)
+   RemoveForm(Form)
    Form.Visible = False
-   Call Form.dispose   
+   Call Form.dispose
+   Set Form = Nothing
+   EmptyEnd
 End Sub
-
+Private Sub RemoveForm(obj as Object)
+   If Forms.containsKey(obj.hashCode) Then 
+      Forms.remove(obj.hashCode)     
+   else
+      bEmptyEnd = False
+   end if
+End Sub
+Private Sub EmptyEnd
+   if bEmptyEnd And Forms.isEmpty Then System.exit(0) 'Global.End
+End Sub
 'Public Sub SetWindowToCenter(Window As java#awt#Window)
 '   Dim tmpDimension As java#awt#Dimension 
 '   tmpDimension = java#awt#Toolkit.getDefaultToolkit().getScreenSize
@@ -594,43 +629,43 @@ End Function
 
 Public Function JCursorToVBMousePointer(v As #Cursor) As MousePointerConstants
    Select Case v
-      Case DEFAULT_CURSOR: JCursorToVBMousePointer = vbDefault 
+      Case DEFAULT_CURSOR:   JCursorToVBMousePointer = vbDefault 
       Case CROSSHAIR_CURSOR: JCursorToVBMousePointer = vbCrosshair 
-      Case TEXT_CURSOR: JCursorToVBMousePointer = vbIbeam 
-      Case CUSTOM_CURSOR: JCursorToVBMousePointer = vbIconPointer 
-      Case MOVE_CURSOR: JCursorToVBMousePointer = vbSizePointer
+      Case TEXT_CURSOR:      JCursorToVBMousePointer = vbIbeam 
+      Case CUSTOM_CURSOR:    JCursorToVBMousePointer = vbIconPointer 
+      Case MOVE_CURSOR:      JCursorToVBMousePointer = vbSizePointer
       Case SW_RESIZE_CURSOR, NE_RESIZE_CURSOR: JCursorToVBMousePointer = vbSizeNESW
-      Case N_RESIZE_CURSOR, S_RESIZE_CURSOR: JCursorToVBMousePointer = vbSizeNS
+      Case N_RESIZE_CURSOR, S_RESIZE_CURSOR:   JCursorToVBMousePointer = vbSizeNS
       Case SE_RESIZE_CURSOR, NW_RESIZE_CURSOR: JCursorToVBMousePointer = vbSizeNWSE
-      Case E_RESIZE_CURSOR, W_RESIZE_CURSOR: JCursorToVBMousePointer = vbSizeWE
-      Case WAIT_CURSOR: JCursorToVBMousePointer = vbHourglass
-      Case MOVE_CURSOR: JCursorToVBMousePointer = vbSizeAll 
-      Case HAND_CURSOR: JCursorToVBMousePointer = vbHandCursor
-      Case Else: JCursorToVBMousePointer = vbDefault
+      Case E_RESIZE_CURSOR, W_RESIZE_CURSOR:   JCursorToVBMousePointer = vbSizeWE
+      Case WAIT_CURSOR:      JCursorToVBMousePointer = vbHourglass
+      Case MOVE_CURSOR:      JCursorToVBMousePointer = vbSizeAll 
+      Case HAND_CURSOR:      JCursorToVBMousePointer = vbHandCursor
+      Case Else:             JCursorToVBMousePointer = vbDefault
    End Select
 End Function
 
 Public Function VBMousePointerToJCursor(v As MousePointerConstants) As #Cursor
    On Error Resume Next
    Select Case v
-      Case vbDefault: VBMousePointerToJCursor = DEFAULT_CURSOR
-      Case vbArrow: VBMousePointerToJCursor = DEFAULT_CURSOR
-      Case vbCrosshair: VBMousePointerToJCursor = CROSSHAIR_CURSOR
-      Case vbIbeam: VBMousePointerToJCursor = TEXT_CURSOR
-      Case vbIconPointer: VBMousePointerToJCursor = DEFAULT_CURSOR ' == AUTOMATICALLY BY MOUSEICON
-      Case vbSizePointer: VBMousePointerToJCursor = MOVE_CURSOR
-      Case vbSizeNESW: VBMousePointerToJCursor = SW_RESIZE_CURSOR ' == NE_RESIZE_CURSOR
-      Case vbSizeNS: VBMousePointerToJCursor = N_RESIZE_CURSOR ' == S_RESIZE_CURSOR
-      Case vbSizeNWSE: VBMousePointerToJCursor = SE_RESIZE_CURSOR ' == NW_RESIZE_CURSOR
-      Case vbSizeWE: VBMousePointerToJCursor  = E_RESIZE_CURSOR ' == W_RESIZE_CURSOR
-      Case vbUpArrow: VBMousePointerToJCursor = DEFAULT_CURSOR ' !!! NOT AVAILABLE 
-      Case vbHourglass: VBMousePointerToJCursor = WAIT_CURSOR
-      Case vbNoDrop: VBMousePointerToJCursor = DEFAULT_CURSOR ' !!! NOT AVAILABLE 
-      Case vbArrowHourglass: VBMousePointerToJCursor = DEFAULT_CURSOR ' !!! NOT AVAILABLE 
-      Case vbArrowQuestion: VBMousePointerToJCursor = DEFAULT_CURSOR ' !!! NOT AVAILABLE 
-      Case vbSizeAll: VBMousePointerToJCursor = MOVE_CURSOR
-      Case vbHandCursor: VBMousePointerToJCursor = HAND_CURSOR
-      Case Else: VBMousePointerToJCursor = DEFAULT_CURSOR
+      Case vbDefault:        VBMousePointerToJCursor = DEFAULT_CURSOR
+      Case vbArrow:          VBMousePointerToJCursor = DEFAULT_CURSOR
+      Case vbCrosshair:      VBMousePointerToJCursor = CROSSHAIR_CURSOR
+      Case vbIbeam:          VBMousePointerToJCursor = TEXT_CURSOR
+      Case vbIconPointer:    VBMousePointerToJCursor = DEFAULT_CURSOR   ' == AUTOMATICALLY BY MOUSEICON
+      Case vbSizePointer:    VBMousePointerToJCursor = MOVE_CURSOR
+      Case vbSizeNESW:       VBMousePointerToJCursor = SW_RESIZE_CURSOR ' == NE_RESIZE_CURSOR
+      Case vbSizeNS:         VBMousePointerToJCursor = N_RESIZE_CURSOR  ' == S_RESIZE_CURSOR
+      Case vbSizeNWSE:       VBMousePointerToJCursor = SE_RESIZE_CURSOR ' == NW_RESIZE_CURSOR
+      Case vbSizeWE:         VBMousePointerToJCursor  = E_RESIZE_CURSOR ' == W_RESIZE_CURSOR
+      Case vbUpArrow:        VBMousePointerToJCursor = DEFAULT_CURSOR   ' !!! NOT AVAILABLE 
+      Case vbHourglass:      VBMousePointerToJCursor = WAIT_CURSOR
+      Case vbNoDrop:         VBMousePointerToJCursor = DEFAULT_CURSOR   ' !!! NOT AVAILABLE 
+      Case vbArrowHourglass: VBMousePointerToJCursor = DEFAULT_CURSOR   ' !!! NOT AVAILABLE 
+      Case vbArrowQuestion:  VBMousePointerToJCursor = DEFAULT_CURSOR   ' !!! NOT AVAILABLE 
+      Case vbSizeAll:        VBMousePointerToJCursor = MOVE_CURSOR
+      Case vbHandCursor:     VBMousePointerToJCursor = HAND_CURSOR
+      Case Else:             VBMousePointerToJCursor = DEFAULT_CURSOR
    End Select
 End Function
 
