@@ -74,11 +74,12 @@ public class Conversion {
 	}
 	
 	/**
-	* Same like CLng
-	* @author Manuel Siekmann
-	* @param  Any valid numeric expression. 
-	*/
+	 * Same like CLng
+	 * @author Manuel Siekmann
+	 * @param  Any valid numeric expression. 
+	 */
 	public static long CCur(VBVariant Expression) {
+	   /* what about a Currency-class? */
 		return (CLng(Expression));
 	}
 	/**
@@ -87,9 +88,7 @@ public class Conversion {
 	 * @param  Any valid numeric expression. 
 	 */
 	public static long CLng(VBVariant Expression) {
-		/*
-		2009_08_03 OlimilO: must return rounded values
-		*/
+		/* 2009_08_03 OlimilO: must return rounded values */
 		return java.lang.Math.round(Expression.doubleValue());
 		//return (Expression.longValue());
 	}
@@ -99,9 +98,7 @@ public class Conversion {
 	 * @param  Any valid numeric expression. 
 	 */
 	public static long CLng(Object Expression) {	   	   
-		/*
-		 2009_08_03 OlimilO: must return rounded values
-		*/
+		/* 2009_08_03 OlimilO: must return rounded values */
 		return (CLng(CVar(Expression)));
 	}
 	/**
@@ -110,10 +107,7 @@ public class Conversion {
 	 * @param  Any valid numeric expression. 
 	 */
 	public static int CInt(VBVariant Expression) {
-	    /**
-		*2009_08_03 OlimilO: must return rounded values
-		*
-		*/
+	    /* 2009_08_03 OlimilO: must return rounded values */
 		return java.lang.Math.round((float)Expression.doubleValue());
 	}
 	/**
@@ -266,15 +260,28 @@ public class Conversion {
 		if (Expression == null) return (new java.util.Date()).toString();
 		return (Expression.toLocaleString());
 	}
+	public static String Str(VBVariant Expression) {
+		return (CStr(Expression));
+	}
+/* OlimilO 2009_10_06: */
 	public static VBVariant CVar(Object Expression) {
 		return (new VBVariant(Expression));
 	}
 	public static VBVariant CVar(VBVariant Expression) {
 		return (Expression);
 	}
-	public static String Str(VBVariant Expression) {
-		return (CStr(Expression));
+	public static Exception CVErr(VBVariant e) {
+		return new VBVariant(e);
 	}
+	public static Exception CVErr(int e) {
+		if (e == 9) {
+			return new java.lang.ArrayIndexOutOfBoundsException();
+		}
+		else {
+			return new Exception()
+		};
+		
+	}	
 	public static java.util.Date CDate(VBVariant Expression) {
 		if (Expression.isDate()) return (Expression.toDate());
 		return CDate(Expression.toString());
@@ -288,6 +295,9 @@ public class Conversion {
 			}
 		}
 		return new java.util.Date();
+	}
+	public static VBVariant CDate(Object obj) {
+		return new VBVariant(obj);
 	}
 	private static String Join(String[] val, int max) {
 		StringBuffer strBuffer = new StringBuffer();
@@ -325,9 +335,7 @@ public class Conversion {
 		return java.lang.Integer.toHexString(CopyBytes(Expression)).toUpperCase();
 	}
 	public static VBVariant Fix(VBVariant Expression) {
-		/*
-		 * 2009_08_14 OlimilO: must return only the integer part of the floatingpoint value
-		 */
+		/* 2009_08_14 OlimilO: must return only the integer part of the floatingpoint value */
 		return new VBVariant(Expression.longValue());
 	}
 	public static VBVariant Oct(VBVariant Expression) {
@@ -341,7 +349,7 @@ public class Conversion {
 			return ((float)Expression.doubleValue());
 		} catch (Exception e) {}
 		return (float)0;
-	}	
+	}
 	public static VBVariant CDec(VBVariant Expression) {
 		try {
 			if (Expression.toString().toLowerCase().startsWith("&h")) {
@@ -355,7 +363,7 @@ public class Conversion {
 	public static java.util.Date CVDate(VBVariant Expression) {
 		return CDate(Expression);
 	}	
-	public static int CopyBytes(short s) {
+	public static int CopyB(short s) {
 		//return (s < 0) ? (int)s ^ 0xFFFF0000: (int)s;
 		//*
 		if (s < 0) {
@@ -366,7 +374,7 @@ public class Conversion {
 		}
 		//*/
 	}
-	public static long CopyBytes(int i) {
+	public static long CopyB(int i) {
 		//return (i < 0) ? (long)i ^ 0xFFFFFFFF00000000L: (long)i;
 		//*
 		if (i < 0) {
