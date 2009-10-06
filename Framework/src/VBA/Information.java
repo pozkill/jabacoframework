@@ -16,6 +16,14 @@ Function IsObject(Expression) As Boolean
 
 public class Information {
 	
+	private ErrObject myErr = new ErrObject();
+	
+	public ErrObject EErr() {
+		return myErr;
+	}
+	public void JBThrow (Exception e) throws Exception {
+		throw e;
+	}
 	/*
 	Converts an expression into a Boolean.
 	@author Manuel Siekmann
@@ -119,6 +127,11 @@ public class Information {
 		 if (val == null) return true; 
 		 return false;
 	}
+	public static boolean Is_Nothing(Object val) {
+		 if (val == null) return true; 
+		 return false;
+	}
+	
 	public static boolean IsArray(Object val) {
 		 if (val instanceof VBArray) return true;
 		 return false;
@@ -134,7 +147,7 @@ public class Information {
 			return val.getClass().getName();
 	}
 	
-	public static VBVarType VarType(Object val) {
+	/*public static VBVarType VarType(Object val) {
 		if (IsNull(val)) return VBVarType.vbNull;
 		if (IsArray(val)) return VBVarType.vbArray;
 		if (IsEnum(val)) return VBVarType.vbUserDefinedType;
@@ -148,7 +161,9 @@ public class Information {
 		if (val instanceof Double) return VBVarType.vbDouble;
 		if (val instanceof Boolean) return VBVarType.vbBoolean;
 		if (val instanceof Byte) return VBVarType.vbByte;
-		return VBVarType.vbObject;
+		return VBVarType.vbObject;		
+	}*/
+	public static VBVarType VarType(VBVariant VarName) {
+		return new VBVarType(VarName.VType());
 	}
-
 }

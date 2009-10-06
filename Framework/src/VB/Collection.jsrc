@@ -3,7 +3,7 @@
 Implements IJabacoClass 
 
 Dim myObjectList As New java#util#HashMap 
-Dim myKeyArray As New java#util#LinkedList 
+Dim myKeyArray   As New java#util#LinkedList 
 
 Private Function createUniqueKey(KeyLength As Integer) As String
    Dim i As Integer, ret As String 
@@ -52,7 +52,13 @@ End Function
 'End Function
 
 Public Synchronized Function Iterator() As java#util#Iterator
-   Iterator = myObjectList.keySet().iterator()
+   'Iterator = myObjectList.keySet().iterator()
+   'Bug reported by Faldegast 2009.10.06
+   Iterator = myObjectList.values().iterator()
+End Function
+
+Public Synchronized Function Keys() As java#util#LinkedList
+   Keys = myKeyArray
 End Function
 
 Public Synchronized Function Item(Index As Integer) As Variant 
