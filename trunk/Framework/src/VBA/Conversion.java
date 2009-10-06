@@ -270,17 +270,17 @@ public class Conversion {
 	public static VBVariant CVar(VBVariant Expression) {
 		return (Expression);
 	}
-	public static Exception CVErr(VBVariant e) {
+/*	public static Exception CVErr(VBVariant e) {
 		return new VBVariant(e);
-	}
+	}*/
+	
 	public static Exception CVErr(int e) {
 		if (e == 9) {
 			return new java.lang.ArrayIndexOutOfBoundsException();
-		}
-		else {
-			return new Exception()
 		};
-		
+		//else {
+		return new Exception();
+		//};
 	}	
 	public static java.util.Date CDate(VBVariant Expression) {
 		if (Expression.isDate()) return (Expression.toDate());
@@ -332,7 +332,7 @@ public class Conversion {
 		return java.lang.Integer.toHexString(Expression).toUpperCase();
 	}	
 	public static String Hex(short Expression) {
-		return java.lang.Integer.toHexString(CopyBytes(Expression)).toUpperCase();
+		return java.lang.Integer.toHexString(CopyB(Expression)).toUpperCase();
 	}
 	public static VBVariant Fix(VBVariant Expression) {
 		/* 2009_08_14 OlimilO: must return only the integer part of the floatingpoint value */
