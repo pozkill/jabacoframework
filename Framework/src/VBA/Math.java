@@ -355,18 +355,29 @@ public class Math {
 	public static int ShL(int value, int shift) {
 		return value << shift;
 	}
-	public static long ShL(long value, long shift) {
+	public static long ShL(long value, int shift) {
 		return value << shift;
 	}
 	/**
-	 * shifts the bits of value shift-bits to the right.
+	 * shifts the bits of value shift-bits to the right and keeps the MSB.
 	 * @param value: the value to be shifted. 
 	 * @param shift: the amount of bits to shift the bits of value
 	 */
 	public static int ShR(int value, int shift) {
 		return value >> shift;
 	}
-	public static long ShR(long value, long shift) {
+	public static long ShR(long value, int shift) {
 		return value >> shift;
+	}
+	/**
+	 * shifts the bits of value shift-bits to the right and shifts also the MSB.
+	 * @param value: the value to be shifted. 
+	 * @param shift: the amount of bits to shift the bits of value
+	 */
+	public static int ShRZ(int value, int shift) {
+		return value >>> shift;
+	}
+	public static long ShRZ(long value, int shift) {
+		return value >>> shift;
 	}
 }
