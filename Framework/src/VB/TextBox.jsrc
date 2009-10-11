@@ -199,7 +199,7 @@ Public Property Let BackColorSel(v As Long)
 End Property
 
 Public Property Get ForeColorSel() As Long
-   BackColorSel = ColorToRGB(Parent.getSelectedTextColor())
+   ForeColorSel = ColorToRGB(Parent.getSelectedTextColor())
 End Property
 
 Public Property Let ForeColorSel(v As Long)
@@ -319,6 +319,7 @@ End Property
 Public Property Let BackColor(v As Long)
    Parent.setBackground(RGBtoColor(v))
    Base.setBackground(Parent.getBackground())
+   Parent.setCaretColor(RGBtoColor(NotRGB(v)))
 End Property
 
 Public Property Get ForeColor() As Long

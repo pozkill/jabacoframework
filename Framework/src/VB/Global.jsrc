@@ -735,7 +735,7 @@ End Sub
 
 Public Sub DoEvents()
    On Error Resume Next
-   Call JabacoEventQueque.getJabacoEventQueque.dispatchEvents()
+   Call JabacoEventQueue.getJabacoEventQueue.dispatchEvents()
 End Sub
 
 Public Sub End()

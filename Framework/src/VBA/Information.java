@@ -16,14 +16,14 @@ Function IsObject(Expression) As Boolean
 
 public class Information {
 	
-	private ErrObject myErr = new ErrObject();
+	private static ErrObject myErr = new ErrObject();
 	
-	public ErrObject EErr() {
+	public static ErrObject EErr() {
 		return myErr;
 	}
-	public void JBThrow (Exception e) throws Exception {
+	/*public static void JBThrow (Exception e) throws Exception {
 		throw e;
-	}
+	}*/
 	/*
 	Converts an expression into a Boolean.
 	@author Manuel Siekmann
@@ -93,6 +93,11 @@ public class Information {
 	public static long RGB(int R, int G, int B, int A) {
 		return (long)((A  * 256 * 256 * 256) + (B * 256 * 256) + (G * 256) + R);	
 	}
+	public static long NotRGB(long lRGB) {
+		long lnotrgb = ~ lRGB;
+		return (long)((0xFF000000L & lRGB) | (0xFFFFFFL & lnotrgb));
+	}
+	
 	public static long QBColor(int iColor) {
 		switch (iColor) {
 			case 0:  { return RGB(  0,  0,  0); }
