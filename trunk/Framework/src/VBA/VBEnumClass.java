@@ -29,13 +29,29 @@ public class VBEnumClass extends VBVariant implements IResource {
 	 * returns the name of this constant
 	 */
 	public String getName() throws Exception {
-		java.lang.reflect.Field[] fs = this.getClass().getFields();
-		String s = "";
-		VBVariant v1 = null;
-		VBVariant v2 = (VBVariant)this;
+		java.lang.reflect.Field[] fs = this.getClass().getFields();		
+		VBVariant vthis = (VBVariant)this;
+		long lvthis = vthis.longValue();
+		String s = getName1(fs, vthis);
+		if (s == null) {
+			s = "";
+			VBVariant[] vs = this.getEnumValues();
+			long lv = 0;
+			for (int i = 0; i < vs.length; ++i) {
+				lv = vs[i].longValue();
+				if ((lvthis & lv) == lv) {
+					s = s + " " + getName1(fs, vs[i]);
+				}
+			}
+		}
+		return s;
+	}
+	private String getName1(java.lang.reflect.Field[] fs, VBVariant vthis) throws Exception {
+		VBVariant v = null;
+		String s = null;
 		for (int i = 0; i < fs.length; ++i) {
-		   v1 = (VBVariant)fs[i].get(this);
-		   if (v1.compareTo(v2) == 0) {
+		   v = (VBVariant)fs[i].get(this);
+		   if (vthis.compareTo(v) == 0) {
 				s = fs[i].getName();
 				break;
 		   }

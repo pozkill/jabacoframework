@@ -59,7 +59,9 @@ public class ErrObject {
 	public String $Source() {
 		return mySource;
 	}
-		
+	public void Raise(Exception e) throws Exception {
+		throw e;
+	}		
 	public void Raise(int number) throws Exception {
 		throw Conversion.CVErr(number);
 	}
@@ -69,6 +71,9 @@ public class ErrObject {
 		myHelpFile = HelpFile;
 		myHelpContext = HelpContext;
 		myNumber = number;
+		Exception e;
+		e = new Exception(myDescription);
+		throw e;
 	}	
 }
 /*
