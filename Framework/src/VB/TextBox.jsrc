@@ -312,6 +312,15 @@ Public Property Get Font() As Font
    Font = Parent.getFont()
 End Property
 
+'Public Property Get BackColor() As java#awt#Color
+'   BackColor = Parent.getBackground()
+'End Property
+'Public Property Let BackColor(v As java#awt#Color)
+'   Parent.setBackground(v)
+'   Base.setBackground(Parent.getBackground())
+'   Parent.setCaretColor(New java#awt#Color(Not v.getRGB))
+'End Property
+
 Public Property Get BackColor() As Long
    BackColor = ColortoRGB(Parent.getBackground())
 End Property
@@ -321,6 +330,14 @@ Public Property Let BackColor(v As Long)
    Base.setBackground(Parent.getBackground())
    Parent.setCaretColor(RGBtoColor(NotRGB(v)))
 End Property
+
+'Public Property Get ForeColor() As java#awt#Color
+'   BackColor = Parent.getForeground()
+'End Property
+'Public Property Let ForeColor(v As java#awt#Color)
+'   Parent.setForeground(v)
+'   Base.setForeground(Parent.getBackground())
+'End Property
 
 Public Property Get ForeColor() As Long
    ForeColor = ColortoRGB(Parent.getForeground())
