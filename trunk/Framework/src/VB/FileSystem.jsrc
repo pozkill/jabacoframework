@@ -31,27 +31,38 @@ Enum VbFileAttribute
    vbAlias     = &H40
 End Enum
 
-Dim myFHList   As New java#util#ArrayList '(1 to 10) As VBFileHandler 
+Dim myFHList(255) As VBFileHandler 
 Dim myCurIndex As Integer
 Dim myCurFHnd  As VBFileHandler
 Dim myFilePos  As Integer = 1 ' aka Seek
 
+'OlimilO 26.oct.2009
+'Public Function FreeFile(Optional RangeNumber As Variant) As Integer
+'in VB6 originally there were two Lists:
+'RangeNumber = 0:  FreeFile returns 1-255
+'RangeNumber = 1:  FreeFile returns 256-512
+'End Function
 Public Function FreeFile() As Integer
-   If myFHList.size > 1 Then   
-      myCurIndex = myFHList.size
-   Else
-      myCurIndex = 1
-   End If
+   Dim i As Integer = 1
+   'the lowest  number is 1
+   'the highest number is 255
+   While (myFHList(i) <> Nohting)
+      i = i + 1
+      If i > 255 Then
+         Throw New java#io#IOException
+      End If
+   Wend
+   myCurIndex = i
    FreeFile = myCurIndex
 End Function
 Private Sub SetCurFileHandler(FileNr As Integer)
+   If FileNr > 255 then Throw New java#lang#ArrayIndexOutOfBoundsException 'remove if you want to extend to 512
+   If FileNr > 512 then Throw New java#lang#ArrayIndexOutOfBoundsException
+   
    If myCurIndex <> FileNr Then
       myCurIndex = FileNr
-      If myCurIndex > 0 Then
-         If myFHList.size >= myCurIndex Then
-            myCurFHnd = Cast(myFHList.get(myCurIndex - 1), VBFileHandler)
-         End If
-      End If
+	  myCurFHnd = myFHList(myCurIndex)
+	  If myCurFHnd = Nothing then Throw New java#lang#IllegalArgumentException
    End If
 End Sub
 
@@ -79,13 +90,17 @@ End Function
 Public Sub Open(Path As String, Mode As VBFileMode, FileNr As Integer) 
    Open(Path, Mode, ReadAndWrite, Shared, FileNr)   
 End Sub
+
 Public Sub Open(Path As String, Mode As VBFileMode, Access As VBFileAccess, FileNr As Integer) 
    Open(Path, Mode, Access, Shared, FileNr)   
 End Sub
+
 Public Sub Open(Path As String, Mode As VBFileMode, Access As VBFileAccess, Lock As VBFileLock, FileNr As Integer) 
-   myCurFHnd = Open(Path, Mode, Access, Lock)   
-   myFHList.add(myCurFHnd)
-   myCurIndex = myFHList.size
+'OlimilO 27.10.2009
+   If FileNr > 255 then Throw New java#io#IOException 'remove if you want to extend to 512
+   If FileNr > 512 then Throw New java#io#IOException
+   myFHList(FileNr) = Open(Path, Mode, Access, Lock)
+   SetCurFileHandler(FileNr)
 End Sub
 
 Public Function EOF(Handler As VBFileHandler) As Boolean
@@ -124,7 +139,15 @@ Public Function Put(Handler As VBFileHandler, Text As String, Pos As Integer) As
    If Handler = Nothing Then Exit Function
    Handler.putString Text, Pos
 End Function
-
+'Public Sub Get(FileNr, Pos, VBTypeClass)
+Public Sub Get(FileNr, VBTypeClass)
+   SetCurFileHandler(FileNr)
+   
+End Sub
+Public Sub Put(FileNr, VBTypeClass)
+   SetCurFileHandler(FileNr)
+   
+End Sub
 Public Function ReadLine(Handler As VBFileHandler) As String 
    If Handler = Nothing Then Exit Function
    ReadLine = Handler.readLine()
@@ -145,6 +168,7 @@ Public Sub Print(FileNr As Integer, Text As String, nx As Variant)
 End Sub
 
 Public Sub Line_Input(FileNr As Integer, sBuff As java#lang#StringBuffer)
+   'OlimilO 12.Oct.2009: VB-compatibility
    SetCurFileHandler(FileNr)
    sBuff.setLength(0)
    sBuff.append(myCurFHnd.readLine)
@@ -160,7 +184,7 @@ Public Sub Close(FileNr As Integer)
    SetCurFileHandler(FileNr)
    Close(myCurFHnd)
    myCurFHnd = Nothing
-   myFHList.remove(FileNr - 1)
+   myFHList(myCurIndex) = Nothing
 End Sub
 
 'Public Function EOF(Handler As VBFileHandler) As Boolean 

@@ -9,63 +9,64 @@ import java.io.PrintStream;
 public class ErrObject {
 	//extends Exception???
 	//extends PrintStream???
-	private PrintStream myErr = null;
-	private int myNumber = 0;
-	private String mySource = null;
-	private String myDescription = null;
-	private String myHelpFile = null;
-	private String myHelpContext = null;
+	private static PrintStream myErr = null;
+	private static int myNumber = 0;
+	private static String mySource = null;
+	private static String myDescription = null;
+	private static String myHelpFile = null;
+	private static String myHelpContext = null;
+	private static ErrObject myInstance = null;
 	
-	public ErrObject() {
+	private ErrObject() {
 		//myErr = java.lang.System.err();
 	}
-	public void Clear() {
+	public static void Clear() {
 		myNumber = 0;
 		mySource = null;
 		myDescription = null;
 		myHelpFile = null;
 		myHelpContext = null;
 	}
-	public void $Description(String newDescription) {
+	public static void $Description(String newDescription) {
 		myDescription = newDescription;
 	}
-	public String $Description() {
+	public static String $Description() {
 		return myDescription;
 	}
-	public void $HelpContext(String newHelpContext) {
+	public static void $HelpContext(String newHelpContext) {
 		myHelpContext = newHelpContext;
 	}
-	public String $HelpContext() {
+	public static String $HelpContext() {
 		return myHelpContext;
 	}
-	public void $HelpFile(String newHelpFile) {
+	public static void $HelpFile(String newHelpFile) {
 		myHelpFile = newHelpFile;
 	}
-	public String $HelpFile() {
+	public static String $HelpFile() {
 		return myHelpFile;
 	}
-	public long LastDllError() {
+	public static long LastDllError() {
 		return 0L;
 	}
-	public void $Number(int newNumber) {
+	public static void $Number(int newNumber) {
 		myNumber = newNumber;
 	}
-	public int $Number() {
+	public static int $Number() {
 		return myNumber;
 	}
-	public void $Source(String newSource) {
+	public static void $Source(String newSource) {
 		mySource = newSource;
 	}
-	public String $Source() {
+	public static String $Source() {
 		return mySource;
 	}
-	public void Raise(Exception e) throws Exception {
+	public static void Raise(java.lang.Throwable e) throws Throwable {
 		throw e;
 	}		
-	public void Raise(int number) throws Exception {
-		throw Conversion.CVErr(number);
+	public static void Raise(int number) throws Throwable {
+		throw Conversion.ErrNumberToThrowable(number, "");
 	}
-	public void Raise(int number, String Source, String Description, String HelpFile, String HelpContext) throws Exception {
+	public static void Raise(int number, String Source, String Description, String HelpFile, String HelpContext) throws Throwable {
 		mySource = Source;
 		myDescription = Description;
 		myHelpFile = HelpFile;
@@ -74,7 +75,11 @@ public class ErrObject {
 		Exception e;
 		e = new Exception(myDescription);
 		throw e;
-	}	
+	}
+	public static ErrObject getInstance() {
+		if (myInstance == null) myInstance = new ErrObject();
+		return myInstance;
+	}
 }
 /*
 Throwable

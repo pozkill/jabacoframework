@@ -43,14 +43,14 @@ public class VBVariant implements java.lang.Comparable {
 	public VBVariant(java.util.Date d)  { setVal(d); } //iTyp =  7
 	public VBVariant(String s)  		{ setVal(s); } //iTyp =  8
 	public VBVariant(Object o)  		{ setVal(o); } //iTyp =  9
-	public VBVariant(Exception e)		{ setVal(e); } //iTyp = 10
+	public VBVariant(Throwable e)		{ setVal(e); } //iTyp = 10
 	public VBVariant(boolean b)			{ setVal(b); } //iTyp = 11
 	//public VBVariant(VBVariant v)		{ setVal(v); } //iTyp = 12
 	//public VBVariant(DataObject data)	{ setVal(data); } //iTyp = 13
 	//public VBVariant(Decimal decim)	{ setVal(decim); } //iTyp = 14
 	public VBVariant(byte b)    		{ setVal(b); } //iTyp = 17
-	//public VBVariant(UserDefType udt)	{ setVal(udt); } //iTyp = 36
-	public VBVariant(IVBArray a)  		{ setVal(a); }
+	public VBVariant(VBTypeClass udt)	{ setVal(udt); } //iTyp = 36
+	public VBVariant(IVBArray a)  		{ setVal(a); }   //iTyp = 8192 + VarType(ArrayElem)
 	
 	public int VType() {
 	   return iTyp;
@@ -362,6 +362,7 @@ public class VBVariant implements java.lang.Comparable {
 				case 4: // Single (float)
 				case 5: // Double
 				case 6: // Currency
+				        // Decimal
 					ret = true;
 			}
 		}
@@ -388,30 +389,32 @@ public class VBVariant implements java.lang.Comparable {
 		} catch (Exception e) { return (""); }
 	}
 	//****************\\  setVal  //****************\\
-	private void setVal(int i) {
+	public void setVal(int i) {
 		Val = new Integer(i); iTyp = 2;
 	}
-	private void setVal(long l) {
+	public void setVal(long l) {
 		Val = new Long(l);    iTyp = 3;
 	}
-	private void setVal(float f) {
+	public void setVal(float f) {
 		Val = new Float(f);    iTyp = 4;
 	}
-	private void setVal(double d) {
+	public void setVal(double d) {
 		Val = new Double(d);   iTyp = 5;
 	}
-/*	private void setVal(VBCurrency c) {
+/*	public void setVal(VBCurrency c) {
 		Val = new VBCurrency(c);  iTyp = 6;
 	}*/
-	private void setVal(java.util.Date d) {
+	public void setVal(java.util.Date d) {
 		Val = d;  iTyp = 7;
 	}
-	private void setVal(String s) {
+	public void setVal(String s) {
 		Val = (String)s;      iTyp = 8;
 	}
-	private void setVal(Object o) {
-		if (o instanceof VBEnumClass) {
+	public void setVal(Object o) {
+		       if (o instanceof VBEnumClass) {
 			setVal(((VBEnumClass)o).longValue());
+		} else if (o instanceof VBTypeClass) {
+			setVal(((VBTypeClass)o));//.intValue());
 		} else if (o instanceof java.lang.Double) {
 			setVal(((java.lang.Double)o).doubleValue());
 		} else if (o instanceof java.lang.Integer) {
@@ -424,27 +427,54 @@ public class VBVariant implements java.lang.Comparable {
 			setVal(((java.lang.Boolean)o).booleanValue()); // ? 1 : 0);
 		} else if (o instanceof java.lang.Byte) {
 			setVal(((java.lang.Byte)o));//.intValue());
+		} else if (o instanceof java.lang.Throwable) {
+			setVal(((java.lang.Throwable)o));//.intValue());
 		} else {
 			Val = o; iTyp = 9; //vbObject
 		}
 	}
+	public void setVal(Throwable e) {
+		Val = e; iTyp = 10;
+	}
 	
-/*	private void setVal(Exception e) {
-		Val = new Exception(e); iTyp = 10;
-	}*/
-	
-	private void setVal(boolean b) {
+	public void setVal(boolean b) {
 		Val = new Boolean(b); iTyp = 11;
 	}
-	private void setVal(VBVariant var) {
+	public void setVal(VBVariant var) {
 		Val = new VBVariant(var); iTyp = 12;
 	}
-   //vbDataObject      = 13
-   //vbDecimal         = 14
-	private void setVal(byte b) {
+    //vbDataObject      = 13
+    //vbDecimal         = 14
+	public void setVal(byte b) {
 		Val = new Byte(b); iTyp = 17;
 	}
-   //vbUserDefinedType = 36
-   //vbArray           = 8192
-	
+    //vbUserDefinedType = 36
+	public void setVal(VBTypeClass udt) {
+		Val = udt; iTyp = 36;
+	}
+    //vbArray           = 8192	
+	public void setVal(IVBArray a) {
+		Val = a; iTyp = 8192;
+		       if (a instanceof VBArrayInteger) {
+			iTyp += 2;
+		} else if (a instanceof VBArrayLong) {
+			iTyp += 3;
+		} else if (a instanceof VBArraySingle) {
+			iTyp += 4;
+		} else if (a instanceof VBArrayDouble) {
+			iTyp += 5;
+		} else if (a instanceof VBArrayDate) {
+			iTyp += 7;
+		} else if (a instanceof VBArrayString) {
+			iTyp += 8;
+		} else if (a instanceof VBArrayObject) {
+			iTyp += 9;
+		} else if (a instanceof VBArrayBoolean) {
+			iTyp += 11;
+		} else if (a instanceof VBArrayVariant) {
+			iTyp += 12;
+		} else if (a instanceof VBArrayByte) {
+			iTyp += 17;
+		}
+	}
 }

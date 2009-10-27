@@ -3,17 +3,18 @@
 Implements IJabacoClass 
 
 ' TODO's: replace read / readline / readall methods
-
-Dim myFile As java#io#File
-Dim myInput As java#io#FileInputStream 
-Dim myInputReader As java#io#BufferedReader
-Dim myOutput As java#io#FileOutputStream 
+'OlimilO 26.oct.2009: why?
+' OlimilO 27.oct.2009 TODO: Serializable, Binary-Mode: DataInputReader, DataOutputstream...
+Dim myFile             As java#io#File
+Dim myInput            As java#io#FileInputStream 
+Dim myInputReader      As java#io#BufferedReader
+Dim myOutput           As java#io#FileOutputStream 
 Dim myInputReadLineMem As String = Nothing
 
 Dim myFilename As String
-Dim myMode As VBFileMode 
-Dim myAccess As VBFileAccess 
-Dim myLock As VBFileLock 
+Dim myMode     As VBFileMode 
+Dim myAccess   As VBFileAccess 
+Dim myLock     As VBFileLock 
 
 Private Sub refresh() 
    myFile = New File(myFilename)

@@ -189,6 +189,12 @@ Public Sub PaintPicture(refImage As Image, x As Single, y As Single)
    myContent.PaintPicture refImage, x, y
 End Sub
 
+Public Sub Print(text As String)
+   'Call myContent.Print(text) 
+   CurrentY = CurrentY + FontSize * 1.75
+   Call Print(text, CurrentX, CurrentY)
+End Sub
+
 Public Sub Print(text As String, x1 As Single, y1 As Single)
    myContent.Print text, x1, y1
 End Sub
@@ -216,10 +222,6 @@ End Function
 Public Function TextHeight(text As String) As Integer
    TextHeight = myContent.TextHeight(text)
 End Function
-
-Public Sub Print(text As String)
-   Call myContent.Print(text)   
-End Sub
 
 Public Property Get CurrentX() As Long
    CurrentX = myContent.CurrentX

@@ -15,11 +15,9 @@ Function IsObject(Expression) As Boolean
 */
 
 public class Information {
-	
-	private static ErrObject myErr = new ErrObject();
-	
+		
 	public static ErrObject EErr() {
-		return myErr;
+		return ErrObject.getInstance();
 	}
 	/*public static void JBThrow (Exception e) throws Exception {
 		throw e;
@@ -97,7 +95,10 @@ public class Information {
 		long lnotrgb = ~ lRGB;
 		return (long)((0xFF000000L & lRGB) | (0xFFFFFFL & lnotrgb));
 	}
-	
+	public static java.awt.Color NegativeColor(java.awt.Color col) {
+		//OlimilO 27.oct.2009
+		return new java.awt.Color((col.getAlpha() << 24) | (0xFFFFFF & (~ col.getRGB())), true);
+	}
 	public static long QBColor(int iColor) {
 		switch (iColor) {
 			case 0:  { return RGB(  0,  0,  0); }
@@ -132,7 +133,7 @@ public class Information {
 		 if (val == null) return true; 
 		 return false;
 	}
-	public static boolean Is_Nothing(Object val) {
+	public static boolean IsNothing(Object val) {
 		 if (val == null) return true; 
 		 return false;
 	}

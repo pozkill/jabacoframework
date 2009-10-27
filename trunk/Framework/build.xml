@@ -11,25 +11,25 @@
 		<format property="build.timestamp.filename" pattern="yyyyMMddHHmm"/>
 	</tstamp>
 
-	<property name="svnant.dir" value = "D:\Inet_Download\JaBaco\Apache-Ant\apache-ant-1.7.1\lib" />
-	<property name="base.dir"   value = "D:\Inet_Download\JaBaco\Framework\Sources\SVN\Checkout\" />
+	<property name="svnant.dir" value = "D:\Inet_Download\Jabaco\Apache-Ant\apache-ant-1.7.1\lib" />
+	<property name="base.dir"   value = "D:\Inet_Download\Jabaco\Framework\Sources\SVN\Checkout\" />
 	<property name="winscp.dir" value = "C:\Programme\WinSCP\WinSCP.exe" />
 	<property name="jabaco.dir" value = "C:\Programme\Jabaco" />
 	
-	<property name="framework.dir"    value = "${base.dir}/Framework" />
-	<property name="history.dir"      value = "${base.dir}/History" />
-	<property name="upload.dir"       value = "${base.dir}/Upload" />
-	<property name="lastbuild.dir"    value = "${base.dir}/LastBuild" />
+	<property name="framework.dir" value = "${base.dir}/Framework" />
+	<property name="history.dir"   value = "${base.dir}/History" />
+	<property name="upload.dir"    value = "${base.dir}/Upload" />
+	<property name="lastbuild.dir" value = "${base.dir}/LastBuild" />
 	
-	<property name="bin.dir" value = "./bin" />
-	<property name="build.dir" value = "./bin-tmp" />
-	<property name="src.dir" value="./src" />
+	<property name="bin.dir"     value = "./bin" />
+	<property name="build.dir"   value = "./bin-tmp" />
+	<property name="src.dir"     value="./src" />
 	<property name="src.project.path" value="${src.dir}/VB/Framework.jba" />
-	<property name="doclet.dir" value="./doclet" />
+	<property name="doclet.dir"  value="./doclet" />
 	<property name="doclet.path" value="${doclet.dir}/bin/JBCDoclet.jar" />
-	<property name="doc.dir" value="./doc" />
-	<property name="extlib.dir" value="./lib" />
-	<property name="manifest" value="${src.dir}/manifest" />
+	<property name="doc.dir"     value="./doc" />
+	<property name="extlib.dir"  value="./lib" />
+	<property name="manifest"    value="${src.dir}/manifest" />
 
 	<!-- create the framework -->
 	<target name="build" depends="clean">
