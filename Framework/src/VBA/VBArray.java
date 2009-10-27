@@ -1,7 +1,8 @@
 package VBA;
+import java.io.Serializable;
 import java.util.*;
 
-public class VBArray implements Cloneable, VBArrayString, VBArrayVariant, VBArrayChar, VBArrayByte, VBArrayDate, VBArrayDouble, VBArrayInteger, VBArrayLong, VBArrayBoolean, VBArraySingle, VBArrayObject, IVBArray {
+public class VBArray implements Cloneable, Serializable, VBArrayString, VBArrayVariant, VBArrayChar, VBArrayByte, VBArrayDate, VBArrayDouble, VBArrayInteger, VBArrayLong, VBArrayBoolean, VBArraySingle, VBArrayObject, IVBArray {
 	Class myClass;
 	int iUBound = -1;
 	int iLBound = 0;
@@ -421,7 +422,7 @@ public class VBArray implements Cloneable, VBArrayString, VBArrayVariant, VBArra
 	public VBArray(int refLBound, int refUBound, int refDimension) throws Exception {
 		setBound(refLBound, refUBound, false);
 		iDimension = refDimension;
-	}	
+	}
 	public VBArray(String strVal) throws Exception {
 		byte[] val = Strings.StringToArray(strVal);
 		setBound(0, val.length-1, false);

@@ -270,18 +270,76 @@ public class Conversion {
 	public static VBVariant CVar(VBVariant Expression) {
 		return (Expression);
 	}
-/*	public static Exception CVErr(VBVariant e) {
+	/*public static Exception CVErr(VBVariant e) {
 		return new VBVariant(e);
 	}*/
 	
-	public static Exception CVErr(int e) {
-		if (e == 9) {
-			return new java.lang.ArrayIndexOutOfBoundsException();
-		};
-		//else {
-		return new Exception();
-		//};
-	}	
+	public static VBVariant CVErr(int Expression) {
+		return new VBVariant(ErrNumberToThrowable(Expression, ""));
+	}
+	protected static java.lang.Throwable ErrNumberToThrowable(int errnumber, String Description) {
+		switch (errnumber) {
+			case 3: case 20: case 94: case 100:
+				//3:   Return Ohne GoSub  //20:  Resume ohne Fehler //94:  Ungültige Verwendung von Null
+				//100: Anwendungs- oder objektdefinierter Fehler
+				return new java.lang.UnsupportedOperationException(Description); //InvalidOperationException(Description)
+			case 5: case 446: case 448: case 449:
+				//5:   Ungültiger Prozeduraurfuf oder ungültiges Argument //446: Objekt unterstützt keine benannten Argumente
+				//448: Benanntes Argument nicht gefunden //449: Argument ist nicht optional
+				return new java.lang.IllegalArgumentException(Description);
+			case 438:
+				//Objekt unterstützt diese Eigenschaft oder Methode nicht
+				return new java.lang.NoSuchMethodException(Description); // MissingMemberException(Description)
+			case 6:
+				//6: Überlauf
+				return new java.lang.StackOverflowError(Description); // StackOverflowException(Description)
+			case 7: case 14:
+				//7: Nicht genügend Speicher //14: Nicht genügend Zeichenfolgenspeicher
+				return new java.lang.OutOfMemoryError(Description); // OutOfMemoryException(Description)
+			case 9:
+				//9: Index außerhalb des gültigen Bereichs
+				return new java.lang.IndexOutOfBoundsException(Description); // IndexOutOfRangeException(Description)
+			case 11:
+				//11: Division durch Null 
+				// -> is no longer an error
+				return new java.lang.ArithmeticException(Description); // DivideByZeroException(Description)
+			case 13:
+				// Typen unverträglich
+				return new java.lang.ClassCastException(Description); // InvalidCastException(Description)
+			case 28:
+				//28: Nicht genügend Stapelspeicher
+				return new java.lang.StackOverflowError(Description); // StackOverflowException(Description)
+			case 48:
+				//48: Fehler beim Laden einer DLL
+				return new java.lang.TypeNotPresentException(Description, null); // TypeLoadException(Description) '???
+			case 53:
+				//53: Datei nicht gefunden
+				return new java.io.FileNotFoundException(Description); // FileNotFoundException(Description)
+			case 62:
+				//62: Einlesen hinter Dateiende
+				return new java.io.EOFException(Description); // EndOfStreamException(Description)
+			case 52: case 54: case 55: case 57: case 58: case 59: case 61: case 63: case 67: case 68: case 70: case 71: case 74: case 75:
+				//52: Dateiname oder -nummer falsch
+				return new java.io.IOException(Description); //
+			case 76: case 432:
+				//76: Pfad nicht gefunden
+				return new java.io.FileNotFoundException(Description); //
+			case 91:
+				//91: Objektvariable oder With-Blockvariable nicht festgelegt
+				return new java.lang.NullPointerException(Description); //
+			case 422:
+				//422: Eigenschaft nicht gefunden
+				return new java.lang.NoSuchFieldException(Description); // MissingFieldException(Description)
+			case 429: case 462:
+			    //429: Objekterstellung durch ActiveX-Komponente nicht möglich
+				//462: Der Remote-Server-Computer existiert nicht oder ist nicht verfügbar.
+				return new java.lang.Exception(Description); //
+			case -2147467261:
+				//Automatisierungsfehler ungültiger Zeiger
+				return new java.lang.RuntimeException(Description); //AccessViolationException
+		}	
+		return new java.lang.Exception(Description);
+	}
 	public static java.util.Date CDate(VBVariant Expression) {
 		if (Expression.isDate()) return (Expression.toDate());
 		return CDate(Expression.toString());

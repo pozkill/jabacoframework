@@ -26,6 +26,19 @@ Public Function GetText() As String
    End If
 End Function
 
+Public Sub SetData(obj As Transferable)
+   If SysInfo.SecurityMode = False Then 
+      myClipBoard.setContents Obj, Null
+   End If
+End Sub
+
+Public Function GetData() As Transferable
+   If SysInfo.SecurityMode = False Then 
+      On Error Resume Next
+      GetData = myClipBoard.getContents(Null)
+   End If
+End Function
+
 Public Sub Clear()  
    If SysInfo.SecurityMode = False Then 
       Call SetText(vbNullString)

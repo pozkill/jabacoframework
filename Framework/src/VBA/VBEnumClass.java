@@ -1,6 +1,6 @@
 package VBA;
 
-public class VBEnumClass extends VBVariant implements IResource {
+public class VBEnumClass extends VBVariant implements IResource, java.io.Serializable {
 	
 
 	// just flagging

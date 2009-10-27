@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+ <Jabaco type="language">
+	<Information>
+		<Item Name="Codepage" value="238" name="Central European"/>
+		<Item Name="Name" value="Romana"/>
+	</Information>
+	<MainForm>
+		<Item Name="Line" value="Linie" />
+		<Item Name="mnuFile" value="Fisier" />
+			<Item Name="mnuNew" value="Proiect Nou..."/>
+			<Item Name="mnuOpen" value="Deschide Proiect..."/>
+			<Item Name="mnuSave" value="Salvare Proiect"/>
+			<Item Name="mnuSaveAs" value="Salvare Proiect ca..."/>
+			<Item Name="mnuClose" value="Inchide Proiect"/>
+			<Item Name="mnuCreateDoc" value="Creare Documentatie..."/>
+			<Item Name="mnuCreate" value="Generare executabil..."/>
+			<Item Name="mnuEnd" value="Exit"/>
+		<Item Name="mnuEdit" value="Edit"/>
+			<Item Name="mnuUndo" value="Undo"/>
+			<Item Name="mnuRedo" value="Redo"/>
+			<Item Name="mnuCut" value="Decupeare"/>
+			<Item Name="mnuCopy" value="Copiere"/>
+			<Item Name="mnuPaste" value="Lipire"/>
+			<Item Name="mnuDelete" value="Stergere"/>
+			<Item Name="mnuPrint" value="Printare..."/>
+			<Item Name="mnuSelectAll" value="Selectare Toate"/>
+			<Item Name="mnuRefreshAC" value="Reimprospateaza Autocompletare"/>
+			<Item Name="mnuAddDoc" value="Adauga Documentatie"/>
+			<Item Name="mnuSearch" value="Cauta..."/>
+			<Item Name="mnuSearchThrough" value="Cauta mai Departe"/>
+			<Item Name="mnuReplace" value="Inlocuieste..."/>
+			<Item Name="mnuGotoDefinition" value="Definitie"/>
+			<Item Name="mnuGotoLastPosition" value="Ultima Pozitie"/>
+			<Item Name="mnuLookAndFeel" value="Previzualizare"/>
+		<Item Name="mnuProject" value="Proiect"/>
+			<Item Name="mnuRun" value="Start"/>
+			<Item Name="mnuRunFull" value="Start cu Compilare Totala"/>
+			<Item Name="mnuEndBlockStep" value="Sari peste procedura"/>
+			<Item Name="mnuSingleStep" value="Sari un pas"/>
+			<Item Name="mnuBlockStep" value="Sari peste bloc"/>
+			<Item Name="mnuReturnStep" value="Intoarcere un pas"/>
+			<Item Name="mnuWorkingDirectory" value="Deschide Directorul de Lucru"/>
+			<Item Name="mnuToggleBreakpoint" value="Activare / Dezactivare Intrerupere"/>
+			<Item Name="mnuToggleMarker" value="Activare / Dezactivare Bookmark"/>
+			<Item Name="mnuGotoMarker" value="Urmatorul Bookmark"/>
+			<Item Name="mnuImports" value="Referinte (Calea clasei)..."/>
+		<Item Name="mnuExtras" value="Suplimentare"/>
+			<Item Name="mnuOptions" value="Optiuni"/>
+			<Item Name="mnuLanguageList" value="Limba"/>
+		<Item Name="mnuHelp" value="?"/>
+			<Item Name="mnuWebPage" value="Homepage"/>
+			<Item Name="mnuWebCommunity" value="Forum utilizatori"/>
+			<Item Name="mnuOrder" value="Activare"/>
+			<Item Name="mnuUpdate" value="Actualizare Jabaco"/>
+			<Item Name="mnuInfo" value="Info"/>
+		<Item Name="cmdAddClass" value="Adauga Fisier..."/>
+		<Item Name="mnuAddClass" value="Adauga Fisier..."/>
+			<Item Name="mnuForm" value="Forma"/>
+			<Item Name="mnuDialog" value="Dialog"/>
+			<Item Name="mnuMDIForm" value="Forma MDI"/>
+			<Item Name="mnuMDIChild" value="MDI-Child"/>
+			<Item Name="mnuApplet" value="Applet"/>
+			<Item Name="mnuUsercontrol" value="Control Utilizator"/>
+			<Item Name="mnuModul" value="Modul"/>
+			<Item Name="mnuClass" value="Modul de clasa"/>
+			<Item Name="mnuInterface" value="Interfata"/>
+			<Item Name="mnuResource" value="Resurse"/>
+			<Item Name="mnuSaveFileAs" value="Salvare ca..."/>
+			<Item Name="mnuAddFile" value="Adauga Fisier..."/>
+			<Item Name="mnuDelete" value="Sterge"/>
+		<Item Name="mnuComment" value="Comenteaza Bloc"/>
+		<Item Name="mnuUnComment" value="Anuleaza Comentare Block"/>
+		<Item Name="mnuNextPage" value="Pagina Urmatoare"/>
+		<Item Name="mnuLastPage" value="Ultima Pagina"/>
+		<Item Name="mnuStop" value="Intrerupere"/>
+		<Item Name="mnuCancel" value="Sfarsit"/>
+		<Item Name="mnuGotoFlag" value="Urmatorul Flag"/>
+		<Item Name="mnuAddFlag" value="Adauga Flag"/>
+		<Item Name="mnuRemoveFlag" value="Sterge Flag"/>
+		<Item Name="mnuStackTrace" value="Afisare Stiva (Stack-Trace)"/>
+		<Item Name="cmdRefresh" value="Reimprospatare"/>
+		<Item Name="lblPropertiesTitle" value="Proprietati"/>
+		<Item Name="lblProjectExplorerTitle" value="Proiect"/>
+		<Item Name="lblToolBoxTitle" value="Unelte"/>
+		<Item Name="cmdColorDialog" value="Afiseaza Selector de Culori"/>
+		<Item Name="treeProject" value="Proiect"/>
+		<Item Name="treeForms" value="Forme"/>
+		<Item Name="treeModules" value="Module"/>
+		<Item Name="treeClasses" value="Module de Clasa"/>
+		<Item Name="treeInterfaces" value="Interfete"/>
+		<Item Name="treeResources" value="Resurse"/>
+		<Item Name="lblImportStatusTitle" value="Importa..."/>
+		<Item Name="(General)" value="(General)"/>
+		<Item Name="(Declarations)" value="(Declaratii)"/>
+		<Item Name="cmdDialogYes" value="Da"/>
+		<Item Name="cmdDialogPerm" value="Permanent"/>
+		<Item Name="cmdDialogCancel" value="Anulare"/>
+		<Item Name="lblRemoveMessage" value="Doriti sa eliminati acest fisier din proiect?"/>
+	</MainForm>
+	<Register>
+		<Item Name="lblState" value="Stadiu:" />
+		<Item Name="lblMail" value="E-Mail:" />
+		<Item Name="lblKey" value="Cheie:" />
+		<Item Name="lblTopic" value="Obtineti versiunea cu functionalitate deplina a programului Jabaco." />		
+		<Item Name="lblInfo" value="Cheia de licentiere v-a fost trimisa." />
+		<Item Name="cmdActivate" value="Activare" />
+		<Item Name="cmdOrder" value="Comanda acum..." />
+		<Item Name="cmdLater" value="Mai tarziu" />
+		<Item Name="cmdClose" value="Inchide" />
+	</Register>
+    <Update>
+		<Item Name="lblTopic" value="O actualizare a programului Jabaco este disponibila." />
+		<Item Name="lblDownloadCaption" value="Download:" />
+		<Item Name="lblVersionCaption" value="Versiune-Istoric:" />
+		<Item Name="cmdClose" value="Inchide" />
+	</Update>
+	<InfoForm>
+		<Item Name="cmdClose" value="Inchide"/>
+	</InfoForm>
+	<Classbrowser>
+		<Item Name="lblTopic" value="Pachet / Folder:"/>
+		<Item Name="lblMissingClasspath" value="Clase Lipsa"/>
+		<Item Name="lblClassName" value="Numele clasei:"/>
+		<Item Name="cmdAddJar" value="Adauga Arhiva Jar..."/>
+		<Item Name="cmdAddFolder" value="Adauga Folder..."/>
+		<Item Name="cmdDeleteClasspath" value="Sterge Arhiva"/>
+		<Item Name="cmdFindClass" value="Cauta Clasa"/>
+		<Item Name="cmdShowClass" value="Afiseaza Clasa"/>
+		<Item Name="cmdClose" value="Inchide"/>
+		<Item Name="cmdClean" value="Curata"/>
+		<Item Name="cmdBack" value="Inchide"/>
+		<Item Name="mnuCopy" value="Copiaza Nume"/>
+		<Item Name="mnuCopyFull" value="Copiaza Calea Intreaga"/>
+	</Classbrowser>
+	<Classfinder>
+		<Item Name="lblTopic" value="Selecteaza un Fisier Clasa:"/>
+		<Item Name="cmdSelect" value="{amp}Selecteaza"/>
+		<Item Name="cmdClose" value="{amp}Inchide"/>
+	</Classfinder>
+	<NewProject>
+		<Item Name="lblCaption" value="Proiect nou"/>
+		<Item Name="tabNew" value="Nou"/>
+		<Item Name="tabCurrent" value="Recente"/>
+		<Item Name="cmdOpenProject" value="Deschide Proiect Existent..."/>
+		<Item Name="cmdOpen" value="Deschide"/>
+		<Item Name="cmdCancel" value="Anuleaza"/>
+		<Item Name="optWinProject" value="Aplicatie SDI"/>
+		<Item Name="optMDIProject" value="Aplicatie MDI"/>
+		<Item Name="optWebProject" value="Applet WEB"/>
+		<Item Name="optDOSProject" value="Aplicatie Consola"/>
+		<Item Name="optComponent" value="Biblioteca de clasa"/>
+		<Item Name="lblFile" value="Fisier"/> 
+		<Item Name="lblPath" value="Cale"/>
+	</NewProject>
+	<SearchDialog>
+		<Item Name="lblCaption" value="Cauta"/>
+		<Item Name="cmdSearch" value="Cauta"/>
+		<Item Name="cmdSearchNormal" value="Cauta mai departe"/>
+		<Item Name="cmdSearchReplace" value="Inlocuieste"/>
+		<Item Name="cmdCancel" value="Inchide"/>
+		<Item Name="cmdSetReplaceModeOn" value="Mod de inlocuire ..."/>
+		<Item Name="cmdSetReplaceModeOff" value="Mod de cautare ..."/>
+		<Item Name="cmdReplace" value="Inlocuieste"/>
+		<Item Name="cmdReplaceAll" value="Inlocuieste pe toate"/>
+		<Item Name="lblSearch" value="Cauta:"/>
+		<Item Name="lblReplace" value="Inlocuieste cu:"/>
+		<Item Name="frmSearchLimit" value="Cauta in:"/>
+		<Item Name="optSearchBy1" value="Textul Selectat"/>
+		<Item Name="optSearchBy2" value="Modulul Curent"/>
+		<Item Name="optSearchBy3" value="Proiectul Curent"/>
+		<Item Name="chkSearchWord" value="Gaseste doar Cuvinte Intregi"/>
+		<Item Name="chkCaseSensitive" value="Potrivire Majuscule/ Minuscule"/>
+		<Item Name="chkSearchList" value="Afisare Rezultate"/>
+		<Item Name="lblListCountText" value="Elemente gasite."/>
+		<Item Name="lblDirection" value="Directie:"/>
+		<Item Name="cboDirectionUp" value="Sus"/>
+		<Item Name="cboDirectionDown" value="Jos"/>
+		<Item Name="cmdJumpTo" value="Trimitere la"/>
+		<Item Name="lblSource" value="Sursa"/>
+		<Item Name="lblLine" value="Linie"/>
+		<Item Name="lblText" value="Text"/>
+	</SearchDialog>
+	<GeneralText>
+		<Item Name="ExeFile" value="Fisier Exe"/>
+		<Item Name="JarFileWithHTML" value="Fisier Jar + HTML"/>
+		<Item Name="JarFile" value="Fisier Jar"/>
+		<Item Name="AllFiles" value="Toate fisierele"/>
+	</GeneralText>
+	<Messages>
+		<Item Name="SEARCH_NOTFOUND" value="Textul cautat nu a fost gasit."/>
+		<Item Name="SEARCH_REPLACE_ELEMENTS" value="S-a efectuat cautare in regiunea specificata."/>
+		<Item Name="SEARCH_REPLACE_ELEMENTS_COUNT" value="S-au facut %1 inlocuiri."/>
+		<Item Name="FILE_NOT_FOUND" value="Acest fisier nu a fost gasit: '%1'!"/>
+		<Item Name="DEBUGGER_RESTART" value="Aceasta actiune va reseta proiectul. Doriti sa il restartati?"/>
+		<Item Name="INTERFACE_NOT_IMPLEMENTED" value="Aceasta clasa implementeaza '%1'. Doriti sa implementati toate metodele necesare pentru aceasta interfata?"/>
+		<Item Name="PROJECT_END_WHILERUNNING" value="Actiunea va cauza iesirea din depanator. Continuati?"/>
+		<Item Name="PROJECT_END_SAVECHANGES" value="Salvati schimbarile?"/>
+		<Item Name="PROJECT_CREATEFILE_ERROR" value="Eroare la crearea '%1'!"/>
+		<Item Name="PROJECT_SELECT_PROJECT" value="Selectati un proiect!"/>
+		<Item Name="GUICLASS_NOTFOUND" value="Erori la incarcare. Clasa '%2' folosita de '%1' nu a putut fi gasita! Eliminati '%1'?"/>
+		<Item Name="CLASSBROWSER_NOSEL" value="Selectati calea clasei!"/>
+		<Item Name="CLASSBROWSER_CORESEL" value="Nu se poate elimina calea clasei; este in curs de utilizare!"/>
+		<Item Name="CLASSBROWSER_CONFIRMDELETE" value="Vreti sa eliminati calea clasei '%1' din proiect?"/>
+		<Item Name="CLASSBROWSER_DELETE_ERROR" value="Nu se poate elimina calea clasei!"/>
+		<Item Name="JABACO_CANTFIND_SIGNATURE" value="Lipseste semnatura. Variabila: '%1' Metoda: '%2' Clasa: '%3' !" />
+		<Item Name="GUIEDITOR_PASTE_SELCONTAINER" value="Selectati un container!"/>
+		<Item Name="GUIEDITOR_PASTE_INVALID" value="Format invalid!"/>
+		<Item Name="PROJECT_LOAD_ERROR" value="Erori la incarcare. '%1' nu poate fi incarcat!"/>
+		<Item Name="PROJECT_NOTFOUND" value="Proiectul '%1' nu poate fi gasit."/>
+		<Item Name="COMPILER_ERROR" value="Eroare de compilare. Clasa: '%1' linia: %2{crlf}%3"/>
+	</Messages>
+	<CompilerMessages>
+		<Item Name="GLOBAL::MISSING_CONSTRUCTOR" value="Constructorul pentru clasa '%1' nu se poate gasi!"/>
+		<Item Name="GLOBAL::MISSING_CONSTRUCTOR_UNKNOWN" value="Constructorul nu a fost gasit!"/>
+		<Item Name="GLOBAL::MISSING_EVENT" value="Evenimentul nu a fost gasit!"/>
+		<Item Name="GLOBAL::MISSING_BASECLASS" value="Clasa de baza '%1' nu a fost gasita!"/>
+		<Item Name="GLOBAL::MISSING_BASECLASS_UNKNOWN" value="Clasa de baza nu a fost gasita"/>
+		<Item Name="GLOBAL::MISSING_CLASS" value="Clasa '%1' nu a fost gasita!"/>
+		<Item Name="GLOBAL::MISSING_CLASS_UNKNOWN" value="Clasa nu a fost gasita!"/>
+		<Item Name="GLOBAL::MISSING_CLASS_BYGUIOBJECT" value="Clasa pentru '%1' nu a fost gasita!"/>
+		<Item Name="GLOBAL::MISSING_CLASS_BYPROPERTY" value="Clasa pentru proprietatea '%1' nu a fost gasita!"/>
+		<Item Name="GLOBAL::MISSING_VAR" value="Variabila '%1' nu este definita!"/>
+		<Item Name="GLOBAL::MISSING_ENDENUM" value="Enum fara End Enum"/>
+		<Item Name="GLOBAL::MISSING_ENDTYPE" value="Type fara End Type"/>
+		<Item Name="GLOBAL::MISSING_ENDPROPERTY" value="Property fara End Property"/>
+		<Item Name="GLOBAL::MISSING_ENDSUB" value="Sub fara End Sub"/>
+		<Item Name="GLOBAL::MISSING_ENDFUNCTION" value="Function fara End Function"/>
+		<Item Name="GLOBAL::MISSING_FOR" value="Exit For fara For"/>
+		<Item Name="GLOBAL::MISSING_DO" value="Exit Do fara Do"/>
+		<Item Name="GLOBAL::MISSING_WEND" value="Function fara End Function"/>
+
+		<Item Name="GLOBAL::UNEXPECTED_END" value="Element neasteptat: Sfarsit de declaratie!"/>
+		<Item Name="GLOBAL::UNEXPECTED_ARRAY" value="Element neasteptat: Vector!"/>
+		<Item Name="GLOBAL::UNEXPECTED_EXITCODE" value="Element neasteptat: End or Exit!"/>
+		<Item Name="GLOBAL::UNEXPECTED_ERROR" value="Eroare de compilare: %1!"/>
+		<Item Name="GLOBAL::UNEXPECTED_OPERATOR" value="Element neasteptat: Operator '%1'!"/>
+		<Item Name="GLOBAL::UNEXPECTED_OPERATOR_UNKNOWN" value="Element neasteptat: Operator!"/>
+		<Item Name="GLOBAL::UNEXPECTED_ENDLINE" value="Element neasteptat: Sfarsit de linie!"/>
+		<Item Name="GLOBAL::UNEXPECTED_ELSE" value="Else fara If"/>
+		<Item Name="GLOBAL::UNEXPECTED_ELSEIF" value="ElseIf fara If"/>
+		<Item Name="GLOBAL::UNEXPECTED_ELSECASE" value="Case Else fara Select Case"/>
+		<Item Name="GLOBAL::UNEXPECTED_CASE" value="Case fara Select Case"/>
+		<Item Name="GLOBAL::UNEXPECTED_BASECLASS_INTERFACE" value="Clasa de baza invalida!"/>
+		<Item Name="GLOBAL::UNEXPECTED_BYJAVA" value="Expected: Identificator!"/>
+		<Item Name="GLOBAL::UNEXPECTED_ASSIGN_BYJAVA_MULTIDIMENSION" value="Se astepta: vector unidimensional!"/>
+		<Item Name="GLOBAL::UNEXPECTED_BYVAL" value="Se astepta: Identificator!'"/>
+		<Item Name="GLOBAL::UNEXPECTED_INSTRUCTION" value="Functia sau variabila nu e definita!"/>
+		<Item Name="GLOBAL::UNEXPECTED_ENUMVALUE" value="Tip gresit!"/>
+		
+		<Item Name="GLOBAL::EXPECTED" value="Se astepta: %1"/>
+		<Item Name="GLOBAL::EXPECTED_IDENTIFIER" value="Se astepta: Identificator"/>
+		<Item Name="GLOBAL::EXPECTED_FUNCTION_OR_VAR" value="Se astepta: Variabila sau Functie"/>
+		<Item Name="GLOBAL::EXPECTED_LABEL" value="Se astepta: Eticheta"/>
+		<Item Name="GLOBAL::EXPECTED_GOTO_OR_RESUME" value="Se astepta: GoTo sau Resume"/>
+		<Item Name="GLOBAL::EXPECTED_EXPRESSION" value="Se astepta: Expresie"/>
+		<Item Name="GLOBAL::EXPECTED_OBJECT" value="Se astepta: Obiect"/>
+		<Item Name="GLOBAL::EXPECTED_SYMBOL" value="Se astepta: Simbol"/>
+		<Item Name="GLOBAL::EXPECTED_CLASS" value="Se astepta: Clasa"/>
+		<Item Name="GLOBAL::EXPECTED_STATIC_METHOD" value="Se astepta: Metoda Statica"/>
+		<Item Name="GLOBAL::EXPECTED_WHILE_OR_UNTIL" value="Se astepta: While sau Until sau sfarsit de declaratie"/>
+		<Item Name="GLOBAL::EXPECTED_ASSIGNMENT" value="Se astepta: Atribuire"/>
+		<Item Name="GLOBAL::EXPECTED_CONSTANT_OR_VAR_OR_EXPRESSION" value="Se astepta: Variabila sau declaratie"/>
+		<Item Name="GLOBAL::EXPECTED_NUMBER" value="Se astepta: Numar!"/>
+		<Item Name="GLOBAL::EXPECTED_INSTRUCTIONEND" value="Se astepta: Sfarsit de declaratie"/>
+		<Item Name="GLOBAL::EXPECTED_IDENTIFIER" value="Se astepta: Identificator"/>
+		<Item Name="GLOBAL::EXPECTED_STEP_OR_INSTRUCTIONEND" value="Se astepta: Pas (step) sau sfarsit de declaratie"/>
+		<Item Name="GLOBAL::EXPECTED_CASE" value="Se astepta: Case"/>
+		<Item Name="GLOBAL::EXPECTED_ARRAY" value="Se astepta: Vector"/>
+		<Item Name="GLOBAL::EXPECTED_ARRAY_INDEX" value="Se astepta: Index de vector"/>
+		<Item Name="GLOBAL::EXPECTED_VARIABLE" value="Se astepta: Variabila"/>
+		<Item Name="GLOBAL::EXPECTED_GET_OR_LET" value="Se astepta: Get sau Let sau Set"/>
+		<Item Name="GLOBAL::EXPECTED_THROWABLE" value="Se astepta Variabila-'Throwable'"/>
+		<Item Name="GLOBAL::EXPECTED_GOTO_LABEL" value="Se astepta: Eticheta"/>
+		<Item Name="GLOBAL::EXPECTED_EVENT" value="Se astepta: Eveniment"/>
+		<Item Name="GLOBAL::EXPECTED_BYJAVA_ASSIGN" value="Se astepta: Jabaco-Vector"/>
+
+		<Item Name="GLOBAL::PROTECTED_CONST" value="Nu se permite atribuirea in cazul constantelor!"/>
+		<Item Name="GLOBAL::PROTECTED_WITHEVENTS" value="Atribuirea variabilelor WithEvent nu este permisa!"/>
+
+		<Item Name="GLOBAL::UNSUPPORTED_FEATURE" value="Neimplementat: '%1'"/>
+		<Item Name="GLOBAL::UNSUPPORTED_ASSIGN" value="Atribuirea '%1' nu este permisa!"/>
+		<Item Name="GLOBAL::UNSUPPORTED_DATATYPE_FOR_OPERATION" value="Tip de data invalid '%1' for '%2'!"/>
+		<Item Name="GLOBAL::UNSUPPORTED_OUTSIDE_CLASSMODULES" value="Valid doar in modulul obiect!"/>
+
+		<Item Name="GLOBAL::ALREADYEXISTS_EVENT" value="S-a detectat un eveniment ambiguu: %1"/>
+		<Item Name="GLOBAL::ALREADYEXISTS_PROPERTY" value="S-a detectat o proprietate ambigua: %1"/>
+		<Item Name="GLOBAL::ALREADYEXISTS_LABEL" value="S-a detectat o eticheta ambigua: %1"/>
+		<Item Name="GLOBAL::ALREADYEXISTS_METHOD" value="S-a detectat o metoda ambigua: %1"/>
+		<Item Name="GLOBAL::ALREADYEXISTS_VAR_BYMETHOD" value="S-a detectat o variabila ambigua: %1"/>
+		<Item Name="GLOBAL::ALREADYEXISTS_VAR_BYCLASS" value="S-a detectat o variabila ambigua: %1"/>
+
+		<Item Name="CONVERSION::FAILED" value="Tip gresit."/>
+		<Item Name="CONVERSION::STACKCONVERSION_TYPE_NOTSUPPORTED" value="Conversia automata pentru acest tip nu este inca implementata!"/>
+		<Item Name="CONVERSION::SWITCHSTACK_TYPE_NOTSUPPORTED" value="Conversia automata pentru acest tip nu este inca implementata! (SwitchStack)!"/>
+		<Item Name="CONVERSION::BOXING_CLASSNOTFOUND" value="Nu exista Boxing class pentru conversie automata!"/>
+		<Item Name="CONVERSION::NOT_SUPPORTED" value="Conversia automata '%1' la '%2' nu este implementata!"/>
+		<Item Name="CONVERSION::NOT_POSSIBLE" value="Tip gresit. S-a gasit '%1' dar '%2' este necesar!"/>
+		
+		<Item Name="CHECKINTERFACE::NEW_METHODS_FOUND_RESTART" value="S-au gasit metode noi!"/>
+		<Item Name="CHECKINTERFACE::MISSING_METHODS" value="Lipsesc metodele pentru interfata '%1'!"/>
+
+		<Item Name="ENUM::UNSUPPORTED_VALUE" value="Valoare invalida '%1' pentru Enum '%2'!"/>
+		<Item Name="ENUM::EMPTY_VALUE" value="Lipseste valoarea pentru Enum '%1'!"/>
+
+		<Item Name="INVOKE::SIGNATURE_ERROR" value="Semnatura de metoda invalida!"/>
+		<Item Name="INVOKE::STATICMETHOD_USE_CLASSNAME" value="Folositi nume de clasa pentru metode statice.{crlf}%1"/>
+		<Item Name="INVOKE::MISSING_METHOD" value="Metoda '%1' nu a fost gasita cu acest parametru!"/>
+		<Item Name="INVOKE::MISSING_METHOD_BYCLASS" value="Lipseste metoda '%2.%1'!"/>
+		<Item Name="INVOKE::MISSING_CONSTRUCTOR" value="Lipseste constructorul!"/>
+		<Item Name="INVOKE::MISSING_CONSTRUCTOR_BYCLASS" value="Constructorul pentru clasa '%1' nu a fost gasit cu acest parametru!"/>
+	</CompilerMessages>
+ </Jabaco>
