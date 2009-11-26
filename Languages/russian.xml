@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
  <Jabaco type="language">
 	<Information>
 		<Item Name="Name" value="Russian"/>
@@ -24,39 +24,39 @@
 			<Item Name="mnuDelete" value="Удалить"/>
 			<Item Name="mnuPrint" value="Печать"/>
 			<Item Name="mnuSelectAll" value="Select All"/>
-			<Item Name="mnuRefreshAC" value="Refresh Autocompletion"/>
-			<Item Name="mnuAddDoc" value="Add Documentation"/>
+			<Item Name="mnuRefreshAC" value="Обновить"/>
+			<Item Name="mnuAddDoc" value="Добавить документы"/>
 			<Item Name="mnuSearch" value="Найти"/>
 			<Item Name="mnuSearchThrough" value="Найти далее"/>
 			<Item Name="mnuReplace" value="Найти и заменить"/>
 			<Item Name="mnuGotoDefinition" value="Определение"/>
 			<Item Name="mnuGotoLastPosition" value="Предыдущее положение"/>
-			<Item Name="mnuLookAndFeel" value="Preview"/>
+			<Item Name="mnuLookAndFeel" value="Просмотреть"/>
 		<Item Name="mnuProject" value="Проект"/>
 			<Item Name="mnuRun" value="Выполнить"/>
 			<Item Name="mnuRunFull" value="Выполнить с полной компиляцией"/>
 			<Item Name="mnuEndBlockStep" value="Процедура по шагам"/>
 			<Item Name="mnuSingleStep" value="На шаг вперед"/>
 			<Item Name="mnuBlockStep" value="Остановить"/>
-			<Item Name="mnuReturnStep" value="Step Return"/>
-			<Item Name="mnuWorkingDirectory" value="Open Working Directory"/>
+			<Item Name="mnuReturnStep" value="На шаг назад"/>
+			<Item Name="mnuWorkingDirectory" value="Открыть рабочую папку"/>
 			<Item Name="mnuToggleBreakpoint" value="Установить точку остановки"/>
 			<Item Name="mnuToggleMarker" value="Поставить закладку"/>
 			<Item Name="mnuGotoMarker" value="Перейти к закладке"/>
 			<Item Name="mnuImports" value="Настройки"/>
-		<Item Name="mnuExtras" value="Extras"/>
-			<Item Name="mnuOptions" value="Options"/>
+		<Item Name="mnuExtras" value="Дополнительно"/>
+			<Item Name="mnuOptions" value="Опции"/>
 			<Item Name="mnuLanguageList" value="Язык интерфейса"/>
 		<Item Name="mnuHelp" value="Справка"/>
 			<Item Name="mnuWebPage" value="Домашняя стрница"/>
 			<Item Name="mnuWebCommunity" value="Форум сообщества"/>
-			<Item Name="mnuOrder" value="Приобрести"/>
+			<Item Name="mnuOrder" value="Зарегистрировать"/>
 			<Item Name="mnuUpdate" value="Проверить наличие обновлений..."/>
 			<Item Name="mnuInfo" value="О программе"/>
 		<Item Name="cmdAddClass" value="Добавить..."/>
 		<Item Name="mnuAddClass" value="Добавить..."/>
 			<Item Name="mnuForm" value="Форма"/>
-			<Item Name="mnuDialog" value="Dialog"/>
+			<Item Name="mnuDialog" value="Диалоговое окно"/>
 			<Item Name="mnuMDIForm" value="Родительская форма (контейнер)"/>
 			<Item Name="mnuMDIChild" value="Дочерняя форма"/>
 			<Item Name="mnuApplet" value="Аплет"/>
@@ -65,7 +65,7 @@
 			<Item Name="mnuClass" value="Класс"/>
 			<Item Name="mnuInterface" value="Интерфейс"/>
 			<Item Name="mnuResource" value="Источник"/>
-			<Item Name="mnuSaveFileAs" value="Save As..."/>
+			<Item Name="mnuSaveFileAs" value="Сохранить как..."/>
 			<Item Name="mnuAddFile" value="Добавить"/>
 			<Item Name="mnuDelete" value="Удалить"/>
 		<Item Name="mnuComment" value="Закомментировать"/>
@@ -77,7 +77,7 @@
 		<Item Name="mnuGotoFlag" value="Перейти к флажку"/>
 		<Item Name="mnuAddFlag" value="Поставить флажок"/>
 		<Item Name="mnuRemoveFlag" value="Удалить флажок"/>
-		<Item Name="mnuStackTrace" value="Show Stack-Trace"/>
+		<Item Name="mnuStackTrace" value="Показать стек-историю"/>
 		<Item Name="cmdRefresh" value="Обновить"/>
 		<Item Name="lblPropertiesTitle" value="Свойства"/>
 		<Item Name="lblProjectExplorerTitle" value="Проект"/>
@@ -92,27 +92,27 @@
 		<Item Name="lblImportStatusTitle" value="Импортировать..."/>
 		<Item Name="(General)" value="(General)"/>
 		<Item Name="(Declarations)" value="(Declarations)"/>
-		<Item Name="cmdDialogYes" value="Yes"/>
-		<Item Name="cmdDialogPerm" value="Permanent"/>
-		<Item Name="cmdDialogCancel" value="Cancel"/>
-		<Item Name="lblRemoveMessage" value="Would you really like to remove this file from the project?"/>
+		<Item Name="cmdDialogYes" value="Да"/>
+		<Item Name="cmdDialogPerm" value="Для всех"/>
+		<Item Name="cmdDialogCancel" value="Отмена"/>
+		<Item Name="lblRemoveMessage" value="Вы действительно хотите убрать этот файл из проекта?"/>
 	</MainForm>
 	<Register>
 		<Item Name="lblState" value="State:" />
 		<Item Name="lblMail" value="E-Mail:" />
 		<Item Name="lblKey" value="Key:" />
-		<Item Name="lblTopic" value="Unlock to become the fully-functional version of Jabaco." />		
-		<Item Name="lblInfo" value="Your license key was sent to you with your invoice." />
-		<Item Name="cmdActivate" value="Activate" />
-		<Item Name="cmdOrder" value="Order Now..." />
-		<Item Name="cmdLater" value="Later" />
-		<Item Name="cmdClose" value="SchlieЯen" />
+		<Item Name="lblTopic" value="Зарегистрируйтесь, чтобы воспользоваться всеми функциями Jabaco." />		
+		<Item Name="lblInfo" value="Ваш ключ выслан на указанный адрес электронной почты." />
+		<Item Name="cmdActivate" value="Зарегистрировать" />
+		<Item Name="cmdOrder" value="Приобрести..." />
+		<Item Name="cmdLater" value="Позже" />
+		<Item Name="cmdClose" value="Закрыть" />
 	</Register>
     <Update>
-		<Item Name="lblTopic" value="An update for Jabaco is available." />
+		<Item Name="lblTopic" value="Для Jabaco доступно обновление!" />
 		<Item Name="lblDownloadCaption" value="Download:" />
 		<Item Name="lblVersionCaption" value="Version-History:" />
-		<Item Name="cmdClose" value="Close" />
+		<Item Name="cmdClose" value="Закрыть" />
 	</Update>
 	<InfoForm>
 		<Item Name="cmdClose" value="Закрыть"/>
