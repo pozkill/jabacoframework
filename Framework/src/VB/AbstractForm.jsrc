@@ -196,13 +196,13 @@ Public Sub Close(FileNumber As Integer)
    ' OlimilO 26.Oct.2009:
    ' the close-sub without parameter is only for closing the form
    ' this one is here because of VB-compatibility for file-operations
-   Call VBA#FileSystem.Close(FileNumber)
+   Call VB#FileSystem.Close(FileNumber)
 End Sub
 Public Sub Close(Handler As VBFileHandler)
    ' OlimilO 27.Oct.2009:
    ' the close-sub without parameter is only for closing the form
    ' this one is here because of VB-compatibility for file-operations
-   Call VBA#FileSystem.Close(Handler)
+   Call VB#FileSystem.Close(Handler)
 End Sub
 Public Property Let BorderStyle(v As FormBorderStyleConstants)
    Select Case v

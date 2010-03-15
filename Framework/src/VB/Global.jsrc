@@ -659,26 +659,28 @@ End Function
 
 Public Function VBMousePointerToJCursor(v As MousePointerConstants) As #Cursor
    On Error Resume Next
-   Select Case v
-      Case vbDefault:        VBMousePointerToJCursor = DEFAULT_CURSOR
-      Case vbArrow:          VBMousePointerToJCursor = DEFAULT_CURSOR
-      Case vbCrosshair:      VBMousePointerToJCursor = CROSSHAIR_CURSOR
-      Case vbIbeam:          VBMousePointerToJCursor = TEXT_CURSOR
-      Case vbIconPointer:    VBMousePointerToJCursor = DEFAULT_CURSOR   ' == AUTOMATICALLY BY MOUSEICON
-      Case vbSizePointer:    VBMousePointerToJCursor = MOVE_CURSOR
-      Case vbSizeNESW:       VBMousePointerToJCursor = SW_RESIZE_CURSOR ' == NE_RESIZE_CURSOR
-      Case vbSizeNS:         VBMousePointerToJCursor = N_RESIZE_CURSOR  ' == S_RESIZE_CURSOR
-      Case vbSizeNWSE:       VBMousePointerToJCursor = SE_RESIZE_CURSOR ' == NW_RESIZE_CURSOR
-      Case vbSizeWE:         VBMousePointerToJCursor  = E_RESIZE_CURSOR ' == W_RESIZE_CURSOR
-      Case vbUpArrow:        VBMousePointerToJCursor = DEFAULT_CURSOR   ' !!! NOT AVAILABLE 
-      Case vbHourglass:      VBMousePointerToJCursor = WAIT_CURSOR
-      Case vbNoDrop:         VBMousePointerToJCursor = DEFAULT_CURSOR   ' !!! NOT AVAILABLE 
-      Case vbArrowHourglass: VBMousePointerToJCursor = DEFAULT_CURSOR   ' !!! NOT AVAILABLE 
-      Case vbArrowQuestion:  VBMousePointerToJCursor = DEFAULT_CURSOR   ' !!! NOT AVAILABLE 
-      Case vbSizeAll:        VBMousePointerToJCursor = MOVE_CURSOR
-      Case vbHandCursor:     VBMousePointerToJCursor = HAND_CURSOR
-      Case Else:             VBMousePointerToJCursor = DEFAULT_CURSOR
-   End Select
+   'Select Case v
+   '   Case vbDefault:        VBMousePointerToJCursor = DEFAULT_CURSOR
+   '   Case vbArrow:          VBMousePointerToJCursor = DEFAULT_CURSOR
+   '   Case vbCrosshair:      VBMousePointerToJCursor = CROSSHAIR_CURSOR
+   '   Case vbIbeam:          VBMousePointerToJCursor = TEXT_CURSOR
+   '   Case vbIconPointer:    VBMousePointerToJCursor = DEFAULT_CURSOR   ' == AUTOMATICALLY BY MOUSEICON
+   '   Case vbSizePointer:    VBMousePointerToJCursor = MOVE_CURSOR
+   '   Case vbSizeNESW:       VBMousePointerToJCursor = SW_RESIZE_CURSOR ' == NE_RESIZE_CURSOR
+   '   Case vbSizeNS:         VBMousePointerToJCursor = N_RESIZE_CURSOR  ' == S_RESIZE_CURSOR
+   '   Case vbSizeNWSE:       VBMousePointerToJCursor = SE_RESIZE_CURSOR ' == NW_RESIZE_CURSOR
+   '   Case vbSizeWE:         VBMousePointerToJCursor  = E_RESIZE_CURSOR ' == W_RESIZE_CURSOR
+   '   Case vbUpArrow:        VBMousePointerToJCursor = DEFAULT_CURSOR   ' !!! NOT AVAILABLE 
+   '   Case vbHourglass:      VBMousePointerToJCursor = WAIT_CURSOR
+   '   Case vbNoDrop:         VBMousePointerToJCursor = DEFAULT_CURSOR   ' !!! NOT AVAILABLE 
+   '   Case vbArrowHourglass: VBMousePointerToJCursor = DEFAULT_CURSOR   ' !!! NOT AVAILABLE 
+   '   Case vbArrowQuestion:  VBMousePointerToJCursor = DEFAULT_CURSOR   ' !!! NOT AVAILABLE 
+   '   Case vbSizeAll:        VBMousePointerToJCursor = MOVE_CURSOR
+   '   Case vbHandCursor:     VBMousePointerToJCursor = HAND_CURSOR
+   '   Case Else:             VBMousePointerToJCursor = DEFAULT_CURSOR
+   'End Select
+   Dim cur = New Cursors()
+   VBMousePointerToJCursor = cur.getVBACursor(v)
 End Function
 
 Public Function VBMouseIconToJCursor(v As #IResource, c As #Component) As #Cursor

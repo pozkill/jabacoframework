@@ -177,12 +177,16 @@ Public Sub Line(x1 As Single, y1 As Single, x2 As Single, y2 As Single, Rect As 
    myContent.Line x1, y1, x2, y2, Rect, FillColor
 End Sub
 
-Public Sub Circle(x As Single, y As Single, width As Single, height As Single)
-   Call myContent.Circle(x, y, width, height)
+Public Sub Circle(x As Single, y As Single, radius As Single)
+   Call myContent.Circle(x, y, radius)
 End Sub
 
-Public Sub Circle(x As Single, y As Single, width As Single, height As Single, FillColor As Long)
-   Call myContent.Circle(x, y, width, height, FillColor)
+Public Sub Circle(x As Single, y As Single, radius As Single, color As Long)
+   Call myContent.Circle(x, y, radius, color)
+End Sub
+
+Public Sub Circle(x As Single, y As Single, radius As Single, color As Long, startAngle As Single, endAngle As Single, Optional aspect As Single=1, Optional FillColor As Long=-1)
+   Call myContent.Circle(x, y, radius, color, startAngle, endAngle, aspect, FillColor)
 End Sub
 
 Public Sub PaintPicture(refImage As Image, x As Single, y As Single)

@@ -312,22 +312,51 @@ End Sub
 '   Call Parent.setIgnoreRepaint(Not v)   
 'End Property
 
-Public Sub Circle(x As Single, y As Single, width As Single, height As Single)
-   Call Circle(x, y, width, height, -1)
+Public Sub Circle(x As Single, y As Single, radius As Single)
+   Call Circle(x, y, radius, ForeColor)
 End Sub
 
-Public Sub Circle(x As Single, y As Single, width As Single, height As Single, FillColor As Long)
-   Dim my2DGraphics As Graphics2D
-   my2DGraphics = getGraphics()
-   If FillColor <> -1 Then
-      Dim tmpColor As Color
-      tmpColor = my2DGraphics.getColor
-      Call my2DGraphics.setColor(RGBToColor(FillColor))
-      Call my2DGraphics.fillOval(x + 1,y + 1, width - 1, height - 1)
-      Call my2DGraphics.setColor(tmpColor)
-   End If
-   Call my2DGraphics.drawOval(x, y, width, height)
-   Call disposeGraphics(my2DGraphics)
+Public Sub Circle(x As Single, y As Single, radius As Single, color As Long)
+   Call Circle(x, y, radius, color, 0, 2*PI)
+End Sub
+
+Public Sub Circle(x As Single, y As Single, radius As Single, color As Long, startAngle As Single, endAngle As Single, Optional aspect As Single=1, Optional FillColor As Long=-1)
+  If endAngle <=0 Or endAngle > 2*PI Then endAngle=2*PI
+  Dim halfStep1 As Single, halfStep2 As Single ' Is needed. If I don't do it, it don't run ok. Don't know why.
+  Dim my2DGraphics As Graphics2D
+  my2DGraphics = getGraphics()
+  Dim tmpColor As Color
+  tmpColor = my2DGraphics.getColor
+  Dim angleLen As Single
+  If endAngle > startAngle Then
+    angleLen = endAngle-startAngle
+  Else
+    angleLen = endAngle+2*PI-startAngle
+  End If
+
+  ' As I sayd before, if I don't do it, the program runs not perfect:
+  halfStep1 = startAngle/PI*180
+  halfStep2 = angleLen/PI*180
+
+  Call my2DGraphics.setColor(RGBtoColor(FillColor))
+  If FillColor <> -1 Then
+    If aspect > 1 Then
+      Call my2DGraphics.fillArc(Round(x-radius/aspect), Round(y-radius), Round(radius*2.0/aspect), Round(radius*2.0), Round(halfStep1), Round(halfStep2))
+    Else
+      Call my2DGraphics.fillArc(Round(x-radius), Round(y-radius*aspect), Round(radius*2.0), Round(radius*2.0*aspect), Round(halfStep1), Round(halfStep2))
+    End If
+  End If  
+
+  If color=-1 Then color=ForeColor
+  Call my2DGraphics.setColor(RGBtoColor(color))
+  If aspect > 1 Then
+    Call my2DGraphics.drawArc(Round(x-radius/aspect), Round(y-radius), Round(radius*2.0/aspect), Round(radius*2.0), Round(halfStep1), Round(halfStep2))
+  Else
+    Call my2DGraphics.drawArc(Round(x-radius), Round(y-radius*aspect), Round(radius*2.0), Round(radius*2.0*aspect), Round(halfStep1), Round(halfStep2))
+  End If
+ 
+  Call my2DGraphics.setColor(tmpColor)
+  Call disposeGraphics(my2DGraphics)
 End Sub
 
 Public Function TextWidth(text As String) As Integer
