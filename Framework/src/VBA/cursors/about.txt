@@ -1,0 +1,13 @@
+The following files are taken from Wine 1.1.40:
+ ocr_cross.gif, ocr_hand.gif, ocr_ibeam.gif, ocr_no.gif, ocr_normal.gif, ocr_size.gif,
+ ocr_sizeall.gif, ocr_sizenesw.gif, ocr_sizens.gif, ocr_sizenwse.gif, ocr_sizewe.gif,
+ ocr_up.gif, ocr_wait.gif
+
+The following file was taken from ReactOS 0.3.11:
+ ocr_icon.gif
+
+The following files are modified files of Wine 1.1.40 with inspiration of
+the ReactOS 0.3.11 files:
+ ocr_appstarting.gif
+ ocr_help.gif
+
