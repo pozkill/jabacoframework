@@ -43,7 +43,7 @@ public class Cursors {
      case VBA_SIZE_POINTER:
        return cp.getToolkit().createCustomCursor(new ImageIcon(getClass().getResource("cursors/ocr_size.gif")).getImage(), new Point(15, 15), "VB Move Cursor");
      case VBA_SIZE_NESW:
-       return cp.getToolkit().createCustomCursor(new ImageIcon(getClass().getResource("cursors/ocr_sizenesw.gif")).getImage(), new Point(15, 15), "VB Resize South/West Cursor");
+       return cp.getToolkit().createCustomCursor(new ImageIcon(getClass().getResource("cursors/ocr_sizenesw.gif")).getImage(), new Point(15, 15), "VB Resize Northeast/Southwest Cursor");
      case VBA_SIZE_NS:
        return cp.getToolkit().createCustomCursor(new ImageIcon(getClass().getResource("cursors/ocr_sizens.gif")).getImage(), new Point(15, 15), "VB Resize North/South Cursor");
      case VBA_SIZE_NWSE:
