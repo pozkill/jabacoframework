@@ -20,7 +20,7 @@ Public Sub paintComponent(g As #Graphics)
    End If
    
    'Call g2d.setStroke(New java#awt#BasicStroke(8))
-   Call g2d.setStroke(New java#awt#BasicStroke(myBorderWidth))
+   Call g2d.setStroke(New java#awt#BasicStroke(myBorderWidth, java#awt#BasicStroke.CAP_ROUND, java#awt#BasicStroke.JOIN_ROUND))
    
    Dim myLeft As Long, myTop As Long, myWidth As Long, myHeight As Long
    myLeft = (myBorderWidth / 2)
@@ -29,7 +29,7 @@ Public Sub paintComponent(g As #Graphics)
    myHeight = Height - 1 - (myBorderWidth)
    
    
-   If myShape = vbShapeSquare Or myShape = vbShapeCircle Then
+   If myShape = vbShapeSquare Or myShape = vbShapeCircle Or myShape = vbShapeRoundedSquare Then
       Dim myMemWidth As Long = myWidth, myMemHeight As Long = myHeight
       myWidth = IIF(myWidth > myHeight, myHeight, myWidth) 
       myHeight = IIF(myWidth > myHeight, myHeight, myWidth)
@@ -54,12 +54,26 @@ Public Sub paintComponent(g As #Graphics)
          Call g2d.setColor(Parent.getForeground())
          g2d.drawOval myLeft, myTop, myWidth, myHeight
       Case vbShapeRoundedRectangle, vbShapeRoundedSquare
+         Dim myDiameter As Long
+         myDiameter=IIF (myWidth > myHeight, myHeight/4, myWidth/4)
          If myBackStyle = vbSolid Then
             Call g2d.setColor(Parent.getBackground())
-            g2d.fillRect myLeft, myTop, myWidth + 1, myHeight + 1
+            g2d.fillRect myLeft+myDiameter/2, myTop, myWidth + 1 - myDiameter, myHeight + 1
+            g2d.fillRect myLeft, myTop+MyDiameter/2, myWidth + 1, myHeight + 1 - myDiameter
+            g2d.fillArc myLeft, myTop, myDiameter, myDiameter, 90, 90
+            g2d.fillArc myLeft+myWidth-myDiameter, myTop, myDiameter, myDiameter, 0, 90
+            g2d.fillArc myLeft, myTop+myHeight-myDiameter, myDiameter, myDiameter, 180, 90
+            g2d.fillArc myLeft+myWidth-myDiameter, myTop+myHeight-myDiameter, myDiameter, myDiameter, 270, 90
          End If
          Call g2d.setColor(Parent.getForeground())
-         g2d.drawRect myLeft, myTop, myWidth, myHeight
+         g2d.drawLine myLeft+myDiameter/2, myTop, myLeft+myWidth-myDiameter/2, myTop
+         g2d.drawLine myLeft+myDiameter/2, myTop+myHeight, myLeft+myWidth-myDiameter/2, myTop+myHeight
+         g2d.drawLine myLeft, myTop+myDiameter/2, myLeft, myTop+myHeight-myDiameter/2
+         g2d.drawLine myLeft+myWidth, myTop+myDiameter/2, myLeft+myWidth, myTop+myHeight-myDiameter/2
+         g2d.drawArc myLeft, myTop, myDiameter, myDiameter, 90, 90
+         g2d.drawArc myLeft+myWidth-myDiameter, myTop, myDiameter, myDiameter, 0, 90
+         g2d.drawArc myLeft, myTop+myHeight-myDiameter, myDiameter, myDiameter, 180, 90
+         g2d.drawArc myLeft+myWidth-myDiameter, myTop+myHeight-myDiameter, myDiameter, myDiameter, 270, 90
    End Select
    
    'g2d.drawLine 0, 0, mX2, mY2
