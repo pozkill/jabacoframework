@@ -20,7 +20,7 @@ Public Sub paintComponent(g As #Graphics)
    End If
    
    'Call g2d.setStroke(New java#awt#BasicStroke(8))
-   Call g2d.setStroke(New java#awt#BasicStroke(myBorderWidth, java#awt#BasicStroke.CAP_ROUND, java#awt#BasicStroke.JOIN_ROUND))
+   Call g2d.setStroke(New java#awt#BasicStroke(myBorderWidth)) ', java#awt#BasicStroke.CAP_SQUARE, java#awt#BasicStroke.JOIN_ROUND))
    
    Dim myLeft As Long, myTop As Long, myWidth As Long, myHeight As Long
    myLeft = (myBorderWidth / 2)
@@ -55,25 +55,28 @@ Public Sub paintComponent(g As #Graphics)
          g2d.drawOval myLeft, myTop, myWidth, myHeight
       Case vbShapeRoundedRectangle, vbShapeRoundedSquare
          Dim myDiameter As Long
-         myDiameter=IIF (myWidth > myHeight, myHeight/4, myWidth/4)
+         myDiameter=IIF (Width > Height, Height/4, Width/4)
          If myBackStyle = vbSolid Then
             Call g2d.setColor(Parent.getBackground())
-            g2d.fillRect myLeft+myDiameter/2, myTop, myWidth + 1 - myDiameter, myHeight + 1
-            g2d.fillRect myLeft, myTop+MyDiameter/2, myWidth + 1, myHeight + 1 - myDiameter
-            g2d.fillArc myLeft, myTop, myDiameter, myDiameter, 90, 90
-            g2d.fillArc myLeft+myWidth-myDiameter, myTop, myDiameter, myDiameter, 0, 90
-            g2d.fillArc myLeft, myTop+myHeight-myDiameter, myDiameter, myDiameter, 180, 90
-            g2d.fillArc myLeft+myWidth-myDiameter, myTop+myHeight-myDiameter, myDiameter, myDiameter, 270, 90
-         End If
+            g2d.fillRect myDiameter/2-1, 0, Width + 1 - myDiameter, Height - 1
+            g2d.fillRect 0, myDiameter/2-1, Width - 1, Height + 1 - myDiameter
+            g2d.fillArc myBorderWidth/2, myBorderWidth/2, myDiameter-1-myBorderWidth, myDiameter-1-myBorderWidth, 90, 90
+            g2d.fillArc myBorderWidth/2+Width-myDiameter, myBorderWidth/2, myDiameter-1-myBorderWidth, myDiameter-1-myBorderWidth, 0, 90
+            g2d.fillArc myBorderWidth/2, myBorderWidth/2+Height-myDiameter, myDiameter-1-myBorderWidth, myDiameter-1-myBorderWidth, 180, 90
+            g2d.fillArc myBorderWidth/2+Width-myDiameter, myBorderWidth/2+Height-myDiameter, myDiameter-1-myBorderWidth, myDiameter-1-myBorderWidth, 270, 90
+         End IF
          Call g2d.setColor(Parent.getForeground())
          g2d.drawLine myLeft+myDiameter/2, myTop, myLeft+myWidth-myDiameter/2, myTop
          g2d.drawLine myLeft+myDiameter/2, myTop+myHeight, myLeft+myWidth-myDiameter/2, myTop+myHeight
          g2d.drawLine myLeft, myTop+myDiameter/2, myLeft, myTop+myHeight-myDiameter/2
          g2d.drawLine myLeft+myWidth, myTop+myDiameter/2, myLeft+myWidth, myTop+myHeight-myDiameter/2
-         g2d.drawArc myLeft, myTop, myDiameter, myDiameter, 90, 90
-         g2d.drawArc myLeft+myWidth-myDiameter, myTop, myDiameter, myDiameter, 0, 90
-         g2d.drawArc myLeft, myTop+myHeight-myDiameter, myDiameter, myDiameter, 180, 90
-         g2d.drawArc myLeft+myWidth-myDiameter, myTop+myHeight-myDiameter, myDiameter, myDiameter, 270, 90
+         Dim myRadiusBorderWidth As Long
+         myRadiusBorderWidth = IIF (myBorderWidth*2 > myDiameter, myDiameter/2, myBorderWidth)
+         Call g2d.setStroke(New java#awt#BasicStroke(myRadiusBorderWidth, java#awt#BasicStroke.CAP_SQUARE, java#awt#BasicStroke.JOIN_ROUND))
+         g2d.drawArc myRadiusBorderWidth/2, myRadiusBorderWidth/2, myDiameter-1-myRadiusBorderWidth, myDiameter-1-myRadiusBorderWidth, 90, 90
+         g2d.drawArc myRadiusBorderWidth/2+Width-myDiameter, myRadiusBorderWidth/2, myDiameter-1-myRadiusBorderWidth, myDiameter-1-myRadiusBorderWidth, 0, 90
+         g2d.drawArc myRadiusBorderWidth/2, myRadiusBorderWidth/2+Height-myDiameter, myDiameter-1-myRadiusBorderWidth, myDiameter-1-myRadiusBorderWidth, 180, 90
+         g2d.drawArc myRadiusBorderWidth/2+Width-myDiameter, myRadiusBorderWidth/2+Height-myDiameter, myDiameter-1-myRadiusBorderWidth, myDiameter-1-myRadiusBorderWidth, 270, 90
    End Select
    
    'g2d.drawLine 0, 0, mX2, mY2
