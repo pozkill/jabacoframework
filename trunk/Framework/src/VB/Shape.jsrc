@@ -19,14 +19,27 @@ Public Sub paintComponent(g As #Graphics)
       Call g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON)
    End If
    
-   'Call g2d.setStroke(New java#awt#BasicStroke(8))
-   Call g2d.setStroke(New java#awt#BasicStroke(myBorderWidth)) ', java#awt#BasicStroke.CAP_SQUARE, java#awt#BasicStroke.JOIN_ROUND))
+   Dim myNewBorderWidth As Long
+   myNewBorderWidth = myBorderWidth
+   If myNewBorderWidth < 1 Then myNewBorderWidth = 1
+   Dim tmpValue As Long
+   'tmpValue = IIF (Width > Height, Height, Width)  ' don't work. don't know why, so I use the long way.
+   If Width > Height Then
+     tmpValue = Height
+   Else
+     tmpValue = Width
+   End If
+   If tmpValue < myNewBorderWidth*2 Then
+     myNewBorderWidth = tmpValue/2
+   End If
+   
+   Call g2d.setStroke(New java#awt#BasicStroke(myNewBorderWidth))
    
    Dim myLeft As Long, myTop As Long, myWidth As Long, myHeight As Long
-   myLeft = (myBorderWidth / 2)
-   myTop = (myBorderWidth / 2)
-   myWidth = Width - 1 - (myBorderWidth)
-   myHeight = Height - 1 - (myBorderWidth)
+   myLeft = (myNewBorderWidth / 2)
+   myTop = (myNewBorderWidth / 2)
+   myWidth = Width - 1 - (myNewBorderWidth)
+   myHeight = Height - 1 - (myNewBorderWidth)
    
    
    If myShape = vbShapeSquare Or myShape = vbShapeCircle Or myShape = vbShapeRoundedSquare Then
@@ -56,27 +69,34 @@ Public Sub paintComponent(g As #Graphics)
       Case vbShapeRoundedRectangle, vbShapeRoundedSquare
          Dim myDiameter As Long
          myDiameter=IIF (Width > Height, Height/4, Width/4)
+         Dim myRadiusBorderWidth As Long
+         myRadiusBorderWidth = IIF (myNewBorderWidth*2 > myDiameter, myDiameter/2, myNewBorderWidth)
+         Dim myRLeft As Long, myRTop As Long, myRWidth As Long, myRHeight As Long
+         myRLeft = myLeft-myNewBorderWidth/2+myRadiusBorderWidth/2
+         myRTop = myTop-myNewBorderWidth/2+myRadiusBorderWidth/2
+         myRWidth = myRLeft + myWidth+1+myNewBorderWidth-myDiameter
+         myRHeight = myRTop + myHeight+1+myNewBorderWidth-myDiameter
          If myBackStyle = vbSolid Then
             Call g2d.setColor(Parent.getBackground())
-            g2d.fillRect myDiameter/2-1, 0, Width + 1 - myDiameter, Height - 1
-            g2d.fillRect 0, myDiameter/2-1, Width - 1, Height + 1 - myDiameter
-            g2d.fillArc myBorderWidth/2, myBorderWidth/2, myDiameter-1-myBorderWidth, myDiameter-1-myBorderWidth, 90, 90
-            g2d.fillArc myBorderWidth/2+Width-myDiameter, myBorderWidth/2, myDiameter-1-myBorderWidth, myDiameter-1-myBorderWidth, 0, 90
-            g2d.fillArc myBorderWidth/2, myBorderWidth/2+Height-myDiameter, myDiameter-1-myBorderWidth, myDiameter-1-myBorderWidth, 180, 90
-            g2d.fillArc myBorderWidth/2+Width-myDiameter, myBorderWidth/2+Height-myDiameter, myDiameter-1-myBorderWidth, myDiameter-1-myBorderWidth, 270, 90
+            'g2d.fillRect myLeft-myNewBorderWidth/2+myDiameter/2-1, myTop, myWidth+2-myDiameter+myNewBorderWidth, myHeight+1-myNewBorderWidth/2
+            'g2d.fillRect myLeft, myTop-myNewBorderWidth/2+myDiameter/2-1, myWidth+1-myNewBorderWidth/2, myHeight+2-myDiameter+myNewBorderWidth
+            g2d.fillRect myLeft-myNewBorderWidth/2+myDiameter/2-1, myTop-myNewBorderWidth/2+1, myWidth-myDiameter+myNewBorderWidth+2, myHeight+myNewBorderWidth-1
+            g2d.fillRect myLeft-myNewBorderWidth/2+1, myTop-myNewBorderWidth/2+myDiameter/2-1, myWidth+myNewBorderWidth-1, myHeight-myDiameter+myNewBorderWidth+2
+            g2d.fillArc myRLeft, myRTop, myDiameter-1-myRadiusBorderWidth, myDiameter-1-myRadiusBorderWidth, 90, 90
+            g2d.fillArc myRWidth, myRTop, myDiameter-1-myRadiusBorderWidth, myDiameter-1-myRadiusBorderWidth, 0, 90
+            g2d.fillArc myRLeft, myRHeight, myDiameter-1-myRadiusBorderWidth, myDiameter-1-myRadiusBorderWidth, 180, 90
+            g2d.fillArc myRWidth, myRHeight, myDiameter-1-myRadiusBorderWidth, myDiameter-1-myRadiusBorderWidth, 270, 90
          End IF
          Call g2d.setColor(Parent.getForeground())
-         g2d.drawLine myLeft+myDiameter/2, myTop, myLeft+myWidth-myDiameter/2, myTop
-         g2d.drawLine myLeft+myDiameter/2, myTop+myHeight, myLeft+myWidth-myDiameter/2, myTop+myHeight
-         g2d.drawLine myLeft, myTop+myDiameter/2, myLeft, myTop+myHeight-myDiameter/2
-         g2d.drawLine myLeft+myWidth, myTop+myDiameter/2, myLeft+myWidth, myTop+myHeight-myDiameter/2
-         Dim myRadiusBorderWidth As Long
-         myRadiusBorderWidth = IIF (myBorderWidth*2 > myDiameter, myDiameter/2, myBorderWidth)
+         g2d.drawLine myLeft+myDiameter/2, myTop, myLeft+myWidth-myDiameter/2+1, myTop
+         g2d.drawLine myLeft+myDiameter/2, myTop+myHeight, myLeft+myWidth-myDiameter/2+1, myTop+myHeight
+         g2d.drawLine myLeft, myTop+myDiameter/2, myLeft, myTop+myHeight-myDiameter/2+1
+         g2d.drawLine myLeft+myWidth, myTop+myDiameter/2, myLeft+myWidth, myTop+myHeight-myDiameter/2+1
          Call g2d.setStroke(New java#awt#BasicStroke(myRadiusBorderWidth, java#awt#BasicStroke.CAP_SQUARE, java#awt#BasicStroke.JOIN_ROUND))
-         g2d.drawArc myRadiusBorderWidth/2, myRadiusBorderWidth/2, myDiameter-1-myRadiusBorderWidth, myDiameter-1-myRadiusBorderWidth, 90, 90
-         g2d.drawArc myRadiusBorderWidth/2+Width-myDiameter, myRadiusBorderWidth/2, myDiameter-1-myRadiusBorderWidth, myDiameter-1-myRadiusBorderWidth, 0, 90
-         g2d.drawArc myRadiusBorderWidth/2, myRadiusBorderWidth/2+Height-myDiameter, myDiameter-1-myRadiusBorderWidth, myDiameter-1-myRadiusBorderWidth, 180, 90
-         g2d.drawArc myRadiusBorderWidth/2+Width-myDiameter, myRadiusBorderWidth/2+Height-myDiameter, myDiameter-1-myRadiusBorderWidth, myDiameter-1-myRadiusBorderWidth, 270, 90
+         g2d.drawArc myRLeft, myRTop, myDiameter-1-myRadiusBorderWidth, myDiameter-1-myRadiusBorderWidth, 90, 90
+         g2d.drawArc myRWidth, myRTop, myDiameter-1-myRadiusBorderWidth, myDiameter-1-myRadiusBorderWidth, 0, 90
+         g2d.drawArc myRLeft, myRHeight, myDiameter-1-myRadiusBorderWidth, myDiameter-1-myRadiusBorderWidth, 180, 90
+         g2d.drawArc myRWidth, myRHeight, myDiameter-1-myRadiusBorderWidth, myDiameter-1-myRadiusBorderWidth, 270, 90
    End Select
    
    'g2d.drawLine 0, 0, mX2, mY2
