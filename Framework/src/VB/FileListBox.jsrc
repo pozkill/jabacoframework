@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SourceFile><Source><![CDATA[Dim myDirectory As String
+Dim myHidden As Boolean = False
+Dim myPattern As String = "*.*"
+
+
+
+Public Sub Class_Initialize()
+  myDirectory = CurDir
+  Update_Filename_List()
+End Sub
+
+Private Sub Update_Filename_List()
+  Me.Clear()
+  Dim myFile As New java#io#File(myDirectory)
+  Dim myList = myFile.listFiles
+  Dim myItem As String
+  For i = 0 To Ubound(myList)
+    myItem = myList(i).getName()
+    If (myList(i).isFile()=True) Then
+      IF (NOT (myHidden=False AND myList(i).isHidden()=True)) Then
+        Me.AddItem(myList(i).getName())
+      End If
+    End If
+  Next
+End Sub
+
+Public Sub Path(myPath As String)
+  myDirectory = myPath
+  Update_Filename_List()
+End Sub
+
+Public Property Get Hidden() As Boolean
+   Hidden = myHidden
+End Property
+
+Public Property Let Hidden(val As Boolean)
+   myHidden = val
+   Update_Filename_List()
+End Property
+
+Public Property Get Pattern() As String
+  Pattern = myPattern
+End Property
+
+Public Property Let Pattern(vals As String)
+  myPattern = vals
+  Update_Filename_List()
+End Property
+
+]]></Source><Param Name="(Name)" Value="FileListBox"/><Param Name="(SuperClass)" Value="VB/ListBox"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>
