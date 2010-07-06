@@ -43,6 +43,7 @@
 	<File Name="ListBox.jsrc"/>
 	<File Name="ListCellData.jsrc"/>
 	<File Name="ListCellDataRenderer.jsrc"/>
+	<File Name="FileListBox.jsrc"/>
 	<File Name="TextBox.jsrc"/>
 	<File Name="Applet.jsrc"/>
 	<File Name="PictureBox.jsrc"/>

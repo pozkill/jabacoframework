@@ -56,13 +56,13 @@ Public Function FreeFile() As Integer
    FreeFile = myCurIndex
 End Function
 Private Sub SetCurFileHandler(FileNr As Integer)
-   If FileNr > 255 then Throw New java#lang#ArrayIndexOutOfBoundsException 'remove if you want to extend to 512
-   If FileNr > 512 then Throw New java#lang#ArrayIndexOutOfBoundsException
+   If FileNr > 255 Then Throw New java#lang#ArrayIndexOutOfBoundsException 'remove if you want to extend to 512
+   If FileNr > 512 Then Throw New java#lang#ArrayIndexOutOfBoundsException
    
    If myCurIndex <> FileNr Then
       myCurIndex = FileNr
 	  myCurFHnd = myFHList(myCurIndex)
-	  If myCurFHnd = Nothing then Throw New java#lang#IllegalArgumentException
+	  If myCurFHnd = Nothing Then Throw New java#lang#IllegalArgumentException
    End If
 End Sub
 
@@ -97,8 +97,8 @@ End Sub
 
 Public Sub Open(Path As String, Mode As VBFileMode, Access As VBFileAccess, Lock As VBFileLock, FileNr As Integer) 
 'OlimilO 27.10.2009
-   If FileNr > 255 then Throw New java#io#IOException 'remove if you want to extend to 512
-   If FileNr > 512 then Throw New java#io#IOException
+   If FileNr > 255 Then Throw New java#io#IOException 'remove if you want to extend to 512
+   If FileNr > 512 Then Throw New java#io#IOException
    myFHList(FileNr) = Open(Path, Mode, Access, Lock)
    SetCurFileHandler(FileNr)
 End Sub
@@ -283,6 +283,22 @@ End Function
 
 Public Function CurDir() As String
    CurDir = System.getProperties().getProperty("user.dir")
+End Function
+
+Public Function TmpDir() As String
+   TmpDir = System.getProperties().getProperty("java.io.tmpdir")
+End Function
+
+Public Function TempDir() As String
+   TempDir = TmpDir
+End Function
+
+Public Function HomeDir() As String
+   HomeDir = System.getProperties().getProperty("user.home")
+End Function
+
+Public Function JavaDir() As String
+   JavaDir = System.getProperties().getProperty("java.home")
 End Function
 
 Public Sub MkDir(aPath As String)
