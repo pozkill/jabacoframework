@@ -52,6 +52,7 @@
 	<File Name="ScrollBar.jsrc"/>
 	<File Name="ComboBox.jsrc"/>
 	<File Name="TreeView.jsrc"/>
+	<File Name="DirListBox.jsrc"/>
 	<File Name="ToggleButton.jsrc"/>
 	<File Name="ProgressBar.jsrc"/>
 	<File Name="Timer.jsrc"/>
