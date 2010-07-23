@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SourceFile><Source><![CDATA[Option Explicit
+
+'//////////////////////////////////////////////////////////
+'// EVENTS
+'//////////////////////////////////////////////////////////
+
+Event Change()
+'Event Click()
+
+'//////////////////////////////////////////////////////////
+'// FIELDS
+'//////////////////////////////////////////////////////////
+
+Dim myPath As String
+Dim fileSeparator As String
+
+'//////////////////////////////////////////////////////////
+'//////////////////////////////////////////////////////////
+
+Public Sub Usercontrol_Initialize()
+   myTree.Top = 0
+   myTree.Left = 0
+   Usercontrol_Resize()
+   
+   fileSeparator = System.getProperties().getProperty("file.separator")
+   Dim roots() As File
+   roots() = File.listRoots()   
+   myTree.Nodes.Add(Nothing,tvwFirst,"ROOT",roots(0).getPath())
+End Sub
+
+Public Sub Usercontrol_Resize()
+   myTree.Width = Me.Width
+   myTree.Height = Me.Height   
+End Sub
+
+Public Property Let Path(newPath As String)
+   Dim tmp As New File(newPath)
+   If (tmp.exists() And tmp.isDirectory()) Then
+      
+      myTree.Nodes.Remove("ROOT")
+      myTree.Nodes.Clear()
+      
+      Dim splittedPath() As String
+      splittedPath() = SplitPath(NewPath)
+      
+      Dim i As Integer
+      Dim rootNode As Node
+      rootNode = myTree.Nodes.Add(Nothing,tvwFirst,"ROOT",splittedPath(0) & fileSeparator)
+      For i = 1 To Ubound(splittedPath)
+         rootNode = myTree.Nodes.Add(rootNode,tvwChild,Nothing,splittedPath(i))
+      Next
+      myTree.makeVisible(rootNode)
+      
+   End If
+End Property
+
+Public Property Get Path() As String
+   If (myTree.SelectedItem <> Nothing) Then
+      Path = getPath(myTree.SelectedItem)
+   End If
+End Property
+
+Private Function getPath(Node As Node) As String
+   'TODO: Usar stringbuilder para mejor performance
+   Dim sPath As String
+   Dim oParentNode As Node
+   
+   sPath = Node.Text   
+   oParentNode = Node.ParentNode
+   
+   Do While (oParentNode <> Nothing)
+      If (oParentNode.Text = "ROOT") Then Exit Loop
+      sPath = oParentNode.Text & fileSeparator & sPath      
+      oParentNode = oParentNode.ParentNode
+   Loop
+   
+   getPath = Replace(sPath,fileSeparator+fileSeparator,fileSeparator)
+End Function
+
+Private Sub buildFolderTree(Node As Node)
+   If ((Node = Nothing) Or (Node.ChildCount > 0)) Then Exit Sub
+   
+   Dim childFolders() As File
+   childFolders() = New File(getPath(Node)).listFiles()
+   
+   Dim item As File
+   For Each item In childFolders
+      If (item.isDirectory()) Then
+         Dim tmpNode As Node
+         tmpNode = myTree.Nodes.Add(Node,tvwChild,Nothing,item.getName())         
+         myTree.expandNode(tmpNode)
+      End If
+   Next
+End Sub
+
+Private Function SplitPath(FullDirPath As String) As String()
+   If (Right(FullDirPath,1) = fileSeparator) Then 
+      FullDirPath = Left(FullDirPath, Len(FullDirPath)-1)
+   End If
+   SplitPath = Split(FullDirPath,fileSeparator)   
+End Function
+
+Public Sub myTree_NodeClick(Node As Node)
+   On Error Goto ErrHandler
+      
+   buildFolderTree(Node)
+   Raiseevent Change()
+   
+   Exit Sub
+   
+   ErrHandler:      
+End Sub
+
+Public Sub myTree_Click()
+   Raiseevent Click()
+End Sub
+]]></Source><Param Name="(Name)" Value="DirListBox"/><Param Name="(SuperClass)" Value="VB/Usercontrol"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Usercontrol"/><Param Name="(Access)" Value="Public"/><Param Name="Index" Value=""/><Param Name="Opaque" Value="True"/><Param Name="AutoRedraw" Value="False"/><Param Name="AntiAliasing" Value="False"/><Param Name="Transparency" Value="0"/><Param Name="DrawWidth" Value="1"/><Param Name="BorderColor" Value=""/><Param Name="Picture" Value="Nothing"/><Param Name="BorderStyle" Value="fmBorderStyleNone"/><Param Name="SpecialEffect" Value="fmSpecialEffectFlat"/><Param Name="FontName" Value="Arial"/><Param Name="FontBold" Value="False"/><Param Name="FontItalic" Value="False"/><Param Name="FontSize" Value="9"/><Param Name="BackColor" Value="-2147483633"/><Param Name="ForeColor" Value=""/><Param Name="Width" Value="400"/><Param Name="Height" Value="300"/><Param Name="Left" Value="0"/><Param Name="Top" Value="0"/><Param Name="ToolTip" Value=""/><Param Name="Enabled" Value="True"/><Param Name="Visible" Value="True"/><Param Name="Tag" Value=""/><Param Name="MousePointer" Value="vbDefault"/><Param Name="MouseIcon" Value="Nothing"/><Param Name="CanGetFocus" Value="True"/><Object Type="VB/TreeView"><Param Name="Index" Value=""/><Param Name="BorderStyle" Value="fmBorderStyleSingle"/><Param Name="Margin" Value="1"/><Param Name="BackColorSel" Value="-2147483635"/><Param Name="ForeColorSel" Value="-2147483634"/><Param Name="LabelEdit" Value="lvwAutomatic"/><Param Name="LineStyle" Value="tvwTreeLines"/><Param Name="Style" Value="tvwPictureText"/><Param Name="FontName" Value="Arial"/><Param Name="FontBold" Value="False"/><Param Name="FontItalic" Value="False"/><Param Name="FontSize" Value="9"/><Param Name="BackColor" Value="-2147483643"/><Param Name="ForeColor" Value="-2147483640"/><Param Name="Width" Value="337"/><Param Name="Height" Value="233"/><Param Name="Left" Value="8"/><Param Name="Top" Value="8"/><Param Name="ToolTip" Value=""/><Param Name="Enabled" Value="True"/><Param Name="Visible" Value="True"/><Param Name="Tag" Value=""/><Param Name="MousePointer" Value="vbDefault"/><Param Name="MouseIcon" Value="Nothing"/><Param Name="CanGetFocus" Value="True"/><Param Name="(Name)" Value="myTree"/></Object></SourceFile>
