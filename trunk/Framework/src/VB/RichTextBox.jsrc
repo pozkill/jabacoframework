@@ -41,6 +41,7 @@ Dim myStyle As New javax#swing#text#StyleContext
 Dim myStyleCount As Long
 Dim myCursorHive As New Collection 
 Dim myCursorHiveLL As New java#util#LinkedList 
+Dim myHTMLPath As #IResource 
 
 Dim Withevents myText As RTTextPane
 
@@ -211,6 +212,22 @@ End Property
 
 Public Property Let SelText(v As String)
    Call Parent.replaceSelection(v)   
+End Property
+
+Public Property Get HtmlFile() As #IResource
+    HtmlFile = myHTMLPath
+End Property
+
+Public Property Let HtmlFile(Path As #IResource)
+   On Error Goto ERROUT
+   If Len(Path) > 0 Then
+      myText.setContentType("text/html")
+      myText.setAutoscrolls(True)
+      myText.setPage(Parent.getClass.getResource("/"+Path))
+   Else
+      myText.setContentType("text/plain")
+   End If
+ERROUT:
 End Property
 
 Public Sub appendText(text As String)
