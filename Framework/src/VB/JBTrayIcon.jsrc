@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<SourceFile><Source><![CDATA[Option Explicit
+'//////////////////////////////////////////////////
+'   Copyright (c) 2010 Alarcón Franco Andrés
+'   All rights reserved.
+'
+'   Redistribution And use In source And binary forms, With Or without
+'   modification, are permitted provided that the following conditions
+'   are met:
+'   1. Redistributions of source code must retain the above copyright
+'      notice, this list of conditions And the following disclaimer.
+'   2. Redistributions In binary form must reproduce the above copyright
+'      notice, this list of conditions And the following disclaimer In the
+'      documentation And/Or other materials provided With the distribution.
+'   3. Neither the name of copyright holders nor the names of its
+'      contributors may be used To endorse Or promote products derived
+'      from this software without specific prior written permission.
+'
+'   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+'   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+'   TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+'   PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL COPYRIGHT HOLDERS OR CONTRIBUTORS
+'   BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+'   CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+'   SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+'   INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+'   CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+'   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+'   POSSIBILITY OF SUCH DAMAGE.
+''//////////////////////////////////////////////////
+
+Implements java#awt#Event#MouseListener
+Implements java#awt#Event#ActionListener
+'//////////////////////////////////////////////////
+
+Private myTrayIcon As java#awt#TrayIcon
+Private myMenu As VBMenuGroup
+Private myflagVisible As Boolean
+'//////////////////////////////////////////////////
+
+Event Click()
+Event RClick()
+'//////////////////////////////////////////////////
+
+Public Sub Class_Initialize   
+   myTrayIcon = New TrayIcon(New BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB))
+   With myTrayIcon
+      .setImageAutoSize(True)
+      .addActionListener(Me)
+      .addMouseListener(Me)
+      .setToolTip(Nothing)
+      .setPopupMenu(Nothing)
+   End With
+         
+   myMenu = Nothing
+   myflagVisible = False
+End Sub
+
+'//////////////////////////////////////////////////
+'//   PUBLIC FIELDS
+'//////////////////////////////////////////////////
+Public Property Let Visible(newValue As Boolean)
+   If (newValue) Then
+      If Not (myflagVisible) Then
+         java#awt#SystemTray.getSystemTray().add(myTrayIcon)
+         myflagVisible = True
+      End If
+   Else
+      If (myflagVisible) Then
+         java#awt#SystemTray.getSystemTray().remove(myTrayIcon)
+         myflagVisible = False
+      End If
+   End If   
+End Property
+Public Property Get Visible() As Boolean
+   Visible = myflagVisible
+End Property
+
+Public Property Let Tooltip(newTooltip As String)
+   myTrayIcon.setToolTip(newTooltip)
+End Property
+Public Property Get Tooltip() As String
+   Tooltip = myTrayIcon.getToolTip()   
+End Property
+
+Public Property Let Menu(newMenu As VBMenuGroup)
+   myMenu = newMenu
+End Property
+Public Property Get Menu() As VBMenuGroup
+   Menu = myMenu
+End Property
+
+Public Property Let Icon(newImage As String)   
+   myTrayIcon.setImage(javax#imageio#ImageIO.read(New File(newImage)))
+End Property
+Public Property Get Icon() As Image
+   Icon = myTrayIcon.getImage()
+End Property
+
+'//////////////////////////////////////////////////
+'//   Listeners
+'//////////////////////////////////////////////////
+Public Sub mouseClicked(arg2 As MouseEvent)
+   Select Case getVBMouseButton(arg2)
+      Case vbKeyLButton
+         Raiseevent Click()
+      Case vbKeyRButton
+         If (myMenu = Nothing) Then
+            Raiseevent RClick()
+         End If
+   End Select
+End Sub
+
+Public Sub mousePressed(arg2 As MouseEvent)   
+End Sub
+
+Public Sub mouseReleased(arg2 As MouseEvent)
+   If (arg2.isPopupTrigger()) Then
+      If (myMenu <> Nothing) Then         
+         Dim tmp As JPopupMenu = myMenu.GetAsPopupMenu()
+         tmp.setLocation(arg2.getX(), arg2.getY())
+         'to know why, see: http://weblogs.java.net/blog/2006/05/04/using-jpopupmenu-trayicon
+         tmp.setInvoker(tmp)
+         tmp.setVisible(True)
+      End If
+   End If
+End Sub
+
+Public Sub mouseEntered(arg2 As MouseEvent)   
+End Sub
+
+Public Sub mouseExited(arg2 As MouseEvent)   
+End Sub
+
+Public Sub actionPerformed(arg2 As ActionEvent)   
+End Sub
+]]></Source><Param Name="(Name)" Value="JBTrayIcon"/><Param Name="(SuperClass)" Value="java/lang/Object"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>

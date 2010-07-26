@@ -121,6 +121,7 @@
 	<File Name="IWinsockItem.jsrc"/>
 	<File Name="WinsockItemUDP.jsrc"/>
 	<File Name="Debug.jsrc"/>
+	<File Name="JBTrayIcon.jsrc"/>
 	<Param Name="Version" Value=""/>
 	<Param Name="JVM Options" Value=""/>
 	<Param Name="Debug Start" Value=""/>
