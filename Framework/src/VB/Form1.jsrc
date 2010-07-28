@@ -17,6 +17,7 @@ Dim myGrid As New uGrid
 Public Sub Form_Load()
    TabStrip1.Tabs.Add myWinsock, "Winsock"
    TabStrip1.Tabs.Add myFileSystem, "FileSystem"
+   TabStrip1.Tabs.Add New uDirBrowse, "DirBrowse"
    TabStrip1.Tabs.Add New uSplitPane, "SplitPane"
    TabStrip1.Tabs.Add New uTextBox, "TextBox"
    TabStrip1.Tabs.Add New uGrid, "Grid"   
