@@ -97,6 +97,59 @@ Public Function createMenu(Owner As VBMenuGroup, ControlID As String, Caption As
    createMenu = New VBMenuItem(Me, Owner, ControlID, Caption, Visible, IconPath)
 End Function
 
+'//////////////////////////////////////////////////////////////
+' {Added support for CheckBoxMenuItem and RadioButtonMenuItem}
+' @since 2010-08-02
+' @author Alarcón Franco Andrés
+Public Function createCheckBoxMenu(Owner As VBMenuGroup, ControlID As String, Caption As String, Checked As Boolean) As VBCheckBoxMenuItem   
+   createCheckBoxMenu = createCheckBoxMenu(Owner, ControlID, Caption, Checked, True)
+End Function
+
+Public Function createCheckBoxMenu(Owner As VBMenuGroup, ControlID As String, Caption As String, Checked As Boolean, Visible As Boolean) As VBCheckBoxMenuItem   
+   createCheckBoxMenu = createCheckBoxMenu(Owner, ControlID, Caption, Checked, Visible, Nothing)
+End Function
+
+Public Function createCheckBoxMenu(Owner As VBMenuGroup, ControlID As String, Caption As String, Checked As Boolean, Visible As Boolean, IconPath As #IResource) As VBCheckBoxMenuItem   
+   createCheckBoxMenu = New VBCheckBoxMenuItem(Me, Owner, ControlID, Caption, Checked, Visible, IconPath)   
+End Function
+
+'//////////////////////////////////////////////////////////////
+Public Function createRadioButtonMenu(Owner As VBMenuGroup, ControlID As String, Caption As String, _
+   Selected As Boolean) As ButtonGroup
+   createRadioButtonMenu = createRadioButtonMenu(Owner, ControlID, Caption, Selected, True)
+End Function
+
+
+Public Function createRadioButtonMenu(Owner As VBMenuGroup, ControlID As String, Caption As String, _
+   Selected As Boolean, Visible As Boolean) As ButtonGroup
+   createRadioButtonMenu = createRadioButtonMenu(Owner, ControlID, Caption, Selected, Visible, Nothing)
+End Function
+
+Public Function createRadioButtonMenu(Owner As VBMenuGroup, ControlID As String, Caption As String, _
+   Selected As Boolean, Visible As Boolean, IconPath As #IResource) As ButtonGroup
+   Dim group As New ButtonGroup()
+   Dim radio As New VBRadioButtonMenuItem(Me, Owner, ControlID, Caption, Selected, group, Visible, IconPath)
+   createRadioButtonMenu = group
+End Function
+
+'//////////////////////////////////////////////////////////////
+Public Function createRadioButtonMenu(Owner As VBMenuGroup, ControlID As String, _
+   Caption As String, Selected As Boolean, Group As ButtonGroup, _
+   Visible As Boolean, IconPath As #IResource) As VBRadioButtonMenuItem
+   
+   createRadioButtonMenu = New VBRadioButtonMenuItem(Me, Owner, ControlID, Caption, Selected, Group, Visible, IconPath)
+   
+End Function
+
+Public Function createRadioButtonMenu(Owner As VBMenuGroup, ControlID As String, Caption As String, Selected As Boolean, Group As ButtonGroup, Visible As Boolean) As VBRadioButtonMenuItem
+   createRadioButtonMenu = createRadioButtonMenu(Owner, ControlID, Caption, Selected, Group, Visible, Nothing)   
+End Function
+   
+Public Function createRadioButtonMenu(Owner As VBMenuGroup, ControlID As String, Caption As String, Selected As Boolean, Group As ButtonGroup) As VBRadioButtonMenuItem
+   createRadioButtonMenu = createRadioButtonMenu(Owner, ControlID, Caption, Selected, Group, True)   
+End Function
+'//////////////////////////////////////////////////////////////
+
 Public Property Get Height() As Integer
    If Visible Then
       Height = Me.Parent.getHeight()
@@ -126,5 +179,4 @@ End Sub
 
 Public Sub actionPerformed(e As ActionEvent)
    Call GoClick(e.getSource())
-End Sub
-]]></Source><Param Name="(Name)" Value="VBMenuBar"/><Param Name="(SuperClass)" Value="javax/swing/JMenuBar"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VB"/></SourceFile>
+End Sub]]></Source><Param Name="(Name)" Value="VBMenuBar"/><Param Name="(SuperClass)" Value="javax/swing/JMenuBar"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VB"/></SourceFile>

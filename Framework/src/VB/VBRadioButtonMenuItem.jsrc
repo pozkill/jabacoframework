@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SourceFile><Source><![CDATA[' {CheckBoxMenuItem wrapper for jabaco}
+' @since 2010-07-30
+' @author Alarcón Franco Andrés
+
+Option Explicit
+
+Implements VB#IJabacoClass 
+Implements VB#IMenuItem 
+
+Dim myIconPath As #IResource
+Dim myControlID As String 
+Dim myMenuBar As VBMenuBar
+
+Public Function getBackground() As #Color
+   If myMenuBar = Nothing Then
+      getBackground = Base.getBackground()
+      Call Parent.setOpaque(True)
+   Else
+      getBackground = myMenuBar.getBackground()
+      Call Parent.setOpaque(True)
+   End If
+End Function
+
+Public Function getForeground() As #Color
+   If myMenuBar = Nothing Then
+      getForeground = Base.getForeground()
+   Else
+      getForeground = myMenuBar.getForeground()
+   End If
+End Function
+
+Public Function getFont() As #Font 
+   If myMenuBar = Nothing Then
+      getFont = Base.getFont()
+   Else
+      getFont = myMenuBar.getFont()
+   End If
+End Function
+
+Public Sub VBRadioButtonMenuItem(refMenuBar As VBMenuBar, refOwner As #JComponent, _
+   refControlID As String, refCaption As String, refSelected As Boolean, _
+   refGroup As ButtonGroup, refVisible As Boolean, refIconPath As #IResource)
+
+   myMenuBar = refMenuBar
+      
+   refGroup.add(Me)
+   
+   If refOwner = Null Then
+      Call refMenuBar.add(Me)
+   Else
+      Call refOwner.add(Me)
+   End If
+
+   Call Parent.addActionListener(refMenuBar)   
+   Caption = refCaption
+   ControlID = refControlID
+   Visible = refVisible
+   Icon = refIconPath
+   
+   Base.setSelected(refSelected)
+   
+   If refOwner <> Nothing Then 
+      If Parent.getIcon() = Nothing Then
+         Parent.setIcon CreateIcon(16, 16)
+      End If
+   End If
+
+End Sub
+
+Public Property Get ControlID() As String
+    ControlID = myControlID
+End Property
+
+Public Property Let ControlID(s As String)
+    myControlID = s
+End Property
+
+Public Property Get Caption() As String
+    Caption = Me.getLabel()
+End Property
+
+Public Property Let Caption(s As String)
+    Me.setLabel(s)
+End Property
+
+Public Property Get Icon() As #IResource
+   Icon = myIconPath
+End Property
+
+Public Property Let Icon(Path As #IResource)
+   On Error Goto ERROUT
+   If Len(Path) > 0 Then 
+      Me.setIcon LoadIcon(Path)
+      myIconPath = Path
+   End If
+ERROUT:
+End Property
+
+Public Property Get Selected() As Boolean
+   Selected = Base.isSelected()
+End Property
+
+Public Property Let Selected(v As Boolean)
+   Base.setSelected(v)
+End Property
+
+Public Property Get Visible() As Boolean 
+   Visible = Me.isVisible()
+End Property
+
+Public Property Let Visible(v As Boolean)
+   Me.setVisible v
+End Property
+
+Public Property Get Parent() As #JMenuItem 
+   Parent = Base
+End Property]]></Source><Param Name="(Name)" Value="VBRadioButtonMenuItem"/><Param Name="(SuperClass)" Value="javax/swing/JRadioButtonMenuItem"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>
