@@ -5,6 +5,8 @@ Implements IJabacoForm
 Implements ComponentListener 
 Implements FocusListener
 
+Implements WindowListener
+
 Dim myInitLookAndFeelFlag As Boolean = LookAndFeelManager().isInitialized()
 Dim Withevents myMenuBar As New VBMenuBar(Me)
 Dim Withevents myToolBar As New VBToolBar(Me)
@@ -73,9 +75,10 @@ Public Sub fireLoaded(sender As Object)
    
    Call Me.Form_Resize()
 
+   Call Parent.addWindowListener(Me)
+   Debug.Print("addWindowListener Installed!")
    Call Parent.addFocusListener(Me)
-   Call Parent.addComponentListener(Me)
-   
+   Call Parent.addComponentListener(Me)   
 End Sub
 
 
@@ -113,6 +116,8 @@ Public Sub componentShown(e As ComponentEvent)
    Me.Form_Activate()
 End Sub
 
+Public Sub Form_Unload(cancel As Integer)    'cancel is not used, is only for compatibility
+End Sub
 
 Public Sub Form_Activate()
 End Sub
@@ -423,5 +428,31 @@ End Sub
 
 Public Sub myToolBar_Click(ToolBarItem As IToolBarItem)
    Call Me.Form_ToolBarClick(ToolBarItem)
+End Sub
+
+
+
+'////////////////////////////////////////////////////////////////////
+Public Sub windowOpened(arg2 As WindowEvent)
+End Sub
+
+Public Sub windowClosing(arg2 As WindowEvent)      
+   On Error Resume Next
+   Me.Form_Unload(0)
+End Sub
+
+Public Sub windowClosed(arg2 As WindowEvent)
+End Sub
+
+Public Sub windowIconified(arg2 As WindowEvent) 
+End Sub
+
+Public Sub windowDeiconified(arg2 As WindowEvent)
+End Sub
+
+Public Sub windowActivated(arg2 As WindowEvent)
+End Sub
+
+Public Sub windowDeactivated(arg2 As WindowEvent)
 End Sub
 ]]></Source><Param Name="(Name)" Value="AbstractForm"/><Param Name="(SuperClass)" Value="javax/swing/JFrame"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>
