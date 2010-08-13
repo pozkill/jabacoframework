@@ -76,7 +76,6 @@ Public Sub fireLoaded(sender As Object)
    Call Me.Form_Resize()
 
    Call Parent.addWindowListener(Me)
-   Debug.Print("addWindowListener Installed!")
    Call Parent.addFocusListener(Me)
    Call Parent.addComponentListener(Me)   
 End Sub
