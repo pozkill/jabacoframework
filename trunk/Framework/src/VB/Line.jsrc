@@ -130,4 +130,4 @@ Public Sub Refresh()
    Call Parent.invalidate
    Call Parent.repaint(0, 0, 0, Abs(Me.X1-Me.X2) + 2*BorderWidth, Abs(Me.Y1-Me.Y2) + 2*BorderWidth)
 End Sub
-]]></Source><Param Name="(Name)" Value="Line"/><Param Name="(SuperClass)" Value="javax/swing/JComponent"/><Param Name="(NameSpace)" Value=""/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>
+]]></Source><Param Name="(Name)" Value="Line"/><Param Name="(SuperClass)" Value="javax/swing/JComponent"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>
