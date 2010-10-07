@@ -1,17 +1,31 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <SourceFile><Source><![CDATA[Option Explicit
 Implements IJabacoClass
 Dim mX1 As Long, mX2 As Long, mY1 As Long, mY2 As Long
 Dim myBorderWidth As Long
+Dim myAntiAliasing As Boolean
 Dim myTag As String
 
-Public Sub paintComponent(g As #Graphics)
+Public Sub paintComponent(g As java#awt#Graphics)
    If g = Nothing Then Exit Sub
-   Dim g2d As #Graphics2D 
-   g2d = Cast(g, Graphics2D)
-   Call g2d.setStroke( New java#awt#BasicStroke(myBorderWidth) )
+   Dim g2d As java#awt#Graphics2D 
+   g2d = Cast(g, java#awt#Graphics2D)
+   
+   If myAntiAliasing Then
+      Call g2d.setRenderingHint(java#awt#RenderingHints.KEY_ANTIALIASING, java#awt#RenderingHints.VALUE_ANTIALIAS_ON)
+   End If
+   
+   Call g2d.setStroke( New java#awt#BasicStroke(myBorderWidth, java#awt#BasicStroke.CAP_ROUND, java#awt#BasicStroke.JOIN_ROUND) )
    Call g2d.setColor(Parent.getForeground())
-   g2d.drawLine mX1, mY1, mX2, mY2
+   If mX1 <= mX2 And mY1 <= mY2 Then
+     g2d.drawLine 0 + myBorderWidth, 0 + myBorderWidth, mX2-mX1 + myBorderWidth, mY2-mY1 + myBorderWidth
+   ElseIf mX1 > mX2 And mY1 <= mY2 Then
+     g2d.drawLine mX1-mX2 + myBorderWidth, 0 + myBorderWidth, 0 + myBorderWidth, mY2-mY1 + myBorderWidth
+   ElseIf mX1 <= mX2 And mY1 > mY2 Then
+     g2d.drawLine 0 + myBorderWidth, mY1-mY2 + myBorderWidth, mX2-mX1 + myBorderWidth, 0 + myBorderWidth
+   ElseIf mX1 > mX2 And mY1 > mY2 Then
+     g2d.drawLine mX1-mX2 + myBorderWidth, mY1-mY2 + myBorderWidth, 0 + myBorderWidth, 0 + myBorderWidth
+   End If
    g2d.dispose 
 End Sub
 
@@ -20,14 +34,22 @@ Public Property Get Parent() As #JComponent
 End Property
 
 Private Sub recalcMySelf()
-   Call Parent.setLocation(IIF(X1 > X2, X2, X1), IIF(Y1 > Y2, Y2, Y1))
-   Call Parent.setSize(IIF(X1 > X2, X1, X2), IIF(Y1 > Y2, Y1, Y2))
+   Call Parent.setLocation(IIF(X1 > X2, X2, X1) - BorderWidth, IIF(Y1 > Y2, Y2, Y1) - BorderWidth)
+   Call Parent.setSize(Abs(X1 - X2) + 2*BorderWidth+1, Abs(Y1 - Y2) + 2*BorderWidth+1)
    Call Parent.invalidate()
    Call Parent.updateUI()
 End Sub
 
 Public Property Get DrawMode() As DrawModeConstants
 
+End Property
+
+Public Property Get AntiAliasing() As Boolean
+   AntiAliasing = myAntiAliasing
+End Property
+
+Public Property Let AntiAliasing(v As Boolean)
+   myAntiAliasing = v
 End Property
 
 Public Property Let DrawMode(v As DrawModeConstants)
@@ -102,4 +124,10 @@ End Property
 
 Public Property Let Tag(v As String)
    myTag = v
-End Property]]></Source><Param Name="(Name)" Value="Line"/><Param Name="(SuperClass)" Value="javax/swing/JComponent"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>
+End Property
+
+Public Sub Refresh()
+   Call Parent.invalidate
+   Call Parent.repaint(0, 0, 0, Abs(Me.X1-Me.X2) + 2*BorderWidth, Abs(Me.Y1-Me.Y2) + 2*BorderWidth)
+End Sub
+]]></Source><Param Name="(Name)" Value="Line"/><Param Name="(SuperClass)" Value="javax/swing/JComponent"/><Param Name="(NameSpace)" Value=""/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>
