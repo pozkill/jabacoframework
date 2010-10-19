@@ -83,6 +83,10 @@
 			<fileset dir="${extlib.dir}">
 				<include name="**/*" />
 			</fileset>
+
+			<fileset dir="${src.dir}">
+				<include name="**/VBA/cursors/*.gif" />
+			</fileset>
 		</copy>
 
 		<!-- create the jabaco - jar -->
