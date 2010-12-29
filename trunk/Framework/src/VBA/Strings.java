@@ -1,4 +1,4 @@
-﻿package VBA;
+package VBA;
 import java.lang.StringBuffer;
 /**
  * Prozeduren, die zum Durchführen von Zeichenfolgenoperationen verwendet werden
