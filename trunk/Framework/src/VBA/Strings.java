@@ -1,4 +1,4 @@
-package VBA;
+﻿package VBA;
 import java.lang.StringBuffer;
 /**
  * Prozeduren, die zum Durchführen von Zeichenfolgenoperationen verwendet werden
@@ -199,7 +199,26 @@ public class Strings {
 		return (ArrayToString(val2));
 	}
 	private static String PCase(String String1) {
-		return (String1);	
+		String String2 = "";
+		boolean lastWasLetter = false;
+		for (int i=0; i<=String1.length()-1; i++) {
+			Character ch = String1.charAt(i);
+			if (Character.isLetterOrDigit(ch)) {
+				if (Character.isDigit(ch)) {
+					String2 = String2.concat(ch.toString());
+				} else if (lastWasLetter) {
+					String2 = String2.concat(ch.toString().toLowerCase());
+					lastWasLetter = true;
+				} else {
+					String2 = String2.concat(ch.toString().toUpperCase());
+					lastWasLetter = true;
+				}
+			} else {
+				String2 = String2.concat(ch.toString());
+				lastWasLetter = false;
+			}
+		}
+		return (String2); 
 	}
 	private static String XCase(String String1) {
 		return (String1);	
@@ -378,6 +397,8 @@ Mid$
 MidB
 MidB$
 MonthName
+PCase
+PCase$
 Replace
 Right
 Right$
