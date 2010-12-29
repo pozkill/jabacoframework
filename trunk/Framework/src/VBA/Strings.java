@@ -198,7 +198,7 @@ public class Strings {
 		for (int i = 0; i < val.length; i++) val2[val.length - i - 1] = val[i];
 		return (ArrayToString(val2));
 	}
-	private static String PCase(String String1) {
+        public static String PCase(String String1) {
 		String String2 = "";
 		boolean lastWasLetter = false;
 		for (int i=0; i<=String1.length()-1; i++) {
