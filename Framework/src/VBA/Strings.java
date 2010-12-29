@@ -202,9 +202,9 @@ public class Strings {
 		String String2 = "";
 		boolean lastWasLetter = false;
 		for (int i=0; i<=String1.length()-1; i++) {
-			Character ch = String1.charAt(i);
-			if (Character.isLetterOrDigit(ch)) {
-				if (Character.isDigit(ch)) {
+                        Character ch = Character.valueOf(String1.charAt(i));
+                        if (Character.isLetterOrDigit(ch.charValue())) {
+                                if (Character.isDigit(ch.charValue())) {
 					String2 = String2.concat(ch.toString());
 				} else if (lastWasLetter) {
 					String2 = String2.concat(ch.toString().toLowerCase());
