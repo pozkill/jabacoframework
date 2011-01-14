@@ -117,4 +117,60 @@ public class DateTime {
         Date dat = cal.getTime(); 
         return new VBVariant(dateFormat.format(dat));
 	}
+
+
+	/*
+	Gibt die Anzahl der Zeitintervalle zwischen zwei Datumsangaben zurück
+
+	returns the amount of timespans between the two dates
+	Interval: a string representing the kind of time
+	Date1: one end of the timespan
+	Date2: the other end of the timespan
+
+	note: does not consider different first days of the week
+	*/
+	public static long DateDiff(String Interval, VBVariant Date1, VBVariant Date2)
+	{
+		return DateVal(Interval, Date2) - DateVal(Interval, Date1);
+	}
+
+	/* Helper function for DateDiff */
+	private static long DateVal(String Interval, VBVariant d) {
+		Date d1 = (Date)d.toObject();
+		long sec = Conversion.CLng(VBVariant.valueOf(d1.getTime() * 0.001));
+		int y = d1.getYear();
+		long ret = 0;
+
+		if (Interval.equals("s"))
+			ret = sec;
+		else if (Interval.equals("n"))
+			ret = Conversion.CLng(VBVariant.valueOf(sec / 60));
+		else if (Interval.equals("h"))
+			ret = Conversion.CLng(VBVariant.valueOf(sec / 3600));
+		else if (Interval.equals("d") || Interval.equals("y"))
+			ret = Conversion.CLng(VBVariant.valueOf(sec / (24 * 3600)));
+		else if (Interval.equals("w") || Interval.equals("ww"))
+			ret = y * 52 + getWeekShort(d1);  // quick hack! not correct for multiple-year diffs
+		else if (Interval.equals("m"))
+			ret = 12 * y + d1.getMonth();
+		else if (Interval.equals("q"))
+			ret = 4 * y + d1.getMonth() / 4;
+		else if (Interval.equals("yyyy"))
+			ret = y;
+		else {
+			System.out.println("DateVal: unknown interval '" + Interval + "'");
+			ret = 0;
+		}
+
+		return ret;
+	}
+
+	/* Helper function for DateDiff */
+	private static int getWeekShort(Date d) {
+		Calendar cal = Calendar.getInstance();
+
+		cal.setTime(d);
+		return cal.get(Calendar.WEEK_OF_YEAR);
+        }
+
 }
