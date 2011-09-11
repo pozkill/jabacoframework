@@ -187,7 +187,7 @@ End Property
 
 Public Property Get FontName() As String 
    On Error Resume Next
-   FontName = Parent.getFont.GetFontName()
+   FontName = Parent.getFont.GetFamily()
 End Property
 
 Public Property Let FontName(val As String)

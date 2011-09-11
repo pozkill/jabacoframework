@@ -277,7 +277,7 @@ End Function
 ' ******************************** SAME IN ALL JABACO CONTROLS ********************************
 
 Public Property Get FontName() As String 
-   FontName = Parent.getFont.GetFontName()
+   FontName = Parent.getFont.GetFamily()
 End Property
 
 Public Property Let FontName(val As String)
@@ -328,7 +328,7 @@ End Property
 Public Property Let BackColor(v As Long)
    Parent.setBackground(RGBtoColor(v))
    Base.setBackground(Parent.getBackground())
-   Parent.setCaretColor(RGBtoColor(NotRGB(v)))
+   Parent.setCaretColor(RGB (Parent.getBackground.getBlue XOR 255, Parent.getBackground.getGreen XOR 255, Parent.getBackground.getRed XOR 255))
 End Property
 
 'Public Property Get ForeColor() As java#awt#Color

@@ -158,7 +158,7 @@ End SUb
 ' ******************************** SAME IN ALL JABACO CONTROLS ********************************
 
 Public Property Get FontName() As String 
-   FontName = Parent.getFont.GetFontName()
+   FontName = Parent.getFont.GetFamily()
 End Property
 
 Public Property Let FontName(val As String)
