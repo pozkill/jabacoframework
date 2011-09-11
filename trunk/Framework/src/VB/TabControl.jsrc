@@ -208,7 +208,7 @@ Public Sub mouseExited(e As MouseEvent)
 End Sub
 
 Public Property Get FontName() As String 
-   FontName = me.getFont.GetFontName()
+   FontName = me.getFont.GetFamily()
 End Property
 
 Public Property Let FontName(val As String)

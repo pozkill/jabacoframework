@@ -78,7 +78,7 @@ Public Property Get Height() As Integer
 End Property
 
 'Public Property Get FontName() As String 
-'   FontName = me.getFont.GetFontName()
+'   FontName = me.getFont.GetFamily()
 'End Property
 '
 'Public Property Let FontName(val As String)
