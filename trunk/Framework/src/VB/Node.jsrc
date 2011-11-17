@@ -14,6 +14,8 @@ End Enum
 
 Dim myTree As TreeView 
 
+Dim myKey As String
+
 Dim myForeColor As Long
 Dim myForeColorSel As Long
 Dim myBackColor As Long
@@ -78,6 +80,14 @@ Public Property Let Selected(v As Boolean)
    Else
       myTree.Parent.setSelectionPath(Nothing)
    End If
+End Property
+
+Public Property Get Key() As String
+   Key = myKey
+End Property
+
+Public Property Let Key(sKey As String)
+   myKey = sKey
 End Property
 
 Public Property Get Visible() As Boolean
