@@ -25,6 +25,7 @@ Public Function Add(Relative As Node, Relationship As TreeRelationshipConstants,
    myNode.Text = Text
    myHash.Add myNode, Key
 
+   myNode.Key = Key
    myNode.Icon = Image
    myNode.ForeColor = myTree.ForeColor 
    myNode.BackColor = myTree.BackColor 
