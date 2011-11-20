@@ -402,11 +402,11 @@ Public Property Let ToolTip(v As String)
 End Property
 
 Public Property Get Enabled() As Boolean 
-   Enabled = Base.isEnabled()
+   Enabled = Parent.isEnabled()
 End Property
 
 Public Property Let Enabled(v As Boolean)
-   Call Base.setEnabled(v)
+   Call Parent.setEnabled(v)
 End Property
 
 Public Property Get Visible() As Boolean 
