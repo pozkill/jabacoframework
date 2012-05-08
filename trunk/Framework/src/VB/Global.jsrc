@@ -701,15 +701,22 @@ ERROUT: VBMouseIconToJCursor = DEFAULT_CURSOR
 End Function
 
 Public Function VBFontSizeToJFontSize(v As Integer) As Integer 
-   VBFontSizeToJFontSize = v * GetFontFactor() ' * 1.4
+   VBFontSizeToJFontSize = v * GetFontFactor()
 End Function
 
 Public Function JFontSizeToVBFontSize(v As Integer) As Integer 
-   JFontSizeToVBFontSize = v / GetFontFactor() ' / 1.4
+   ' The 0.85 is because rounding between integer and double.
+   ' only with this 0.85 a number n is the same like
+   ' JFontSizeToVBFontSize(VBFontSizeToJFontSize(n))
+   JFontSizeToVBFontSize = (v / GetFontFactor()) + 0.85
 End Function
 
 Private Function GetFontFactor() As Double 
-   GetFontFactor = Toolkit.getDefaultToolkit.getScreenResolution() / 72 ' 72 dpi = java std.
+   ' For calculation in VBFontSizeToJFontSize and JFontSizeToVBFontSize it is better, to have the same number
+   ' on all platforms.
+   ' For more infoamtion look in Function JFontSizeToVBFontSize.
+   'GetFontFactor = Toolkit.getDefaultToolkit.getScreenResolution() / 72 ' 72 dpi = java std.
+   GetFontFactor = 1.4
 End Function
 
 Public Function SavePicture(picture As Image, filename As String) As Boolean 

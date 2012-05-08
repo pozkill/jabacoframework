@@ -281,6 +281,13 @@ Public Function FileCopy(Source As String, Destination As String) As Boolean
    Wend
 End Function
 
+Public Function FileDateTime(path As String) As Date
+  Dim file As New java#io#File(path)
+  Dim modifiedTime As Long = file.lastModified()
+  Dim myDate As Date = New Date(modifiedTime)
+  FileDateTime = myDate  
+End Function
+
 Public Function CurDir() As String
    CurDir = System.getProperties().getProperty("user.dir")
 End Function
