@@ -20,7 +20,14 @@ public class Cryptography {
 			algorithm.reset();
 			algorithm.update(defaultBytes);
 			byte messageDigest[] = algorithm.digest();
-			ret = messageDigest.toString();
+			StringBuffer hexString = new StringBuffer();
+			for (int i=0; i<messageDigest.length; i++) {
+				if(messageDigest[i] <= 15 && messageDigest[i] >= 0) {
+					hexString.append("0");
+				}
+				hexString.append(Integer.toHexString(0xFF & messageDigest[i]));
+			}
+			ret = hexString.toString();
 		} catch (Exception e) {}
 		if (ret == null) ret = "";
 		return ret;
@@ -34,7 +41,14 @@ public class Cryptography {
 			algorithm.reset();
 			algorithm.update(defaultBytes);
 			byte messageDigest[] = algorithm.digest();
-			ret = messageDigest.toString();
+			StringBuffer hexString = new StringBuffer();
+			for (int i=0; i<messageDigest.length; i++) {
+				if(messageDigest[i] <= 15 && messageDigest[i] >= 0) {
+					hexString.append("0");
+				}
+				hexString.append(Integer.toHexString(0xFF & messageDigest[i]));
+			}
+			ret = hexString.toString();
 		} catch (Exception e) {}
 		if (ret == null) ret = "";
 		return ret;
