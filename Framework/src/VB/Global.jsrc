@@ -400,6 +400,25 @@ Public Enum fmBorderStyle
    fmBorderStyleSingle = 1
 End Enum
 
+Enum AnchorStyles
+   vbTopLeft = 5
+   vbBottomRight = 10
+   vbTopRight = 9
+   vbBottomLeft = 6
+   vbTop = 1
+   vbBottom = 2
+   vbLeft = 4
+   vbRight = 8
+   vbTopLeftRight = 13
+   vbBottomLeftRight = 14
+   vbTopBottomLeft = 7
+   vbTopBottomRight = 11
+   vbTopBottom = 3
+   vbLeftRight = 12
+   vbTopBottomLeftRight = 15
+   vbNone = 0
+End Enum
+
 Public Function setGlobalMDIForm(refMDI As MDIForm)
    myGlobalMDIForm = refMDI
 End Function
