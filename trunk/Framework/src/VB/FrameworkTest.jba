@@ -606,6 +606,7 @@
 	<Implements Name="java/util/TimeZone"/>
 	<Implements Name="javax/swing/CellEditor"/>
 	<Implements Name="javax/swing/table/TableCellEditor"/>
+	<Implements Name="VB/AnchorStyles"/>
 	<Implements Name="VB/Applet"/>
 	<Implements Name="VB/BorderStyleConstants"/>
 	<Implements Name="VB/ButtonConstants"/>

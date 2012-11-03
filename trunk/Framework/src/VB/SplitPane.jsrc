@@ -29,6 +29,18 @@ Dim myCaption As String
 Dim myTag As String
 Dim myLocation As Integer 
 
+' *** Variables for Anchor and resizing ***
+Private myAnchor As AnchorStyles = AnchorStyles.vbTopLeft
+Private mySavedWidth As Single
+Private mySavedHeight As Single
+Private mySavedLeft As Single
+Private mySavedTop As Single
+Private hostSavedWidth As Single
+Private hostSavedHeight As Single
+Private isResizeTriggerInitialized As Boolean = False
+Private isLeftInitialized As Boolean = False
+Private isTopInitialized As Boolean = False
+
 ' ******************************** INIT THIS CONTROL ********************************
 
 Public Sub SplitPane()
@@ -242,6 +254,10 @@ Public Property Get Left() As Single
 End Property
 
 Public Property Let Left(v As Single)
+    If isLeftInitialized = False Then
+       mySavedLeft = v
+       isLeftInitialized = True
+    End If
     Me.setLocation(v, Me.getLocation.y)
 End Property
 
@@ -250,7 +266,19 @@ Public Property Get Top() As Single
 End Property
 
 Public Property Let Top(v As Single)
+    If isTopInitialized = False Then
+       mySavedTop = v
+       isTopInitialized = True
+    End If
     Me.setLocation(Me.getLocation.x, v)
+End Property
+
+Public Property Get Anchor() AS AnchorStyles
+   Anchor = myAnchor
+End Property
+
+Public Property Let Anchor(val As AnchorStyles)
+   myAnchor = val
 End Property
 
 Public Function Move(Left As Single, Optional Top As Single = -1, Optional Width As Single = -1, Optional Height As Single = -1)
@@ -331,18 +359,40 @@ Public Sub Refresh()
    Call Parent.revalidate()
 End Sub
 
+Public Sub ResizeTriggerInit(w As Single, h As Single)
+   hostSavedWidth = w
+   hostSavedHeight = h
+   mySavedWidth = Me.Width
+   mySavedHeight = Me.Height
+   isResizeTriggerInitialized = True
+End Sub
 
+Public Sub ResizeTrigger(w As Single, h As Single)
+   If isResizeTriggerInitialized = True And isLeftInitialized = True And isTopInitialized = True Then
+      Select Case myAnchor And 12 ' horizontal re-allignment
+        ' 12 in decimal = 1100 in binary. binary addition - eliminates Top and Bottom
+      Case AnchorStyles.vbLeft
+         ' do nothing
+      Case AnchorStyles.vbRight
+        Me.Left = w-hostSavedWidth+mySavedLeft
+      Case AnchorStyles.vbLeftRight
+        Me.Width = w-hostSavedWidth+mySavedWidth
+      Case AnchorStyles.vbNone
+        Me.Left = (w-mySavedWidth)/(hostSavedWidth-mySavedWidth)*mySavedLeft
+      End Select
 
-
-
-
-
-
-
-
-
-
-
-
+      Select Case myAnchor And 3 ' vertical re-allignment
+        ' 3 in decimal = 0011 in binary. binary addition - eliminates Left and Right
+      Case AnchorStyles.vbTop
+         ' do nothing
+      Case AnchorStyles.vbBottom
+         Me.Top = h-hostSavedHeight+mySavedTop
+      Case AnchorStyles.vbTopBottom
+         Me.Height = h-hostSavedHeight+mySavedHeight
+      Case AnchorStyles.vbNone
+         Me.Top = (h-mySavedHeight)/(hostSavedHeight-mySavedHeight)*mySavedTop
+      End Select
+   End If
+End Sub
 
 ]]></Source><Param Name="(Name)" Value="SplitPane"/><Param Name="(SuperClass)" Value="javax/swing/JSplitPane"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VB"/></SourceFile>
