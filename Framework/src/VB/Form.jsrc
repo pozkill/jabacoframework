@@ -76,7 +76,7 @@ Public Sub add(Component As java#awt#Component)
    ElseIf ( Component.getClass.getSuperclass.getName.equals("VB.FileListBox") ) Then
       Dim Component223 As VB#FileListBox = Cast(Component, VB#FileListBox)
       Component223.ResizeTriggerInit(Me.Width, Me.Height)
-   ElseIf ( Component.getClass.getSuperclass.getName.equals("VB.Usercontrol") ) Then
+   ElseIf ( Component.getClass.getSuperclass.getSuperclass.getName.equals("VB.Usercontrol") ) Then
       Dim Component224 As VB#Usercontrol = Cast(Component, VB#Usercontrol)
       Component224.ResizeTriggerInit(Me.Width, Me.Height)
    End If

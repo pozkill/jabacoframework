@@ -498,7 +498,7 @@ Private Sub AnchorResize ' Let the added component resize, if its Anchor wants i
          Dim myCont07 As VB#ListBox
          myCont07 = Cast(comp(i) , VB#ListBox)
          myCont07.ResizeTrigger(Parent.getContentPane.getWidth, Parent.getContentPane.getHeight)
-      ElseIf comp(i).getClass.getSuperclass.getName.equals("VBOptionButton") Then
+      ElseIf comp(i).getClass.getSuperclass.getName.equals("VB.OptionButton") Then
          Dim myCont08 As VB#OptionButton
          myCont08 = Cast(comp(i) , VB#OptionButton)
          myCont08.ResizeTrigger(Parent.getContentPane.getWidth, Parent.getContentPane.getHeight)
@@ -562,7 +562,7 @@ Private Sub AnchorResize ' Let the added component resize, if its Anchor wants i
          Dim myCont23 As VB#FileListBox
          myCont23 = Cast(comp(i) , VB#FileListBox)
          myCont23.ResizeTrigger(Parent.getContentPane.getWidth, Parent.getContentPane.getHeight)
-      ElseIf comp(i).getClass.getSuperclass.getName.equals("VB.Usercontrol") Then
+      ElseIf comp(i).getClass.getSuperclass.getSuperclass.getName.equals("VB.Usercontrol") Then
          Dim myCont24 As VB#Usercontrol
          myCont24 = Cast(comp(i) , VB#Usercontrol)
          myCont24.ResizeTrigger(Parent.getContentPane.getWidth, Parent.getContentPane.getHeight)
