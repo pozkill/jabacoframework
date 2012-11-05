@@ -191,7 +191,7 @@ Public Property Get ListIndex() As Integer
 End Property
 
 Public Property Let ListIndex(val As Integer)
-   If val > -1 And val < ListCount Then
+   If val >= -1 And val < ListCount Then
       Call Parent.setSelectedIndex(val)
    End If
 End Property
