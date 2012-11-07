@@ -153,6 +153,11 @@ End Sub
 
 ' ******************************** SPECIAL FUNCTIONS ********************************
 
+Public Sub RemoveItem(v As Integer)
+   myModel.removeElementAt(v)
+   Call fireChange()
+End Sub
+
 Private Sub ReDispatch(e As MouseEvent)
 On Error Goto ERROUT
 
