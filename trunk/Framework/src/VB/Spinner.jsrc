@@ -1,23 +1,18 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<SourceFile><Source><![CDATA[Option Explicit
-Implements IJabacoControl
-Implements MouseListener 
-Implements MouseMotionListener
-Implements KeyListener
-Implements FocusListener 
+<SourceFile><Source><![CDATA[
+Option Explicit
 
+Implements IJabacoControl
+Implements MouseMotionListener
+Implements FocusListener 
+Implements ChangeListener
+
+Event Change()
 Event Click()
 Event DblClick()
 Event GotFocus()
-Event KeyDown(KeyCode As Integer, Shift As Integer)
-Event KeyPress(KeyAscii As Integer)
-Event KeyUp(KeyCode As Integer, Shift As Integer)
 Event LostFocus()
-Event MouseEntered()
-Event MouseExited() 
-Event MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
 Event MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
-Event MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
 
 Dim myBorderStyle As fmBorderStyle
 Dim mySpecialEffect As fmSpecialEffect
@@ -38,6 +33,8 @@ Private isResizeTriggerInitialized As Boolean = False
 Private isLeftInitialized As Boolean = False
 Private isTopInitialized As Boolean = False
 
+
+
 ' ******************************** INIT THIS CONTROL ********************************
 
 Public Property Get Parent() As #JSpinner 
@@ -49,10 +46,9 @@ End Property
 'End Property
 
 Public Sub Class_Initialize()
+   Call Parent.addChangeListener(Me)
    Call Parent.addFocusListener(Me)
-   Call Parent.addMouseListener(Me)
    Call Parent.addMouseMotionListener(Me)
-   Call Parent.addKeyListener(Me)
    myDefaultBorder = Parent.getBorder 
    'Call Parent.setMargin(New Insets(1,5,1,1))
 End Sub
@@ -77,47 +73,6 @@ Public Sub mouseDragged(e As MouseEvent)
     RaiseEvent MouseMove(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
 End Sub
 
-Public Sub mousePressed(e As MouseEvent) 
-    RaiseEvent MouseDown(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
-End Sub
-
-Public Sub mouseReleased(e As MouseEvent) 
-   RaiseEvent MouseUp(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
-   If (e.getX > 0 And e.getY > 0 And e.getX < Me.getWidth And e.getY < Me.getHeight) Then
-      If e.getClickCount() >= 2 Then
-         RaiseEvent DblClick()
-      Else
-         RaiseEvent Click()
-      End If
-   End If
-End Sub
-
-Public Sub mouseClicked(e As MouseEvent) 
-    'done by actionlistener
-End Sub
-
-Public Sub mouseEntered(e As MouseEvent) 
-    RaiseEvent MouseEntered()
-End Sub 
-
-Public Sub mouseExited(e As MouseEvent) 
-    RaiseEvent MouseExited()
-End Sub
-
-' ******************************** DEFAULT KEY - EVENTS ********************************
-
-Public Sub keyReleased(e As KeyEvent) 
-   RaiseEvent KeyUp(e.getKeyCode, KeyEventToShiftConstant(e))
-End Sub
-
-Public Sub keyTyped(e As KeyEvent)
-   RaiseEvent KeyPress(e.getKeyChar)
-End Sub
-
-Public Sub keyPressed(e As KeyEvent)
-    RaiseEvent KeyDown(e.getKeyCode, KeyEventToShiftConstant(e))
-End Sub 
-
 ' ******************************** SPECIAL FUNCTIONS ********************************
 
 'Public Property Get BackColorSel() As Long
@@ -136,23 +91,27 @@ End Sub
 '   Parent.setSelectedTextColor(RGBtoColor(v))
 'End Property
 
+
+
 Public Sub setSelColor(v As Long)
    Parent.setForeground RGBtoColor(v)
 End SUb
 
 Public Property Get Value() As String
    On Error Resume Next
-   Value = Parent.getValue()
+'   Value = Parent.getValue()
+   Value = Parent.getModel().getValue()
 End Property
 
 Public Property Let Value(v As String)
    On Error Resume Next
-   Call Parent.setValue(val(v))
+'   Call Parent.setValue(val(v))
+   Call Parent.getModel().setValue(val(v))
 End Property
 
-
-
-
+Public Sub stateChanged(e As ChangeEvent)
+   Raiseevent Change()
+End Sub
 
 ' ******************************** SAME IN ALL JABACO CONTROLS ********************************
 
@@ -380,5 +339,4 @@ Public Sub ResizeTrigger(w As Single, h As Single)
       End Select
    End If
 End Sub
-
 ]]></Source><Param Name="(Name)" Value="Spinner"/><Param Name="(SuperClass)" Value="javax/swing/JSpinner"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>
