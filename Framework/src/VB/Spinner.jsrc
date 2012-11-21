@@ -8,8 +8,6 @@ Implements FocusListener
 Implements ChangeListener
 
 Event Change()
-Event Click()
-Event DblClick()
 Event GotFocus()
 Event LostFocus()
 Event MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
