@@ -32,6 +32,7 @@ Public Function getTableCellRendererComponent(table As JTable, value As Object, 
    Call myHeader.setFont(myBaseComponent.getFont)
    Call myHeader.setBackground(RGBToColor(myGrid.BackColorHeader))
    Call myHeader.setForeground(RGBToColor(myGrid.ForeColorHeader))
+   Call myHeader.setIcon(LoadIcon(myGrid.HeaderIcon(col)))
    Call myHeader.setPreferredSize(New Dimension(myHeader.getPreferredSize().getWidth(), myGrid.HeaderHeight))
    
 '   myLabel.Caption = value
