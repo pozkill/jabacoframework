@@ -42,7 +42,8 @@ Event CellButtonClick()
 Dim myModel As JBGridModel 
 Dim myTable As #JTable 
 Dim myRenderer As JBCellRenderer
-Dim myEditor As JBCellEditor 
+Dim myEditor As JBCellEditor
+Dim myHeaderIcon As #IResource
 Dim myHeaderRenderer As JBHeaderRenderer
 Dim myFlatHeader As Boolean 
 
@@ -132,7 +133,7 @@ End Sub
 
 Public Sub mouseReleased(e As MouseEvent) 
    RaiseEvent MouseUp(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
-   If (e.getX > 0 And e.getY > 0 And e.getX < Me.getWidth And e.getY < Me.getHeight) Then
+   If (e.getX > 0 And e.getY > 0 And e.getX < Me.getWidth And e.getY < Me.Parent.getBounds.getHeight()) Then
       If e.getClickCount() Mod 2 = 0 Then
          RaiseEvent DblClick()
       Else
@@ -357,6 +358,15 @@ End Property
 Public Property Let Header(Index As Integer, value As String)
    Dim tmpHeaderItem As New JBCellData(value)
    Call myModel.setColumnName(Index, tmpHeaderItem)
+   Call Me.Refresh()
+End Property
+
+Public Property Get HeaderIcon(Index As Integer) As #IResource
+   HeaderIcon = myModel.getColumnIcon(Index) 
+End Property
+
+Public Property Let HeaderIcon(Index As Integer, value As #IResource)
+   Call myModel.setColumnIcon(Index, value)
    Call Me.Refresh()
 End Property
 
