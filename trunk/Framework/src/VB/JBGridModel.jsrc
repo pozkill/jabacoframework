@@ -6,6 +6,7 @@ Dim myMatrix As New #HashMap
 Dim myMaxRow As Integer 
 Dim myMaxCol As Integer 
 Dim myTmpIndex As New #Point(0, 0)
+Dim myColumnIcon() As #IResource
 Dim myColumnName() As String
 Dim myWatcher As #TableModelListener
 Dim myGrid As JBGrid
@@ -68,7 +69,20 @@ Private Sub refreshRowColCount(row As Integer, col As Integer)
    myMaxRow = max(row, myMaxRow)
    myMaxCol = max(col, myMaxCol)
    Redim Preserve myColumnName(myMaxCol)
+   Redim Preserve myColumnIcon(myMaxCol)
 End Sub
+
+Public Sub setColumnIcon(col As Integer, val As #IResource)
+   On Error Resume Next
+   Call refreshRowColCount(myMaxRow, col)
+   myColumnIcon(col) = val
+   Parent.fireTableStructureChanged() 
+End Sub
+
+Public Function getColumnIcon(col As Integer) As #IResource
+   On Error Resume Next
+   getColumnIcon = myColumnIcon(col)
+End Function
 
 Public Function registerStopEditEvent() As Boolean
    myStopEdit = True
