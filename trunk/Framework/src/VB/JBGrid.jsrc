@@ -42,7 +42,7 @@ Event CellButtonClick()
 
 Dim myModel As JBGridModel 
 Dim myTable As #JTable
-Dim myHeaderRenderer As DefaultTableCellRenderer
+Dim myHeaderRenderer As JBHeaderRenderer
 Dim myRenderer As JBCellRenderer
 Dim myEditor As JBCellEditor
 Dim myHeaderIcon As #IResource
