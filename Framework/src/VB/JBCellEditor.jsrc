@@ -84,7 +84,7 @@ Public Function getCellEditorValue() As Object
             lastData.Text = myCombo.Text
          End If
    End Select
-   'Call myGrid.fireAfterEdit(row, col)
+   Call myGrid.fireAfterEdit(myGrid.Row, myGrid.Col)
    getCellEditorValue = lastObject
 End Function
 
