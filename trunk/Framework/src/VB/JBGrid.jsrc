@@ -24,6 +24,7 @@ End Enum
 Event Click()
 Event DblClick()
 Event GotFocus()
+Event ColHeaderClick()
 Event KeyDown(KeyCode As Integer, Shift As Integer)
 Event KeyPress(KeyAscii As Integer)
 Event KeyUp(KeyCode As Integer, Shift As Integer)
@@ -40,16 +41,17 @@ Event AfterCellEdit(row As Integer, col As Integer)
 Event CellButtonClick()
 
 Dim myModel As JBGridModel 
-Dim myTable As #JTable 
+Dim myTable As #JTable
+Dim myHeaderRenderer As DefaultTableCellRenderer
 Dim myRenderer As JBCellRenderer
 Dim myEditor As JBCellEditor
 Dim myHeaderIcon As #IResource
-Dim myHeaderRenderer As JBHeaderRenderer
 Dim myFlatHeader As Boolean 
 
 Dim myBorderStyle As fmBorderStyle
 Dim mySpecialEffect As fmSpecialEffect
 
+Dim myColHeaderIndex As Integer
 Dim myHeaderHeight As Integer
 Dim myBorderColorSel As Long
 Dim myBorderColor As Long
@@ -89,6 +91,7 @@ Public Sub Class_Initialize()
    Call Parent.addFocusListener(Me)
    Call Base.setViewportView(myTable)
    Call Parent.addMouseListener(Me)
+   Call Parent.getTableHeader().addMouseListener(Me)
    Call Parent.addMouseMotionListener(Me)
    Call Parent.addKeyListener(Me)
 
@@ -137,7 +140,12 @@ Public Sub mouseReleased(e As MouseEvent)
       If e.getClickCount() Mod 2 = 0 Then
          RaiseEvent DblClick()
       Else
-         RaiseEvent Click()
+         If Parent.getTableHeader.getMousePosition() <> Null Then
+            ColHeaderIndex = Parent.getTableHeader.columnAtPoint(Parent.getTableHeader.getMousePosition())
+            RaiseEvent ColHeaderClick()
+         Else
+            RaiseEvent Click()
+         End If
       End If
    End If
 End Sub
@@ -192,6 +200,7 @@ End Function
 'Public Property Let Sortable(v As Boolean)
 '   Call Parent.setAutoCreateRowSorter(v)
 'End Property
+
 Public Property Get BorderColorSel() As Long
    BorderColorSel = myBorderColorSel
 End Property
@@ -295,6 +304,7 @@ End Property
 'Public Property Let FirstVisibleRow(v As Long)
 '   FirstVisibleRow = Base.getrow
 'End Property
+
 Public Property Get FlatHeader() As Boolean
    FlatHeader = myFlatHeader
 End Property
@@ -368,6 +378,16 @@ End Property
 Public Property Let HeaderIcon(Index As Integer, value As #IResource)
    Call myModel.setColumnIcon(Index, value)
    Call Me.Refresh()
+End Property
+
+Public Property Get ColHeaderIndex() As Integer 
+   ColHeaderIndex = myColHeaderIndex
+End Property
+
+Public Property Let ColHeaderIndex(v As Integer)
+   If v > -2 And v < Me.Cols Then
+      myColHeaderIndex = v
+   End If
 End Property
 
 Public Function isEditing() As Boolean
@@ -785,6 +805,4 @@ Public Sub ResizeTrigger(w As Single, h As Single)
          Me.Top = (h-mySavedHeight)/(hostSavedHeight-mySavedHeight)*mySavedTop
       End Select
    End If
-End Sub
-
-]]></Source><Param Name="(Name)" Value="JBGrid"/><Param Name="(SuperClass)" Value="javax/swing/JScrollPane"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VB"/></SourceFile>
+End Sub]]></Source><Param Name="(Name)" Value="JBGrid"/><Param Name="(SuperClass)" Value="javax/swing/JScrollPane"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VB"/></SourceFile>
