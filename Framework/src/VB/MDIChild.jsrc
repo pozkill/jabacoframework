@@ -139,6 +139,10 @@ Public Sub fireLoaded(sender As Object)
    Call Parent.addComponentListener(Me)
 End Sub
 
+Public Sub dispose()
+   Me.Form_Unload(0)
+End Sub
+
 ' ******************************** DEFAULT FOCUS - EVENTS ********************************
 
 Public Sub focusGained(arg2 As FocusEvent)
@@ -213,6 +217,8 @@ End Sub
 Public Sub Form_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
 End Sub
 Public Sub Form_Paint(g As java#awt#Graphics)
+End Sub
+Public Sub Form_Unload(cancel As Integer)    'cancel is not used, is only for compatibility
 End Sub
 Public Sub myContent_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
    Call Me.Form_MouseUp(Button, Shift, X, Y)
