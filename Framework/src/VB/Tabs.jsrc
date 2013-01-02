@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SourceFile><Source><![CDATA[Option Explicit
+
 Dim myTabStrip As TabStrip
 
 Public Sub Tabs(refTabStrip As TabStrip)
@@ -9,6 +10,16 @@ End Sub
 Public Property Get TabCount() As Integer 
    On Error Resume Next
    TabCount = myTabStrip.Parent.getComponentCount 
+End Property
+
+Public Property Get Caption(Index As Integer) As String 
+   On Error Resume Next
+   Caption = myTabStrip.Parent.getTitleAt(Index - 1)
+End Property
+
+Public Property Let Caption(Index As Integer, Title As String)
+   On Error Resume Next
+   Call myTabStrip.Parent.setTitleAt(Index - 1, Title)
 End Property
 
 Public Property Get Item(Index As Integer) As Usercontrol
