@@ -291,6 +291,11 @@ Public Enum fmTabOrientation
    fmTabOrientationRight = 3
 End Enum
 
+Public Enum fmTabLayoutType  
+   fmTabLayoutWrapTab = 0   
+   fmTabLayoutScrollTab = 1
+End Enum
+
 Public Enum vbScrollBarPolicy
    sbShowAsNeeded = 0
    sbShowNever = 1
@@ -438,7 +443,7 @@ Public Function Clipboard() As VBClipboard
 End Function
 
 Public Function Forms() As java#util#Hashtable
-   if myForms = Nothing then myForms = New java#util#Hashtable
+   If myForms = Nothing Then myForms = New java#util#Hashtable
    Forms = myForms
 End Function
 
@@ -496,15 +501,15 @@ Public Sub Unload(Form As Dialog)
    Set Form = Nothing
    EmptyEnd
 End Sub
-Private Sub RemoveForm(obj as Object)
+Private Sub RemoveForm(obj As Object)
    If Forms.containsKey(obj.hashCode) Then 
       Forms.remove(obj.hashCode)     
-   else
+   Else
       bEmptyEnd = False
-   end if
+   End If
 End Sub
 Private Sub EmptyEnd
-   if bEmptyEnd And Forms.isEmpty Then System.exit(0) 'Global.End
+   If bEmptyEnd And Forms.isEmpty Then System.exit(0) 'Global.End
 End Sub
 'Public Sub SetWindowToCenter(Window As java#awt#Window)
 '   Dim tmpDimension As java#awt#Dimension 

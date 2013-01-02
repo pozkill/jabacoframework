@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<SourceFile><Source><![CDATA[
-Option Explicit
+<SourceFile><Source><![CDATA[Option Explicit
 
 Implements IJabacoControl
 Implements MouseMotionListener
 Implements FocusListener 
 Implements ChangeListener
+Implements KeyListener
 
 Event Change()
+Event Click()
 Event GotFocus()
+Event KeyDown(KeyCode As Integer, Shift As Integer)		
+Event KeyPress(KeyAscii As Integer)		
+Event KeyUp(KeyCode As Integer, Shift As Integer)
 Event LostFocus()
 Event MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
 
-Dim myBorderStyle As fmBorderStyle
-Dim mySpecialEffect As fmSpecialEffect
-Dim myBorderColor As Long
-Dim myDefaultBorder As #Border 
+'Dim myBorderStyle As fmBorderStyle
+'Dim mySpecialEffect As fmSpecialEffect
+'Dim myBorderColor As Long
+'Dim myDefaultBorder As #Border 
 Dim myTag As String
 Dim myMouseIcon As #IResource
 
@@ -39,15 +43,12 @@ Public Property Get Parent() As #JSpinner
    Parent = Base
 End Property
 
-'Public Property Get Parent() As #JComponent 
-'   Parent = Base.getEditor()
-'End Property
-
 Public Sub Class_Initialize()
    Call Parent.addChangeListener(Me)
    Call Parent.addFocusListener(Me)
-   Call Parent.addMouseMotionListener(Me)
-   myDefaultBorder = Parent.getBorder 
+   Call Parent.addMouseMotionListener(Me) 
+   Call getParentEditor.addKeyListener(Me)
+   'myDefaultBorder = Parent.getBorder 
    'Call Parent.setMargin(New Insets(1,5,1,1))
 End Sub
 
@@ -70,26 +71,51 @@ End Sub
 Public Sub mouseDragged(e As MouseEvent) 
     RaiseEvent MouseMove(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
 End Sub
+			
+' ******************************** DEFAULT KEY - EVENTS ********************************		
+      
+Public Sub keyReleased(e As KeyEvent)		
+   RaiseEvent KeyUp(e.getKeyCode, KeyEventToShiftConstant(e))		
+End Sub		
+      
+Public Sub keyTyped(e As KeyEvent)		
+   RaiseEvent KeyPress(e.getKeyChar)		
+End Sub		
+      
+Public Sub keyPressed(e As KeyEvent)		
+    RaiseEvent KeyDown(e.getKeyCode, KeyEventToShiftConstant(e))		
+End Sub
 
 ' ******************************** SPECIAL FUNCTIONS ********************************
+' Set AFTER setting a custom model!!
 
-'Public Property Get BackColorSel() As Long
-'   BackColorSel = ColorToRGB(Parent.getSelectionColor())
-'End Property
-'
-'Public Property Let BackColorSel(v As Long)
-'   Parent.setSelectionColor(RGBtoColor(v))
-'End Property
-'
-'Public Property Get ForeColorSel() As Long
-'   ForeColorSel = ColorToRGB(Parent.getSelectedTextColor())
-'End Property
-'
-'Public Property Let ForeColorSel(v As Long)
-'   Parent.setSelectedTextColor(RGBtoColor(v))
-'End Property
+Private Function getParentEditor() As #JTextField
+   getParentEditor = Cast(Parent.getEditor.getComponent(0), #JTextField)
+End Function
 
+Public Property Get BackColorSel() As Long
+   BackColorSel = ColorToRGB(getParentEditor.getSelectionColor())
+End Property
 
+Public Property Let BackColorSel(v As Long)
+   Call getParentEditor.setSelectionColor(RGBtoColor(v))
+End Property
+
+Public Property Get ForeColorSel() As Long
+   ForeColorSel = ColorToRGB(getParentEditor.getSelectedTextColor())
+End Property
+
+Public Property Let ForeColorSel(v As Long)
+   Call getParentEditor.setSelectedTextColor(RGBtoColor(v))
+End Property
+
+Public Property Get Locked() As Boolean
+   Locked = Not getParentEditor.isEditable
+End Property
+
+Public Property Let Locked(v As Boolean)
+   Call getParentEditor.setEditable(v = False)
+End Property
 
 Public Sub setSelColor(v As Long)
    Parent.setForeground RGBtoColor(v)
@@ -97,82 +123,78 @@ End SUb
 
 Public Property Get Value() As String
    On Error Resume Next
-'   Value = Parent.getValue()
-   Value = Parent.getModel().getValue()
+   Value = Parent.getValue()
 End Property
 
 Public Property Let Value(v As String)
    On Error Resume Next
-'   Call Parent.setValue(val(v))
-   Call Parent.getModel().setValue(val(v))
+   Call Parent.setValue(Val(v))
+   Parent.commitEdit()
 End Property
 
 Public Sub stateChanged(e As ChangeEvent)
+   Raiseevent Click()
    Raiseevent Change()
 End Sub
 
-' ******************************** SAME IN ALL JABACO CONTROLS ********************************
-
-Private Function Bug5036022Fix() 
-   ' maybe soon
-End Function
+' ************************* NOT THE SAME AS THE OTHER JABACO CONTROLS *************************
+' Set AFTER setting a custom model!!
 
 Public Property Get FontName() As String 
-   FontName = Parent.getFont.GetFamily()
+   FontName = getParentEditor.getFont.GetFamily()
 End Property
 
 Public Property Let FontName(val As String)
-   Parent.setFont(New Font(val, IIF(FontBold, BOLD, 0) OR IIF(FontItalic, ITALIC, 0), VBFontSizeToJFontSize(FontSize)))
-   Call Bug5036022Fix()
+   Call getParentEditor.setFont(New Font(val, IIF(FontBold, BOLD, 0) OR IIF(FontItalic, ITALIC, 0), VBFontSizeToJFontSize(FontSize)))
 End Property
 
 Public Property Get FontBold() As Boolean 
-   FontBold = Parent.getFont.isBold()
+   FontBold = getParentEditor.getFont.isBold()
 End Property
 
 Public Property Let FontBold(val As Boolean)
-   Parent.setFont(New Font(FontName, IIF(val, BOLD, 0) OR IIF(FontItalic, ITALIC, 0), VBFontSizeToJFontSize(FontSize)))
-   Call Bug5036022Fix()
+   Call getParentEditor.setFont(New Font(FontName, IIF(val, BOLD, 0) OR IIF(FontItalic, ITALIC, 0), VBFontSizeToJFontSize(FontSize)))
 End Property
 
 Public Property Get FontItalic() As Boolean
-   FontItalic = Parent.getFont.isItalic()
+   FontItalic = getParentEditor.getFont.isItalic()
 End Property
 
 Public Property Let FontItalic(val As Boolean)
-   Parent.setFont(New Font(FontName, IIF(FontBold, BOLD, 0) OR IIF(val, ITALIC, 0), VBFontSizeToJFontSize(FontSize)))
-   Call Bug5036022Fix()
+   Call getParentEditor.setFont(New Font(FontName, IIF(FontBold, BOLD, 0) OR IIF(val, ITALIC, 0), VBFontSizeToJFontSize(FontSize)))
 End Property
 
 Public Property Get FontSize() As Integer 
-   FontSize = (JFontSizeToVBFontSize(Font.getSize()))
+   FontSize = (JFontSizeToVBFontSize(getParentEditor.getFont.getSize()))
 End Property
 
 Public Property Let FontSize(val As Integer)
-   Parent.setFont(New Font(FontName, IIF(FontBold, BOLD, 0) Or IIF(FontItalic, ITALIC, 0), VBFontSizeToJFontSize(val)))
-   Call Bug5036022Fix()
+   Call getParentEditor.setFont(New Font(FontName, IIF(FontBold, BOLD, 0) Or IIF(FontItalic, ITALIC, 0), VBFontSizeToJFontSize(val)))
 End Property
 
 Public Property Get Font() As Font
-   Font = Parent.getFont()
+   Font = getParentEditor.getFont()
 End Property
 
 Public Property Get BackColor() As Long
-   BackColor = ColortoRGB(Parent.getBackground())
+   BackColor = ColortoRGB(getParentEditor.getBackground())
 End Property
 
 Public Property Let BackColor(v As Long)
-   Parent.setBackground(RGBtoColor(v))
-   Call Parent.getEditor.setBackground(Parent.getBackground())
+'  Hack to get rid of the white space when BackColor is <> default; depends on laf though!!
+'   If v <> 16777215 Then Call Parent.setBorder(New EmptyBorder(New Insets(1,1,1,1)))
+   Call getParentEditor.setBackground(RGBtoColor(v))
 End Property
 
 Public Property Get ForeColor() As Long
-   ForeColor = ColortoRGB(Parent.getForeground())
+   ForeColor = ColortoRGB(getParentEditor.getForeground())
 End Property
 
 Public Property Let ForeColor(v As Long)
-    Parent.setForeground(RGBtoColor(v))
+   Call getParentEditor.setForeground(RGBtoColor(v))
 End Property
+
+' ******************************** SAME IN ALL JABACO CONTROLS ********************************
 
 Public Property Get Width() As Single
     Width = Me.getSize.Width
@@ -337,4 +359,5 @@ Public Sub ResizeTrigger(w As Single, h As Single)
       End Select
    End If
 End Sub
+
 ]]></Source><Param Name="(Name)" Value="Spinner"/><Param Name="(SuperClass)" Value="javax/swing/JSpinner"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>

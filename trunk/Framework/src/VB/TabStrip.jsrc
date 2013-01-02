@@ -15,20 +15,19 @@ Event MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
 Event MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
 Event MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
 
-'Dim myScrollPane As New JScrollPane(Me)
-
 Dim myTabs As New Tabs(Me)
 
-Dim myImage As BufferedImage 
-Dim myImagePath As String 
-Dim RadioButtonGroup As New ButtonGroup
-Dim AutoResizeVal As Boolean
-Dim StartUpPositionVal As StartUpPositionConstants
+'Dim myImage As BufferedImage 
+'Dim myImagePath As String 
+'Dim RadioButtonGroup As New ButtonGroup
+'Dim AutoResizeVal As Boolean
+'Dim StartUpPositionVal As StartUpPositionConstants
 
-Dim myBorderStyle As fmBorderStyle
-Dim mySpecialEffect As fmSpecialEffect
-Dim myBorderColor As Long
-Dim myCaption As String
+'Dim myBorderStyle As fmBorderStyle
+'Dim mySpecialEffect As fmSpecialEffect
+'Dim myBorderColor As Long
+'Dim myCaption As String
+
 Dim myTag As String
 Dim myMouseIcon As IResource 
 
@@ -80,7 +79,9 @@ Public Sub mousePressed(e As MouseEvent)
     RaiseEvent MouseDown(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
 End Sub
 
-Public Sub mouseReleased(e As MouseEvent) 
+Public Sub mouseReleased(e As MouseEvent)
+   'make Get SelectedIndex() in MouseUp Event Mac OS X compatible...
+'   If Parent.indexAtLocation(e.getX(),e.getY()) <> -1 Then Call Parent.setSelectedIndex(Parent.indexAtLocation(e.getX(),e.getY()))
    RaiseEvent MouseUp(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
 End Sub
 
@@ -138,6 +139,21 @@ Public Property Let TabOrientation(v As fmTabOrientation)
       Case fmTabOrientationLeft:    Parent.setTabPlacement(2)
       Case fmTabOrientationBottom:  Parent.setTabPlacement(3)
       Case fmTabOrientationRight:   Parent.setTabPlacement(4)
+   End Select
+End Property
+
+Public Property Get TabLayout() As fmTabLayoutType
+   Select Case Parent.getTabLayoutPolicy()
+      Case 0:  TabLayout = fmTabLayoutWrapTab
+      Case 1:  TabLayout = fmTabLayoutScrollTab
+   End Select
+End Property
+
+Public Property Let TabLayout(v As fmTabLayoutType)
+   On Error Resume Next
+   Select Case v
+      Case fmTabLayoutWrapTab:    Parent.setTabLayoutPolicy(0)
+      Case fmTabLayoutScrollTab:  Parent.setTabLayoutPolicy(1)
    End Select
 End Property
 
