@@ -281,6 +281,53 @@ Public Function FileCopy(Source As String, Destination As String) As Boolean
    Wend
 End Function
 
+Public Function DirCopy(Source As String, Destination As String) As Boolean
+  
+  Dim tmpString As String = Source & System.getProperty("file.separator")
+  
+  If Len(Destination) > Len(tmpString) Then
+    If ((Left(Destination, Len(tmpString)).equals(tmpString))) Then
+      MsgBox ("Destination " & Chr(34) & Destination & Chr(34) & " is" & vbNewLine & _
+         "subdirectory of Source " & Chr(34) & Source & Chr(34) & "." & vbNewLine & _
+         "This is not allowed, because it ends with recursive, endless copying")
+    End If
+  End If
+
+  Dim SourceFile As java#io#File = New File(Source)
+  Dim DestinationFile As java#io#File = New File(Destination)
+  DirCopy = True
+  If (NOT SourceFile.exists) Then
+    MsgBox "Source-directory " & Chr(34) & Source & Chr(34) & " don't exists"
+    DirCopy = False
+    Exit Function
+  Elseif (NOT SourceFile.isDirectory) Then
+    MsgBox "Source-directory " & Chr(34) & Source & Chr(34) & " not a directory"
+    DirCopy = False
+    Exit Function
+  Else
+    If (NOT DestinationFile.exists) Then
+      MkDir Destination
+    End If
+    If (NOT DestinationFile.isDirectory) Then
+      MsgBox "Destination-directory " & Chr(34) & Destination & Chr(34) & " not a directory"
+      DirCopy = False
+      Exit Function
+    End If
+  End If
+  
+  Dim childFolders() As File
+  childFolders() = SourceFile.listFiles()
+
+  Dim item As File
+  For Each item In childFolders
+    If item.isFile Then
+      FileCopy (Source & System.getProperty("file.separator") & item.getName , Destination & System.getProperty("file.separator") & item.getName)
+    ElseIf item.isDirectory Then
+      DirCopy (Source & System.getProperty("file.separator") & item.getName , Destination & System.getProperty("file.separator") & item.getName)    
+    End If
+  Next
+End Function
+
 Public Function FileDateTime(path As String) As Date
   Dim file As New java#io#File(path)
   Dim modifiedTime As Long = file.lastModified()

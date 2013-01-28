@@ -41,9 +41,10 @@ public class Strings {
 		return (InStr(Start, String1, String2, VBCompareMethod.vbBinaryCompare));
 	}
 	public static int InStr(int Start, String String1, String String2, VBCompareMethod CompareMet) {
-		switch (CompareMet.intValue()) {
-			case (0): { return String1.indexOf (String2, Start - 1) + 1; }
-			case (1): { return String1.toLowerCase().indexOf (String2.toLowerCase(), Start - 1) + 1; }
+		if (String1.equals("")) return 0;
+		if CompareMet.intValue() == 1 {
+			String1 = String1.toLowerCase();
+			String2 = String2.toLowerCase();
 		}
 		return String1.indexOf (String2, Start - 1) + 1;
 	}
@@ -54,10 +55,12 @@ public class Strings {
 		return (InStrRev(String1, String2, Start, VBCompareMethod.vbBinaryCompare));
 	}
 	public static int InStrRev(String String1, String String2, int Start, VBCompareMethod CompareMet) {
-		if (Start > Len(String1)) return 0;
-		switch (CompareMet.intValue()) {
-			case (0): {	return String1.lastIndexOf (String2, Start - 1) + 1; }
-			case (1): { return String1.toLowerCase().lastIndexOf (String2, Start - 1) + 1; }
+		if (Start == -1) Start = String1.length();
+		if (String1.length() > Start) String1=String1.substring(0,Start);
+		if (String1.equals("") || (Start > Len(String1)) ) return 0;
+		if CompareMet.intValue() == 1 {
+			String1 = String1.toLowerCase();
+			String2 = String2.toLowerCase();
 		}
 		return String1.lastIndexOf (String2, Start - 1) + 1;
 	}
