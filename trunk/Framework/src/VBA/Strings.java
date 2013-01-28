@@ -42,7 +42,7 @@ public class Strings {
 	}
 	public static int InStr(int Start, String String1, String String2, VBCompareMethod CompareMet) {
 		if (String1.equals("")) return 0;
-		if CompareMet.intValue() == 1 {
+		if (CompareMet.intValue() == 1) {
 			String1 = String1.toLowerCase();
 			String2 = String2.toLowerCase();
 		}
@@ -58,7 +58,7 @@ public class Strings {
 		if (Start == -1) Start = String1.length();
 		if (String1.length() > Start) String1=String1.substring(0,Start);
 		if (String1.equals("") || (Start > Len(String1)) ) return 0;
-		if CompareMet.intValue() == 1 {
+		if (CompareMet.intValue() == 1) {
 			String1 = String1.toLowerCase();
 			String2 = String2.toLowerCase();
 		}
