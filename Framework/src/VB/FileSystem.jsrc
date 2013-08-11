@@ -220,15 +220,15 @@ Public Function FileCopy(Source As String, Destination As String) As Boolean
    Dim toFile   As New java#io#File(Destination)
    
    If (Not fromFile.exists) Then
-      MsgBox("FileCopy: " & "no such source file: " & Source)
+      MsgBox("Source file does not exist: " & vbNewLine & Chr(34) & Source & Chr(34), vbExclamation Or vbOKOnly, "FileCopy")
       Exit Function
    End If
    If (Not fromFile.isFile) Then
-      MsgBox("FileCopy: " & "can't copy directory: " & Source)
+      MsgBox("Can not copy directory: " & vbNewLine & Chr(34) & Source & Chr(34), vbExclamation Or vbOKOnly, "FileCopy")
       Exit Function
    End If
    If (Not fromFile.canRead) Then
-      MsgBox("FileCopy: " & "source file is unreadable: " & Source)
+      MsgBox("Source file is unreadable: " & vbNewLine & Chr(34) & Source & Chr(34), vbExclamation Or vbOKOnly, "FileCopy")
       Exit Function
    End If
    If (toFile.isDirectory) Then
@@ -237,12 +237,11 @@ Public Function FileCopy(Source As String, Destination As String) As Boolean
    
    If (toFile.exists) Then
       If (Not toFile.canWrite()) Then
-         MsgBox("FileCopy: " & "destination file is unwriteable: " & Destination)
+         MsgBox("Destination file is unwriteable: " & vbNewLine & Chr(34) & Destination & Chr(34), vbExclamation Or vbOKOnly, "FileCopy")
          Exit Function
       End If
-      Dim ms As String = "Overwrite existing file?" & vbCrLf & toFile.getName
-      If MsgBox(ms, vbOKCancel) <> vbOK Then
-         MsgBox("FileCopy: " & "existing file was not overwritten.")
+      If MsgBox("File already exists. Overwrite?" & vbNewLine & Chr(34) & toFile.getName & Chr(34), vbQuestion Or vbOKCancel, "FileCopy") <> vbOK Then
+         MsgBox("Existing file was not overwritten!", vbExclamation Or vbOKOnly, "FileCopy")
          Exit Function
       End If
    Else
@@ -259,11 +258,11 @@ Public Function FileCopy(Source As String, Destination As String) As Boolean
          'End If
       End If
       If (dir.isFile) Then
-         MsgBox("FileCopy: " & "destination is not a directory: " & Parent)
+         MsgBox("Destination is not a directory: " & vbNewLine & Chr(34) & Parent & Chr(34), vbExclamation Or vbOKOnly, "FileCopy")
          Exit Function
       End If
       If (Not dir.canWrite) Then
-         MsgBox("FileCopy: " & "destination directory is unwriteable: " & Parent)
+         MsgBox("Destination directory is unwriteable: " & vbNewLine & Chr(34) & Parent & Chr(34), vbExclamation Or vbOKOnly, "FileCopy")
          Exit Function
       End If
    End If
@@ -287,9 +286,9 @@ Public Function DirCopy(Source As String, Destination As String) As Boolean
   
   If Len(Destination) > Len(tmpString) Then
     If ((Left(Destination, Len(tmpString)).equals(tmpString))) Then
-      MsgBox ("Destination " & Chr(34) & Destination & Chr(34) & " is" & vbNewLine & _
-         "subdirectory of Source " & Chr(34) & Source & Chr(34) & "." & vbNewLine & _
-         "This is not allowed, because it ends with recursive, endless copying")
+      MsgBox("This is not allowed. It ends with recursive, endless copying!" & vbNewLine & _
+             "Destination directory:" & vbNewLine & Chr(34) & Destination & Chr(34) & vbNewLine & _
+             "is a subdirectory of source:" & vbNewLine & Chr(34) & Source & Chr(34), vbExclamation Or vbOKOnly, "DirCopy")
     End If
   End If
 
@@ -297,11 +296,11 @@ Public Function DirCopy(Source As String, Destination As String) As Boolean
   Dim DestinationFile As java#io#File = New File(Destination)
   DirCopy = True
   If (NOT SourceFile.exists) Then
-    MsgBox "Source-directory " & Chr(34) & Source & Chr(34) & " don't exists"
+    MsgBox ("Source directory does not exist:" & vbNewLine & Chr(34) & Source & Chr(34), vbExclamation Or vbOKOnly, "DirCopy")
     DirCopy = False
     Exit Function
   Elseif (NOT SourceFile.isDirectory) Then
-    MsgBox "Source-directory " & Chr(34) & Source & Chr(34) & " not a directory"
+    MsgBox ("Source directory is not a directory:" & vbNewLine & Chr(34) & Source & Chr(34), vbExclamation Or vbOKOnly, "DirCopy")
     DirCopy = False
     Exit Function
   Else
@@ -309,7 +308,7 @@ Public Function DirCopy(Source As String, Destination As String) As Boolean
       MkDir Destination
     End If
     If (NOT DestinationFile.isDirectory) Then
-      MsgBox "Destination-directory " & Chr(34) & Destination & Chr(34) & " not a directory"
+      MsgBox ("Destination directory is not a directory:" & vbNewLine & Chr(34) & Destination & Chr(34), vbExclamation Or vbOKOnly, "DirCopy")
       DirCopy = False
       Exit Function
     End If
