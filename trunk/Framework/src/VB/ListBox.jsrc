@@ -287,7 +287,15 @@ Public Function HitTest(x As Integer, y As Integer) As Integer
 End Function
 
 Public Synchronized Sub AddItem(Item As String)
-   Dim tmpCellData As New ListCellData(Item, Nothing, IIF(Style = vbListBoxCheckbox, True, False)) 
+'   Dim tmpCellData As New ListCellData(Item, Nothing, IIF(Style = vbListBoxCheckbox, True, False))
+   Dim tmpBool As Boolean
+   Select Case Style
+      Case vbListBoxStandard
+         tmpBool = False
+      Case vbListBoxCheckbox
+         tmpBool = True
+   End Select
+   Dim tmpCellData As New ListCellData(Item, Nothing, tmpBool) 
    tmpCellData.Owner = Me
    myModel.addElement(tmpCellData)
    Call fireChange()
