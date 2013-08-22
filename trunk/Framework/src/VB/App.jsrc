@@ -7,7 +7,15 @@ Public Property Get Path() As String
    'appURL = getClass.getResource(".")
    'Dim s As String = appURL.getPath
    'Path = Replace(s, "%20", " ")
-   Path = System.getProperty("user.dir")
+   'Path = System.getProperty("user.dir")
+   Dim tmpFile As java#io#File
+  
+   tmpFile = New java#io#File(getClass.getProtectionDomain.getCodeSource.getLocation.toURI.getPath)
+   If tmpFile.isFile Then ' started as Jar-file or in an zip-file
+       Path = Left(tmpFile.getAbsolutePath, InStrRev(tmpFile.getAbsolutePath, System.getProperty("file.separator"))-1)  
+   Else  ' started in a directory
+       Path = tmpFile.getAbsolutePath
+   End If
 End Property
    
 Public Function ExeName() As String
