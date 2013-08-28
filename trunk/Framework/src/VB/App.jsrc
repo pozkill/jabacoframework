@@ -9,13 +9,24 @@ Public Property Get Path() As String
    'Path = Replace(s, "%20", " ")
    'Path = System.getProperty("user.dir")
    Dim tmpFile As java#io#File
+   Dim tmpString As String
   
    tmpFile = New java#io#File(getClass.getProtectionDomain.getCodeSource.getLocation.toURI.getPath)
    If tmpFile.isFile Then ' started as Jar-file or in an zip-file
-       Path = Left(tmpFile.getAbsolutePath, InStrRev(tmpFile.getAbsolutePath, System.getProperty("file.separator"))-1)  
+       tmpString = Left(tmpFile.getAbsolutePath, InStrRev(tmpFile.getAbsolutePath, System.getProperty("file.separator"))-1)  
    Else  ' started in a directory
-       Path = tmpFile.getAbsolutePath
+       tmpString = tmpFile.getAbsolutePath
    End If
+
+   If Right$(tmpString, 1) = System.getProperty("file.separator") Then
+     tmpString = Left$(tmpString, Len(tmpString)-1)
+   End If
+   
+   If InStr(tmpString, System.getProperty("file.separator")) = 0 Then
+     tmpString = tmpString + System.getProperty("file.separator")
+   End If
+
+   Path = tmpString
 End Property
    
 Public Function ExeName() As String
