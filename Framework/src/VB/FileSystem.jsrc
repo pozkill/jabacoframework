@@ -335,11 +335,33 @@ Public Function FileDateTime(path As String) As Date
 End Function
 
 Public Function CurDir() As String
-   CurDir = System.getProperties().getProperty("user.dir")
+   Dim tmpString As String
+   tmpString = System.getProperties().getProperty("user.dir")
+
+   If Right$(tmpString, 1) = System.getProperty("file.separator") Then
+     tmpString = Left$(tmpString, Len(tmpString)-1)
+   End If
+   
+   If InStr(tmpString, System.getProperty("file.separator")) = 0 Then
+     tmpString = tmpString + System.getProperty("file.separator")
+   End If
+
+   CurDir = tmpString
 End Function
 
 Public Function TmpDir() As String
-   TmpDir = System.getProperties().getProperty("java.io.tmpdir")
+   Dim tmpString As String
+   tmpString = System.getProperties().getProperty("java.io.tmpdir")
+
+   If Right$(tmpString, 1) = System.getProperty("file.separator") Then
+     tmpString = Left$(tmpString, Len(tmpString)-1)
+   End If
+   
+   If InStr(tmpString, System.getProperty("file.separator")) = 0 Then
+     tmpString = tmpString + System.getProperty("file.separator")
+   End If
+
+   TmpDir = tmpString
 End Function
 
 Public Function TempDir() As String
@@ -347,11 +369,33 @@ Public Function TempDir() As String
 End Function
 
 Public Function HomeDir() As String
-   HomeDir = System.getProperties().getProperty("user.home")
+   Dim tmpString As String
+   tmpString = System.getProperties().getProperty("user.home")
+
+   If Right$(tmpString, 1) = System.getProperty("file.separator") Then
+     tmpString = Left$(tmpString, Len(tmpString)-1)
+   End If
+   
+   If InStr(tmpString, System.getProperty("file.separator")) = 0 Then
+     tmpString = tmpString + System.getProperty("file.separator")
+   End If
+
+   HomeDir = tmpString
 End Function
 
 Public Function JavaDir() As String
-   JavaDir = System.getProperties().getProperty("java.home")
+   Dim tmpString As String
+   tmpString = System.getProperties().getProperty("java.home")
+
+   If Right$(tmpString, 1) = System.getProperty("file.separator") Then
+     tmpString = Left$(tmpString, Len(tmpString)-1)
+   End If
+   
+   If InStr(tmpString, System.getProperty("file.separator")) = 0 Then
+     tmpString = tmpString + System.getProperty("file.separator")
+   End If
+
+   JavaDir = tmpString
 End Function
 
 Public Sub MkDir(aPath As String)
