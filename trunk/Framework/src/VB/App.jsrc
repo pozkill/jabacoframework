@@ -5,7 +5,7 @@ Public Property Get Path() As String
    Dim tmpString As String
   
    If InStr(System.getProperty("sun.java.command"), System.getProperty("file.separator")) = 0 Then ' Class with the main-Method is NOT in a Jar-File or Zip.
-     tmpString = New java#io#File(Class.forName(System.getProperty("sun.java.command")).getProtectionDomain.getCodeSource.getLocation.toURI.getPath).getAbsolutePath
+     tmpString = New java#io#File(Class.forName(System.getProperty("sun.java.command"), False, ClassLoader.getSystemClassLoader()).getProtectionDomain.getCodeSource.getLocation.toURI.getPath).getAbsolutePath
    Else
      tmpString = Left(System.getProperty("sun.java.command"), InStrRev(System.getProperty("sun.java.command"), System.getProperty("file.separator"))-1)  
    End If
