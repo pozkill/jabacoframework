@@ -22,6 +22,7 @@ Private isResizeTriggerInitialized As Boolean = False
 Private isLeftInitialized As Boolean = False
 Private isTopInitialized As Boolean = False
 
+
 Public Sub paintComponent(g As #Graphics)
    If g = Nothing Then Exit Sub
    Dim g2d As #Graphics2D 
@@ -111,6 +112,47 @@ Public Sub paintComponent(g As #Graphics)
          g2d.drawArc myRWidth, myRHeight, myDiameter-1-myRadiusBorderWidth, myDiameter-1-myRadiusBorderWidth, 270, 90
    End Select
    
+   ' Cloud drawing specified in presetShapeDefinitions.xml in ECMA-376 of the
+   ' OfficeOpenXML specification.
+   ' http://www.mail-archive.com/users@openoffice.apache.org/msg01962.html
+   If myShape = vbShapeCloud Then
+
+         ''g2d.setColor(Color.red)
+         ''g2d.drawRect(0,0,Width-2 , Height-2)
+         If myBackStyle = vbSolid Then
+            g2d.setColor(Parent.getBackground())
+            g2d.fillOval(191 / 1898 * (Width-1),97 / 1044 * (Height-1),576 / 1898 * (Width-1),448 / 1044 * (Height-1))
+            g2d.fillOval(0 / 1898 * (Width-1),352 / 1044 * (Height-1),381 / 1898 * (Width-1),279 / 1044 * (Height-1))
+            g2d.fillOval(57 / 1898 * (Width-1),571 / 1044 * (Height-1),384 / 1898 * (Width-1),291 / 1044 * (Height-1))
+            g2d.fillOval(209 / 1898 * (Width-1),600 / 1044 * (Height-1),617 / 1898 * (Width-1),383 / 1044 * (Height-1))
+            g2d.fillOval(688 / 1898 * (Width-1),622 / 1044 * (Height-1),599 / 1898 * (Width-1),422 / 1044 * (Height-1))
+            g2d.fillOval(1150 / 1898 * (Width-1),534 / 1044 * (Height-1),499 / 1898 * (Width-1),377 / 1044 * (Height-1))
+            g2d.fillOval(1379 / 1898 * (Width-1),303 / 1044 * (Height-1),519 / 1898 * (Width-1),413 / 1044 * (Height-1))
+            g2d.fillOval(1331 / 1898 * (Width-1),122 / 1044 * (Height-1),529 / 1898 * (Width-1),363 / 1044 * (Height-1))
+            g2d.fillOval(1248 / 1898 * (Width-1),0 / 1044 * (Height-1),456 / 1898 * (Width-1),392 / 1044 * (Height-1))
+            g2d.fillOval(935 / 1898 * (Width-1),0 / 1044 * (Height-1),449 / 1898 * (Width-1),421 / 1044 * (Height-1))
+            g2d.fillOval(597 / 1898 * (Width-1),36 / 1044 * (Height-1),474 / 1898 * (Width-1),388 / 1044 * (Height-1))
+            g2d.fillRect(300 / 1898 * (Width-1),270 / 1044 * (Height-1),1150 / 1898 * (Width-1),500 / 1044 * (Height-1))
+         End If
+  
+         g2d.setStroke(New BasicStroke(myBorderWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND))
+  
+         g2d.setColor(Parent.getForeground())
+         g2d.drawArc(191 / 1898 * (Width-1) + myBorderWidth/2,97 / 1044 * (Height-1) + myBorderWidth/2,576 / 1898 * (Width-1)- myBorderWidth,448 / 1044 * (Height-1)- myBorderWidth,47,154)
+         g2d.drawArc(0 / 1898 * (Width-1) + myBorderWidth/2,352 / 1044 * (Height-1) + myBorderWidth/2,381 / 1898 * (Width-1)- myBorderWidth,279 / 1044 * (Height-1)- myBorderWidth,89,181)
+         g2d.drawArc(57 / 1898 * (Width-1) + myBorderWidth/2,571 / 1044 * (Height-1) + myBorderWidth/2,384 / 1898 * (Width-1)- myBorderWidth,291 / 1044 * (Height-1)- myBorderWidth,137,157)
+         g2d.drawArc(209 / 1898 * (Width-1) + myBorderWidth/2,600 / 1044 * (Height-1) + myBorderWidth/2,617 / 1898 * (Width-1)- myBorderWidth,383 / 1044 * (Height-1)- myBorderWidth,201,111)
+         g2d.drawArc(688 / 1898 * (Width-1) + myBorderWidth/2,622 / 1044 * (Height-1) + myBorderWidth/2,599 / 1898 * (Width-1)- myBorderWidth,422 / 1044 * (Height-1)- myBorderWidth,198,161)
+         g2d.drawArc(1150 / 1898 * (Width-1) + myBorderWidth/2,534 / 1044 * (Height-1) + myBorderWidth/2,499 / 1898 * (Width-1)- myBorderWidth,377 / 1044 * (Height-1)- myBorderWidth,240,192)
+         g2d.drawArc(1379 / 1898 * (Width-1) + myBorderWidth/2,303 / 1044 * (Height-1) + myBorderWidth/2,519 / 1898 * (Width-1)- myBorderWidth,413 / 1044 * (Height-1)- myBorderWidth,272,128)
+         g2d.drawArc(1331 / 1898 * (Width-1) + myBorderWidth/2,122 / 1044 * (Height-1) + myBorderWidth/2,529 / 1898 * (Width-1)- myBorderWidth,363 / 1044 * (Height-1)- myBorderWidth,308,121)
+         g2d.drawArc(1248 / 1898 * (Width-1) + myBorderWidth/2,0 / 1044 * (Height-1) + myBorderWidth/2,456 / 1898 * (Width-1)- myBorderWidth,392 / 1044 * (Height-1)- myBorderWidth,12,128)
+         g2d.drawArc(935 / 1898 * (Width-1) + myBorderWidth/2,0 / 1044 * (Height-1) + myBorderWidth/2,449 / 1898 * (Width-1)- myBorderWidth,421 / 1044 * (Height-1)- myBorderWidth,46,103)
+         g2d.drawArc(597 / 1898 * (Width-1) + myBorderWidth/2,36 / 1044 * (Height-1) + myBorderWidth/2,474 / 1898 * (Width-1)- myBorderWidth,388 / 1044 * (Height-1)- myBorderWidth,51,98)
+
+
+
+   End If
    'g2d.drawLine 0, 0, mX2, mY2
    g2d.dispose 
 End Sub
