@@ -3,46 +3,88 @@
 'Implements TableCellRenderer
 
 Dim myGrid As JBGrid
+Dim myColumn As Integer
+Dim myHeaderIcon As #IResource
 
 Public Sub JBHeaderRenderer(refGrid As JBGrid)
    myGrid = refGrid
 End Sub
 
-Private Function getMarginBorder(refBorder As Border, margin As Integer) As Border
-   getMarginBorder = New javax#swing#border#CompoundBorder(refBorder, New EmptyBorder(0, margin, 0, margin))
+Private Function getMarginBorder(refBorder As Border, LeftMargin As Integer, RightMargin As Integer) As Border
+   getMarginBorder = New javax#swing#border#CompoundBorder(refBorder, New EmptyBorder(0, LeftMargin, 0, RightMargin))
 End Function
-
 
 Public Function getTableCellRendererComponent(table As JTable, value As Object, isSelected As Boolean, hasFocus As Boolean, row As Integer, col As Integer) As Component
-   Dim myLabel As New Label, myBaseComponent As Component 
+   Dim myBaseComponent As Component 
    myBaseComponent = Base.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col)
-   
-   'Dim myHeader As New JLabel(value)
-   Dim myHeader As JLabel = Cast(myBaseComponent, #JLabel)
-   Call myHeader.setVerticalTextPosition(SwingConstants.CENTER)
-   
+
+   myHeaderIcon = myGrid.HeaderIcon(col)
+   myColumn = col
+
    If myGrid.FlatHeader Then
-      Call myHeader.setBorder(getMarginBorder(BorderFactory.createEtchedBorder(), 1))
+      Call Base.setBorder(getMarginBorder(BorderFactory.createEtchedBorder(), 1, 0))
    Else
-      Call myHeader.setBorder(getMarginBorder(BorderFactory.createRaisedBevelBorder(), 1))
+      Call Base.setBorder(getMarginBorder(BorderFactory.createRaisedBevelBorder(), 1, 0))
    End If
    
-   Call myHeader.setUI(New VBA#MultiLineLabelUI)
-   
-   Call myHeader.setFont(myBaseComponent.getFont)
-   Call myHeader.setBackground(RGBToColor(myGrid.BackColorHeader))
-   Call myHeader.setForeground(RGBToColor(myGrid.ForeColorHeader))
-   Call myHeader.setIcon(LoadIcon(myGrid.HeaderIcon(col)))
-   Call myHeader.setPreferredSize(New Dimension(myHeader.getPreferredSize().getWidth(), myGrid.HeaderHeight))
-   
-'   myLabel.Caption = value
-'   Call myLabel.Parent.setBorder(BorderFactory.createEtchedBorder())
-'   Call myLabel.Parent.setFont(myBaseComponent.getFont)
-'   Call myLabel.Parent.setBackground(RGBToColor(myGrid.BackColorHeader))
-'   Call myLabel.Parent.setForeground(RGBToColor(myGrid.ForeColorHeader))
-'   Call myLabel.Parent.setVerticalTextPosition(SwingConstants.CENTER)
-'   myLabel.Parent.setUI myLabel2.getUI
-  
-   getTableCellRendererComponent = myHeader
+'   Call Base.setUI(New VBA#MultiLineLabelUI)
+   Call Base.setFont(myBaseComponent.getFont)
+   Call Base.setBackground(RGBtoColor(myGrid.BackColorHeader))
+   Call Base.setForeground(RGBtoColor(myGrid.ForeColorHeader))
+   Call Base.setPreferredSize(New Dimension(Base.getPreferredSize().getWidth(), myGrid.HeaderHeight))
+
+   getTableCellRendererComponent = Base
 End Function
-]]></Source><Param Name="(Name)" Value="JBHeaderRenderer"/><Param Name="(SuperClass)" Value="javax/swing/table/DefaultTableCellRenderer"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>
+
+Public Sub paint(g As Graphics)
+   Base.setOpaque(False)
+
+   If myGrid.GradientHeader Then
+      'paint HeaderGrid
+      g.setColor(myGrid.GridColor)
+      g.fillRect(0, 0, myGrid.Parent.getColumnModel.getTotalColumnWidth(), Base.getHeight)
+      
+      If myGrid.FlatHeader Then
+         g.setColor(RGBtoColor(myGrid.BackColorHeader))
+         g.fillRect(0, 0,Base.getWidth() - 1, Base.getHeight() - 1)
+      Else
+         Dim g2 As Graphics2D = Cast(g, Graphics2D)
+         Dim gradientPaint As java#awt#GradientPaint
+         gradientPaint = New GradientPaint(0, myGrid.HeaderHeight / 100 * 5, 16777215, 0, myGrid.HeaderHeight, RGBtoColor(myGrid.BackColorHeader), False)
+         g2.setPaint(gradientPaint)
+         g2.fillRect(0, 0, Base.getWidth() - 1, Base.getHeight() - 1)
+      End If
+   Else
+      g.setColor(myGrid.BackColorHeader)
+      Base.paintBorder(g)
+   End If
+   Dim myRightMargin As Integer = IIF(myGrid.ColHeaderIndex = myColumn, 15, 4)
+   If myHeaderIcon <> Nothing Then
+      Dim myHeaderImage As Image = LoadPicture(myHeaderIcon)
+      Base.setBorder(New EmptyBorder(0, myHeaderImage.getWidth(Nothing) + 5, 0, myRightMargin))
+      g.drawImage(myHeaderImage, 3, (Base.getHeight / 2) - (myHeaderImage.getHeight(Nothing) / 2), Nothing)
+   Else
+      Base.setBorder(New EmptyBorder(0, 3, 0, myRightMargin)) 
+   End If 
+   If myGrid.ShowSortIndicator = True Then
+      If myColumn = myGrid.ColHeaderIndex Then
+         Dim c As color = myGrid.GridColor
+         g.setColor(c)
+         Dim SortIndicatorTop As Integer = Base.getHeight / 2
+         Dim SortIndicatorLeft As Integer = Base.getWidth
+         If myGrid.SortIndicatorIndex = 0 Then
+            g.drawLine(SortIndicatorLeft - 5, SortIndicatorTop - 2, SortIndicatorLeft - 15 / 2, SortIndicatorTop + 2)
+            g.setColor(c.darker())
+            g.drawLine(SortIndicatorLeft - 10, SortIndicatorTop - 2, SortIndicatorLeft - 6, SortIndicatorTop - 2)
+            g.drawLine(SortIndicatorLeft - 11, SortIndicatorTop - 2, SortIndicatorLeft - 15 / 2, SortIndicatorTop + 2)
+         ElseIf myGrid.SortIndicatorIndex = 1 Then
+            g.drawLine(SortIndicatorLeft - 5, SortIndicatorTop + 2, SortIndicatorLeft - 15 / 2, SortIndicatorTop - 2)     
+            g.setColor(c.darker())
+            g.drawLine(SortIndicatorLeft - 10, SortIndicatorTop + 2, SortIndicatorLeft - 6, SortIndicatorTop+2)
+            g.drawLine(SortIndicatorLeft - 11, SortIndicatorTop + 2, SortIndicatorLeft - 15 / 2, SortIndicatorTop - 2)
+         End If
+      End If
+   End If
+
+   Base.paintComponent(g)
+End Sub]]></Source><Param Name="(Name)" Value="JBHeaderRenderer"/><Param Name="(SuperClass)" Value="javax/swing/table/DefaultTableCellRenderer"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>

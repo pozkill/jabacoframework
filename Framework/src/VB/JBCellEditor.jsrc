@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SourceFile><Source><![CDATA[Option Explicit
+
 Implements TableCellEditor
+
 Private Enum CELLEDITTYPE
    CELLEDIT_TEXT
    CELLEDIT_COMBO
    CELLEDIT_CUSTOM
    CELLEDIT_BUTTON
+   CELLEDIT_CHECK
 End Enum
 
 Dim Withevents myText As TextBox
-Dim Withevents myCombo As ComboBox 
-
+Dim Withevents myCombo As ComboBox
+Dim Withevents myCheck As CheckBox
 Dim Withevents myButton As CommandButton
+
 Dim myLabel As New Label
 Dim ButtonFrame As New JPanel(New BorderLayout())
 
@@ -28,6 +32,7 @@ Public Property Get Value() As String
       Case CELLEDIT_TEXT:   Value = myText.Text
       Case CELLEDIT_COMBO:  Value = myCombo.Text
       Case CELLEDIT_BUTTON: Value = myLabel.Caption
+      Case CELLEDIT_CHECK:  Value = myCheck.Value
    End Select
 End Property
 
@@ -36,6 +41,7 @@ Public Property Let Value(v As String)
       Case CELLEDIT_TEXT:   myText.Text = v
       Case CELLEDIT_COMBO:  myCombo.Text = v
       Case CELLEDIT_BUTTON: myLabel.Caption = v
+      Case CELLEDIT_CHECK:  myCheck.Value = GetStringAsBoolean(v)
    End Select
 End Property
 
@@ -43,6 +49,7 @@ Public Sub JBCellEditor(refGrid As JBGrid)
    myGrid = refGrid
    myText.VScrollBar = sbShowNever 
    myText.HScrollBar = sbShowNever 
+   myCheck.Parent.setHorizontalAlignment(0)
    
    Call myText.setBorder(New EmptyBorder(New Insets(0,0,0,0)))
    Call myCombo.setBorder(New EmptyBorder(New Insets(0,0,0,0)))
@@ -50,8 +57,8 @@ Public Sub JBCellEditor(refGrid As JBGrid)
 
    Call myLabel.Parent.setLabelFor(myButton)
    myLabel.Visible = True
+'   myButton.Caption = "..."
    myButton.Visible = True
-   myButton.Caption = "..."
    myButton.CanGetFocus = False
 
    Call myButton.Parent.setPreferredSize(New Dimension(23, 23))
@@ -83,6 +90,10 @@ Public Function getCellEditorValue() As Object
          If lastData <> Nothing Then
             lastData.Text = myCombo.Text
          End If
+      Case CELLEDIT_CHECK
+         If lastData <> Nothing Then
+            lastData.Text = myCheck.Value
+         End If   
    End Select
    Call myGrid.fireAfterEdit(myGrid.Row, myGrid.Col)
    getCellEditorValue = lastObject
@@ -102,15 +113,20 @@ Public Function getTableCellEditorComponent(table As JTable, value As Object, is
       If ret = Nothing Then
          If Len(myGrid.ComboList) > 0 Then 
             If myGrid.ComboList = "..."  Then
-               Call ButtonFrame.setBackground(RGBToColor(myGrid.BackColorCells))
+               If lastData.BackColor <> myGrid.BackColorSel Then 
+                  Call ButtonFrame.setBackground(RGBtoColor(lastData.BackColor))
+               Else
+                  Call ButtonFrame.setBackground(RGBtoColor(IIF(row Mod 2 = 1, myGrid.BackColorCellsAlternating, myGrid.BackColorCells)))
+'                  Call ButtonFrame.getComponent(0).setBackground(RGBtoColor(IIF(row Mod 2 = 1, myGrid.BackColorCellsAlternating, myGrid.BackColorCells)))
+               End If             
                myLabel.Caption = lastData.Text
-               myLabel.ForeColor = myGrid.ForeColor 
+               myLabel.ForeColor = lastData.ForeColor
                Call myLabel.Parent.setFont(myGrid.Parent.getFont())
                ret = ButtonFrame
                myEditMode = CELLEDIT_BUTTON
             Else
-               myCombo.BackColor = myGrid.BackColorCells
                myCombo.ForeColor = myGrid.ForeColor
+               myCombo.BackColor = IIF(row Mod 2 = 1, myGrid.BackColorCellsAlternating, myGrid.BackColorCells)
                myCombo.ForeColorSel = myGrid.ForeColorSel 
                myCombo.BackColorSel = myGrid.BackColorSel
                myCombo.Text = lastData.Text
@@ -121,13 +137,20 @@ Public Function getTableCellEditorComponent(table As JTable, value As Object, is
                myEditMode = CELLEDIT_COMBO 
             End If
          Else
-            myText.BackColor = myGrid.BackColorCells
-            myText.ForeColor = myGrid.ForeColor 
-            myText.Text = lastData.Text
-            Call myText.Parent.setFont(myGrid.Parent.getFont())
-            Call myText.SetFocus()            
-            ret = myText
-            myEditMode = CELLEDIT_TEXT
+            If myGrid.AutoCheckBox = True And IsStringBoolean(lastData.Text) = True Then
+               myCheck.BackColor = IIF(myGrid.DataMatrix(row, col).CellBackColor = -1, myGrid.BackColorSel, myGrid.DataMatrix(row, col).CellBackColor)
+               myCheck.Value = GetStringAsBoolean(lastData.Text)
+               ret = myCheck
+               myEditMode = CELLEDIT_CHECK
+            Else
+               myText.BackColor = IIF(row Mod 2 = 1, myGrid.BackColorCellsAlternating, myGrid.BackColorCells)
+               myText.ForeColor = myGrid.ForeColor 
+               myText.Text = lastData.Text
+               Call myText.Parent.setFont(myGrid.Parent.getFont())
+               Call myText.SetFocus()            
+               ret = myText
+               myEditMode = CELLEDIT_TEXT
+            End If
          End If
       End If
    Else
@@ -142,7 +165,15 @@ End Sub
 
 Public Sub myText_KeyDown(KeyCode As Integer, Shift As Integer)
    If KeyCode = 13 Then
-      Call Base.stopCellEditing()      
+      Call Base.stopCellEditing() 
    End If
+End Sub
+
+Public Sub myCombo_Click()
+'   Call Base.stopCellEditing()
+End Sub
+
+Public Sub myCheck_Click()
+   Call Base.stopCellEditing() 
 End Sub
 ]]></Source><Param Name="(Name)" Value="JBCellEditor"/><Param Name="(SuperClass)" Value="javax/swing/AbstractCellEditor"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>

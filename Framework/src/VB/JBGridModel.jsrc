@@ -8,7 +8,7 @@ Dim myMaxCol As Integer
 Dim myTmpIndex As New #Point(0, 0)
 Dim myColumnIcon() As #IResource
 Dim myColumnName() As String
-Dim myWatcher As #TableModelListener
+'Dim myWatcher As #TableModelListener
 Dim myGrid As JBGrid
 Dim myStopEdit As Boolean 
 Dim insideCellEditable As Boolean 
@@ -37,7 +37,7 @@ Public Sub setColumnName(col As Integer, val As String)
    On Error Resume Next
    Call refreshRowColCount(myMaxRow, col)
    myColumnName(col) = val
-   Parent.fireTableStructureChanged() 
+   Parent.fireTableStructureChanged()
 End Sub
 
 Public Function getColumnName(col As Integer) As String
@@ -45,7 +45,7 @@ Public Function getColumnName(col As Integer) As String
    getColumnName = myColumnName(col)
 End Function
 
-Public Function getColumnCount() As Integer 
+Public Function getColumnCount() As Integer
    getColumnCount = myMaxCol
 End Function
 
@@ -114,9 +114,7 @@ Public Sub setValueAt(val As Object, row As Integer, col As Integer)
    If IsClass(val, #JBCellData) Then
       Dim myData As JBCellData = Cast(val, #JBCellData)
       myData.Text = myData.Text
-      
       Call myData.setOwner(myGrid, row, col)
-      
    End If
    Call refreshRowColCount(row, col)
    'Base.setValueAt(val, row, col)   
@@ -135,7 +133,16 @@ Public Function getValueAt(row As Integer, col As Integer) As #Object
    Else
       getValueAt = tmpRet
    End If
-End Function  
+End Function 
+ 
+Public Sub clear()
+'   Call myMatrix.clear()
+   myMatrix = New #HashMap
+   Call Parent.fireTableDataChanged()
+   Redim myColumnName(-1)
+   Redim myColumnIcon(-1)
+   Base.fireTableStructureChanged()
+End Sub
 
 'Public Sub tableChanged(e As TableModelEvent)
 'End Sub

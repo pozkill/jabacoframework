@@ -288,14 +288,7 @@ End Function
 
 Public Synchronized Sub AddItem(Item As String)
 '   Dim tmpCellData As New ListCellData(Item, Nothing, IIF(Style = vbListBoxCheckbox, True, False))
-   Dim tmpBool As Boolean
-   Select Case Style
-      Case vbListBoxStandard
-         tmpBool = False
-      Case vbListBoxCheckbox
-         tmpBool = True
-   End Select
-   Dim tmpCellData As New ListCellData(Item, Nothing, tmpBool) 
+   Dim tmpCellData As New ListCellData(Item, Nothing, myStyle)
    tmpCellData.Owner = Me
    myModel.addElement(tmpCellData)
    Call fireChange()
@@ -322,7 +315,8 @@ Public Synchronized Sub AddItem(v As Usercontrol, Index As Integer)
 End Sub
 
 Public Synchronized Sub AddItem(Item As String, Index As Integer)
-   Dim tmpCellData As New ListCellData(Item, Nothing, IIF(Style = vbListBoxCheckbox, True, False)) 
+'   Dim tmpCellData As New ListCellData(Item, Nothing, IIF(Style = vbListBoxCheckbox, True, False)) 
+   Dim tmpCellData As New ListCellData(Item, Nothing, myStyle)
    tmpCellData.Owner = Me
    myModel.insertElementAt(tmpCellData, Index)
    Call fireChange()

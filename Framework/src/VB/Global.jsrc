@@ -223,7 +223,6 @@ Public Enum ShapeConstants
    vbShapeCircle = 3
    vbShapeRoundedRectangle = 4
    vbShapeRoundedSquare = 5
-   vbShapeCloud = 6
 End Enum
 
 Public Enum DrawModeConstants
@@ -793,5 +792,17 @@ Public Sub Beep()
    Call java#awt#Toolkit.getDefaultToolkit.beep()
 End Sub
 
+Public Function IsStringBoolean(v As String) As Boolean
+   v = LCase(v)
+   Select Case v
+      Case "true", "false"
+         IsStringBoolean = True
+      Case Else
+         IsStringBoolean = False
+   End Select
+End Function
 
+Public Function GetStringAsBoolean(v As String) As Boolean
+   GetStringAsBoolean = java#lang#Boolean.parseBoolean(v)
+End Function
 ]]></Source><Param Name="(Name)" Value="Global"/><Param Name="(SuperClass)" Value="java/lang/Object"/><Param Name="(Type)" Value="Module"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VB"/></SourceFile>
