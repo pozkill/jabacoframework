@@ -45,21 +45,26 @@ Dim myTable As #JTable
 Dim myHeaderRenderer As JBHeaderRenderer
 Dim myRenderer As JBCellRenderer
 Dim myEditor As JBCellEditor
+Dim myAutoCheckBox As Boolean
 Dim myHeaderIcon As #IResource
-Dim myFlatHeader As Boolean 
+Dim myFlatHeader As Boolean
+Dim myGradientHeader As Boolean
+Dim myBackColorHeader As Long
 
 Dim myBorderStyle As fmBorderStyle
 Dim mySpecialEffect As fmSpecialEffect
 
 Dim myColHeaderIndex As Integer
+Dim myShowSortIndicator As Boolean
+Dim mySortIndicatorIndex As Integer
 Dim myHeaderHeight As Integer
 Dim myBorderColorSel As Long
 Dim myBorderColor As Long
 Dim myBackColorCells As Long
+Dim myBackColorCellsAlternating As Long
 Dim myTag As String
 Dim myComboList As String
 Dim myEditable As JBEditable 
-Dim myHeaderBorder As Border
 
 ' *** Variables for Anchor and resizing ***
 Private myAnchor As AnchorStyles = AnchorStyles.vbTopLeft
@@ -104,10 +109,7 @@ Public Sub Class_Initialize()
    Call Parent.setDoubleBuffered(True)
    Call Base.setDoubleBuffered(True)
    Call Base.setIgnoreRepaint(False)
-
    
-   
-
 End Sub
 
 ' ******************************** DEFAULT FOCUS - EVENTS ********************************
@@ -134,24 +136,41 @@ Public Sub mousePressed(e As MouseEvent)
     RaiseEvent MouseDown(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
 End Sub
 
-Public Sub mouseReleased(e As MouseEvent) 
+Public Sub mouseReleased(e As MouseEvent)
    RaiseEvent MouseUp(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
-   If (e.getX > 0 And e.getY > 0 And e.getX < Me.getWidth And e.getY < Me.Parent.getBounds.getHeight()) Then
-      If e.getClickCount() Mod 2 = 0 Then
-         RaiseEvent DblClick()
-      Else
-         If Parent.getTableHeader.getMousePosition() <> Null Then
-            ColHeaderIndex = Parent.getTableHeader.columnAtPoint(Parent.getTableHeader.getMousePosition())
-            RaiseEvent ColHeaderClick()
+   If (e.getX > 0 And e.getY > 0 And e.getX < Me.Parent.getBounds.getWidth() And e.getY < Me.Parent.getBounds.getHeight()) Then
+      If Parent.getTableHeader.getMousePosition() = Null Then
+         If e.getClickCount() Mod 2 = 0 Then
+            RaiseEvent DblClick()
          Else
+            ' needs to be here otherwise celleditor events will not be triggered!
             RaiseEvent Click()
          End If
       End If
    End If
 End Sub
 
-Public Sub mouseClicked(e As MouseEvent) 
-    'done by actionlistener
+Public Sub mouseClicked(e As MouseEvent)
+   If Parent.getTableHeader.getMousePosition() <> Null Then
+      If myShowSortIndicator = True Then
+         If Parent.getTableHeader.columnAtPoint(Parent.getTableHeader.getMousePosition()) = -1 Then
+            mySortIndicatorIndex = -1
+         Else
+            If ColHeaderIndex = Parent.getTableHeader.columnAtPoint(Parent.getTableHeader.getMousePosition()) Then
+               If mySortIndicatorIndex = 0 Then 
+                  mySortIndicatorIndex = 1
+               Else
+                  mySortIndicatorIndex = 0
+               End If
+            Else
+               mySortIndicatorIndex = 0
+            End If
+         End If
+      End If
+      ColHeaderIndex = Parent.getTableHeader.columnAtPoint(Parent.getTableHeader.getMousePosition())
+      Parent.getTableHeader.repaint()
+      RaiseEvent ColHeaderClick()
+   End If
 End Sub
 
 Public Sub mouseEntered(e As MouseEvent) 
@@ -179,6 +198,22 @@ End Sub
 
 ' ******************************** SPECIAL FUNCTIONS ********************************
 
+Public Property Get ShowSortIndicator() As Boolean
+   ShowSortIndicator = myShowSortIndicator
+End Property
+
+Public Property Let ShowSortIndicator(v As Boolean)
+   myShowSortIndicator = v
+End Property
+
+Public Property Get SortIndicatorIndex() As Integer
+   SortIndicatorIndex = mySortIndicatorIndex
+End Property
+
+Public Property Let SortIndicatorIndex(v As Integer)
+   mySortIndicatorIndex = v
+End Property
+
 Public Sub StartEdit(row As Integer, col As Integer)
    Call Parent.editCellAt(row, col)
 End Sub
@@ -187,7 +222,7 @@ Public Sub StopEdit()
    If myModel.registerStopEditEvent = False Then
       Call myEditor.stopCellEditing()   
    End If
-End Sub#
+End Sub
 
 Public Function isCellSelected(row As Integer, col As Integer)
    isCellSelected = Parent.isCellSelected(row, col)   
@@ -272,13 +307,12 @@ Public Property Let AutoResize(v As jbAutoResize)
    End Select
 End Property
 
-
 Public Property Get BackColorHeader() As Long
-   BackColorHeader = ColorToRGB(Parent.getTableHeader.getBackground())
+   BackColorHeader = myBackColorHeader
 End Property
 
 Public Property Let BackColorHeader(v As Long)
-   Call Parent.getTableHeader.setBackground(RGBToColor(v))
+   myBackColorHeader = v
 End Property
 
 Public Property Get ForeColorHeader() As Long
@@ -297,6 +331,14 @@ Public Property Let BackColorCells(v As Long)
    myBackColorCells = v
 End Property
 
+Public Property Get BackColorCellsAlternating() As Long
+   BackColorCellsAlternating = myBackColorCellsAlternating
+End Property
+
+Public Property Let BackColorCellsAlternating(v As Long)
+   myBackColorCellsAlternating = v
+End Property
+
 'Public Property Get FirstVisibleRow() As Long
 '   FirstRow = Parent.getrowat
 'End Property
@@ -311,6 +353,14 @@ End Property
 
 Public Property Let FlatHeader(v As Boolean)
    myFlatHeader = v
+End Property
+
+Public Property Get GradientHeader() As Boolean
+   GradientHeader = myGradientHeader
+End Property
+
+Public Property Let GradientHeader(v As Boolean)
+   myGradientHeader = v
 End Property
 
 Public Property Get BorderColor() As Long
@@ -506,6 +556,11 @@ Public Property Get DataMatrix(row As Long, col As Long) As JBCellData
    DataMatrix = Cast(myModel.getValueAt(row, col), JBCellData)
 End Property
 
+Public Sub ClearData()
+   If Me.isEditing = True Then myEditor.stopCellEditing()
+   myModel.clear()
+End Sub
+
 Public Function getDefaultRenderer(columnClass As Class) As TableCellRenderer
    getDefaultRenderer = Nothing
 End Function
@@ -608,6 +663,14 @@ Public Property Get HeaderVisible() As Boolean
    HeaderVisible = Parent.getTableHeader.isVisible()  
 End Property
 
+Public Property Let AutoCheckBox(v As Boolean)
+   myAutoCheckBox = v
+End Property
+
+Public Property Get AutoCheckBox() As Boolean
+   AutoCheckBox = myAutoCheckBox 
+End Property
+
 ' ******************************** SAME IN ALL JABACO CONTROLS ********************************
 
 Public Property Get FontName() As String 
@@ -660,7 +723,8 @@ End Property
 
 Public Property Let BackColor(v As Long)
    Call Base.setBackground(RGBtoColor(v))
-   Call Base.getViewport.setBackground(rgbtocolor(v))  
+   Call Base.getViewport.setBackground(RGBtoColor(v))
+   Call Parent.getTableHeader.setBackground(RGBToColor(v))
 End Property
 
 Public Property Get ForeColor() As Long
@@ -763,6 +827,10 @@ End Property
 Public Property Let Tag(v As String)
    myTag = v
 End Property
+
+Public Sub SetFocus()
+   Parent.requestFocus()
+End Sub
 
 Public Sub Refresh()
    Call Parent.invalidate()

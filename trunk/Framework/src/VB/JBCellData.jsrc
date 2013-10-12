@@ -57,30 +57,28 @@ Private Function getBorderFocusSel() As Border
    End If
 End Function
 
-Public Function getComponent(table As JBGrid, isSelected As Boolean, hasFocus As Boolean) As Component
+Public Function getComponent(table As JBGrid, isSelected As Boolean, hasFocus As Boolean, row As Integer) As Component
    If table = Nothing Then Exit Function
    If myComponentOwn = Nothing Then
       Me.BackStyle = vbSolid
       Call Me.Parent.setVerticalTextPosition SwingConstants.CENTER
-      Me.BackColor = IIF(IsSelected, table.BackColorSel, table.BackColorCells)
-      Me.ForeColor = IIF(IsSelected, table.ForeColorSel, table.ForeColor)
+      Me.BackColor = IIF(isSelected, table.BackColorSel, IIF(row Mod 2 = 1, table.BackColorCellsAlternating, table.BackColorCells))
+      Me.ForeColor = IIF(isSelected, table.ForeColorSel, table.ForeColor)
       Me.setBorder(IIF(hasFocus, getBorderFocusSel(), New #EmptyBorder(1,1,1,1)))
       Me.setFont(table.Parent.getFont())
-      GetComponent = Me
+      getComponent = Me
    Else
-      myComponentOwn.setBackground(IIF(IsSelected, table.Parent.getSelectionBackground(), RGBToColor(table.BackColorCells)))
-      myComponentOwn.setForeground(IIF(IsSelected, table.Parent.getSelectionForeground(), table.Parent.getForeground()))
+      myComponentOwn.setBackground(IIF(isSelected, table.Parent.getSelectionBackground(), RGBtoColor(table.BackColorCells)))
+      myComponentOwn.setForeground(IIF(isSelected, table.Parent.getSelectionForeground(), table.Parent.getForeground()))
       myComponentOwn.setBorder(IIF(hasFocus, getBorderFocusSel(), New #EmptyBorder(1,1,1,1)))
       myComponentOwn.setFont(table.Parent.getFont())
       Call myComponentOwn.setPreferredSize(myComponentOwn.getPreferredSize())
-      GetComponent = myComponentOwn
+      getComponent = myComponentOwn
    End If
    If isSelected = False Then
-      If CellBackColor <> -1 Then Call GetComponent.setBackground(RGBToColor(CellBackColor))
-      If CellForeColor <> -1 Then Call GetComponent.setForeground(RGBToColor(CellForeColor))
+      If CellBackColor <> -1 Then Call getComponent.setBackground(RGBtoColor(CellBackColor))
+      If CellForeColor <> -1 Then Call getComponent.setForeground(RGBtoColor(CellForeColor))
    End If
-   
-   
 End Function
 
 Private Sub fireChanged()
@@ -144,5 +142,4 @@ End Property
 Public Property Get CellForeColor() As Long
    CellForeColor = myCellForeColor
 End Property
-
 ]]></Source><Param Name="(Name)" Value="JBCellData"/><Param Name="(SuperClass)" Value="VB/Label"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>

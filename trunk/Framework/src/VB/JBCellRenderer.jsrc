@@ -12,16 +12,39 @@ Public Function getTableCellRendererComponent(table As JTable, value As Object, 
    Dim myCellData As JBCellData
    If IsClass(value, JBCellData) Then
       myCellData = Cast(value, JBCellData)
-      getTableCellRendererComponent = myCellData.getComponent(myGrid, isSelected, hasFocus)   
+      If myCellData.Text <> Null Then 
+         If myGrid.AutoCheckBox = True And IsStringBoolean(myCellData.Text) = True Then
+            Dim myCheck As New JCheckBox
+            myCheck.setHorizontalAlignment(0)
+            myCheck.setOpaque(True)
+            myCheck.setBackground(myCellData.getComponent(myGrid, isSelected, hasFocus, row).getBackground)
+            myCheck.setSelected(GetStringAsBoolean(myCellData.Text))
+            getTableCellRendererComponent = myCheck
+         Else
+            getTableCellRendererComponent = myCellData.getComponent(myGrid, isSelected, hasFocus, row)
+         End If
+      Else
+         getTableCellRendererComponent = myCellData.getComponent(myGrid, isSelected, hasFocus, row)
+      End If
+      If isSelected = True Then
+         If myGrid.DataMatrix(row, col).CellBackColor <> -1 Then
+            Call getTableCellRendererComponent.setBackground(RGBtoColor(myGrid.DataMatrix(row, col).CellBackColor))
+            'done by Parent.setSelectionBackground()in JBGrid
+            'Else
+            '   Call getTableCellRendererComponent.setBackground(RGBtoColor(myGrid.BackColorSel))
+         End If
+         If myGrid.DataMatrix(row, col).CellForeColor <> -1 Then
+            Call getTableCellRendererComponent.setForeground(RGBtoColor(myGrid.DataMatrix(row, col).CellForeColor))
+         End If
+      End If
    Else  
       getTableCellRendererComponent = Base.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col)
-      Call getTableCellRendererComponent.setBackground(RGBToColor(IIF(isSelected, myGrid.BackColorSel, myGrid.BackColorCells)))
+      Call getTableCellRendererComponent.setBackground(RGBtoColor(IIF(isSelected, myGrid.BackColorSel, IIF(row Mod 2 = 1, myGrid.BackColorCellsAlternating, myGrid.BackColorCells))))
    End If
-   
+
 '   Dim myPreferredSize As Dimension 
 '   myPreferredSize = getTableCellRendererComponent.getPreferredSize 
 '   Call getTableCellRendererComponent.setPreferredSize(New Dimension(myPreferredSize.width, myPreferredSize.height + 20))
 
 End Function
-
 ]]></Source><Param Name="(Name)" Value="JBCellRenderer"/><Param Name="(SuperClass)" Value="javax/swing/table/DefaultTableCellRenderer"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>
