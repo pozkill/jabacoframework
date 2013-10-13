@@ -223,6 +223,7 @@ Public Enum ShapeConstants
    vbShapeCircle = 3
    vbShapeRoundedRectangle = 4
    vbShapeRoundedSquare = 5
+   vbShapeCloud = 6
 End Enum
 
 Public Enum DrawModeConstants
