@@ -42,6 +42,7 @@ Dim myRenderer As New ListCellDataRenderer(Me)
 Dim myStyle As ListBoxConstants
 Dim myMemListIndex As Integer = -1
 Dim myBorderColorSel As Long = -2147483638
+Dim myBackColorAlternating As Long
 Dim myMouseIcon As IResource 
 
 ' *** Variables for Anchor and resizing ***
@@ -243,6 +244,14 @@ End Property
 
 Public Property Let BackColorSel(v As Long)
    myList.setSelectionBackground(RGBtoColor(v))
+End Property
+
+Public Property Get BackColorAlternating() As Long
+   BackColorAlternating = myBackColorAlternating
+End Property
+
+Public Property Let BackColorAlternating(v As Long)
+   myBackColorAlternating = v
 End Property
 
 Public Property Get ForeColorSel() As Long

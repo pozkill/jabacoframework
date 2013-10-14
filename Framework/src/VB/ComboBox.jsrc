@@ -30,6 +30,8 @@ Dim myBorderColorSel As Long
 Dim myMarginItem As Long
 Dim myForeColorSel As Long
 Dim myBackColorSel As Long
+Dim myBackColorAlternating As Long
+
 
 ' *** Variables for Anchor and resizing ***
 Private myAnchor As AnchorStyles = AnchorStyles.vbTopLeft
@@ -227,6 +229,14 @@ Public Property Let ComboList(v As String)
    For i = 0 To UBound(ary)
       Call AddItem(ary(i))      
    Next
+End Property
+
+Public Property Get BackColorAlternating() As Long
+   BackColorAlternating = myBackColorAlternating
+End Property
+
+Public Property Let BackColorAlternating(v As Long)
+   myBackColorAlternating = v
 End Property
 
 ' ******************************** SAME IN ALL JABACO CONTROLS ********************************

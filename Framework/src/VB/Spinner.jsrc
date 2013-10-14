@@ -48,6 +48,8 @@ Public Sub Class_Initialize()
    Call Parent.addFocusListener(Me)
    Call Parent.addMouseMotionListener(Me) 
    Call getParentEditor.addKeyListener(Me)
+   Call Parent.setBorder(New EmptyBorder(New Insets(1,1,1,1)))
+   
    'myDefaultBorder = Parent.getBorder 
    'Call Parent.setMargin(New Insets(1,5,1,1))
 End Sub
@@ -181,8 +183,6 @@ Public Property Get BackColor() As Long
 End Property
 
 Public Property Let BackColor(v As Long)
-'  Hack to get rid of the white space when BackColor is <> default; depends on laf though!!
-'   If v <> 16777215 Then Call Parent.setBorder(New EmptyBorder(New Insets(1,1,1,1)))
    Call getParentEditor.setBackground(RGBtoColor(v))
 End Property
 

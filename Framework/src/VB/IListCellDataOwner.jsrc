@@ -5,6 +5,9 @@ End Property
 Public Property Get BackColorSel() As Long
 End Property
 
+Public Property Get BackColorAlternating() As Long
+End Property
+
 Public Property Let MarginItem(margin As Long)
 End Property
 

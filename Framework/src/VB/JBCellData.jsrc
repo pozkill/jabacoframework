@@ -68,7 +68,7 @@ Public Function getComponent(table As JBGrid, isSelected As Boolean, hasFocus As
       Me.setFont(table.Parent.getFont())
       getComponent = Me
    Else
-      myComponentOwn.setBackground(IIF(isSelected, table.Parent.getSelectionBackground(), RGBtoColor(table.BackColorCells)))
+      myComponentOwn.setBackground(RGBtoColor(IIF(isSelected, table.BackColorSel, IIF(row Mod 2 = 1, table.BackColorCellsAlternating, table.BackColorCells))))
       myComponentOwn.setForeground(IIF(isSelected, table.Parent.getSelectionForeground(), table.Parent.getForeground()))
       myComponentOwn.setBorder(IIF(hasFocus, getBorderFocusSel(), New #EmptyBorder(1,1,1,1)))
       myComponentOwn.setFont(table.Parent.getFont())
