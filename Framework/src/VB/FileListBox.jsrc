@@ -7,6 +7,7 @@ Dim myPattern As String = "*.*"
 
 Public Sub Class_Initialize()
   myDirectory = CurDir
+  Base.BackColorAlternating = Base.BackColor
   Update_Filename_List()
 End Sub
 
