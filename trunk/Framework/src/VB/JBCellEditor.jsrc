@@ -111,13 +111,14 @@ Public Function getTableCellEditorComponent(table As JTable, value As Object, is
       ret = lastData.getEditorComponent(myGrid, isSelected, True)
       myEditMode = CELLEDIT_CUSTOM
       If ret = Nothing Then
+         Dim myBackColor As Long = IIF(row Mod 2 = 1, myGrid.BackColorCellsAlternating, myGrid.BackColorCells)
          If Len(myGrid.ComboList) > 0 Then 
             If myGrid.ComboList = "..."  Then
                If lastData.BackColor <> myGrid.BackColorSel Then 
                   Call ButtonFrame.setBackground(RGBtoColor(lastData.BackColor))
                Else
-                  Call ButtonFrame.setBackground(RGBtoColor(IIF(row Mod 2 = 1, myGrid.BackColorCellsAlternating, myGrid.BackColorCells)))
-'                  Call ButtonFrame.getComponent(0).setBackground(RGBtoColor(IIF(row Mod 2 = 1, myGrid.BackColorCellsAlternating, myGrid.BackColorCells)))
+                  Call ButtonFrame.setBackground(RGBtoColor(myBackColor))
+'                  Call ButtonFrame.getComponent(0).setBackground(RGBtoColor(myBackColor)
                End If             
                myLabel.Caption = lastData.Text
                myLabel.ForeColor = lastData.ForeColor
@@ -126,8 +127,8 @@ Public Function getTableCellEditorComponent(table As JTable, value As Object, is
                myEditMode = CELLEDIT_BUTTON
             Else
                myCombo.ForeColor = myGrid.ForeColor
-               myCombo.BackColor = IIF(row Mod 2 = 1, myGrid.BackColorCellsAlternating, myGrid.BackColorCells)
-               myCombo.BackColorAlternating = myCombo.BackColor
+               myCombo.BackColor = myBackColor
+               myCombo.BackColorAlternating = myBackColor
                myCombo.ForeColorSel = myGrid.ForeColorSel 
                myCombo.BackColorSel = myGrid.BackColorSel
                myCombo.Text = lastData.Text
@@ -144,7 +145,7 @@ Public Function getTableCellEditorComponent(table As JTable, value As Object, is
                ret = myCheck
                myEditMode = CELLEDIT_CHECK
             Else
-               myText.BackColor = IIF(row Mod 2 = 1, myGrid.BackColorCellsAlternating, myGrid.BackColorCells)
+               myText.BackColor = myBackColor
                myText.ForeColor = myGrid.ForeColor 
                myText.Text = lastData.Text
                Call myText.Parent.setFont(myGrid.Parent.getFont())
