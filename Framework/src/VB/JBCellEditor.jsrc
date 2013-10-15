@@ -127,6 +127,7 @@ Public Function getTableCellEditorComponent(table As JTable, value As Object, is
             Else
                myCombo.ForeColor = myGrid.ForeColor
                myCombo.BackColor = IIF(row Mod 2 = 1, myGrid.BackColorCellsAlternating, myGrid.BackColorCells)
+               myCombo.BackColorAlternating = myCombo.BackColor
                myCombo.ForeColorSel = myGrid.ForeColorSel 
                myCombo.BackColorSel = myGrid.BackColorSel
                myCombo.Text = lastData.Text

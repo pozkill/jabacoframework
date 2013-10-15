@@ -217,81 +217,9 @@ Private Sub SetZOrder(Component As java#awt#Component)
 End Sub
 
 Public Sub add(Component As java#awt#Component)
-
-   If ( Component.getClass.getSuperclass.getName.equals("VB.CheckBox") ) Then
-      Dim Component201 As VB#CheckBox = Cast(Component, VB#CheckBox)
-      Component201.ResizeTriggerInit(Me.Width, Me.Height)
-   ElseIf ( Component.getClass.getSuperclass.getName.equals("VB.ComboBox") ) Then
-      Dim Component202 As VB#ComboBox = Cast(Component, VB#ComboBox)
-      Component202.ResizeTriggerInit(Me.Width, Me.Height)
-   ElseIf ( Component.getClass.getSuperclass.getName.equals("VB.CommandButton") ) Then
-      Dim Component203 As VB#CommandButton = Cast(Component, VB#CommandButton)
-      Component203.ResizeTriggerInit(Me.Width, Me.Height)
-   ElseIf ( Component.getClass.getSuperclass.getName.equals("VB.Frame") ) Then
-      Dim Component204 As VB#Frame = Cast(Component, VB#Frame)
-      Component204.ResizeTriggerInit(Me.Width, Me.Height)
-   ElseIf ( Component.getClass.getSuperclass.getName.equals("VB.JBGrid") ) Then
-      Dim Component205 As VB#JBGrid = Cast(Component, VB#JBGrid)
-      Component205.ResizeTriggerInit(Me.Width, Me.Height)
-   ElseIf ( Component.getClass.getSuperclass.getName.equals("VB.Label") ) Then
-      Dim Component206 As VB#Label = Cast(Component, VB#Label)
-      Component206.ResizeTriggerInit(Me.Width, Me.Height)
-   ElseIf ( Component.getClass.getSuperclass.getName.equals("VB.ListBox") ) Then
-      Dim Component207 As VB#ListBox = Cast(Component, VB#ListBox)
-      Component207.ResizeTriggerInit(Me.Width, Me.Height)
-   ElseIf ( Component.getClass.getSuperclass.getName.equals("VB.OptionButton") ) Then
-      Dim Component208 As VB#OptionButton = Cast(Component, VB#OptionButton)
-      Component208.ResizeTriggerInit(Me.Width, Me.Height)
-   ElseIf ( Component.getClass.getSuperclass.getName.equals("VB.PasswordField") ) Then
-      Dim Component209 As VB#PasswordField = Cast(Component, VB#PasswordField)
-      Component209.ResizeTriggerInit(Me.Width, Me.Height)
-   ElseIf ( Component.getClass.getSuperclass.getName.equals("VB.PictureBox") ) Then
-      Dim Component210 As VB#PictureBox = Cast(Component, VB#PictureBox)
-      Component210.ResizeTriggerInit(Me.Width, Me.Height)
-   ElseIf ( Component.getClass.getSuperclass.getName.equals("VB.ProgressBar") ) Then
-      Dim Component211 As VB#ProgressBar = Cast(Component, VB#ProgressBar)
-      Component211.ResizeTriggerInit(Me.Width, Me.Height)
-   ElseIf ( Component.getClass.getSuperclass.getName.equals("VB.RichTextBox") ) Then
-      Dim Component212 As VB#RichTextBox = Cast(Component, VB#RichTextBox)
-      Component212.ResizeTriggerInit(Me.Width, Me.Height)
-   ElseIf ( Component.getClass.getSuperclass.getName.equals("VB.ScrollBar") ) Then
-      Dim Component213 As VB#ScrollBar = Cast(Component, VB#ScrollBar)
-      Component213.ResizeTriggerInit(Me.Width, Me.Height)
-   ElseIf ( Component.getClass.getSuperclass.getName.equals("VB.Shape") ) Then
-      Dim Component214 As VB#Shape = Cast(Component, VB#Shape)
-      Component214.ResizeTriggerInit(Me.Width, Me.Height)
-   ElseIf ( Component.getClass.getSuperclass.getName.equals("VB.Slider") ) Then
-      Dim Component215 As VB#Slider = Cast(Component, VB#Slider)
-      Component215.ResizeTriggerInit(Me.Width, Me.Height)
-   ElseIf ( Component.getClass.getSuperclass.getName.equals("VB.Spinner") ) Then
-      Dim Component216 As VB#Spinner = Cast(Component, VB#Spinner)
-      Component216.ResizeTriggerInit(Me.Width, Me.Height)
-   ElseIf ( Component.getClass.getSuperclass.getName.equals("VB.SplitPane") ) Then
-      Dim Component217 As VB#SplitPane = Cast(Component, VB#SplitPane)
-      Component217.ResizeTriggerInit(Me.Width, Me.Height)
-   ElseIf ( Component.getClass.getSuperclass.getName.equals("VB.TabStrip") ) Then
-      Dim Component218 As VB#TabStrip = Cast(Component, VB#TabStrip)
-      Component218.ResizeTriggerInit(Me.Width, Me.Height)
-   ElseIf ( Component.getClass.getSuperclass.getName.equals("VB.TextBox") ) Then
-      Dim Component219 As VB#TextBox = Cast(Component, VB#TextBox)
-      Component219.ResizeTriggerInit(Me.Width, Me.Height)
-   ElseIf ( Component.getClass.getSuperclass.getName.equals("VB.ToggleButton") ) Then
-      Dim Component220 As VB#ToggleButton = Cast(Component, VB#ToggleButton)
-      Component220.ResizeTriggerInit(Me.Width, Me.Height)
-   ElseIf ( Component.getClass.getSuperclass.getName.equals("VB.TreeView") ) Then
-      Dim Component221 As VB#TreeView = Cast(Component, VB#TreeView)
-      Component221.ResizeTriggerInit(Me.Width, Me.Height)
-   ElseIf ( Component.getClass.getSuperclass.getName.equals("VB.DirListBox") ) Then
-      Dim Component222 As VB#DirListBox = Cast(Component, VB#DirListBox)
-      Component222.ResizeTriggerInit(Me.Width, Me.Height)
-   ElseIf ( Component.getClass.getSuperclass.getName.equals("VB.FileListBox") ) Then
-      Dim Component223 As VB#FileListBox = Cast(Component, VB#FileListBox)
-      Component223.ResizeTriggerInit(Me.Width, Me.Height)
-   ElseIf ( Component.getClass.getSuperclass.getSuperclass.getName.equals("VB.Usercontrol") ) Then
-      Dim Component224 As VB#Usercontrol = Cast(Component, VB#Usercontrol)
-      Component224.ResizeTriggerInit(Me.Width, Me.Height)
-   End If
-
+   Dim Component2 As VB#IJabacoControl = Cast(Component, VB#IJabacoControl)
+   Component2.ResizeTriggerInit(Me.Width, Me.Height)
+   
    Parent.add Component
    Call SetZOrder(Component)
    On Error Resume Next
@@ -350,103 +278,9 @@ Private Sub AnchorResize ' Let the added component resize, if its Anchor wants i
    comp = Me.getComponents()
  
    For i = 0 To Ubound(comp)
-      If comp(i).getClass.getSuperclass.getName.equals("VB.CheckBox") Then
-         Dim myCont01 As VB#CheckBox
-         myCont01 = Cast(comp(i) , VB#CheckBox)
-         myCont01.ResizeTrigger(Parent.getWidth, Parent.getHeight)
-      ElseIf comp(i).getClass.getSuperclass.getName.equals("VB.ComboBox") Then
-         Dim myCont02 As VB#ComboBox
-         myCont02 = Cast(comp(i) , VB#ComboBox)
-         myCont02.ResizeTrigger(Parent.getWidth, Parent.getHeight)
-      ElseIf comp(i).getClass.getSuperclass.getName.equals("VB.CommandButton") Then
-         Dim myCont03 As VB#CommandButton
-         myCont03 = Cast(comp(i) , VB#CommandButton)
-         myCont03.ResizeTrigger(Parent.getWidth, Parent.getHeight)
-      ElseIf comp(i).getClass.getSuperclass.getName.equals("VB.Frame") Then
-         Dim myCont04 As VB#Frame
-         myCont04 = Cast(comp(i) , VB#Frame)
-         myCont04.ResizeTrigger(Parent.getWidth, Parent.getHeight)
-      ElseIf comp(i).getClass.getSuperclass.getName.equals("VB.JBGrid") Then
-         Dim myCont05 As VB#JBGrid
-         myCont05 = Cast(comp(i) , VB#JBGrid)
-         myCont05.ResizeTrigger(Parent.getWidth, Parent.getHeight)
-      ElseIf comp(i).getClass.getSuperclass.getName.equals("VB.Label") Then
-         Dim myCont06 As VB#Label
-         myCont06 = Cast(comp(i) , VB#Label)
-         myCont06.ResizeTrigger(Parent.getWidth, Parent.getHeight)
-      ElseIf comp(i).getClass.getSuperclass.getName.equals("VB.ListBox") Then
-         Dim myCont07 As VB#ListBox
-         myCont07 = Cast(comp(i) , VB#ListBox)
-         myCont07.ResizeTrigger(Parent.getWidth, Parent.getHeight)
-      ElseIf comp(i).getClass.getSuperclass.getName.equals("VB.OptionButton") Then
-         Dim myCont08 As VB#OptionButton
-         myCont08 = Cast(comp(i) , VB#OptionButton)
-         myCont08.ResizeTrigger(Parent.getWidth, Parent.getHeight)
-      ElseIf comp(i).getClass.getSuperclass.getName.equals("VB.PasswordField") Then
-         Dim myCont09 As VB#PasswordField
-         myCont09 = Cast(comp(i) , VB#PasswordField)
-         myCont09.ResizeTrigger(Parent.getWidth, Parent.getHeight)
-      ElseIf comp(i).getClass.getSuperclass.getName.equals("VB.PictureBox") Then
-         Dim myCont10 As VB#PictureBox
-         myCont10 = Cast(comp(i) , VB#PictureBox)
-         myCont10.ResizeTrigger(Parent.getWidth, Parent.getHeight)
-      ElseIf comp(i).getClass.getSuperclass.getName.equals("VB.ProgressBar") Then
-         Dim myCont11 As VB#ProgressBar
-         myCont11 = Cast(comp(i) , VB#ProgressBar)
-         myCont11.ResizeTrigger(Parent.getWidth, Parent.getHeight)
-      ElseIf comp(i).getClass.getSuperclass.getName.equals("VB.RichTextBox") Then
-         Dim myCont12 As VB#RichTextBox
-         myCont12 = Cast(comp(i) , VB#RichTextBox)
-         myCont12.ResizeTrigger(Parent.getWidth, Parent.getHeight)
-      ElseIf comp(i).getClass.getSuperclass.getName.equals("VB.ScrollBar") Then
-         Dim myCont13 As VB#ScrollBar
-         myCont13 = Cast(comp(i) , VB#ScrollBar)
-         myCont13.ResizeTrigger(Parent.getWidth, Parent.getHeight)
-      ElseIf comp(i).getClass.getSuperclass.getName.equals("VB.Shape") Then
-         Dim myCont14 As VB#Shape
-         myCont14 = Cast(comp(i) , VB#Shape)
-         myCont14.ResizeTrigger(Parent.getWidth, Parent.getHeight)
-      ElseIf comp(i).getClass.getSuperclass.getName.equals("VB.Slider") Then
-         Dim myCont15 As VB#Slider
-         myCont15 = Cast(comp(i) , VB#Slider)
-         myCont15.ResizeTrigger(Parent.getWidth, Parent.getHeight)
-      ElseIf comp(i).getClass.getSuperclass.getName.equals("VB.Spinner") Then
-         Dim myCont16 As VB#Spinner
-         myCont16 = Cast(comp(i) , VB#Spinner)
-         myCont16.ResizeTrigger(Parent.getWidth, Parent.getHeight)
-      ElseIf comp(i).getClass.getSuperclass.getName.equals("VB.SplitPane") Then
-         Dim myCont17 As VB#SplitPane
-         myCont17 = Cast(comp(i) , VB#SplitPane)
-         myCont17.ResizeTrigger(Parent.getWidth, Parent.getHeight)
-      ElseIf comp(i).getClass.getSuperclass.getName.equals("VB.TabStrip") Then
-         Dim myCont18 As VB#TabStrip
-         myCont18 = Cast(comp(i) , VB#TabStrip)
-         myCont18.ResizeTrigger(Parent.getWidth, Parent.getHeight)
-      ElseIf comp(i).getClass.getSuperclass.getName.equals("VB.TextBox") Then
-         Dim myCont19 As VB#TextBox
-         myCont19 = Cast(comp(i) , VB#TextBox)
-         myCont19.ResizeTrigger(Parent.getWidth, Parent.getHeight)
-      ElseIf comp(i).getClass.getSuperclass.getName.equals("VB.ToggleButton") Then
-         Dim myCont20 As VB#ToggleButton
-         myCont20 = Cast(comp(i) , VB#ToggleButton)
-         myCont20.ResizeTrigger(Parent.getWidth, Parent.getHeight)
-      ElseIf comp(i).getClass.getSuperclass.getName.equals("VB.TreeView") Then
-         Dim myCont21 As VB#TreeView
-         myCont21 = Cast(comp(i) , VB#TreeView)
-         myCont21.ResizeTrigger(Parent.getWidth, Parent.getHeight)
-      ElseIf comp(i).getClass.getSuperclass.getName.equals("VB.DirListBox") Then
-         Dim myCont22 As VB#DirListBox
-         myCont22 = Cast(comp(i) , VB#DirListBox)
-         myCont22.ResizeTrigger(Parent.getWidth, Parent.getHeight)
-      ElseIf comp(i).getClass.getSuperclass.getName.equals("VB.FileListBox") Then
-         Dim myCont23 As VB#FileListBox
-         myCont23 = Cast(comp(i) , VB#FileListBox)
-         myCont23.ResizeTrigger(Parent.getWidth, Parent.getHeight)
-      ElseIf comp(i).getClass.getSuperclass.getSuperclass.getName.equals("VB.Usercontrol") Then
-         Dim myCont24 As VB#Usercontrol
-         myCont24 = Cast(comp(i) , VB#Usercontrol)
-         myCont24.ResizeTrigger(Parent.getWidth, Parent.getHeight)
-      End If
+      Dim myCont As VB#IJabacoControl
+      myCont = Cast(comp(i) , VB#IJabacoControl)
+      myCont.ResizeTrigger(Parent.getWidth, Parent.getHeight)
    Next i
 End Sub
 
