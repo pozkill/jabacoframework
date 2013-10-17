@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Jabaco>
-	<Param Name="CheckVersion" Value="true"/>
+	<Param Name="CheckVersion" Value="false"/>
 	<GUIDefault>
 		<Config>
 			<Raster Start="7" X="8" Y="8"/>
@@ -244,6 +244,7 @@
 			<Param Name="BorderStyle" Value="fmBorderStyleSingle"/>
 			<Param Name="CanGetFocus" Value="True"/>
 			<Param Name="BackColor" Value="-2147483643"/>
+			<Param Name="BackColorAlternating" Value="-2147483643"/>
 			<Param Name="ForeColor" Value="-2147483640"/>
 			<Param Name="BackColorSel" Value="-2147483635"/>
 			<Param Name="ForeColorSel" Value="-2147483634"/>
@@ -260,6 +261,7 @@
 		<Object Type="ComboBox">
 			<Param Name="CanGetFocus" Value="True"/>
 			<Param Name="BackColor" Value="-2147483643"/>
+			<Param Name="BackColorAlternating" Value="-2147483643"/>
 			<Param Name="ForeColor" Value="-2147483640"/>
 			<Param Name="BackColorSel" Value="-2147483635"/>
 			<Param Name="ForeColorSel" Value="-2147483634"/>
@@ -370,6 +372,7 @@
 			<Param Name="BackColorHeader" Value="-2147483633"/>
 			<Param Name="ForeColorHeader" Value="-2147483630"/>
 			<Param Name="BackColorCells" Value="-2147483643"/>
+                        <Param Name="BackColorCellsAlternating" Value="-2147483643"/>
 			<Param Name="GridColor" Value="-2147483638"/>
 			<Param Name="BorderColorSel" Value="-2147483638"/>
 			<Param Name="BorderColor" Value="-2147483642"/>
