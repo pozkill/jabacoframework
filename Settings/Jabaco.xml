@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Jabaco>
+	<Param Name="CheckVersion" Value="true"/>
+	<GUIDefault>
+		<Config>
+			<Raster Start="7" X="8" Y="8"/>
+		</Config>
+		<Object Type="Form">
+			<Param Name="BackColor" Value="-2147483633"/>
+			<Param Name="Caption" Value="Form"/>
+			<Param Name="Enabled" Value="True"/>
+			<Param Name="Visible" Value="True"/>
+			<Param Name="Left" Value="0"/>
+			<Param Name="Top" Value="0"/>
+			<Param Name="Width" Value="500"/>
+			<Param Name="Height" Value="400"/>
+			<Param Name="Transparency" Value="0"/>
+			<Param Name="Picture" Value="Nothing"/>
+			<Param Name="DrawWidth" Value="1"/>
+			<Param Name="StartUpPosition" Value="vbStartUpScreen"/>
+			<Param Name="BorderStyle" Value="vbSizable"/>
+			<Param Name="CanGetFocus" Value="True"/>
+			<Param Name="MenuBackColor" Value="-2147483644"/>
+			<Param Name="MenuForeColor" Value="-2147483641"/>
+			<Param Name="ToolBackColor" Value="-2147483644"/>
+			<Param Name="ToolForeColor" Value="-2147483641"/>
+			<Param Name="ForeColor" Value="-2147483630"/>
+			<Param Name="FontName" Value="Arial"/>
+			<Param Name="FontSize" Value="9"/>
+		</Object>
+		<Object Type="Dialog">
+			<Param Name="BackColor" Value="-2147483633"/>
+			<Param Name="Caption" Value="Dialog"/>
+			<Param Name="Enabled" Value="True"/>
+			<Param Name="Visible" Value="True"/>
+			<Param Name="Left" Value="0"/>
+			<Param Name="Top" Value="0"/>
+			<Param Name="Width" Value="500"/>
+			<Param Name="Height" Value="400"/>
+			<Param Name="Transparency" Value="0"/>
+			<Param Name="Picture" Value="Nothing"/>
+			<Param Name="DrawWidth" Value="1"/>
+			<Param Name="StartUpPosition" Value="vbStartUpScreen"/>
+			<Param Name="BorderStyle" Value="vbSizable"/>
+			<Param Name="CanGetFocus" Value="True"/>
+			<Param Name="MenuBackColor" Value="-2147483644"/>
+			<Param Name="MenuForeColor" Value="-2147483641"/>
+			<Param Name="ToolBackColor" Value="-2147483644"/>
+			<Param Name="ToolForeColor" Value="-2147483641"/>
+			<Param Name="ForeColor" Value="-2147483630"/>
+			<Param Name="FontName" Value="Arial"/>
+			<Param Name="FontSize" Value="9"/>
+		</Object>
+		<Object Type="MDIForm">
+			<Param Name="BackColor" Value="-2147483627"/>
+			<Param Name="Caption" Value="MDIForm"/>
+			<Param Name="Enabled" Value="True"/>
+			<Param Name="Visible" Value="True"/>
+			<Param Name="Left" Value="0"/>
+			<Param Name="Top" Value="0"/>
+			<Param Name="Width" Value="500"/>
+			<Param Name="Height" Value="400"/>
+			<Param Name="Transparency" Value="0"/>
+			<Param Name="Picture" Value="Nothing"/>
+			<Param Name="DrawWidth" Value="1"/>
+			<Param Name="StartUpPosition" Value="vbStartUpScreen"/>
+			<Param Name="BorderStyle" Value="vbSizable"/>
+			<Param Name="CanGetFocus" Value="True"/>
+			<Param Name="MenuBackColor" Value="-2147483644"/>
+			<Param Name="MenuForeColor" Value="-2147483641"/>
+			<Param Name="ToolBackColor" Value="-2147483644"/>
+			<Param Name="ToolForeColor" Value="-2147483641"/>
+			<Param Name="ForeColor" Value="-2147483630"/>
+			<Param Name="FontName" Value="Arial"/>
+			<Param Name="FontSize" Value="9"/>
+		</Object>
+		<Object Type="MDIChild">
+			<Param Name="BackColor" Value="-2147483633"/>
+			<Param Name="Caption" Value="MDIChild"/>
+			<Param Name="Enabled" Value="True"/>
+			<Param Name="Visible" Value="True"/>
+			<Param Name="Left" Value="0"/>
+			<Param Name="Top" Value="0"/>
+			<Param Name="Width" Value="400"/>
+			<Param Name="Height" Value="300"/>
+			<Param Name="Transparency" Value="0"/>
+			<Param Name="Picture" Value="Nothing"/>
+			<Param Name="DrawWidth" Value="1"/>
+			<Param Name="StartUpPosition" Value="vbStartUpScreen"/>
+			<Param Name="BorderStyle" Value="vbSizable"/>
+			<Param Name="CanGetFocus" Value="True"/>
+			<Param Name="MenuBackColor" Value="-2147483644"/>
+			<Param Name="MenuForeColor" Value="-2147483641"/>
+			<Param Name="ToolBackColor" Value="-2147483644"/>
+			<Param Name="ToolForeColor" Value="-2147483641"/>
+			<Param Name="ForeColor" Value="-2147483630"/>
+			<Param Name="FontName" Value="Arial"/>
+			<Param Name="FontSize" Value="9"/>
+			<Param Name="Resizable" Value="True"/>
+			<Param Name="Minimizable" Value="True"/>
+			<Param Name="Maximizable" Value="True"/>
+			<Param Name="Closable" Value="True"/>
+		</Object>
+		<Object Type="Applet">
+			<Param Name="CanGetFocus" Value="True"/>
+			<Param Name="BackColor" Value="-2147483633"/>
+			<Param Name="Enabled" Value="True"/>
+			<Param Name="Visible" Value="True"/>
+			<Param Name="FontName" Value="Arial"/>
+			<Param Name="FontSize" Value="9"/>
+			<Param Name="DrawWidth" Value="1"/>
+			<Param Name="MenuBackColor" Value="-2147483644"/>
+			<Param Name="MenuForeColor" Value="-2147483641"/>
+			<Param Name="ToolBackColor" Value="-2147483644"/>
+			<Param Name="ToolForeColor" Value="-2147483641"/>
+		</Object>
+		<Object Type="Usercontrol">
+			<Param Name="CanGetFocus" Value="True"/>
+			<Param Name="BackColor" Value="-2147483633"/>
+			<Param Name="Enabled" Value="True"/>
+			<Param Name="Visible" Value="True"/>
+			<Param Name="FontName" Value="Arial"/>
+			<Param Name="FontSize" Value="9"/>
+			<Param Name="MenuBackColor" Value="-2147483644"/>
+			<Param Name="MenuForeColor" Value="-2147483641"/>
+			<Param Name="ToolBackColor" Value="-2147483644"/>
+			<Param Name="ToolForeColor" Value="-2147483641"/>
+			<Param Name="Opaque" Value="True"/>
+			<Param Name="DrawWidth" Value="1"/>
+		</Object>
+		<Object Type="Picture">
+			<Param Name="CanGetFocus" Value="True"/>
+			<Param Name="AutoRedraw" Value="True"/>
+			<Param Name="BorderStyle" Value="fmBorderStyleSingle"/>
+			<Param Name="Picture" Value="Nothing"/>
+			<Param Name="DrawWidth" Value="1"/>
+			<Param Name="BackColor" Value="-2147483643"/>
+			<Param Name="ForeColor" Value="-2147483640"/>
+			<Param Name="BorderColor" Value="-2147483642"/>
+			<Param Name="Visible" Value="True"/>
+			<Param Name="FontName" Value="Arial"/>
+			<Param Name="FontSize" Value="9"/>
+			<Param Name="Transparency" Value="0"/>
+			<Param Name="Opaque" Value="True"/>
+		</Object>
+		<Object Type="Label">
+			<Param Name="CanGetFocus" Value="True"/>
+			<Param Name="BackColor" Value="-2147483633"/>
+			<Param Name="BorderColor" Value="-2147483642"/>
+			<Param Name="FontName" Value="Arial"/>
+			<Param Name="FontSize" Value="9"/>
+			<Param Name="Visible" Value="True"/>
+		</Object>
+		<Object Type="Spinner">
+			<Param Name="CanGetFocus" Value="True"/>
+			<Param Name="BackColor" Value="-2147483643"/>
+			<Param Name="ForeColor" Value="-2147483640"/>
+			<Param Name="BackColorSel" Value="-2147483635"/>
+			<Param Name="ForeColorSel" Value="-2147483634"/>
+			<Param Name="BorderStyle" Value="fmBorderStyleSingle"/>
+			<Param Name="FontName" Value="Arial"/>
+			<Param Name="FontSize" Value="9"/>
+			<Param Name="Visible" Value="True"/>
+		</Object>
+		<Object Type="RichTextBox">
+			<Param Name="CanGetFocus" Value="True"/>
+			<Param Name="BackColor" Value="-2147483643"/>
+			<Param Name="ForeColor" Value="-2147483640"/>
+			<Param Name="BackColorSel" Value="-2147483635"/>
+			<Param Name="ForeColorSel" Value="-2147483634"/>
+			<Param Name="BorderStyle" Value="fmBorderStyleSingle"/>
+			<Param Name="FontName" Value="Arial"/>
+			<Param Name="FontSize" Value="9"/>
+			<Param Name="Visible" Value="True"/>
+			<Param Name="VScrollBar" Value="sbShowAsNeeded"/>
+			<Param Name="HScrollBar" Value="sbShowAsNeeded"/>
+			<Param Name="Redraw" Value="True"/>
+			<Param Name="HScrollBar" Value="sbShowAsNeeded"/>
+		</Object>
+		<Object Type="Text">
+			<Param Name="BorderStyle" Value="fmBorderStyleSingle"/>
+			<Param Name="CanGetFocus" Value="True"/>
+			<Param Name="BackColor" Value="-2147483643"/>
+			<Param Name="ForeColor" Value="-2147483640"/>
+			<Param Name="BackColorSel" Value="-2147483635"/>
+			<Param Name="ForeColorSel" Value="-2147483634"/>
+			<Param Name="FontName" Value="Arial"/>
+			<Param Name="FontSize" Value="9"/>
+			<Param Name="Visible" Value="True"/>
+			<Param Name="VScrollBar" Value="sbShowNever"/>
+			<Param Name="HScrollBar" Value="sbShowNever"/>
+			<Param Name="MultiLine" Value="False"/>
+			<Param Name="ForwardTab" Value="True"/>
+			<Param Name="TabSize" Value="4"/>
+		</Object>
+		<Object Type="Password">
+			<Param Name="CanGetFocus" Value="True"/>
+			<Param Name="BackColor" Value="-2147483643"/>
+			<Param Name="ForeColor" Value="-2147483640"/>
+			<Param Name="BackColorSel" Value="-2147483635"/>
+			<Param Name="ForeColorSel" Value="-2147483634"/>
+			<Param Name="BorderStyle" Value="fmBorderStyleSingle"/>
+			<Param Name="Visible" Value="True"/>
+		</Object>
+		<Object Type="Frame">
+			<Param Name="CanGetFocus" Value="True"/>
+			<Param Name="BackColor" Value="-2147483633"/>
+			<Param Name="BorderColor" Value="-2147483642"/>
+			<Param Name="ForeColor" Value="-2147483630"/>
+			<Param Name="BorderStyle" Value="fmBorderStyleSingle"/>
+			<Param Name="SpecialEffect" Value="fmSpecialEffectEtched"/>
+			<Param Name="FontName" Value="Arial"/>
+			<Param Name="FontSize" Value="9"/>
+			<Param Name="Visible" Value="True"/>
+		</Object>
+		<Object Type="Command">
+			<Param Name="CanGetFocus" Value="True"/>
+			<Param Name="BackColor" Value="-2147483633"/>
+			<Param Name="ForeColor" Value="-2147483630"/>
+			<Param Name="Picture" Value="Nothing"/>
+			<Param Name="RolloverPicture" Value="Nothing"/>
+			<Param Name="PicturePosition" Value="fmPicturePositionLeftCenter"/>
+			<Param Name="FontName" Value="Arial"/>
+			<Param Name="FontSize" Value="9"/>
+			<Param Name="Visible" Value="True"/>
+		</Object>
+		<Object Type="CheckBox">
+			<Param Name="CanGetFocus" Value="True"/>
+			<Param Name="BackColor" Value="-2147483633"/>
+			<Param Name="ForeColor" Value="-2147483630"/>
+			<Param Name="FontName" Value="Arial"/>
+			<Param Name="FontSize" Value="9"/>
+			<Param Name="Visible" Value="True"/>
+		</Object>
+		<Object Type="OptionBox">
+			<Param Name="CanGetFocus" Value="True"/>
+			<Param Name="BackColor" Value="-2147483633"/>
+			<Param Name="ForeColor" Value="-2147483630"/>
+			<Param Name="FontName" Value="Arial"/>
+			<Param Name="FontSize" Value="9"/>
+			<Param Name="Visible" Value="True"/>
+		</Object>
+		<Object Type="List">
+			<Param Name="BorderStyle" Value="fmBorderStyleSingle"/>
+			<Param Name="CanGetFocus" Value="True"/>
+			<Param Name="BackColor" Value="-2147483643"/>
+			<Param Name="ForeColor" Value="-2147483640"/>
+			<Param Name="BackColorSel" Value="-2147483635"/>
+			<Param Name="ForeColorSel" Value="-2147483634"/>
+			<Param Name="BorderColorSel" Value="-2147483638"/>
+			<Param Name="FontName" Value="Arial"/>
+			<Param Name="FontSize" Value="9"/>
+			<Param Name="Visible" Value="True"/>
+			<Param Name="FixedCellHeight" Value="-1"/>
+			<Param Name="FixedCellWidth" Value="-1"/>
+			<Param Name="ListIndex" Value="0"/>
+			<Param Name="Margin" Value="0"/>
+			<Param Name="MarginItem" Value="1"/>
+		</Object>
+		<Object Type="ComboBox">
+			<Param Name="CanGetFocus" Value="True"/>
+			<Param Name="BackColor" Value="-2147483643"/>
+			<Param Name="ForeColor" Value="-2147483640"/>
+			<Param Name="BackColorSel" Value="-2147483635"/>
+			<Param Name="ForeColorSel" Value="-2147483634"/>
+			<Param Name="BorderColorSel" Value="-2147483638"/>
+			<Param Name="FontName" Value="Arial"/>
+			<Param Name="FontSize" Value="9"/>
+			<Param Name="Visible" Value="True"/>
+			<Param Name="MarginItem" Value="1"/>
+		</Object>
+		<Object Type="Timer">
+			<Param Name="CanGetFocus" Value="True"/>
+			<Param Name="Enabled" Value="False"/>
+			<Param Name="Interval" Value="0"/>
+		</Object>
+		<Object Type="Slider">
+			<Param Name="CanGetFocus" Value="True"/>
+			<Param Name="BackColor" Value="-2147483633"/>
+			<Param Name="ForeColor" Value="-2147483630"/>
+			<Param Name="FontName" Value="Arial"/>
+			<Param Name="FontSize" Value="9"/>
+			<Param Name="Min" Value="0"/>
+			<Param Name="Max" Value="10"/>
+			<Param Name="Value" Value="0"/>
+			<Param Name="PaintTicks" Value="True"/>
+			<Param Name="SnapToTicks" Value="True"/>
+			<Param Name="MinorTickSpace" Value="0"/>
+			<Param Name="MajorTickSpace" Value="10"/>
+			<Param Name="Visible" Value="True"/>
+		</Object>
+		<Object Type="ScrollBar">
+			<Param Name="CanGetFocus" Value="True"/>
+			<Param Name="BackColor" Value="-2147483633"/>
+			<Param Name="Max" Value="100"/>
+			<Param Name="Value" Value="0"/>
+			<Param Name="Orientation" Value="fmOrientationHorizontal"/>
+			<Param Name="Visible" Value="True"/>
+		</Object>
+		<Object Type="ToggleButton">
+			<Param Name="CanGetFocus" Value="True"/>
+			<Param Name="BackColor" Value="-2147483633"/>
+			<Param Name="ForeColor" Value="-2147483640"/>
+			<Param Name="Picture" Value="Nothing"/>
+			<Param Name="RolloverPicture" Value="Nothing"/>
+			<Param Name="PicturePosition" Value="fmPicturePositionLeftCenter"/>
+			<Param Name="FontName" Value="Arial"/>
+			<Param Name="FontSize" Value="9"/>
+			<Param Name="Visible" Value="True"/>
+		</Object>
+		<Object Type="Tree">
+			<Param Name="BorderStyle" Value="fmBorderStyleSingle"/>
+			<Param Name="CanGetFocus" Value="True"/>
+			<Param Name="BackColor" Value="-2147483643"/>
+			<Param Name="BackColorSel" Value="-2147483635"/>
+			<Param Name="ForeColor" Value="-2147483640"/>
+			<Param Name="ForeColorSel" Value="-2147483634"/>
+			<Param Name="Visible" Value="True"/>
+			<Param Name="FontName" Value="Arial"/>
+			<Param Name="FontSize" Value="9"/>
+			<Param Name="Margin" Value="1"/>
+			<Param Name="Style" Value="tvwTreelinesPlusMinusPictureText"/>
+		</Object>
+		<Object Type="ProgressBar">
+			<Param Name="CanGetFocus" Value="True"/>
+			<Param Name="BackColor" Value="-2147483643"/>
+			<Param Name="Min" Value="0"/>
+			<Param Name="Max" Value="100"/>
+			<Param Name="Orientation" Value="fmOrientationHorizontal"/>
+			<Param Name="ForeColor" Value="-2147483635"/>
+			<Param Name="Value" Value="0"/>
+			<Param Name="Visible" Value="True"/>
+		</Object>
+		<Object Type="TabStrip">
+			<Param Name="CanGetFocus" Value="True"/>
+			<Param Name="BackColor" Value="-2147483633"/>
+			<Param Name="ForeColor" Value="-2147483630"/>
+			<Param Name="TabOrientation" Value="fmTabOrientationTop"/>
+			<Param Name="SelectIndex" Value="1"/>
+			<Param Name="Visible" Value="True"/>
+			<Param Name="FontName" Value="Arial"/>
+			<Param Name="FontSize" Value="9"/>
+		</Object>
+		<Object Type="SplitPane">
+			<Param Name="CanGetFocus" Value="True"/>
+			<Param Name="BackColor" Value="-2147483633"/>
+			<Param Name="ForeColor" Value="-2147483630"/>
+			<Param Name="BorderStyle" Value="fmBorderStyleSingle"/>
+			<Param Name="Orientation" Value="fmOrientationVertical"/>
+			<Param Name="DividerLocation" Value="200"/>
+			<Param Name="Visible" Value="True"/>
+			<Param Name="FontName" Value="Arial"/>
+			<Param Name="FontSize" Value="9"/>
+		</Object>
+		<Object Type="JBGrid">
+			<Param Name="CanGetFocus" Value="True"/>
+			<Param Name="BackColor" Value="-2147483633"/>
+			<Param Name="ForeColor" Value="-2147483640"/>
+			<Param Name="BackColorSel" Value="-2147483635"/>
+			<Param Name="ForeColorSel" Value="-2147483634"/>
+			<Param Name="BorderStyle" Value="fmBorderStyleSingle"/>
+			<Param Name="SpecialEffect" Value="fmSpecialEffectFlat"/>
+			<Param Name="Cols" Value="4"/>
+			<Param Name="Rows" Value="3"/>
+			<Param Name="Visible" Value="True"/>
+			<Param Name="FontName" Value="Arial"/>
+			<Param Name="FontSize" Value="9"/>
+			<Param Name="HeaderHeight" Value="21"/>
+			<Param Name="HeaderVisible" Value="True"/>
+			<Param Name="BackColorHeader" Value="-2147483633"/>
+			<Param Name="ForeColorHeader" Value="-2147483630"/>
+			<Param Name="BackColorCells" Value="-2147483643"/>
+			<Param Name="GridColor" Value="-2147483638"/>
+			<Param Name="BorderColorSel" Value="-2147483638"/>
+			<Param Name="BorderColor" Value="-2147483642"/>
+			<Param Name="RowHeightGlobal" Value="-1"/>
+			<Param Name="AutoResize" Value="jbAutoResizeLast"/>
+			<Param Name="Redraw" Value="True"/>
+		</Object>
+		<Object Type="Shape">
+			<Param Name="CanGetFocus" Value="True"/>
+			<Param Name="BackColor" Value="-2147483643"/>
+			<Param Name="BorderColor" Value="-2147483642"/>
+			<Param Name="BorderWidth" Value="1"/>
+			<Param Name="FillColor" Value="0"/>
+			<Param Name="Visible" Value="True"/>
+		</Object>
+		<Object Type="Winsock">
+			<Param Name="BlockSize" Value="16000"/>
+			<Param Name="LocalHost" Value="127.0.0.1"/>
+			<Param Name="LocalPort" Value="1234"/>
+		</Object>
+		<Object Type="DTPicker">
+			<Param Name="CanGetFocus" Value="True"/>
+			<Param Name="BackColor" Value="-2147483643"/>
+			<Param Name="BackColorHeader" Value="-2147483646"/>
+			<Param Name="BackColorSel" Value="-2147483633"/>
+			<Param Name="ForeColor" Value="-2147483640"/>
+			<Param Name="ForeColorHeader" Value="-2147483639"/>
+			<Param Name="Value" Value="01.01.1970"/>
+			<Param Name="Visible" Value="True"/>
+		</Object>
+	</GUIDefault>
+</Jabaco>
