@@ -28,7 +28,18 @@ Public Function getTableCellRendererComponent(table As JTable, value As Object, 
       End If
       If isSelected = True Then
          If myGrid.DataMatrix(row, col).CellBackColor <> -1 Then
-            Call getTableCellRendererComponent.setBackground(RGBtoColor(myGrid.DataMatrix(row, col).CellBackColor))
+            'Call getTableCellRendererComponent.setBackground(RGBtoColor(myGrid.DataMatrix(row, col).CellBackColor))
+            Dim ColSelR As Integer = getTableCellRendererComponent.getBackground.getRed
+            Dim ColSelG As Integer = getTableCellRendererComponent.getBackground.getGreen
+            Dim ColSelB As Integer = getTableCellRendererComponent.getBackground.getBlue
+            Dim ColBackR As Integer = myGrid.DataMatrix(row, col).CellBackColor / 1 And 255
+            Dim ColBackG As Integer = myGrid.DataMatrix(row, col).CellBackColor / 256 And 255
+            Dim ColBackB As Integer = myGrid.DataMatrix(row, col).CellBackColor / 65536 And 255
+            ColSelR = (ColSelR / 3 * 2 + ColBackR / 3)
+            ColSelG = (ColSelG / 3 * 2 + ColBackG / 3)
+            ColSelB = (ColSelB / 3 * 2 + ColBackB / 3)           
+            Call getTableCellRendererComponent.setBackground(RGBtoColor(RGB(ColSelR, ColSelG, ColSelB)))
+            
             'done by Parent.setSelectionBackground()in JBGrid
             'Else
             '   Call getTableCellRendererComponent.setBackground(RGBtoColor(myGrid.BackColorSel))
