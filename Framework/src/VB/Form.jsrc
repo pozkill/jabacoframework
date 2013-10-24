@@ -32,9 +32,10 @@ Public Sub add(Component As java#awt#Component)
 '   End If   
 
    ' Very bad hack, but it seems to work. :-P
-    Dim Component2 As VB#IJabacoControl = Cast(Component, VB#IJabacoControl)
-    Component2.ResizeTriggerInit(Me.Width, Me.Height)
-   
+    If IsClass(Component, VB#IJabacoControl) Then
+       Dim Component2 As VB#IJabacoControl = Cast(Component, VB#IJabacoControl)
+       Component2.ResizeTriggerInit(Me.Width, Me.Height)
+    End If
    'MsgBox mcls(0)
    
 '
