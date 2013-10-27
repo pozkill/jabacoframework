@@ -183,8 +183,10 @@ Public Sub add(Component As java#awt#Component)
    MySelf = Cast(Me, JPanel)
    MySelf.add Component
 
-   Dim Component2 As VB#IJabacoControl = Cast(Component, VB#IJabacoControl)
-   Component2.ResizeTriggerInit(Me.Width, Me.Height)
+   If IsClass(Component, VB#IJabacoControl) Then
+     Dim Component2 As VB#IJabacoControl = Cast(Component, VB#IJabacoControl)
+     Component2.ResizeTriggerInit(Me.Width, Me.Height)
+   End If
 
    On Error Resume Next
    Dim ComponentCB As javax#swing#JCheckBox 
@@ -427,9 +429,11 @@ Private Sub AnchorResize()
    comp = Me.getComponents()
 
    For i = 0 To Ubound(comp)
-      Dim myCont As VB#IJabacoControl
-      myCont = Cast(comp(i) , VB#IJabacoControl)
-      myCont.ResizeTrigger(Parent.getWidth, Parent.getHeight)    
+      If IsClass(comp(i), VB#IJabacoControl) Then
+         Dim myCont As VB#IJabacoControl
+         myCont = Cast(comp(i) , VB#IJabacoControl)
+         myCont.ResizeTrigger(Parent.getWidth, Parent.getHeight)    
+      End If
    Next i
 End Sub
 
