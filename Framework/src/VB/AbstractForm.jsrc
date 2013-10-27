@@ -470,9 +470,11 @@ Private Sub AnchorResize ' Let the added component resize, if its Anchor wants i
    comp = boxComp.getComponents
   
    For i = 0 To Ubound(comp)
-      Dim myCont As VB#IJabacoControl
-      myCont = Cast(comp(i) , VB#IJabacoControl)
-      myCont.ResizeTrigger(Parent.getContentPane.getWidth, Parent.getContentPane.getHeight)    
+      If IsClass(comp(i), VB#IJabacoControl) Then
+         Dim myCont As VB#IJabacoControl
+         myCont = Cast(comp(i) , VB#IJabacoControl)
+         myCont.ResizeTrigger(Parent.getContentPane.getWidth, Parent.getContentPane.getHeight)    
+      End If
    Next i
 
 End Sub

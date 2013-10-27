@@ -15,10 +15,12 @@ Dim myIcon As #IResource
 
 Dim Withevents myContent As New PictureBox
 
-Public Sub add(Component As java#awt#Component) 
+Public Sub add(Component As java#awt#Component)
 
-   Dim Component2 As VB#IJabacoControl = Cast(Component, VB#IJabacoControl)
-   Component2.ResizeTriggerInit(Me.Width, Me.Height)
+   If IsClass(Component, VB#IJabacoControl) Then
+      Dim Component2 As VB#IJabacoControl = Cast(Component, VB#IJabacoControl)
+      Component2.ResizeTriggerInit(Me.Width, Me.Height)
+   End If
 
    If (myContent = Nothing) Then
       Call Base.getContentPane().add(Component)
@@ -377,9 +379,11 @@ Private Sub AnchorResize ' Let the added component resize, if its Anchor wants i
    comp = boxComp.getComponents
 
    For i = 0 To Ubound(comp)
-      Dim myCont As VB#IJabacoControl
-      myCont = Cast(comp(i) , VB#IJabacoControl)
-      myCont.ResizeTrigger(Parent.getContentPane.getWidth, Parent.getContentPane.getHeight)  
+      If IsClass(comp(i), VB#IJabacoControl) Then
+         Dim myCont As VB#IJabacoControl
+         myCont = Cast(comp(i) , VB#IJabacoControl)
+         myCont.ResizeTrigger(Parent.getContentPane.getWidth, Parent.getContentPane.getHeight)  
+      End If
    Next i
 
 End Sub
