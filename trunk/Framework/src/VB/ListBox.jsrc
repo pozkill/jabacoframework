@@ -338,7 +338,8 @@ Public Synchronized Sub AddItem(Item As ListCellData, Index As Integer)
 End Sub
 
 Private Sub fireChange()
-   Call myModel.fireChangeEvent(Parent.getFirstVisibleIndex, Parent.getLastVisibleIndex)
+   ' Call myModel.fireChangeEvent(Parent.getFirstVisibleIndex, Parent.getLastVisibleIndex)
+   Call myModel.fireChangeEvent(0, ListCount)
 End Sub
 
 Public Property Get ListCount() As Long
