@@ -70,7 +70,7 @@ Public Sub Class_Initialize()
    Call Parent.addMouseMotionListener(Me)
    Call Parent.addKeyListener(Me)
    Call Parent.addListSelectionListener(Me)
-   Call Parent.setCellRenderer(myRenderer)
+   ' Call Parent.setCellRenderer(myRenderer)
    Call Me.setViewportView(myList)
    
    myDefaultBorder = Base.getBorder()
