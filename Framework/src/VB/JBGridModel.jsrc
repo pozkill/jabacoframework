@@ -28,7 +28,7 @@ End Function
 
 Public Sub fireTableCellUpdated(row As Integer, col As Integer)
    If myGrid.isEditing(row, col) Then 
-      myGrid.Editor.Value = getValueAt(row, col)
+      myGrid.CellEditor.Value = getValueAt(row, col)
    End If
    Call Base.fireTableCellUpdated(row, col)
 End Sub

@@ -3,37 +3,228 @@
 
 Public Sub Usercontrol_Initialize()
 
-   jbGrid1.Cols = 14
-   jbGrid1.Rows = 10
+   JBGrid1.AutoCheckBox = True
+   JBGrid1.BackColorCellsAlternating = vbYellow
+   JBGrid1.BackColorSel = RGB(224, 223, 227)
+   JBGrid1.GradientHeader = True
+   JBGrid1.ShowSortIndicator = True
+   JBGrid1.SortIndicatorIndex = 0
+
+   JBGrid1.HeaderHeight = 25
+   JBGrid1.ColHeaderIndex = 1
+   JBGrid1.RowHeightGlobal = 25
+   JBGrid1.FlatHeader = False
+   JBGrid1.Editable = jbEditOnClick
+   JBGrid1.BackColorHeader = RGB(178, 180, 191)
+   JBGrid1.Cols = 8
+   JBGrid1.Rows = 20
    
-   jbGrid2.Cols = 14
-   jbGrid2.Rows = 10
+   GridTest()
+   
+   
+   JBGrid2.Cols = 14
+   JBGrid2.Rows = 10
    
    Dim x As Integer, y As Integer
-   For y = 0 To jbGrid1.Cols
-      jbGrid1.Header(y) = "Header" & y 
-      jbGrid2.Header(y) = "Header" & y
-      For x = 0 To jbGrid1.Rows
-         jbGrid1.TextMatrix(x, y) = "Item_" & x & "/" & y
-         jbGrid2.TextMatrix(x, y) = "Item_" & x & "/" & y
+   For y = 0 To JBGrid2.Cols
+      JBGrid1.Header(y) = "Header" & y 
+      JBGrid2.Header(y) = "Header" & y
+      For x = 0 To JBGrid2.Rows
+         JBGrid2.TextMatrix(x, y) = "Item_" & x & "/" & y
       Next
-   Next
-   
-End Sub
-
-
-Public Sub JBGrid2_BeforeCellEdit(row As Integer, col As Integer)
-   JBGrid2.ComboList = "Test1|Test2"
-   
+   Next  
 End Sub
 
 Public Sub Command1_Click()
-   MsgBox JBGrid1.Row
-   
+   'scroll to first row selected
+   JBGrid1.Parent.changeSelection(0, 0, False, False)
+   'scroll to first row not selected
+'   JBGrid1.Parent.changeSelection(JBGrid1.Rows, 0, False, False)
+End Sub
+
+Public Sub Command4_Click()
+   'scroll to last row selected
+   JBGrid1.Parent.changeSelection(JBGrid1.Rows - 1, 0, False, False)
+   'scroll to last row not selected
+'   JBGrid1.Parent.changeSelection(-1, 0, False, False)
 End Sub
 
 Public Sub Command2_Click()
-   JBGrid1.Row = 3
-   
+   JBGrid1.Parent.changeSelection(JBGrid1.Row - 1, 0, False, False)
 End Sub
-]]></Source><Param Name="(Name)" Value="uGrid"/><Param Name="(SuperClass)" Value="VB/Usercontrol"/><Param Name="(NameSpace)" Value=""/><Param Name="(Type)" Value="Usercontrol"/><Param Name="(Access)" Value="Public"/><Param Name="Opaque" Value="True"/><Param Name="AutoRedraw" Value="False"/><Param Name="AntiAliasing" Value="False"/><Param Name="Transparency" Value=""/><Param Name="DrawWidth" Value="1"/><Param Name="BorderColor" Value=""/><Param Name="Picture" Value="Nothing"/><Param Name="BorderStyle" Value="fmBorderStyleNone"/><Param Name="SpecialEffect" Value="fmSpecialEffectFlat"/><Param Name="FontName" Value="Arial"/><Param Name="FontBold" Value="False"/><Param Name="FontItalic" Value="False"/><Param Name="FontSize" Value="9"/><Param Name="BackColor" Value="-2147483633"/><Param Name="ForeColor" Value=""/><Param Name="Width" Value="889"/><Param Name="Height" Value="541"/><Param Name="Left" Value="0"/><Param Name="Top" Value="0"/><Param Name="ToolTip" Value=""/><Param Name="Enabled" Value="True"/><Param Name="Visible" Value="True"/><Param Name="Tag" Value=""/><Param Name="MousePointer" Value="vbDefault"/><Param Name="MouseIcon" Value="Nothing"/><Param Name="CanGetFocus" Value="True"/><Object Type="VB/JBGrid"><Param Name="BorderColorSel" Value="-2147483638"/><Param Name="GridColor" Value="-2147483638"/><Param Name="BackColorSel" Value="-2147483635"/><Param Name="ForeColorSel" Value="-2147483634"/><Param Name="SelectionMode" Value="flexSelectionFree"/><Param Name="AutoResize" Value="jbAutoResizeOff"/><Param Name="BackColorHeader" Value="-2147483633"/><Param Name="ForeColorHeader" Value="-2147483630"/><Param Name="BackColorCells" Value="-2147483643"/><Param Name="FlatHeader" Value="False"/><Param Name="BorderColor" Value="-2147483642"/><Param Name="BorderStyle" Value="fmBorderStyleSingle"/><Param Name="SpecialEffect" Value="fmSpecialEffectFlat"/><Param Name="Editable" Value="jbNotEditable"/><Param Name="Cols" Value="4"/><Param Name="Rows" Value="3"/><Param Name="HeaderHeight" Value="23"/><Param Name="RowHeightGlobal" Value="-1"/><Param Name="ShowHorizontalLines" Value="True"/><Param Name="ShowVerticalLines" Value="False"/><Param Name="HeaderVisible" Value="True"/><Param Name="FontName" Value="Arial"/><Param Name="FontBold" Value="False"/><Param Name="FontItalic" Value="False"/><Param Name="FontSize" Value="9"/><Param Name="BackColor" Value="-2147483633"/><Param Name="ForeColor" Value="-2147483640"/><Param Name="Width" Value="737"/><Param Name="Height" Value="249"/><Param Name="Left" Value="8"/><Param Name="Top" Value="8"/><Param Name="ToolTip" Value=""/><Param Name="Enabled" Value="True"/><Param Name="Visible" Value="True"/><Param Name="Tag" Value=""/><Param Name="(Name)" Value="JBGrid1"/><Param Name="Index" Value=""/></Object><Object Type="VB/JBGrid"><Param Name="BorderColorSel" Value="8388608"/><Param Name="GridColor" Value="65535"/><Param Name="BackColorSel" Value="0"/><Param Name="ForeColorSel" Value="16776960"/><Param Name="SelectionMode" Value="flexSelectionByColumn"/><Param Name="AutoResize" Value="jbAutoResizeOff"/><Param Name="BackColorHeader" Value="8388672"/><Param Name="ForeColorHeader" Value="16711935"/><Param Name="BackColorCells" Value="128"/><Param Name="FlatHeader" Value="True"/><Param Name="BorderColor" Value="4259584"/><Param Name="BorderStyle" Value="fmBorderStyleSingle"/><Param Name="SpecialEffect" Value="fmSpecialEffectFlat"/><Param Name="Editable" Value="jbEditOnDblClick"/><Param Name="Cols" Value="4"/><Param Name="Rows" Value="3"/><Param Name="HeaderHeight" Value="23"/><Param Name="RowHeightGlobal" Value="-1"/><Param Name="ShowHorizontalLines" Value="False"/><Param Name="ShowVerticalLines" Value="True"/><Param Name="HeaderVisible" Value="True"/><Param Name="FontName" Value="Arial"/><Param Name="FontBold" Value="False"/><Param Name="FontItalic" Value="False"/><Param Name="FontSize" Value="9"/><Param Name="BackColor" Value="0"/><Param Name="ForeColor" Value="255"/><Param Name="Width" Value="737"/><Param Name="Height" Value="249"/><Param Name="Left" Value="8"/><Param Name="Top" Value="264"/><Param Name="ToolTip" Value=""/><Param Name="Enabled" Value="True"/><Param Name="Visible" Value="True"/><Param Name="Tag" Value=""/><Param Name="(Name)" Value="JBGrid2"/><Param Name="Index" Value=""/></Object><Object Type="VB/CommandButton"><Param Name="Caption" Value="get Row"/><Param Name="Picture" Value="Nothing"/><Param Name="RolloverPicture" Value="Nothing"/><Param Name="PicturePosition" Value="fmPicturePositionLeftCenter"/><Param Name="FontName" Value="Arial"/><Param Name="FontBold" Value="False"/><Param Name="FontItalic" Value="False"/><Param Name="FontSize" Value="9"/><Param Name="BackColor" Value="-2147483633"/><Param Name="ForeColor" Value="-2147483630"/><Param Name="Width" Value="89"/><Param Name="Height" Value="33"/><Param Name="Left" Value="752"/><Param Name="Top" Value="8"/><Param Name="ToolTip" Value=""/><Param Name="Enabled" Value="True"/><Param Name="Visible" Value="True"/><Param Name="Tag" Value=""/><Param Name="MousePointer" Value="vbDefault"/><Param Name="MouseIcon" Value="Nothing"/><Param Name="CanGetFocus" Value="True"/><Param Name="(Name)" Value="Command1"/><Param Name="Index" Value=""/></Object><Object Type="VB/CommandButton"><Param Name="Caption" Value="set Row"/><Param Name="Picture" Value="Nothing"/><Param Name="RolloverPicture" Value="Nothing"/><Param Name="PicturePosition" Value="fmPicturePositionLeftCenter"/><Param Name="FontName" Value="Arial"/><Param Name="FontBold" Value="False"/><Param Name="FontItalic" Value="False"/><Param Name="FontSize" Value="9"/><Param Name="BackColor" Value="-2147483633"/><Param Name="ForeColor" Value="-2147483630"/><Param Name="Width" Value="89"/><Param Name="Height" Value="33"/><Param Name="Left" Value="752"/><Param Name="Top" Value="48"/><Param Name="ToolTip" Value=""/><Param Name="Enabled" Value="True"/><Param Name="Visible" Value="True"/><Param Name="Tag" Value=""/><Param Name="MousePointer" Value="vbDefault"/><Param Name="MouseIcon" Value="Nothing"/><Param Name="CanGetFocus" Value="True"/><Param Name="(Name)" Value="Command2"/><Param Name="Index" Value=""/></Object><Param Name="Index" Value=""/></SourceFile>
+
+Public Sub Command3_Click()
+   If JBGrid1.Row = JBGrid1.Rows - 1 Then Exit Sub
+   JBGrid1.Parent.changeSelection(JBGrid1.Row + 1, 0, False, False)
+End Sub
+
+Public Sub Command5_Click()
+   JBGrid1.Parent.changeSelection(1,1, False, False)
+   
+   'selecting a cell without highlightening the whole row
+'   JBGrid1.Parent.changeSelection(1,1, True, True)
+
+   'focus has to be transfered to the grid, now the specified cell from changeSelection gets the focus
+   JBGrid1.Parent.requestFocus(True)
+End Sub
+
+Public Sub Command6_Click()
+   MsgBox JBGrid1.Row
+End Sub
+
+Public Sub Command7_Click()
+   JBGrid1.ClearData()  'reinitializes DataMatrix and Header; all other values and settings are kept
+   JBGrid1.Cols = 8
+   JBGrid1.Rows = 6
+   
+   GridTest()
+End Sub
+
+Public Sub CheckBox1_Click()
+   If CheckBox1.Value = True Then 
+      Dim aColumn As New TableColumn
+      aColumn.setModelIndex(JBGrid1.Cols + 1)
+      JBGrid1.Parent.addColumn(aColumn)
+   Else
+      JBGrid1.Parent.removeColumn(JBGrid1.Parent.getColumnModel().getColumn(JBGrid1.Cols)) ' after DataMatrix
+   End If
+End Sub
+
+Public Sub GridTest()   
+   Dim x As Integer, y As Integer
+   For y = 0 To JBGrid1.Cols
+      JBGrid1.Header(y) = "Header " & y
+      'JBGrid1.Header(y) = "<html><b>Header </b>" & y & "</html>"
+      'JBGrid1.Header(y) = "<html><b>Header</b><br>" & y & "</html>"
+      'JBGrid1.Header(y) = "<html><b><u>T</u>wo</b><br>lines</html>" '"Header" & y 
+      
+      JBGrid1.HeaderIcon(2) = resources.ApplicationputPng
+      JBGrid1.HeaderIcon(4) = resources.AttachPng
+      For x = 0 To JBGrid1.Rows
+         Select Case y
+            Case 0
+               JBGrid1.DataMatrix(x, y) = "Item_" & x & "/" & y
+            Case 1
+               JBGrid1.DataMatrix(x, y) = "Item_" & x & "/" & y
+            Case 2
+               JBGrid1.DataMatrix(x, y) = "True"
+               If x = 4 Then JBGrid1.DataMatrix(x, y) = ""
+            Case 3
+'               '### use SpinnerListModel !
+'               JBGrid1.DataMatrix(x, y) = "Banana"
+
+               '### use SpinnerDateModel !
+               JBGrid1.DataMatrix(x, y) = "31.12.2000"
+               
+'               '### use SpinnerNumberModel !
+'               Dim dblNumber As Double = Round(Rnd()* x - 5, 2)
+'               JBGrid1.DataMatrix(x, y) = dblNumber
+'               JBGrid1.CellForeColor(x, y) = IIF(dblNumber <= 0, vbRed, vbGreen)
+'               JBGrid1.DataMatrix(x, y).TextAlign = fmTextAlignRight
+            Case 4
+'                JBGrid1.DataMatrix(x, y) =  New jbCellData("Hey", resources.ApplicationlinkPng)
+               JBGrid1.DataMatrix(x, y) = ""
+               JBGrid1.DataMatrix(x,y).Picture = resources.AttachPng
+'               JBGrid1.DataMatrix(x,y).Icon = ArrowdownPng
+            Case 5
+               JBGrid1.DataMatrix(x, y) = ""
+               JBGrid1.CellBackColor(x, y) = RGB(Rnd()*(256),Rnd()*(256),Rnd()*(256))
+            Case 6
+'               JBGrid1.DataMatrix(x, y) =  New JBCellData(New Usercontrol1)
+               JBGrid1.DataMatrix(x, y) = "Item_" & x & "/" & y
+               If x = 4 Then JBGrid1.DataMatrix(x, y) = "<html>line 1 <br>line 2<br>line 3</html>"
+
+         End Select
+      Next
+   Next
+   
+   JBGrid1.ColWidth(3) = 100
+   
+   JBGrid1.DataMatrix(0, 0).BackColor = RGB(255, 220, 30)
+'   JBGrid1.DataMatrix(0, 0).CellBackColor = RGB(255, 220, 30)
+   JBGrid1.CellForeColor(0,0) = vbBlue
+   JBGrid1.CellBackColor(0,1) = vbRed
+   JBGrid1.CellForeColor(0,1) = vbGreen
+   JBGrid1.CellForeColor(4,6) = vbGreen
+   JBGrid1.CellBackColor(2,0) = vbBlack
+   JBGrid1.CellForeColor(2,1) = vbGreen
+   JBGrid1.CellBackColor(2,2) = vbBlue
+   JBGrid1.CellBackColor(4,1) = vbGreen
+   
+   'JBGrid1.Parent.setAutoCreateRowSorter(True)
+   'JBGrid1.Parent.getColumnModel().getColumn(0).setPreferredWidth(50)
+   'JBGrid1.Parent.setAutoResizeMode(0)
+
+End Sub
+
+Public Sub JBGrid1_BeforeCellEdit(row As Integer, col As Integer)
+   Select Case col
+      Case 0  
+         JBGrid1.CellEditor.Component = JBCommandButton  'invokes CellButton         
+      Case 1
+         JBGrid1.CellEditor.Component = JBComboBox 'invokes ComboBox
+         JBGrid1.CellEditor.JBComboBox.ComboList = "Test1|Test2|" & _
+         "Test3|Test4|Test5|Test6|Test7|" & _
+         "Test8|Test9"
+         JBGrid1.CellEditor.JBComboBox.BackColor = vbWhite 
+         JBGrid1.CellEditor.JBComboBox.BackColorAlternating = RGB(212, 208, 200)
+      Case 2
+         JBGrid1.CellEditor.Component = JBCheckBox
+      Case 3
+         JBGrid1.CellEditor.Component = JBSpinner
+         
+'         '#### SpinnerListModel/ListEditor
+'         Dim ArrList As ArrayList = New java#util#ArrayList
+'         ArrList.add("Apple")
+'         ArrList.add("Banana")
+'         ArrList.add("Orange")
+'         JBGrid1.CellEditor.JBSpinner.Model = New SpinnerListModel(ArrList)
+         
+         '#### SpinnerDateModel/DateEditor
+         JBGrid1.CellEditor.JBSpinner.Model = New javax#swing#SpinnerDateModel(New Date(Now), Null, Null, java#util#Calendar.DATE)
+         JBGrid1.CellEditor.JBSpinner.Editor = New javax#swing#JSpinner$DateEditor(JBGrid1.CellEditor.JBSpinner, "dd.MM.yyyy")
+'         
+'         '#### SpinnerNumberModel/NumberEditor
+'         'play with values here, sometimes it only works if you use e.g. 0.05; it depends on what is allready in the JBGridCell!!
+'         JBGrid1.CellEditor.JBSpinner.Model = New SpinnerNumberModel(1.05, -20.01, 100.00, 0.10)
+'         JBGrid1.CellEditor.JBSpinner.Editor = New javax#swing#JSpinner$NumberEditor(JBGrid1.CellEditor.JBSpinner, "#.##") '"#,###.##" "#,##.00"
+'         
+         JBGrid1.CellEditor.JBSpinner.BackColor = JBGrid1.CellEditor.getRowBackColor(row) 'get JBGridBackColorCells per row
+         If JBGrid1.CellForeColor(row, col) <> -1 Then JBGrid1.CellEditor.JBSpinner.ForeColor = JBGrid1.CellForeColor(row, col)
+      Case 4
+         JBGrid1.StopEdit()                                   'prevents editing this Cell
+      Case 5
+         JBGrid1.CellEditor.Component = JBCommandButton       'invokes CellButton
+         JBGrid1.CellEditor.JBCommandButton.Caption = "*"     'todo -> pass New Dimension for JBCommandButton
+      Case 6
+         JBGrid1.CellEditor.JBTextBox.BackColor = JBGrid1.CellEditor.getRowBackColor(row)
+      Case Else
+'         JBGrid1.CellEditor = jbText
+   End Select
+End Sub
+
+Public Sub JBGrid1_CellButtonClick()
+   Text1.AppendText "HitTest: CellButtonClick " & JBGrid1.Row & "/" & JBGrid1.Col & vbCrLf
+End Sub
+
+Public Sub JBGrid1_AfterCellEdit(row As Integer, col As Integer)
+   Text1.AppendText "HitTest: AfterCellEdit " & JBGrid1.Row & "/" & JBGrid1.Col & vbCrLf
+End Sub
+
+Public Sub JBGrid1_Click()
+   Text1.AppendText "HitTest: Click " & JBGrid1.Row & "/" & JBGrid1.Col & vbCrLf
+End Sub
+
+Public Sub JBGrid1_DblClick()
+   Text1.AppendText "HitTest: DblClick " & JBGrid1.Row & "/" & JBGrid1.Col & vbCrLf
+End Sub
+
+Public Sub JBGrid1_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+   Text1.AppendText "HitTest: MouseUp " & JBGrid1.Row & "/" & JBGrid1.Col & vbCrLf
+End Sub
+
+Public Sub JBGrid1_ColHeaderClick()
+   Text1.AppendText "HitTest: ColHeaderClick " & JBGrid1.Row & "/" & JBGrid1.Col & " " & JBGrid1.ColHeaderIndex & " " & JBGrid1.SortIndicatorIndex & vbCrLf
+End Sub
+
+]]></Source><Param Name="(Name)" Value="uGrid"/><Param Name="(SuperClass)" Value="VB/Usercontrol"/><Param Name="(NameSpace)" Value=""/><Param Name="(Type)" Value="Usercontrol"/><Param Name="(Access)" Value="Public"/><Param Name="Opaque" Value="True"/><Param Name="AutoRedraw" Value="False"/><Param Name="AntiAliasing" Value="False"/><Param Name="Transparency" Value="0"/><Param Name="DrawWidth" Value="1"/><Param Name="BorderColor" Value=""/><Param Name="Picture" Value="Nothing"/><Param Name="BorderStyle" Value="fmBorderStyleNone"/><Param Name="SpecialEffect" Value="fmSpecialEffectFlat"/><Param Name="FontName" Value="Arial"/><Param Name="FontBold" Value="False"/><Param Name="FontItalic" Value="False"/><Param Name="FontSize" Value="9"/><Param Name="BackColor" Value="-2147483633"/><Param Name="ForeColor" Value=""/><Param Name="Width" Value="889"/><Param Name="Height" Value="541"/><Param Name="Left" Value="0"/><Param Name="Top" Value="0"/><Param Name="ToolTip" Value=""/><Param Name="Enabled" Value="True"/><Param Name="Visible" Value="True"/><Param Name="Tag" Value=""/><Param Name="MousePointer" Value="vbDefault"/><Param Name="MouseIcon" Value="Nothing"/><Param Name="CanGetFocus" Value="True"/><Object Type="VB/JBGrid"><Param Name="BorderColorSel" Value="-2147483638"/><Param Name="GridColor" Value="-2147483638"/><Param Name="BackColorSel" Value="-2147483635"/><Param Name="ForeColorSel" Value="-2147483634"/><Param Name="SelectionMode" Value="flexSelectionFree"/><Param Name="AutoResize" Value="jbAutoResizeOff"/><Param Name="BackColorHeader" Value="-2147483633"/><Param Name="ForeColorHeader" Value="-2147483630"/><Param Name="BackColorCells" Value="-2147483643"/><Param Name="FlatHeader" Value="False"/><Param Name="BorderColor" Value="-2147483642"/><Param Name="BorderStyle" Value="fmBorderStyleSingle"/><Param Name="SpecialEffect" Value="fmSpecialEffectFlat"/><Param Name="Editable" Value="jbNotEditable"/><Param Name="Cols" Value="4"/><Param Name="Rows" Value="3"/><Param Name="HeaderHeight" Value="23"/><Param Name="RowHeightGlobal" Value="-1"/><Param Name="ShowHorizontalLines" Value="True"/><Param Name="ShowVerticalLines" Value="False"/><Param Name="HeaderVisible" Value="True"/><Param Name="FontName" Value="Arial"/><Param Name="FontBold" Value="False"/><Param Name="FontItalic" Value="False"/><Param Name="FontSize" Value="9"/><Param Name="BackColor" Value="-2147483633"/><Param Name="ForeColor" Value="-2147483640"/><Param Name="Width" Value="841"/><Param Name="Height" Value="249"/><Param Name="Left" Value="8"/><Param Name="Top" Value="8"/><Param Name="ToolTip" Value=""/><Param Name="Enabled" Value="True"/><Param Name="Visible" Value="True"/><Param Name="Tag" Value=""/><Param Name="(Name)" Value="JBGrid1"/><Param Name="Index" Value=""/><Param Name="ShowSortIndicator" Value="False"/><Param Name="SortIndicatorIndex" Value="0"/><Param Name="BackColorCellsAlternating" Value="-2147483643"/><Param Name="GradientHeader" Value="False"/><Param Name="ColHeaderIndex" Value="0"/><Param Name="AutoCheckBox" Value="False"/><Param Name="Anchor" Value="vbTopLeft"/></Object><Object Type="VB/JBGrid"><Param Name="BorderColorSel" Value="8388608"/><Param Name="GridColor" Value="65535"/><Param Name="BackColorSel" Value="0"/><Param Name="ForeColorSel" Value="16776960"/><Param Name="SelectionMode" Value="flexSelectionByColumn"/><Param Name="AutoResize" Value="jbAutoResizeOff"/><Param Name="BackColorHeader" Value="8388672"/><Param Name="ForeColorHeader" Value="16711935"/><Param Name="BackColorCells" Value="128"/><Param Name="FlatHeader" Value="True"/><Param Name="BorderColor" Value="4259584"/><Param Name="BorderStyle" Value="fmBorderStyleSingle"/><Param Name="SpecialEffect" Value="fmSpecialEffectFlat"/><Param Name="Editable" Value="jbEditOnDblClick"/><Param Name="Cols" Value="4"/><Param Name="Rows" Value="3"/><Param Name="HeaderHeight" Value="23"/><Param Name="RowHeightGlobal" Value="-1"/><Param Name="ShowHorizontalLines" Value="False"/><Param Name="ShowVerticalLines" Value="True"/><Param Name="HeaderVisible" Value="True"/><Param Name="FontName" Value="Arial"/><Param Name="FontBold" Value="False"/><Param Name="FontItalic" Value="False"/><Param Name="FontSize" Value="9"/><Param Name="BackColor" Value="0"/><Param Name="ForeColor" Value="255"/><Param Name="Width" Value="841"/><Param Name="Height" Value="145"/><Param Name="Left" Value="8"/><Param Name="Top" Value="376"/><Param Name="ToolTip" Value=""/><Param Name="Enabled" Value="True"/><Param Name="Visible" Value="True"/><Param Name="Tag" Value=""/><Param Name="(Name)" Value="JBGrid2"/><Param Name="Index" Value=""/><Param Name="ShowSortIndicator" Value="False"/><Param Name="SortIndicatorIndex" Value="0"/><Param Name="BackColorCellsAlternating" Value="-2147483643"/><Param Name="GradientHeader" Value="False"/><Param Name="ColHeaderIndex" Value="0"/><Param Name="AutoCheckBox" Value="False"/><Param Name="Anchor" Value="vbTopLeft"/></Object><Object Type="VB/CommandButton"><Param Name="Caption" Value="get Row"/><Param Name="Picture" Value="Nothing"/><Param Name="RolloverPicture" Value="Nothing"/><Param Name="PicturePosition" Value="fmPicturePositionLeftCenter"/><Param Name="FontName" Value="Arial"/><Param Name="FontBold" Value="False"/><Param Name="FontItalic" Value="False"/><Param Name="FontSize" Value="9"/><Param Name="BackColor" Value="-2147483633"/><Param Name="ForeColor" Value="-2147483630"/><Param Name="Width" Value="89"/><Param Name="Height" Value="25"/><Param Name="Left" Value="336"/><Param Name="Top" Value="264"/><Param Name="ToolTip" Value=""/><Param Name="Enabled" Value="True"/><Param Name="Visible" Value="True"/><Param Name="Tag" Value=""/><Param Name="MousePointer" Value="vbDefault"/><Param Name="MouseIcon" Value="Nothing"/><Param Name="CanGetFocus" Value="True"/><Param Name="(Name)" Value="Command6"/><Param Name="Index" Value=""/><Param Name="Anchor" Value="vbTopLeft"/></Object><Param Name="Index" Value=""/><Param Name="Anchor" Value="vbTopLeft"/><Object Type="VB/CommandButton"><Param Name="Caption" Value="reset"/><Param Name="Picture" Value="Nothing"/><Param Name="RolloverPicture" Value="Nothing"/><Param Name="PicturePosition" Value="fmPicturePositionLeftCenter"/><Param Name="FontName" Value="Arial"/><Param Name="FontBold" Value="False"/><Param Name="FontItalic" Value="False"/><Param Name="FontSize" Value="9"/><Param Name="BackColor" Value="-2147483633"/><Param Name="ForeColor" Value="-2147483630"/><Param Name="Width" Value="89"/><Param Name="Height" Value="25"/><Param Name="Left" Value="432"/><Param Name="Top" Value="264"/><Param Name="ToolTip" Value=""/><Param Name="Enabled" Value="True"/><Param Name="Visible" Value="True"/><Param Name="Tag" Value=""/><Param Name="MousePointer" Value="vbDefault"/><Param Name="MouseIcon" Value="Nothing"/><Param Name="CanGetFocus" Value="True"/><Param Name="(Name)" Value="Command7"/><Param Name="Index" Value=""/><Param Name="Anchor" Value="vbTopLeft"/></Object><Object Type="VB/TextBox"><Param Name="Index" Value=""/><Param Name="BorderStyle" Value="fmBorderStyleSingle"/><Param Name="HScrollBar" Value="sbShowNever"/><Param Name="VScrollBar" Value="sbShowAsNeeded"/><Param Name="Text" Value=""/><Param Name="BackColorSel" Value="-2147483635"/><Param Name="ForeColorSel" Value="-2147483634"/><Param Name="MultiLine" Value="True"/><Param Name="TabSize" Value="4"/><Param Name="ForwardTab" Value="True"/><Param Name="Locked" Value="False"/><Param Name="FontName" Value="Arial"/><Param Name="FontBold" Value="False"/><Param Name="FontItalic" Value="False"/><Param Name="FontSize" Value="9"/><Param Name="BackColor" Value="-2147483643"/><Param Name="ForeColor" Value="-2147483640"/><Param Name="Width" Value="841"/><Param Name="Height" Value="73"/><Param Name="Left" Value="8"/><Param Name="Top" Value="296"/><Param Name="Anchor" Value="vbTopLeft"/><Param Name="ToolTip" Value=""/><Param Name="Enabled" Value="True"/><Param Name="Visible" Value="True"/><Param Name="Tag" Value=""/><Param Name="MousePointer" Value="vbDefault"/><Param Name="MouseIcon" Value="Nothing"/><Param Name="CanGetFocus" Value="True"/><Param Name="(Name)" Value="Text1"/></Object><Object Type="VB/CommandButton"><Param Name="Index" Value=""/><Param Name="Caption" Value="&lt;&lt;"/><Param Name="Picture" Value="Nothing"/><Param Name="RolloverPicture" Value="Nothing"/><Param Name="PicturePosition" Value="fmPicturePositionLeftCenter"/><Param Name="FontName" Value="Arial"/><Param Name="FontBold" Value="False"/><Param Name="FontItalic" Value="False"/><Param Name="FontSize" Value="9"/><Param Name="BackColor" Value="-2147483633"/><Param Name="ForeColor" Value="-2147483630"/><Param Name="Width" Value="49"/><Param Name="Height" Value="25"/><Param Name="Left" Value="8"/><Param Name="Top" Value="264"/><Param Name="Anchor" Value="vbTopLeft"/><Param Name="ToolTip" Value=""/><Param Name="Enabled" Value="True"/><Param Name="Visible" Value="True"/><Param Name="Tag" Value=""/><Param Name="MousePointer" Value="vbDefault"/><Param Name="MouseIcon" Value="Nothing"/><Param Name="CanGetFocus" Value="True"/><Param Name="(Name)" Value="Command1"/></Object><Object Type="VB/CommandButton"><Param Name="Index" Value=""/><Param Name="Caption" Value="&lt;"/><Param Name="Picture" Value="Nothing"/><Param Name="RolloverPicture" Value="Nothing"/><Param Name="PicturePosition" Value="fmPicturePositionLeftCenter"/><Param Name="FontName" Value="Arial"/><Param Name="FontBold" Value="False"/><Param Name="FontItalic" Value="False"/><Param Name="FontSize" Value="9"/><Param Name="BackColor" Value="-2147483633"/><Param Name="ForeColor" Value="-2147483630"/><Param Name="Width" Value="49"/><Param Name="Height" Value="25"/><Param Name="Left" Value="64"/><Param Name="Top" Value="264"/><Param Name="Anchor" Value="vbTopLeft"/><Param Name="ToolTip" Value=""/><Param Name="Enabled" Value="True"/><Param Name="Visible" Value="True"/><Param Name="Tag" Value=""/><Param Name="MousePointer" Value="vbDefault"/><Param Name="MouseIcon" Value="Nothing"/><Param Name="CanGetFocus" Value="True"/><Param Name="(Name)" Value="Command2"/></Object><Object Type="VB/CommandButton"><Param Name="Index" Value=""/><Param Name="Caption" Value="&gt;"/><Param Name="Picture" Value="Nothing"/><Param Name="RolloverPicture" Value="Nothing"/><Param Name="PicturePosition" Value="fmPicturePositionLeftCenter"/><Param Name="FontName" Value="Arial"/><Param Name="FontBold" Value="False"/><Param Name="FontItalic" Value="False"/><Param Name="FontSize" Value="9"/><Param Name="BackColor" Value="-2147483633"/><Param Name="ForeColor" Value="-2147483630"/><Param Name="Width" Value="49"/><Param Name="Height" Value="25"/><Param Name="Left" Value="128"/><Param Name="Top" Value="264"/><Param Name="Anchor" Value="vbTopLeft"/><Param Name="ToolTip" Value=""/><Param Name="Enabled" Value="True"/><Param Name="Visible" Value="True"/><Param Name="Tag" Value=""/><Param Name="MousePointer" Value="vbDefault"/><Param Name="MouseIcon" Value="Nothing"/><Param Name="CanGetFocus" Value="True"/><Param Name="(Name)" Value="Command3"/></Object><Object Type="VB/CommandButton"><Param Name="Index" Value=""/><Param Name="Caption" Value="&gt;&gt;"/><Param Name="Picture" Value="Nothing"/><Param Name="RolloverPicture" Value="Nothing"/><Param Name="PicturePosition" Value="fmPicturePositionLeftCenter"/><Param Name="FontName" Value="Arial"/><Param Name="FontBold" Value="False"/><Param Name="FontItalic" Value="False"/><Param Name="FontSize" Value="9"/><Param Name="BackColor" Value="-2147483633"/><Param Name="ForeColor" Value="-2147483630"/><Param Name="Width" Value="49"/><Param Name="Height" Value="25"/><Param Name="Left" Value="184"/><Param Name="Top" Value="264"/><Param Name="Anchor" Value="vbTopLeft"/><Param Name="ToolTip" Value=""/><Param Name="Enabled" Value="True"/><Param Name="Visible" Value="True"/><Param Name="Tag" Value=""/><Param Name="MousePointer" Value="vbDefault"/><Param Name="MouseIcon" Value="Nothing"/><Param Name="CanGetFocus" Value="True"/><Param Name="(Name)" Value="Command4"/></Object><Object Type="VB/CommandButton"><Param Name="Index" Value=""/><Param Name="Caption" Value="set focus"/><Param Name="Picture" Value="Nothing"/><Param Name="RolloverPicture" Value="Nothing"/><Param Name="PicturePosition" Value="fmPicturePositionLeftCenter"/><Param Name="FontName" Value="Arial"/><Param Name="FontBold" Value="False"/><Param Name="FontItalic" Value="False"/><Param Name="FontSize" Value="9"/><Param Name="BackColor" Value="-2147483633"/><Param Name="ForeColor" Value="-2147483630"/><Param Name="Width" Value="81"/><Param Name="Height" Value="25"/><Param Name="Left" Value="248"/><Param Name="Top" Value="264"/><Param Name="Anchor" Value="vbTopLeft"/><Param Name="ToolTip" Value=""/><Param Name="Enabled" Value="True"/><Param Name="Visible" Value="True"/><Param Name="Tag" Value=""/><Param Name="MousePointer" Value="vbDefault"/><Param Name="MouseIcon" Value="Nothing"/><Param Name="CanGetFocus" Value="True"/><Param Name="(Name)" Value="Command5"/></Object><Object Type="VB/CheckBox"><Param Name="Index" Value=""/><Param Name="BackStyle" Value="vbTransparent"/><Param Name="Caption" Value="Add/Remove Column"/><Param Name="Value" Value="False"/><Param Name="FontName" Value="Arial"/><Param Name="FontBold" Value="False"/><Param Name="FontItalic" Value="False"/><Param Name="FontSize" Value="9"/><Param Name="BackColor" Value="-2147483633"/><Param Name="ForeColor" Value="-2147483630"/><Param Name="Width" Value="177"/><Param Name="Height" Value="25"/><Param Name="Left" Value="536"/><Param Name="Top" Value="264"/><Param Name="Anchor" Value="vbTopLeft"/><Param Name="ToolTip" Value=""/><Param Name="Enabled" Value="True"/><Param Name="Visible" Value="True"/><Param Name="Tag" Value=""/><Param Name="MousePointer" Value="vbDefault"/><Param Name="MouseIcon" Value="Nothing"/><Param Name="CanGetFocus" Value="True"/><Param Name="(Name)" Value="CheckBox1"/></Object></SourceFile>

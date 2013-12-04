@@ -44,7 +44,7 @@ Dim myModel As JBGridModel
 Dim myTable As #JTable
 Dim myHeaderRenderer As JBHeaderRenderer
 Dim myRenderer As JBCellRenderer
-Dim myEditor As JBCellEditor
+Dim myCellEditor As JBCellEditor
 Dim myAutoCheckBox As Boolean
 Dim myHeaderIcon As #IResource
 Dim myFlatHeader As Boolean
@@ -78,6 +78,7 @@ Private isResizeTriggerInitialized As Boolean = False
 Private isLeftInitialized As Boolean = False
 Private isTopInitialized As Boolean = False
 
+
 ' ******************************** INIT THIS CONTROL ********************************
 
 Public Property Get Parent() As javax#swing#JTable 
@@ -91,7 +92,7 @@ Public Sub Class_Initialize()
    
    myHeaderRenderer = New JBHeaderRenderer(Me)
    myRenderer = New JBCellRenderer(Me)
-   myEditor = New JBCellEditor(Me)
+   myCellEditor = New JBCellEditor(Me)
       
    Call Parent.addFocusListener(Me)
    Call Base.setViewportView(myTable)
@@ -104,7 +105,7 @@ Public Sub Class_Initialize()
    
    Call Parent.getTableHeader.setDefaultRenderer(myHeaderRenderer)
    Call Parent.setDefaultRenderer(tmpObject.getClass(), myRenderer)
-   Call Parent.setDefaultEditor(tmpObject.getClass(), myEditor)
+   Call Parent.setDefaultEditor(tmpObject.getClass(), myCellEditor)
    Call Parent.getTableHeader().setReorderingAllowed(False)
    Call Parent.setDoubleBuffered(True)
    Call Base.setDoubleBuffered(True)
@@ -148,6 +149,7 @@ Public Sub mouseReleased(e As MouseEvent)
          End If
       End If
    End If
+   Me.CellEditor.Component = jbTextBox
 End Sub
 
 Public Sub mouseClicked(e As MouseEvent)
@@ -220,7 +222,7 @@ End Sub
 
 Public Sub StopEdit()
    If myModel.registerStopEditEvent = False Then
-      Call myEditor.stopCellEditing()   
+      Call myCellEditor.stopCellEditing()   
    End If
 End Sub
 
@@ -557,7 +559,7 @@ Public Property Get DataMatrix(row As Long, col As Long) As JBCellData
 End Property
 
 Public Sub ClearData()
-   If Me.isEditing = True Then myEditor.stopCellEditing()
+   If Me.isEditing = True Then myCellEditor.stopCellEditing()
    myModel.clear()
 End Sub
 
@@ -577,24 +579,12 @@ Public Sub fireCellButtonClick()
    Raiseevent CellButtonClick()
 End Sub
 
-Public Property Get CellButton() As CommandButton
-   CellButton = myEditor.CellButton 
-End Property
-
 Public Property Get Renderer() As JBCellRenderer
    Renderer = myRenderer
 End Property
 
-Public Property Get Editor() As JBCellEditor
-   Editor = myEditor
-End Property
-
-Public Property Let ComboList(v As String)
-   myComboList = v
-End Property
-
-Public Property Get ComboList() As String
-   ComboList = myComboList
+Public Property Get CellEditor() As JBCellEditor
+   CellEditor = myCellEditor
 End Property
 
 Public Property Let Row(val As Long)
@@ -670,6 +660,7 @@ End Property
 Public Property Get AutoCheckBox() As Boolean
    AutoCheckBox = myAutoCheckBox 
 End Property
+
 
 ' ******************************** SAME IN ALL JABACO CONTROLS ********************************
 

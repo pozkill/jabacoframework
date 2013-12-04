@@ -41,7 +41,7 @@ Public Sub paint(g As Graphics)
 
    If myGrid.GradientHeader Then
       'paint HeaderGrid
-      g.setColor(myGrid.GridColor)
+      g.setColor(RGBtoColor(myGrid.GridColor))
       g.fillRect(0, 0, myGrid.Parent.getColumnModel.getTotalColumnWidth(), Base.getHeight)
       
       If myGrid.FlatHeader Then
@@ -55,7 +55,7 @@ Public Sub paint(g As Graphics)
          g2.fillRect(0, 0, Base.getWidth() - 1, Base.getHeight() - 1)
       End If
    Else
-      g.setColor(myGrid.BackColorHeader)
+      g.setColor(RGBtoColor(myGrid.BackColorHeader))
       Base.paintBorder(g)
    End If
    Dim myRightMargin As Integer = IIF(myGrid.ColHeaderIndex = myColumn, 15, 4)
@@ -65,10 +65,10 @@ Public Sub paint(g As Graphics)
       g.drawImage(myHeaderImage, 3, (Base.getHeight / 2) - (myHeaderImage.getHeight(Nothing) / 2), Nothing)
    Else
       Base.setBorder(New EmptyBorder(0, 3, 0, myRightMargin)) 
-   End If 
+   End If
    If myGrid.ShowSortIndicator = True Then
       If myColumn = myGrid.ColHeaderIndex Then
-         Dim c As color = myGrid.GridColor
+         Dim c As color = RGBtoColor(myGrid.GridColor)
          g.setColor(c)
          Dim SortIndicatorTop As Integer = Base.getHeight / 2
          Dim SortIndicatorLeft As Integer = Base.getWidth
@@ -87,4 +87,5 @@ Public Sub paint(g As Graphics)
    End If
 
    Base.paintComponent(g)
-End Sub]]></Source><Param Name="(Name)" Value="JBHeaderRenderer"/><Param Name="(SuperClass)" Value="javax/swing/table/DefaultTableCellRenderer"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>
+End Sub
+]]></Source><Param Name="(Name)" Value="JBHeaderRenderer"/><Param Name="(SuperClass)" Value="javax/swing/table/DefaultTableCellRenderer"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>

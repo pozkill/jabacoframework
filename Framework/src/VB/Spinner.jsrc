@@ -15,11 +15,7 @@ Event KeyPress(KeyAscii As Integer)
 Event KeyUp(KeyCode As Integer, Shift As Integer)
 Event LostFocus()
 Event MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
-
-'Dim myBorderStyle As fmBorderStyle
-'Dim mySpecialEffect As fmSpecialEffect
-'Dim myBorderColor As Long
-'Dim myDefaultBorder As #Border 
+ 
 Dim myTag As String
 Dim myMouseIcon As #IResource
 
@@ -48,10 +44,8 @@ Public Sub Class_Initialize()
    Call Parent.addChangeListener(Me)
    Call getParentEditor.addKeyListener(Me)
    Call Parent.addFocusListener(Me)
-   Call Parent.addMouseMotionListener(Me) 
+   Call Parent.addMouseMotionListener(Me)
    Call Parent.setBorder(New EmptyBorder(New Insets(1,1,1,1)))
-   'myDefaultBorder = Parent.getBorder 
-   'Call Parent.setMargin(New Insets(1,5,1,1))
 End Sub
 
 ' ******************************** DEFAULT FOCUS - EVENTS ********************************
@@ -95,15 +89,23 @@ Private Function getParentEditor() As #JTextField
    getParentEditor = Cast(Parent.getEditor.getComponent(0), #JTextField)
 End Function
 
-Public Sub setModel(arg2 As SpinnerModel)
-   Call Base.setModel(arg2)
+Public Property Let Model(v As SpinnerModel)
+   Call Base.setModel(v)
    Call getParentEditor.addKeyListener(Me)
-End Sub
+End Property
 
-Public Sub setEditor(arg2 As JComponent)
-   Call Base.setEditor(arg2)
+Public Property Get Model() As SpinnerModel
+   Model = Parent.getModel()
+End Property
+
+Public Property Let Editor(v As JComponent)
+   Call Base.setEditor(v)
    Call getParentEditor.addKeyListener(Me)
-End Sub
+End Property
+
+Public Property Get Editor() As JComponent
+   Editor = Parent.getEditor()
+End Property
 
 Public Property Get BackColorSel() As Long
    BackColorSel = ColorToRGB(getParentEditor.getSelectionColor())
@@ -133,9 +135,12 @@ Public Sub setSelColor(v As Long)
    Parent.setForeground RGBtoColor(v)
 End Sub
 
-Public Property Get Text() As String
-'   On Error Resume Next
-   Text = getParentEditor().getText()
+Public Property Get EditorText() As String
+   EditorText = getParentEditor().getText()
+End Property
+
+Public Property Let EditorText(v As String)
+   getParentEditor().setText(v)
 End Property
 
 Public Property Get Value() As String
