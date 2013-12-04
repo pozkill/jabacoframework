@@ -8,6 +8,7 @@ Dim myCellBackColor As Long = -1
 Dim myCellForeColor As Long = -1
 Dim myRow As Integer, myCol As Integer 
 
+
 Public Sub JBCellData()
 End Sub
 

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<SourceFile><Source><![CDATA[Dim myDirectory As String
+<SourceFile><Source><![CDATA[Option Explicit
+
+Dim myDirectory As String
 Dim myHidden As Boolean = False
 Dim myPattern As String = "*.*"
-
 
 
 Public Sub Class_Initialize()
@@ -16,10 +17,12 @@ Private Sub Update_Filename_List()
   Dim myFile As New java#io#File(myDirectory)
   Dim myList = myFile.listFiles
   Dim myItem As String
+  Dim i As Integer
+  
   For i = 0 To Ubound(myList)
     myItem = myList(i).getName()
     If (myList(i).isFile()=True) Then
-      IF (NOT (myHidden=False AND myList(i).isHidden()=True)) Then
+      IF (NOT (myHidden=False AND myList(i).isHidden() = True)) Then
         Me.AddItem(myList(i).getName())
       End If
     End If

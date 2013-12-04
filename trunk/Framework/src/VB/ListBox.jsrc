@@ -444,7 +444,6 @@ Public Property Let Orientation(v As lstOrientation)
 End Property
 
 
-
 ' ******************************** SAME IN ALL JABACO CONTROLS ********************************
 
 Public Property Get FontName() As String 

@@ -19,6 +19,8 @@ Public Function getTableCellRendererComponent(table As JTable, value As Object, 
             myCheck.setOpaque(True)
             myCheck.setBackground(myCellData.getComponent(myGrid, isSelected, hasFocus, row).getBackground)
             myCheck.setSelected(GetStringAsBoolean(myCellData.Text))
+            myCheck.setBorderPainted(hasFocus)
+            If hasFocus = True Then myCheck.setBorder(UIManager.getBorder("List.focusCellHighlightBorder"))
             getTableCellRendererComponent = myCheck
          Else
             getTableCellRendererComponent = myCellData.getComponent(myGrid, isSelected, hasFocus, row)
@@ -28,10 +30,10 @@ Public Function getTableCellRendererComponent(table As JTable, value As Object, 
       End If
       If isSelected = True Then
          If myGrid.DataMatrix(row, col).CellBackColor <> -1 Then
-            'Call getTableCellRendererComponent.setBackground(RGBtoColor(myGrid.DataMatrix(row, col).CellBackColor))
             Dim ColSelR As Integer = getTableCellRendererComponent.getBackground.getRed
             Dim ColSelG As Integer = getTableCellRendererComponent.getBackground.getGreen
             Dim ColSelB As Integer = getTableCellRendererComponent.getBackground.getBlue
+
             Dim ColBackR As Integer = myGrid.DataMatrix(row, col).CellBackColor / 1 And 255
             Dim ColBackG As Integer = myGrid.DataMatrix(row, col).CellBackColor / 256 And 255
             Dim ColBackB As Integer = myGrid.DataMatrix(row, col).CellBackColor / 65536 And 255
@@ -52,10 +54,5 @@ Public Function getTableCellRendererComponent(table As JTable, value As Object, 
       getTableCellRendererComponent = Base.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col)
       Call getTableCellRendererComponent.setBackground(RGBtoColor(IIF(isSelected, myGrid.BackColorSel, IIF(row Mod 2 = 1, myGrid.BackColorCellsAlternating, myGrid.BackColorCells))))
    End If
-
-'   Dim myPreferredSize As Dimension 
-'   myPreferredSize = getTableCellRendererComponent.getPreferredSize 
-'   Call getTableCellRendererComponent.setPreferredSize(New Dimension(myPreferredSize.width, myPreferredSize.height + 20))
-
 End Function
 ]]></Source><Param Name="(Name)" Value="JBCellRenderer"/><Param Name="(SuperClass)" Value="javax/swing/table/DefaultTableCellRenderer"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>

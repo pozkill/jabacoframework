@@ -12,7 +12,13 @@ Public Function getListCellRendererComponent(List As #JList, Value As #Object, I
    Dim tmpCellData As ListCellData  = Cast(Value, #ListCellData)
    If tmpCellData <> Nothing And myOwner <> Nothing Then
       getListCellRendererComponent = tmpCellData.getComponent(myOwner, IsSelected, CellHasFocus)
-      If Index Mod 2 = 1 Then If Not IsSelected Then Call getListCellRendererComponent.setBackground(RGBtoColor(tmpCellData.Owner.BackColorAlternating))
+      If Index Mod 2 = 1 Then If Not IsSelected Then
+         If tmpCellData.Owner.BackColorAlternating = 0 Then 
+            Call getListCellRendererComponent.setBackground(tmpCellData.Owner.getBackground)
+         Else
+            Call getListCellRendererComponent.setBackground(RGBtoColor(tmpCellData.Owner.BackColorAlternating))
+         End If
+      End If
    Else
       getListCellRendererComponent = Base.getListCellRendererComponent(List, Value, Index, IsSelected, CellHasFocus)
    End If
