@@ -29,7 +29,7 @@ Private Function getMarginBorder(refBorder As Border) As Border
    getMarginBorder = New javax#swing#border#CompoundBorder(refBorder, New EmptyBorder(margin, margin, margin, margin))
 End Function
 
-Public Function getComponent(Owner As IListCellDataOwner, IsSelected As Boolean, CellHasFocus As Boolean) As #Component 
+Public Function getComponent(Owner As IListCellDataOwner, myComponent As #Component, IsSelected As Boolean, CellHasFocus As Boolean) As #Component 
    If Owner = Nothing Then Exit Function
    Dim myCellHasFocus As Boolean = CellHasFocus
    If myCellHasFocus = False Then If IsSelected Then If (IsDefaultBorder = False) Then myCellHasFocus = True
@@ -72,7 +72,7 @@ Public Function getComponent(Owner As IListCellDataOwner, IsSelected As Boolean,
       myComponentOwn.Parent.setPreferredSize myComponentOwn.Parent.getPreferredSize 
       myComponent = myComponentOwn
    End If
-   GetComponent = myComponent
+   getComponent = myComponent
 End Function
 
 Private Sub FireChanged()
