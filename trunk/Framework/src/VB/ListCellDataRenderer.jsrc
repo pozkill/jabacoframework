@@ -11,9 +11,11 @@ Public Function getListCellRendererComponent(List As #JList, Value As #Object, I
    On Error Resume Next
    Dim tmpCellData As ListCellData  = Cast(Value, #ListCellData)
    If tmpCellData <> Nothing And myOwner <> Nothing Then
-      getListCellRendererComponent = tmpCellData.getComponent(myOwner, IsSelected, CellHasFocus)
+      Dim tmpComponent As #Component
+      If Index > -1 Then tmpComponent = IIF(tmpCellData.Icon = Nothing And tmpCellData.AsCheckBox = False, Base, Nothing)
+      getListCellRendererComponent = tmpCellData.getComponent(myOwner, tmpComponent, IsSelected, CellHasFocus)
       If Index Mod 2 = 1 Then If Not IsSelected Then
-         If tmpCellData.Owner.BackColorAlternating = 0 Then 
+         If myOwner.BackColorAlternating = 0 Then 
             Call getListCellRendererComponent.setBackground(tmpCellData.Owner.getBackground)
          Else
             Call getListCellRendererComponent.setBackground(RGBtoColor(tmpCellData.Owner.BackColorAlternating))

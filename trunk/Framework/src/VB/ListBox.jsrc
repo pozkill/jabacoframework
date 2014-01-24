@@ -353,7 +353,7 @@ End Function
 
 Private Function GetCellComponent(Index As Long) As Component
    On Error Resume Next
-   GetCellComponent = Cast(GetCellData(Index).getComponent(Me, Selected(Index), (ListIndex = Index)), Component)
+   GetCellComponent = Cast(GetCellData(Index).getComponent(Me, Nothing, Selected(Index), (ListIndex = Index)), Component)
 End Function
 
 Public Property Get List(Index As Long) As String

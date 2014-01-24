@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SourceFile><Source><![CDATA[Option Explicit
+
 Implements IJabacoControl
 Implements IListCellDataOwner
 
@@ -10,8 +11,11 @@ Implements ActionListener
 Implements FocusListener 
 
 Event Click()
+Event EditorClick()
+Event ListClick()
 Event Change()
 Event GotFocus()
+Event DropDown()
 Event KeyDown(KeyCode As Integer, Shift As Integer)
 Event KeyPress(KeyAscii As Integer)
 Event KeyUp(KeyCode As Integer, Shift As Integer)
@@ -22,6 +26,15 @@ Event MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
 Event MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
 Event MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
 
+Public Enum JBComboBoxStyle
+   jbDropdownCombo
+   jbSimpleCombo
+   jbDropdownList
+   jbDropdownComboAutocomplete
+End Enum
+
+Dim myComboBoxStyle As JBComboBoxStyle
+
 Dim myTag As String
 Dim myMouseIcon As IResource 
 Dim myRenderer As New ListCellDataRenderer(Me)
@@ -31,6 +44,8 @@ Dim myMarginItem As Long
 Dim myForeColorSel As Long
 Dim myBackColorSel As Long
 Dim myBackColorAlternating As Long
+Dim myPreviousSelectedIndex As Integer
+Dim mySorted As Boolean
 
 
 ' *** Variables for Anchor and resizing ***
@@ -53,11 +68,18 @@ End Property
 
 Public Sub Class_Initialize()
    Call Parent.addFocusListener(Me)
+   Call Parent.getEditor().getEditorComponent().addFocusListener(Me)
    Call Parent.addMouseListener(Me)
+   Call Parent.getEditor().getEditorComponent().addMouseListener(Me)
    Call Parent.addMouseMotionListener(Me)
+   Call Parent.getEditor().getEditorComponent().addMouseMotionListener(Me)
    Call Parent.addKeyListener(Me)
-   Call Parent.addActionListener(Me)
+   Call Parent.getEditor().getEditorComponent().addKeyListener(Me)
    Call Parent.setRenderer(myRenderer)
+   'addMouseListener to ComboBoxButton
+   Call Parent.getComponent(0).addMouseListener(Me)
+   'PopupMenuListener 
+   Call Parent.addActionListener(Me)
 End Sub
 
 ' ******************************** DEFAULT FOCUS - EVENTS ********************************
@@ -80,8 +102,10 @@ Public Sub mouseDragged(e As MouseEvent)
     RaiseEvent MouseMove(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
 End Sub
 
-Public Sub mousePressed(e As MouseEvent) 
-    RaiseEvent MouseDown(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
+Public Sub mousePressed(e As MouseEvent)
+   myPreviousSelectedIndex = Parent.getSelectedIndex()
+   If Parent.isPopupVisible() Then RaiseEvent DropDown()
+   RaiseEvent MouseDown(getVBMouseButton(e),getVBMouseShift(e),e.getX(),e.getY())
 End Sub
 
 Public Sub mouseReleased(e As MouseEvent) 
@@ -89,7 +113,8 @@ Public Sub mouseReleased(e As MouseEvent)
 End Sub
 
 Public Sub mouseClicked(e As MouseEvent) 
-    'done by actionlistener
+   'done by actionlistener
+   If Not Isclass(e.getSource, jButton) Then RaiseEvent EditorClick()
 End Sub
 
 Public Sub mouseEntered(e As MouseEvent) 
@@ -102,7 +127,43 @@ End Sub
 
 ' ******************************** DEFAULT KEY - EVENTS ********************************
 
-Public Sub keyReleased(e As KeyEvent) 
+Public Sub keyReleased(e As KeyEvent)
+   If myComboBoxStyle = jbDropdownCombo Or myComboBoxStyle = jbDropdownComboAutocomplete Then
+      If getParentEditor.getText().length() = 0 Then
+         Parent.setSelectedIndex(-1)
+         If e.getKeyCode() <> 40 Then Parent.setPopupVisible(False)
+         RaiseEvent Change()
+      ElseIf e.getKeyCode() <> 10 And e.getKeyCode() < 37 Or e.getKeyCode() > 40 Then
+         Dim bFound As Boolean = False
+         If myComboBoxStyle = jbDropdownComboAutocomplete Then
+            Dim i As Integer
+            For i = 0 To ListCount - 1
+               If Parent.getModel.getElementAt(i).toString().toLowerCase.startsWith(getParentEditor.getText().toLowerCase()) Then
+                  bFound = True
+                  Exit For
+               End If            
+            Next i
+         End If
+         If bFound = True Then
+            If e.getKeyCode() = 8 And Parent.getSelectedIndex() = i Then
+               Parent.setSelectedIndex(i)
+            Else
+               Dim SelStart As Integer = getParentEditor.getText().length()
+               Parent.setSelectedIndex(i)
+               getParentEditor.setText(Parent.getModel.getElementAt(i).toString())
+               getParentEditor.setCaretPosition(SelStart)
+               getParentEditor.setSelectionStart(SelStart)
+               getParentEditor.setSelectionEnd(Parent.getModel.getElementAt(i).toString().length())
+            End If
+         Else
+            Dim tmpText As String = getParentEditor.getText()
+            Parent.setSelectedIndex(-1)
+            getParentEditor.setText(tmpText)
+            RaiseEvent Change()
+         End If                     
+      End If
+      If e.getKeyCode() = 10 Then getParentEditor.selectAll()
+   End If
    RaiseEvent KeyUp(e.getKeyCode, KeyEventToShiftConstant(e))
 End Sub
 
@@ -111,30 +172,66 @@ Public Sub keyTyped(e As KeyEvent)
 End Sub
 
 Public Sub keyPressed(e As KeyEvent)
-    RaiseEvent KeyDown(e.getKeyCode, KeyEventToShiftConstant(e))
+   myPreviousSelectedIndex = Parent.getSelectedIndex()
+   RaiseEvent KeyDown(E.getKeyCode, KeyEventToShiftConstant(e))
+   If myComboBoxStyle = jbDropdownCombo Or myComboBoxStyle = jbDropdownComboAutocomplete Then 
+      If e.getKeyCode() = 38 Or e.getKeyCode() = 40 Then If Parent.isPopupVisible() = False Then RaiseEvent DropDown()
+   End If
 End Sub 
 
 Public Sub actionPerformed(arg As ActionEvent)
-   RaiseEvent Click()
+   If Parent.getSelectedIndex() = -1  Then Exit Sub
+   If myPreviousSelectedIndex <> Parent.getSelectedIndex() Then RaiseEvent Click()
+   If arg.getModifiers() = 16 Then If myPreviousSelectedIndex <> Parent.getSelectedIndex() Then RaiseEvent ListClick()
    RaiseEvent Change()
 End Sub
 
 ' ******************************** SPECIAL FUNCTIONS ********************************
 
+Private Function getParentEditor() As #JTextField
+   getParentEditor = Cast(getEditor.getEditorComponent(), #JTextField)
+End Function
+
 Public Sub Clear()
    Parent.removeAllItems()
+End Sub
+
+Private Sub Add_Item(Item As ListCellData)
+   On Error Resume Next
+   If mySorted Then 
+      Dim i As Integer
+      For i = 0 To Parent.getModel.getSize() - 1
+         If java#lang#Double.parseDouble(Parent.getModel.getElementAt(i).toString()) < java#lang#Double.parseDouble(Item) Then Exit For
+         If Parent.getModel.getElementAt(i).toString().compareToIgnoreCase(Item.toString()) > 0 Then Exit For
+      Next i
+      Parent.insertItemAt(Item, i)
+   Else
+      Parent.addItem(Item)
+   End If
+   Call fireChange()
 End Sub
 
 Public Sub AddItem(Item As String)
    Dim tmpCellData As New ListCellData(Item, Nothing, False) 
    tmpCellData.Owner = Me
-   Parent.addItem(tmpCellData)
+   Call Add_Item(tmpCellData)
+End Sub
+
+Public Sub AddItem(Item As String, Index As Integer)
+   Dim tmpCellData As New ListCellData(Item, Nothing, False) 
+   tmpCellData.Owner = Me
+   Parent.insertItemAt(tmpCellData, Index)
    Call fireChange()
 End Sub
 
 Public Sub AddItem(Item As ListCellData)
    Item.Owner = Me
-   Parent.addItem(Item)
+   Call Add_Item(Item)
+End Sub
+
+Public Sub AddItem(Item As ListCellData, Index As Integer)
+   Item.Owner = Me
+   Parent.insertItemAt(Item, Index)
    Call fireChange()
 End Sub
 
@@ -152,22 +249,17 @@ Public Sub AddItem(v As Usercontrol, Index As Integer)
    Call fireChange()
 End Sub
 
-Public Sub AddItem(Item As String, Index As Integer)
-   Dim tmpCellData As New ListCellData(Item, Nothing, False) 
-   tmpCellData.Owner = Me
-   Parent.insertItemAt(tmpCellData, Index)
-   Call fireChange()
-End Sub
-
-Public Sub AddItem(Item As ListCellData, Index As Integer)
-   Item.Owner = Me
-   Parent.insertItemAt(Item, Index)
-   Call fireChange()
-End Sub
-
 Public Sub RemoveItem(Index As Integer)
    Call Parent.removeItemAt(Index)
 End Sub
+
+Public Property Get Sorted() As Boolean 
+   Sorted = mySorted
+End Property
+
+Public Property Let Sorted(v As Boolean)
+   mySorted = v
+End Property
 
 Public Property Get ListCount() As Long
    ListCount = Parent.getItemCount()
@@ -205,21 +297,31 @@ End Function
 
 Private Function GetCellComponent(Index As Long) As Component
    On Error Resume Next
-   GetCellComponent = Cast(GetCellData(Index).getComponent(Me, (ListIndex = Index), (ListIndex = Index)), Component)
+   GetCellComponent = Cast(GetCellData(Index).getComponent(Me, Nothing, (ListIndex = Index), (ListIndex = Index)), Component)
 End Function
 
-Public Property Get Text() As String 
-   Text = List(ListIndex)
+Public Property Get Text() As String
+   Select Case myComboBoxStyle
+      Case 0, 3
+         Text = getParentEditor().getText()
+      Case 1, 2
+         Text = List(ListIndex)  
+   End Select
 End Property
 
 Public Property Let Text(v As String)
-   Dim i As Integer 
-   For i = 0 To ListCount
-       If List(i) = v Then
-          ListIndex = i
-          Exit Property
-       End If
-   Next   
+   Select Case myComboBoxStyle
+      Case 0, 3
+         Call getParentEditor().setText(v)
+      Case 1, 2
+      Dim i As Integer 
+      For i = 0 To ListCount
+         If List(i) = v Then
+            ListIndex = i
+            Exit Property
+         End If
+      Next
+   End Select
 End Property
 
 Public Property Let ComboList(v As String)
@@ -238,6 +340,29 @@ End Property
 Public Property Let BackColorAlternating(v As Long)
    myBackColorAlternating = v
 End Property
+
+Public Property Get Style() As jbComboBoxStyle 
+   Style = myComboBoxStyle
+End Property
+
+Public Property Let Style(v As jbComboBoxStyle)
+   Select Case v
+      Case 0, 3
+         Parent.setEditable(True)
+      Case 1, 2
+         Parent.setEditable(False)
+   End Select
+   myComboBoxStyle = v
+End Property
+
+Public Property Get DropedDown() As Boolean 
+   DropedDown = Parent.isPopupVisible()
+End Property
+
+Public Sub DropDown()
+   Parent.setPopupVisible(True)
+   RaiseEvent DropDown()
+End Sub
 
 ' ******************************** SAME IN ALL JABACO CONTROLS ********************************
 
@@ -287,59 +412,61 @@ Public Property Get Font() As Font
 End Property
 
 Public Property Get BackColor() As Long
-   BackColor = ColortoRGB(Base.getBackground())
+   BackColor = ColortoRGB(Parent.getBackground())
 End Property
 
 Public Property Let BackColor(v As Long)
-   Base.setBackground(RGBtoColor(v))
+   Parent.setBackground(RGBtoColor(v))
+   If myComboBoxStyle = 0 Or myComboBoxStyle = 3 Then getParentEditor.setOpaque(True) : getParentEditor.setBackground(Parent.getBackground())
 End Property
 
 Public Property Get ForeColor() As Long
-   ForeColor = ColortoRGB(Base.getForeground())
+   ForeColor = ColortoRGB(Parent.getForeground())
 End Property
 
 Public Property Let ForeColor(v As Long)
-    Base.setForeground(RGBtoColor(v))
+   Parent.setForeground(RGBtoColor(v))
+   getParentEditor.setForeground(Parent.getForeground())
 End Property
 
 Public Property Get Width() As Single
-    Width = Me.getSize.Width
+   Width = Me.getSize.Width
 End Property
 
 Public Property Let Width(v As Single)
-    Me.setSize(v, Me.getSize.Height)
+   Me.setSize(v, Me.getSize.Height)
 End Property
 
 Public Property Get Height() As Single
-    Height = Me.getSize.Height
+   Height = Me.getSize.Height
 End Property
 
 Public Property Let Height(v As Single)
-    Me.setSize(Me.getSize.Width, v)
+   Me.setSize(Me.getSize.Width, v)
 End Property
 
 Public Property Get Left() As Single
-    Left = Me.getLocation.x
+   Left = Me.getLocation.x
 End Property
 
 Public Property Let Left(v As Single)
-    If isLeftInitialized = False Then
-       mySavedLeft = v
-       isLeftInitialized = True
-    End If
-    Me.setLocation(v, Me.getLocation.y)
+   If isLeftInitialized = False Then
+      mySavedLeft = v
+      isLeftInitialized = True
+   End If
+   Me.setLocation(v, Me.getLocation.y)
 End Property
 
 Public Property Get Top() As Single
-    Top = Me.getLocation.y
+   Top = Me.getLocation.y
 End Property
 
 Public Property Let Top(v As Single)
-    If isTopInitialized = False Then
-       mySavedTop = v
-       isTopInitialized = True
-    End If
-    Me.setLocation(Me.getLocation.x, v)
+   If isTopInitialized = False Then
+      mySavedTop = v
+      isTopInitialized = True
+   End If
+   Me.setLocation(Me.getLocation.x, v)
 End Property
 
 Public Property Get Anchor() AS AnchorStyles
@@ -362,11 +489,11 @@ Public Property Get ToolTip() As String
 End Property
 
 Public Property Let ToolTip(v As String)
-	If Len(v) = 0 Then 
-	    Parent.setToolTipText(Null)
-    Else
-	    Parent.setToolTipText(v)
-    End If
+   If Len(v) = 0 Then 
+      Parent.setToolTipText(Null)
+   Else
+      Parent.setToolTipText(v)
+   End If
 End Property
 
 Public Property Get Enabled() As Boolean 
@@ -378,11 +505,11 @@ Public Property Let Enabled(v As Boolean)
 End Property
 
 Public Property Get Visible() As Boolean 
-    Visible = Base.isVisible()
+   Visible = Base.isVisible()
 End Property
 
 Public Property Let Visible(v As Boolean)
-    Base.setVisible v
+   Base.setVisible v
 End Property
 
 Public Property Get Tag() As String 
@@ -519,5 +646,4 @@ Public Sub ResizeTrigger(w As Single, h As Single)
       End Select
    End If
 End Sub
-
 ]]></Source><Param Name="(Name)" Value="ComboBox"/><Param Name="(SuperClass)" Value="javax/swing/JComboBox"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VB"/></SourceFile>
