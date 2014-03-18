@@ -15,7 +15,8 @@ public class Strings {
 		return Asc(String1);
 	}
 	public static int AscW(String String1) {
-		return Asc(String1);
+		char[] c = String1.toCharArray();
+		return (int) Character.codePointAt(c, 0);
 	}
 	public static int Asc(String String1) {
 		return (int)String1.charAt(0);
@@ -24,7 +25,15 @@ public class Strings {
 		return Chr(Char);
 	}
 	public static String ChrW(int Char) {
-		return Chr(Char);
+		char[] c = Character.toChars(Char); // will be two chars, special codepoint over char-values range.
+		String st = new String(c); // String-length 2, visible output one character.
+		try {
+			byte[] b = st.getBytes("UTF-16BE");
+ 			return (new String(b, "UTF-16"));
+		} catch (Exception e) {
+			byte[] b = st.getBytes();
+			return (new String(b));
+		}
 	}
 	public static String Chr(int Char) {
 		byte[] b = { (byte)Char };
