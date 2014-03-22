@@ -49,7 +49,7 @@ Public Sub Class_Initialize()
    Call Parent.addMouseMotionListener(Me)
    Call Parent.addKeyListener(Me)
    Call Parent.setVerticalAlignment(SwingConstants.TOP)
-   Call Parent.setUI(New MultiLineLabelUI())
+'   Call Parent.setUI(New MultiLineLabelUI())  ' removes the Label sadly the AntiAliasing-Effect of the Operating System
 End Sub
 
 ' ******************************** DEFAULT FOCUS - EVENTS ********************************

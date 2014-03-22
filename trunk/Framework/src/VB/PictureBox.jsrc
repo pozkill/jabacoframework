@@ -381,13 +381,15 @@ End Function
 
 Public Sub Print(text As String)
    Call Print(text, CurrentX, CurrentY)
+   CurrentX = 0
+   CurrentY = CurrentY + TextHeight("")
 End Sub
 
 Public Sub Print(text As String, x1 As Single, y1 As Single)
    Dim my2DGraphics As Graphics2D
    my2DGraphics = getGraphics()
-   my2DGraphics.drawString text, x1, y1
-   y1 = y1 + TextHeight(text)
+   y1 = y1 + Parent.getFontMetrics(Parent.getFont()).getMaxAscent()
+   my2DGraphics.drawString text, x1+1, y1+1
    Call disposeGraphics(my2DGraphics)
 End Sub
 
