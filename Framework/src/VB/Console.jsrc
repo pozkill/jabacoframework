@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SourceFile><Source><![CDATA[Implements IJabacoClass
+
+' example to use:
+'  Dim tmpStr As String
+'  Console.Print("Please input a text:")
+'  tmpStr = Console.Input()
+'  Console.Print("You have input '" & tmpStr & "' as text.")
+'  Console.Print("")
+'  tmpStr = Console.Input("Please input an other text: ")
+'  Console.Print("Your new text was: '" & tmpStr & "'.")
+
+Public Sub Print(text As String)
+  System.out.println(text)
+End Sub
+
+Public Function Input() As String
+  Input = New java#util#Scanner(System.in).nextLine
+End Function
+
+Public Function Input(text As String) As String
+  System.out.print(text)
+  Input = Input()
+End Function
+]]></Source><Param Name="(Name)" Value="Console"/><Param Name="(SuperClass)" Value="java/lang/Object"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>

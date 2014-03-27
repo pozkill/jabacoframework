@@ -11,7 +11,7 @@ import java.lang.*;
 
 
 public class ExceptionDialog extends JDialog implements ActionListener {
-	boolean bShowDetails = true;
+	boolean bShowDetails = false;
 	boolean bCreateLAF = setDefaultUI();
 	public JPanel content = new JPanel();
 	JButton btnStack = new JButton("---");
