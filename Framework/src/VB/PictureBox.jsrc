@@ -393,9 +393,10 @@ Public Sub Print(text As String, x1 As Single, y1 As Single)
    NewLineSplits() = Split(myString, Chr(13))
    Dim i As Integer
    If UBound(NewLineSplits) > 0 Then
-     For i = 0 To UBound(NewLineSplits)
+     For i = 0 To UBound(NewLineSplits)-1
        Print(NewLineSplits(i))
      Next i
+     Print(NewLineSplits(UBound(NewLineSplits)), CurrentX, CurrentY)
    Else
      ' implement Tabulator-functionality for PictureBox-Print
      Dim TabSplits() As String
