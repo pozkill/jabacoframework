@@ -386,11 +386,32 @@ Public Sub Print(text As String)
 End Sub
 
 Public Sub Print(text As String, x1 As Single, y1 As Single)
-   Dim my2DGraphics As Graphics2D
-   my2DGraphics = getGraphics()
-   y1 = y1 + Parent.getFontMetrics(Parent.getFont()).getMaxAscent()
-   my2DGraphics.drawString text, x1+1, y1+1
-   Call disposeGraphics(my2DGraphics)
+   ' implement NewLine-functionality for PictureBox-Print
+   Dim myString As String = Replace(text, Chr(13) & Chr(10) , Chr(13))
+   myString  = Replace(myString, Chr(10), Chr(13))
+   Dim NewLineSplits() As String
+   NewLineSplits() = Split(myString, Chr(13))
+   Dim i As Integer
+   If UBound(NewLineSplits) > 0 Then
+     For i = 0 To UBound(NewLineSplits)
+       Print(NewLineSplits(i))
+     Next i
+   Else
+     ' implement Tabulator-functionality for PictureBox-Print
+     Dim TabSplits() As String
+     TabSplits() = Split(myString, Chr(9))
+     myString = TabSplits(0)
+     If Ubound(TabSplits) > 0 Then
+       For i = 1 To UBound(TabSplits)
+         myString = myString & Space(8 - Len(myString) Mod 8) & TabSplits(i)
+       Next i
+     End If     
+     Dim my2DGraphics As Graphics2D
+     my2DGraphics = getGraphics()
+     y1 = y1 + Parent.getFontMetrics(Parent.getFont()).getMaxAscent()
+     my2DGraphics.drawString myString, x1+1, y1+1
+     Call disposeGraphics(my2DGraphics)
+   End If
 End Sub
 
 Public Sub Cls() 
