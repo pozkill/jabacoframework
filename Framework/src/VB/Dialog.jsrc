@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SourceFile><Source><![CDATA[Option Explicit
+
 Implements ILoadAdapter
 Implements IJabacoForm
 Implements ComponentListener 
@@ -24,7 +25,11 @@ Dim myIcon As #IResource
 
 Dim Withevents myContent As New PictureBox
 
-Public Sub add(Component As java#awt#Component) 
+Public Sub add(Component As java#awt#Component)
+   If IsClass(Component, VB#IJabacoControl) Then
+      Dim Component2 As VB#IJabacoControl = Cast(Component, VB#IJabacoControl)
+      Component2.ResizeTriggerInit(Me.Width, Me.Height)
+   End If
    If (myContent = Nothing) Then
       Call Base.getContentPane().add(Component)
    Else
@@ -52,7 +57,6 @@ Public Sub Dialog()
    myToolBar.Visible = False
    Parent.setJMenuBar myMenuBar
    Parent.getContentPane().add myToolBar, BorderLayout.NORTH
-
 End Sub
 
 Public Sub fireLoaded()
@@ -84,7 +88,6 @@ Public Sub fireLoaded(sender As Object)
    Call Parent.addComponentListener(Me)
 End Sub
 
-
 ' ******************************** DEFAULT FOCUS - EVENTS ********************************
 
 Public Sub focusGained(arg2 As FocusEvent)
@@ -112,13 +115,13 @@ End Sub
 Public Sub componentResized(e As ComponentEvent)
    On Error Resume Next
    Me.Form_Resize()
+   AnchorResize() ' Let the added component resize, if its Anchor wants it
 End Sub
 
 Public Sub componentShown(e As ComponentEvent)
    On Error Resume Next
    Me.Form_Activate()
 End Sub
-
 
 ' ******************************** SPECIAL FUNCTIONS ********************************
 
@@ -128,7 +131,6 @@ End Sub
 
 Public Sub Show(Modal As FormShowConstants)
    Call Parent.setModal(True)
-   
    Call Parent.show()
 End Sub
 
@@ -245,6 +247,77 @@ Public Property Let Icon(Path As #IResource)
    myIcon = Path
    Call Parent.setIconImage(LoadPicture(Path))   
 End Property
+
+Public Property Get Controls() As java#util#ArrayList 
+   On Error Resume Next
+   Dim comp() As java#awt#Component
+   comp = getParentContainer.getComponents()
+   Controls = New java#util#ArrayList
+   Dim i As Integer, v As Integer
+   For i = Ubound(comp) To 0 Step -1
+      Controls.add comp(i)
+      If IsClass(comp(i), #PictureBox) Then
+         Dim pbControl As #PictureBox
+         pbControl = Cast(comp(i), #PictureBox)
+         For v = 0 To pbControl.getComponentCount() - 1
+            Controls.add pbControl.Parent.getComponent(v)
+         Next v
+      ElseIf Isclass(comp(i), #Frame)Then
+         Dim frControl As #Frame
+         frControl = Cast(comp(i), #Frame)
+         For v = 0 To frControl.getComponentCount() - 1
+            Controls.add frControl.Parent.getComponent(v)
+         Next v
+      End If
+   Next i
+End Property
+
+Private Function getParentContainer() As Container
+   Dim comp() As java#awt#Component
+   Dim i As Integer
+   comp = Me.getComponents()
+   Dim rootComp As Container
+   For i = 0 To Ubound(comp)
+      If comp(i).getClass.getName.equals("javax.swing.JRootPane") Then
+         rootComp = Cast(comp(i), Container)
+      End If
+   Next i
+   comp = rootComp.getComponents  
+   Dim layerComp As Container
+   For i = 0 To Ubound(comp)
+      If comp(i).getClass.getName.equals("javax.swing.JLayeredPane") Then
+         layerComp = Cast(comp(i), Container)
+      End If
+   Next i
+   comp = layerComp.getComponents
+   Dim panelComp As Container
+   For i = 0 To Ubound(comp)
+      If comp(i).getClass.getName.equals("javax.swing.JPanel") Then
+         panelComp = Cast(comp(i), Container)
+      End If
+   Next i
+   comp = panelComp.getComponents
+   Dim boxComp As Container
+   For i = 0 To Ubound(comp)
+      If comp(i).getClass.getName.equals("VB.Dialog$PictureBox") Then
+         boxComp = Cast(comp(i), Container)
+      End If
+   Next i
+   getParentContainer = boxComp
+End Function
+
+Private Sub AnchorResize()
+   Dim comp() As java#awt#Component
+   Dim i As Integer
+   comp = getParentContainer().getComponents
+   For i = 0 To Ubound(comp)
+      If IsClass(comp(i), VB#IJabacoControl) Then
+         Dim myCont As VB#IJabacoControl
+         myCont = Cast(comp(i) , VB#IJabacoControl)
+         myCont.ResizeTrigger(Parent.getContentPane.getWidth, Parent.getContentPane.getHeight)    
+      End If
+   Next i
+End Sub
 
 ' ******************************** DEFAULT FORM FUNCTIONS ********************************
 
@@ -615,7 +688,7 @@ Public Property Let ForeColor(v As Long)
    MyContent.ForeColor = v
 End Property
 
-' ******************************** FONT PROPERTYS ********************************
+' ******************************** FONT PROPERTIES ********************************
 
 Public Property Get FontName() As String 
    FontName = myContent.FontName 
@@ -655,7 +728,4 @@ End Property
 
 Public Property Get ContentFrame() As PictureBox
    ContentFrame = myContent
-End Property
-
-
-]]></Source><Param Name="(Name)" Value="Dialog"/><Param Name="(SuperClass)" Value="javax/swing/JDialog"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>
+End Property]]></Source><Param Name="(Name)" Value="Dialog"/><Param Name="(SuperClass)" Value="javax/swing/JDialog"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>
