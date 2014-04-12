@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SourceFile><Source><![CDATA[Option Explicit
+
 Implements ILoadAdapter
 Implements IJabacoForm
 Implements ComponentListener 
@@ -23,7 +24,6 @@ Dim myToolBarForeColor As Long
 
 Dim myMouseIcon As #IResource 
 Dim myIcon As #IResource 
-
 
 ' ******************************** INIT THIS CONTROL ********************************
 
@@ -79,7 +79,6 @@ Public Sub fireLoaded(sender As Object)
    Call Parent.addFocusListener(Me)
    Call Parent.addComponentListener(Me)   
 End Sub
-
 
 ' ******************************** DEFAULT FOCUS - EVENTS ********************************
 
@@ -144,7 +143,6 @@ End Sub
 Public Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
 End Sub
 
-
 ' ******************************** SPECIAL FUNCTIONS ********************************
 
 Public Sub Show()
@@ -197,18 +195,21 @@ End Property
 Public Sub Close()
    Call Parent.dispose 
 End Sub
+
 Public Sub Close(FileNumber As Integer)
    ' OlimilO 26.Oct.2009:
    ' the close-sub without parameter is only for closing the form
    ' this one is here because of VB-compatibility for file-operations
    Call VB#FileSystem.Close(FileNumber)
 End Sub
+
 Public Sub Close(Handler As VBFileHandler)
    ' OlimilO 27.Oct.2009:
    ' the close-sub without parameter is only for closing the form
    ' this one is here because of VB-compatibility for file-operations
    Call VB#FileSystem.Close(Handler)
 End Sub
+
 Public Property Let BorderStyle(v As FormBorderStyleConstants)
    Select Case v
       Case vbBSNone 
@@ -301,6 +302,82 @@ Public Property Let Icon(Path As #IResource)
    myIcon = Path
    Call Parent.setIconImage(LoadPicture(Path))   
 End Property
+
+Public Property Get Controls() As java#util#ArrayList 
+   On Error Resume Next
+   Dim comp() As java#awt#Component
+   comp = getParentContainer.getComponents()
+   Controls = New java#util#ArrayList
+   Dim i As Integer, v As Integer
+   For i = Ubound(comp) To 0 Step -1
+      Controls.add comp(i)
+      If IsClass(comp(i), #PictureBox) Then
+         Dim pbControl As #PictureBox
+         pbControl = Cast(comp(i), #PictureBox)
+         For v = 0 To pbControl.getComponentCount() - 1
+            Controls.add pbControl.Parent.getComponent(v)
+         Next v
+      ElseIf Isclass(comp(i), #Frame)Then
+         Dim frControl As #Frame
+         frControl = Cast(comp(i), #Frame)
+         For v = 0 To frControl.getComponentCount() - 1
+            Controls.add frControl.Parent.getComponent(v)
+         Next v
+      End If
+   Next i
+End Property
+
+Private Function getParentContainer() As Container ' Let the added component resize, If its Anchor wants it
+   Dim comp() As java#awt#Component
+   Dim i As Integer
+   comp = Me.getComponents()
+  
+   Dim rootComp As Container
+   For i = 0 To Ubound(comp)
+      If comp(i).getClass.getName.equals("javax.swing.JRootPane") Then
+         rootComp = Cast(comp(i), Container)
+      End If
+   Next i
+
+   comp = rootComp.getComponents  
+   Dim layerComp As Container
+   For i = 0 To Ubound(comp)
+      If comp(i).getClass.getName.equals("javax.swing.JLayeredPane") Then
+         layerComp = Cast(comp(i), Container)
+      End If
+   Next i
+
+   comp = layerComp.getComponents
+   Dim panelComp As Container
+   For i = 0 To Ubound(comp)
+      If comp(i).getClass.getName.equals("javax.swing.JPanel") Then
+         panelComp = Cast(comp(i), Container)
+      End If
+   Next i
+
+   comp = panelComp.getComponents
+   Dim boxComp As Container
+   For i = 0 To Ubound(comp)
+      If comp(i).getClass.getName.equals("VB.Form$PictureBox") Then
+         boxComp = Cast(comp(i), Container)
+      End If
+   Next i
+
+   getParentContainer = boxComp
+End Function
+
+Private Sub AnchorResize()
+   Dim comp() As java#awt#Component
+   Dim i As Integer
+   comp = getParentContainer().getComponents
+   For i = 0 To Ubound(comp)
+      If IsClass(comp(i), VB#IJabacoControl) Then
+         Dim myCont As VB#IJabacoControl
+         myCont = Cast(comp(i) , VB#IJabacoControl)
+         myCont.ResizeTrigger(Parent.getContentPane.getWidth, Parent.getContentPane.getHeight)    
+      End If
+   Next i
+End Sub
 
 ' ******************************** DEFAULT FORM FUNCTIONS ********************************
 
@@ -429,56 +506,6 @@ End Sub
 Public Sub myToolBar_Click(ToolBarItem As IToolBarItem)
    Call Me.Form_ToolBarClick(ToolBarItem)
 End Sub
-
-Private Sub AnchorResize ' Let the added component resize, if its Anchor wants it
-   Dim comp() As java#awt#Component
-   Dim i As Integer
-   comp = Me.getComponents()
-  
-   Dim rootComp As Container
-   For i = 0 To Ubound(comp)
-      If comp(i).getClass.getName.equals("javax.swing.JRootPane") Then
-         rootComp = Cast(comp(i), Container)
-      End If
-   Next i
-
-   comp = rootComp.getComponents  
-   Dim layerComp As Container
-   For i = 0 To Ubound(comp)
-      If comp(i).getClass.getName.equals("javax.swing.JLayeredPane") Then
-         layerComp = Cast(comp(i), Container)
-      End If
-   Next i
-
-   comp = layerComp.getComponents
-   Dim panelComp As Container
-   For i = 0 To Ubound(comp)
-      If comp(i).getClass.getName.equals("javax.swing.JPanel") Then
-         panelComp = Cast(comp(i), Container)
-      End If
-   Next i
-
-   comp = panelComp.getComponents
-   Dim boxComp As Container
-   For i = 0 To Ubound(comp)
-      If comp(i).getClass.getName.equals("VB.Form$PictureBox") Then
-         boxComp = Cast(comp(i), Container)
-      End If
-   Next i
-
-
-   comp = boxComp.getComponents
-  
-   For i = 0 To Ubound(comp)
-      If IsClass(comp(i), VB#IJabacoControl) Then
-         Dim myCont As VB#IJabacoControl
-         myCont = Cast(comp(i) , VB#IJabacoControl)
-         myCont.ResizeTrigger(Parent.getContentPane.getWidth, Parent.getContentPane.getHeight)    
-      End If
-   Next i
-
-End Sub
-
 
 '////////////////////////////////////////////////////////////////////
 Public Sub windowOpened(arg2 As WindowEvent)
