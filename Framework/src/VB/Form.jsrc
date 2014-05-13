@@ -245,8 +245,9 @@ End Sub
 
 Public Sub Print(text As String)
    'Call myContent.Print(text) 
-   CurrentY = CurrentY + FontSize * 1.75
-   Call Print(text, CurrentX, CurrentY)
+'   CurrentY = CurrentY + FontSize * 1.75
+'   Call Print(text, CurrentX, CurrentY)
+   myContent.Print text
 End Sub
 
 Public Sub Print(text As String, x1 As Single, y1 As Single)

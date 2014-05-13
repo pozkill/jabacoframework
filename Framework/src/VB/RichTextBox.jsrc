@@ -536,7 +536,11 @@ End Property
 'Public Property Get Text() As String
 '   Text = Parent.getText()    |
 'End Property
-'
+
+Public Sub Print(s As String)
+   Me.Text = Me.Text & s & vbNewLine
+End Sub
+
 'Public Property Let TextRTF(s As String)
 '   Parent.setEditorKitForContentType "<html><body><b>test</b>test</body></html>", New javax#swing#text#html#HTMLEditorKit()
 '   'msgbox parent.getStyledDocument.getText(0, parent.getStyledDocument.getLength )
