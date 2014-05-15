@@ -402,6 +402,25 @@ public class Conversion {
 		} catch(Exception e) {}
 		return new VBVariant();
 	}
+	public static VBVariant Bin(VBVariant Expression) {
+		try {
+			long number = (long) Expression.longValue();
+			String bstr="";
+			while(number>0) {
+				if (number%2 == 0) { // even number
+					bstr="0"+bstr;
+					number/=2;
+				} else { // uneven number
+					bstr="1"+bstr;
+					number-=1;
+					number/=2;
+				}
+			}
+			if (bstr=="") { bstr="0"; }
+			return (new VBVariant(bstr));
+		} catch(Exception e) {}
+		return new VBVariant();
+	}
 	public static float CSng(VBVariant Expression) {
 		try {
 			return ((float)Expression.doubleValue());

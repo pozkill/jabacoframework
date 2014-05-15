@@ -286,11 +286,57 @@ public class VBVariant implements java.lang.Comparable {
 			case 8: // String
 				switch (iReturnTyp) {
 					case 2: // Integer
-						return new Integer(withoutFloating((String)Val));
+						if ( (((String)Val).trim().length()>2) &&  (
+						    ((String)Val).trim().substring(0,2).equalsIgnoreCase("&H")  ||
+						    ((String)Val).trim().substring(0,2).equalsIgnoreCase("&O")  ||
+						    ((String)Val).trim().substring(0,2).equalsIgnoreCase("&B") ) ) {
+							return new Integer( (int) new VBVariant(Val).longValue() );
+						} else {
+							return new Integer(withoutFloating((String)Val));
+						}
 					case 3: // Long
-						return new Long(withoutFloating((String)Val));
+						if ((((String)Val).trim().length()>2) && (((String)Val).trim().substring(0,2).equalsIgnoreCase("&H"))) {
+							String str = ((String)Val).trim().substring(2);
+							int pos=0;
+							long p=0, v=0;
+							for (pos = 0; pos<=str.length()-1; pos++) {
+								v = "0123456789abcdef".indexOf(str.substring(pos,pos+1));
+								if (v<0) return 0;
+								p = (16 * p) + v;
+							}
+							return new Long(p);
+						} else if ((((String)Val).trim().length()>2) && (((String)Val).trim().substring(0,2).equalsIgnoreCase("&O"))) {
+							String str = ((String)Val).trim().substring(2);
+							int pos=0;
+							long p=0, v=0;
+							for (pos = 0; pos<=str.length()-1; pos++) {
+								v = "01234567".indexOf(str.substring(pos,pos+1));
+								if (v<0) return 0;
+								p = (8 * p) + v;
+							}
+							return new Long(p);
+						} else if ((((String)Val).trim().length()>2) && (((String)Val).trim().substring(0,2).equalsIgnoreCase("&B"))) {
+							String str = ((String)Val).trim().substring(2);
+							int pos=0;
+							long p=0, v=0;
+							for (pos = 0; pos<=str.length()-1; pos++) {
+								v = "01".indexOf(str.substring(pos,pos+1));
+								if (v<0) return 0;
+								p = (2 * p) + v;
+							}
+							return new Long(p);
+						} else {
+							return new Long(withoutFloating((String)Val));
+						}
 					case 5: // Double
-						return new Double((String)Val);
+						if ( (((String)Val).trim().length()>2) &&  (
+						    ((String)Val).trim().substring(0,2).equalsIgnoreCase("&H")  ||
+						    ((String)Val).trim().substring(0,2).equalsIgnoreCase("&O")  ||
+						    ((String)Val).trim().substring(0,2).equalsIgnoreCase("&B") ) ) {
+							return new Double( new VBVariant(Val).longValue() );
+						} else {
+							return new Double((String)Val);
+						}
 					case 8: // String
 						return Val;
 				}
