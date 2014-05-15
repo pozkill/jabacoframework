@@ -301,7 +301,7 @@ public class VBVariant implements java.lang.Comparable {
 							long p=0, v=0;
 							for (pos = 0; pos<=str.length()-1; pos++) {
 								v = "0123456789abcdef".indexOf(str.substring(pos,pos+1));
-								if (v<0) return 0;
+								if (v<0) return new Long(0);
 								p = (16 * p) + v;
 							}
 							return new Long(p);
@@ -311,7 +311,7 @@ public class VBVariant implements java.lang.Comparable {
 							long p=0, v=0;
 							for (pos = 0; pos<=str.length()-1; pos++) {
 								v = "01234567".indexOf(str.substring(pos,pos+1));
-								if (v<0) return 0;
+								if (v<0) return new Long(0);
 								p = (8 * p) + v;
 							}
 							return new Long(p);
@@ -321,7 +321,7 @@ public class VBVariant implements java.lang.Comparable {
 							long p=0, v=0;
 							for (pos = 0; pos<=str.length()-1; pos++) {
 								v = "01".indexOf(str.substring(pos,pos+1));
-								if (v<0) return 0;
+								if (v<0) return new Long(0);
 								p = (2 * p) + v;
 							}
 							return new Long(p);
