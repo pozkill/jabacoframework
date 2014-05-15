@@ -14,6 +14,10 @@ Public Sub Print(text As String)
   System.out.println(text)
 End Sub
 
+Public Sub PrintError(text As String)
+  System.err.println(text)
+End Sub
+
 Public Function Input() As String
   Input = New java#util#Scanner(System.in).nextLine
 End Function
