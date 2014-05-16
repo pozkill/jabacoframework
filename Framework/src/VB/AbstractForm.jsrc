@@ -47,27 +47,18 @@ Public Sub fireLoaded()
 End Sub
 
 Public Sub fireLoaded(sender As Object)
-
    FormLoaded = True
-
-   ' **************** // BAD HACK * I DONT KNOW A BETTER SOLUTION AT THE MOMENT :(
    Dim myMemWindowState As FormWindowStateConstants 
-   myMemWindowState = WindowState
-
-   Parent.setLocation -50000, -50000
-   Parent.setVisible True
+   myMemWindowState = WindowState   
+   Parent.pack()
    Height = Height + (StartHeight - Parent.getContentPane.getHeight)
    Width = Width + (StartWidth - Parent.getContentPane.getWidth) 
-   
-   Call Me.Form_Load()
+   Call Me.Form_Load()   
    Call DoEvents()
-   If Me.Left <> -50000 Then StartLeft = Me.Left
-   If Me.Top <> -50000 Then StartTop = Me.Top
-   
+   StartLeft = Me.Left
+   StartTop = Me.Top
    If myMenuBar.Visible Then Me.Height = Me.Height + myMenuBar.Height
    If myToolBar.Visible Then Me.Height = Me.Height + myToolBar.Height
-   Parent.setVisible False
-   ' **************** // BAD HACK
    
    StartUpPosition = StartUpPosition
    WindowState = myMemWindowState 
@@ -161,9 +152,9 @@ Public Property Let StartUpPosition(val As StartUpPositionConstants)
    If val = vbStartUpScreen Then
       Dim tmpDimension As java#awt#Dimension 
       tmpDimension = java#awt#Toolkit.getDefaultToolkit().getScreenSize
-      Base.setLocation (tmpDimension.Width - Me.Width) / 2, (tmpDimension.Height - Me.Height) / 2
+      Base.setLocation (tmpDimension.width - Me.Width) / 2, (tmpDimension.height - Me.Height) / 2
    Elseif val = vbStartUpManual Then
-      Base.setLocation StartTop, StartLeft
+      Base.setLocation StartLeft, StartTop
    End If
    StartUpPositionVal = val
 End Property
