@@ -66,10 +66,8 @@ End Sub
 
 Public Sub fireLoaded(sender As Object)
    FormLoaded = True
+   Parent.pack()
 
-   ' **************** // BAD HACK * I DONT KNOW A BETTER SOLUTION AT THE MOMENT :(
-   Parent.setLocation -30000, -30000
-   Parent.setVisible True
    Height = Height + (StartHeight - Parent.getContentPane.getHeight)
    Width = Width + (StartWidth - Parent.getContentPane.getWidth) 
    
@@ -77,11 +75,9 @@ Public Sub fireLoaded(sender As Object)
    Call DoEvents()
    If myMenuBar.Visible Then Me.Height = Me.Height + myMenuBar.Height
    If myToolBar.Visible Then Me.Height = Me.Height + myToolBar.Height
-   Parent.setVisible False
-   ' **************** // BAD HACK
-
+   
    StartUpPosition = StartUpPosition
-  ' Visible = StartVisibility
+   Visible = StartVisibility
    Call Me.Form_Resize()
    
    Call Parent.addFocusListener(Me)
@@ -146,9 +142,9 @@ Public Property Let StartUpPosition(val As StartUpPositionConstants)
    If val = vbStartUpScreen Then
       Dim tmpDimension As java#awt#Dimension 
       tmpDimension = java#awt#Toolkit.getDefaultToolkit().getScreenSize
-      Base.setLocation (tmpDimension.Width - Me.Width) / 2, (tmpDimension.Height - Me.Height) / 2
+      Base.setLocation (tmpDimension.width - Me.Width) / 2, (tmpDimension.height - Me.Height) / 2
    Elseif val = vbStartUpManual Then
-      Base.setLocation StartTop, StartLeft
+      Base.setLocation StartLeft, StartTop
    End If
    StartUpPositionVal = val
 End Property
