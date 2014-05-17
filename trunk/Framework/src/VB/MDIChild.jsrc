@@ -339,6 +339,7 @@ Public Sub Close()
 End Sub
 
 Private Sub AnchorResize ' Let the added component resize, if its Anchor wants it
+   On Error Resume Next
 
    Dim comp() As java#awt#Component
    Dim i As Integer

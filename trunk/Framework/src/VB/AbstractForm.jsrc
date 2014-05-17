@@ -358,6 +358,7 @@ Private Function getParentContainer() As Container ' Let the added component res
 End Function
 
 Private Sub AnchorResize()
+   On Error Resume Next
    Dim comp() As java#awt#Component
    Dim i As Integer
    comp = getParentContainer().getComponents
