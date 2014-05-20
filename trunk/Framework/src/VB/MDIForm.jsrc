@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SourceFile><Source><![CDATA[Option Explicit
+
 Implements IJabacoForm
 
 Dim myDesktop As New javax#swing#JDesktopPane()
+
 
 Public Sub MDIForm
    Call setGlobalMDIForm(Me)
@@ -31,7 +33,7 @@ Public Property Let ActiveForm(v As MDIChild)
    Call myDesktop.setSelectedFrame(v)
 End Property
 
-'-------------
+' ******************************** REDIRECT EVENTS ********************************
 
 Public Sub Form_Activate()
 End Sub

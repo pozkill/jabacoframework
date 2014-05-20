@@ -4,7 +4,7 @@
 Implements ILoadAdapter
 Implements IJabacoForm
 Implements ComponentListener 
-Implements FocusListener
+Implements WindowFocusListener
 
 Dim myInitLookAndFeelFlag As Boolean = LookAndFeelManager().isInitialized()
 Dim Withevents myMenuBar As New VBMenuBar(Me)
@@ -80,20 +80,20 @@ Public Sub fireLoaded(sender As Object)
    Visible = StartVisibility
    Call Me.Form_Resize()
    
-   Call Parent.addFocusListener(Me)
+   Call Parent.addWindowFocusListener(Me)
    Call Parent.addComponentListener(Me)
 End Sub
 
-' ******************************** DEFAULT FOCUS - EVENTS ********************************
+' ******************************** WINDOW FOCUS - EVENTS ********************************
 
-Public Sub focusGained(arg2 As FocusEvent)
+Public Sub windowGainedFocus(arg2 As WindowEvent)
    On Error Resume Next
-   Call Form_GotFocus()
+   Me.Form_GotFocus()
 End Sub
 
-Public Sub focusLost(arg2 As FocusEvent)
+Public Sub windowLostFocus(arg2 As WindowEvent)
    On Error Resume Next
-   Call Form_LostFocus()
+   Me.Form_LostFocus()
 End Sub
 
 ' ******************************** DEFAULT Component - EVENTS ********************************

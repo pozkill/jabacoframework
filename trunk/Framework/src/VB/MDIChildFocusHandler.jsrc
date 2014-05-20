@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SourceFile><Source><![CDATA[Option Explicit
+
+Implements java#beans#PropertyChangeListener
+'java#beans#PropertyChangeEvent
+
+Dim myMDIChild As VB#MDIChild
+
+Public Sub MDIChildFocusHandler(refMDIChild As MDIChild)
+   myMDIChild = refMDIChild
+End Sub
+
+Public Sub propertyChange(arg2 As PropertyChangeEvent)
+   On Error Resume Next
+   If GlobalMDIForm <> Nothing Then 
+      Dim propertyName As String = arg2.getPropertyName
+      If propertyName = JInternalFrame.IS_SELECTED_PROPERTY Then
+         If GetStringAsBoolean(arg2.getOldValue()) = True Then Call myMDIChild.Form_LostFocus()
+         If myMDIChild.isSelected = True Then Call myMDIChild.Form_GotFocus()
+      End If	   
+   End If
+End Sub]]></Source><Param Name="(Name)" Value="MDIChildFocusHandler"/><Param Name="(SuperClass)" Value="java/lang/Object"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>
