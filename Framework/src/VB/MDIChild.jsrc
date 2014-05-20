@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SourceFile><Source><![CDATA[Option Explicit
+
 Implements ILoadAdapter
 Implements ComponentListener 
 Implements FocusListener 
@@ -12,16 +13,15 @@ Dim StartUpPositionVal As StartUpPositionConstants = vbStartUpScreen
 Dim myTag As String
 Dim myMouseIcon As #IResource 
 Dim myIcon As #IResource 
+Dim myMDIChildFocusHandler As MDIChildFocusHandler
 
 Dim Withevents myContent As New PictureBox
 
 Public Sub add(Component As java#awt#Component)
-
    If IsClass(Component, VB#IJabacoControl) Then
       Dim Component2 As VB#IJabacoControl = Cast(Component, VB#IJabacoControl)
       Component2.ResizeTriggerInit(Me.Width, Me.Height)
    End If
-
    If (myContent = Nothing) Then
       Call Base.getContentPane().add(Component)
    Else
@@ -38,6 +38,8 @@ End Property
 Public Sub Class_Initialize
    myContent.BorderStyle = fmBorderStyleNone
    Base.getContentPane.add myContent
+   myMDIChildFocusHandler = New MDIChildFocusHandler(Me)
+   Call Parent.addPropertyChangeListener(myMDIChildFocusHandler)
    myContent.Visible = True
 End Sub
 
@@ -55,18 +57,16 @@ Public Sub fireLoaded()
 End Sub
 
 Public Sub fireLoaded(sender As Object)
-   Dim MemPos As Point = Me.getLocation()
+'   Dim MemPos As Point = Me.getLocation()
    Dim MemVisible As Boolean = Me.isVisible()
-   Parent.setLocation -30000, -30000
+'   Parent.setLocation -30000, -30000
    Height = Height + (Height - Parent.getContentPane.getHeight)
    Width = Width + (Width - Parent.getContentPane.getWidth) 
    Call Me.Form_Load()
-   Call Me.setLocation(MemPos)
+'   Call Me.setLocation(MemPos)
    Call Me.setVisible(MemVisible)
    FormLoaded = True   
    Visible = StartUpVisible
-
-   Call Parent.addFocusListener(Me)
    Call Parent.addComponentListener(Me)
 End Sub
 
@@ -78,12 +78,13 @@ End Sub
 
 Public Sub focusGained(arg2 As FocusEvent)
    On Error Resume Next
-   Call Form_GotFocus()
+   Debug.Print arg2.getSource
+   Me.Form_GotFocus()
 End Sub
 
 Public Sub focusLost(arg2 As FocusEvent)
    On Error Resume Next
-   Call Form_LostFocus()
+   Me.Form_LostFocus()
 End Sub
 
 ' ******************************** DEFAULT Component - EVENTS ********************************
@@ -108,8 +109,6 @@ Public Sub componentShown(e As ComponentEvent)
    On Error Resume Next
    Me.Form_Activate()
 End Sub
-
-
 
 ' ******************************** REDIRECT EVENTS ********************************
 
@@ -184,9 +183,6 @@ End Sub
 Public Sub myToolBar_Click(ToolBarItem As IToolBarItem)
    Call Me.Form_ToolBarClick(ToolBarItem)
 End Sub
-
-
-
 
 ' ******************************** CONTENT FUNCTIONS ********************************
 
@@ -338,9 +334,31 @@ Public Sub Close()
    Call Parent.dispose 
 End Sub
 
-Private Sub AnchorResize ' Let the added component resize, if its Anchor wants it
+Public Property Get Controls() As java#util#ArrayList 
    On Error Resume Next
+   Dim comp() As java#awt#Component
+   comp = getParentContainer.getComponents()
+   Controls = New java#util#ArrayList
+   Dim i As Integer, v As Integer
+   For i = Ubound(comp) To 0 Step -1
+      Controls.add comp(i)
+      If IsClass(comp(i), #PictureBox) Then
+         Dim pbControl As #PictureBox
+         pbControl = Cast(comp(i), #PictureBox)
+         For v = 0 To pbControl.getComponentCount() - 1
+            Controls.add pbControl.Parent.getComponent(v)
+         Next v
+      ElseIf Isclass(comp(i), #Frame)Then
+         Dim frControl As #Frame
+         frControl = Cast(comp(i), #Frame)
+         For v = 0 To frControl.getComponentCount() - 1
+            Controls.add frControl.Parent.getComponent(v)
+         Next v
+      End If
+   Next i
+End Property
 
+Private Function getParentContainer() As Container
    Dim comp() As java#awt#Component
    Dim i As Integer
    comp = Me.getComponents()
@@ -376,17 +394,21 @@ Private Sub AnchorResize ' Let the added component resize, if its Anchor wants i
       End If
    Next i
 
+   getParentContainer = boxComp
+End Function
 
-   comp = boxComp.getComponents
-
+Private Sub AnchorResize()
+   On Error Resume Next
+   Dim comp() As java#awt#Component
+   Dim i As Integer
+   comp = getParentContainer().getComponents
    For i = 0 To Ubound(comp)
       If IsClass(comp(i), VB#IJabacoControl) Then
          Dim myCont As VB#IJabacoControl
          myCont = Cast(comp(i) , VB#IJabacoControl)
-         myCont.ResizeTrigger(Parent.getContentPane.getWidth, Parent.getContentPane.getHeight)  
+         myCont.ResizeTrigger(Parent.getContentPane.getWidth, Parent.getContentPane.getHeight)    
       End If
    Next i
-
 End Sub
 
 ' ******************************** FONT PROPERTYS ********************************

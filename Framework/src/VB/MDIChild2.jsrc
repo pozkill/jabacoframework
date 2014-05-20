@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SourceFile><Source><![CDATA[Public Sub Form_GotFocus()
+   Debug.Print "MDIChild2_Form_GotFocus"
+End Sub
+
+Public Sub Form_LostFocus()
+      Debug.Print "MDIChild2_Form_LostFocus"
+End Sub
+
+]]></Source><Param Name="(Name)" Value="MDIChild2"/><Param Name="(SuperClass)" Value="VB/MDIChild"/><Param Name="(NameSpace)" Value=""/><Param Name="(Type)" Value="MDIChild"/><Param Name="(Access)" Value="Public"/><Param Name="Index" Value=""/><Param Name="Transparency" Value="0"/><Param Name="AntiAliasing" Value="False"/><Param Name="AutoRedraw" Value="False"/><Param Name="Picture" Value="Nothing"/><Param Name="DrawWidth" Value="1"/><Param Name="FontName" Value="Arial"/><Param Name="FontBold" Value="False"/><Param Name="FontItalic" Value="False"/><Param Name="FontSize" Value="9"/><Param Name="Caption" Value="MDIChild2"/><Param Name="StartUpPosition" Value="vbStartUpScreen"/><Param Name="Resizable" Value="True"/><Param Name="Closable" Value="True"/><Param Name="Minimizable" Value="True"/><Param Name="Maximizable" Value="True"/><Param Name="WindowState" Value="vbNormal"/><Param Name="BackColor" Value="-2147483633"/><Param Name="ForeColor" Value="-2147483630"/><Param Name="Left" Value="0"/><Param Name="Top" Value="0"/><Param Name="Width" Value="400"/><Param Name="Height" Value="300"/><Param Name="Enabled" Value="True"/><Param Name="Visible" Value="True"/><Param Name="MousePointer" Value="vbDefault"/><Param Name="MouseIcon" Value="Nothing"/><Param Name="CanGetFocus" Value="True"/></SourceFile>

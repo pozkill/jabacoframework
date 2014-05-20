@@ -4,9 +4,9 @@
 Implements ILoadAdapter
 Implements IJabacoForm
 Implements ComponentListener 
-Implements FocusListener
-
 Implements WindowListener
+Implements WindowFocusListener
+
 
 Dim myInitLookAndFeelFlag As Boolean = LookAndFeelManager().isInitialized()
 Dim Withevents myMenuBar As New VBMenuBar(Me)
@@ -67,20 +67,20 @@ Public Sub fireLoaded(sender As Object)
    Call Me.Form_Resize()
 
    Call Parent.addWindowListener(Me)
-   Call Parent.addFocusListener(Me)
+   Call Parent.addWindowFocusListener(Me)
    Call Parent.addComponentListener(Me)   
 End Sub
 
-' ******************************** DEFAULT FOCUS - EVENTS ********************************
+' ******************************** WINDOW FOCUS - EVENTS ********************************
 
-Public Sub focusGained(arg2 As FocusEvent)
+Public Sub windowGainedFocus(arg2 As WindowEvent)
    On Error Resume Next
-   Call Form_GotFocus()
+   Me.Form_GotFocus()
 End Sub
 
-Public Sub focusLost(arg2 As FocusEvent)
+Public Sub windowLostFocus(arg2 As WindowEvent)
    On Error Resume Next
-   Call Form_LostFocus()
+   Me.Form_LostFocus()
 End Sub
 
 ' ******************************** DEFAULT Component - EVENTS ********************************
@@ -318,7 +318,7 @@ Public Property Get Controls() As java#util#ArrayList
    Next i
 End Property
 
-Private Function getParentContainer() As Container ' Let the added component resize, If its Anchor wants it
+Private Function getParentContainer() As Container
    Dim comp() As java#awt#Component
    Dim i As Integer
    comp = Me.getComponents()
@@ -349,7 +349,7 @@ Private Function getParentContainer() As Container ' Let the added component res
    comp = panelComp.getComponents
    Dim boxComp As Container
    For i = 0 To Ubound(comp)
-      If comp(i).getClass.getName.equals("VB.Form$PictureBox") Then
+      If comp(i).getClass.getName.equals("VB.Form$PictureBox") Or comp(i).getClass.getName.equals("javax.swing.JDesktopPane") Then
          boxComp = Cast(comp(i), Container)
       End If
    Next i
