@@ -2,8 +2,7 @@
 <SourceFile><Source><![CDATA[Option Explicit
 
 Implements ILoadAdapter
-Implements ComponentListener 
-Implements FocusListener 
+Implements ComponentListener
 Implements IJabacoContainer
 
 Dim myInitLookAndFeelFlag As Boolean = LookAndFeelManager().isInitialized()
@@ -76,16 +75,8 @@ End Sub
 
 ' ******************************** DEFAULT FOCUS - EVENTS ********************************
 
-Public Sub focusGained(arg2 As FocusEvent)
-   On Error Resume Next
-   Debug.Print arg2.getSource
-   Me.Form_GotFocus()
-End Sub
+'handled by MDIChildFocusHandler
 
-Public Sub focusLost(arg2 As FocusEvent)
-   On Error Resume Next
-   Me.Form_LostFocus()
-End Sub
 
 ' ******************************** DEFAULT Component - EVENTS ********************************
 
