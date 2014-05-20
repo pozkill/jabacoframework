@@ -77,7 +77,7 @@ Public Sub fireLoaded(sender As Object)
    If myToolBar.Visible Then Me.Height = Me.Height + myToolBar.Height
    
    StartUpPosition = StartUpPosition
-   Visible = StartVisibility
+'   Visible = StartVisibility
    Call Me.Form_Resize()
    
    Call Parent.addWindowFocusListener(Me)
