@@ -68,8 +68,9 @@ Public Sub fireLoaded(sender As Object)
    FormLoaded = True
    Parent.pack()
 
-   Height = Height + (StartHeight - Parent.getContentPane.getHeight)
-   Width = Width + (StartWidth - Parent.getContentPane.getWidth) 
+   Me.Height = Me.Height + (StartHeight - Parent.getContentPane.getHeight)
+   Me.Width = Me.Width + (StartWidth - Parent.getContentPane.getWidth) 
+   myContent.Parent.setSize(New Dimension(Me.Width, Me.Height))
    
    Call Me.Form_Load()
    Call DoEvents()
