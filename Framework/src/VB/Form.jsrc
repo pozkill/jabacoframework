@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SourceFile><Source><![CDATA[Option Explicit
+
 Implements IJabacoForm
 Implements IJabacoContainer
 
@@ -64,11 +65,12 @@ End Sub
 Public Sub Class_Initialize()
    myContent.BorderStyle = fmBorderStyleNone
    'Call Base.setContentPane(myContent)
-   Base.getContentPane.add myContent
+   Base.getContentPane.add(myContent)
    myContent.Visible = True
 End Sub
 
 ' ******************************** REDIRECT EVENTS ********************************
+
 Public Sub Form_Unload(cancel As Integer)    'cancel is not used, is only for compatibility
 End Sub
 

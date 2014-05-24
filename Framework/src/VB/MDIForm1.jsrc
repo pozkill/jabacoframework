@@ -1,20 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<SourceFile><Source><![CDATA['Public Sub Form_GotFocus()
-'   Debug.Print "Form_GotFocus"
-'End Sub
-'
-'Public Sub Form_LostFocus()
-'      Debug.Print "Form_LostFocus"
-'End Sub
-'
-'Public Sub Form_GotFocus()
-'   Debug.Print "MDIChild_Form_GotFocus"
-'End Sub
-'
-'Public Sub Form_LostFocus()
-'      Debug.Print "MDIChild_Form_LostFocus"
-'End Sub
-
+<SourceFile><Source><![CDATA[
 Public Sub Form_GotFocus()
    Debug.Print "MDIForm_Form_GotFocus"
 End Sub
