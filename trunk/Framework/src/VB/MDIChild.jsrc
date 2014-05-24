@@ -39,7 +39,6 @@ Public Sub Class_Initialize
    Base.getContentPane.add myContent
    myMDIChildFocusHandler = New MDIChildFocusHandler(Me)
    Call Parent.addPropertyChangeListener(myMDIChildFocusHandler)
-   myContent.Visible = True
 End Sub
 
 Public Sub MDIChild()
@@ -59,10 +58,11 @@ Public Sub fireLoaded(sender As Object)
 '   Dim MemPos As Point = Me.getLocation()
    Dim MemVisible As Boolean = Me.isVisible()
 '   Parent.setLocation -30000, -30000
-   Height = Height + (Height - Parent.getContentPane.getHeight)
-   Width = Width + (Width - Parent.getContentPane.getWidth) 
+   Me.Height = Me.Height + (Me.Height - Parent.getContentPane.getHeight)
+   Me.Width = Me.Width + (Me.Width - Parent.getContentPane.getWidth)
    Call Me.Form_Load()
 '   Call Me.setLocation(MemPos)
+   myContent.Visible = True
    Call Me.setVisible(MemVisible)
    FormLoaded = True   
    Visible = StartUpVisible
@@ -76,7 +76,6 @@ End Sub
 ' ******************************** DEFAULT FOCUS - EVENTS ********************************
 
 'handled by MDIChildFocusHandler
-
 
 ' ******************************** DEFAULT Component - EVENTS ********************************
 
@@ -198,6 +197,7 @@ Public Property Get AutoRedraw() As Boolean
 End Property
 
 Public Property Let AutoRedraw(v As Boolean)
+   If FormLoaded = False Then myContent.Visible = v
    myContent.AutoRedraw = v
 End Property
 
@@ -469,9 +469,7 @@ Public Property Let StartUpPosition(val As StartUpPositionConstants)
    StartUpPositionVal = val
 End Property
 
-
 ' ******************************** CHILD FORM PROPERTYS ********************************
-
 
 Public Property Get Resizable () As Boolean
    Resizable = Parent.isResizable()

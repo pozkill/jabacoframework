@@ -38,7 +38,6 @@ Public Sub AbstractForm()
    myToolBar.Visible = False
    Parent.setJMenuBar myMenuBar
    Parent.getContentPane().add myToolBar, BorderLayout.NORTH
-
 End Sub
 
 Public Sub fireLoaded()
@@ -49,10 +48,12 @@ End Sub
 Public Sub fireLoaded(sender As Object)
    FormLoaded = True
    Dim myMemWindowState As FormWindowStateConstants 
-   myMemWindowState = WindowState   
+   myMemWindowState = WindowState
+   Parent.setPreferredSize(New Dimension(Me.Width + (StartWidth - Parent.getContentPane.getWidth), Me.Height + (StartHeight - Parent.getContentPane.getHeight)))
    Parent.pack()
-   Height = Height + (StartHeight - Parent.getContentPane.getHeight)
-   Width = Width + (StartWidth - Parent.getContentPane.getWidth) 
+   Me.Height = Me.Height + (StartHeight - Parent.getContentPane.getHeight)
+   Me.Width = Me.Width + (StartWidth - Parent.getContentPane.getWidth)
+   
    Call Me.Form_Load()   
    Call DoEvents()
    StartLeft = Me.Left
@@ -69,6 +70,31 @@ Public Sub fireLoaded(sender As Object)
    Call Parent.addWindowListener(Me)
    Call Parent.addWindowFocusListener(Me)
    Call Parent.addComponentListener(Me)   
+End Sub
+
+' ******************************** WINDOW - EVENTS ********************************
+
+Public Sub windowOpened(arg2 As WindowEvent)
+End Sub
+
+Public Sub windowClosing(arg2 As WindowEvent)      
+   On Error Resume Next
+   Me.Form_Unload(0)
+End Sub
+
+Public Sub windowClosed(arg2 As WindowEvent)
+End Sub
+
+Public Sub windowIconified(arg2 As WindowEvent) 
+End Sub
+
+Public Sub windowDeiconified(arg2 As WindowEvent)
+End Sub
+
+Public Sub windowActivated(arg2 As WindowEvent)
+End Sub
+
+Public Sub windowDeactivated(arg2 As WindowEvent)
 End Sub
 
 ' ******************************** WINDOW FOCUS - EVENTS ********************************
@@ -106,9 +132,10 @@ Public Sub componentShown(e As ComponentEvent)
    Me.Form_Activate()
 End Sub
 
+' ******************************** REDIRECT EVENTS ********************************
+
 Public Sub Form_Unload(cancel As Integer)    'cancel is not used, is only for compatibility
 End Sub
-
 Public Sub Form_Activate()
 End Sub
 Public Sub Form_Deactivate()
@@ -497,29 +524,5 @@ End Sub
 
 Public Sub myToolBar_Click(ToolBarItem As IToolBarItem)
    Call Me.Form_ToolBarClick(ToolBarItem)
-End Sub
-
-'////////////////////////////////////////////////////////////////////
-Public Sub windowOpened(arg2 As WindowEvent)
-End Sub
-
-Public Sub windowClosing(arg2 As WindowEvent)      
-   On Error Resume Next
-   Me.Form_Unload(0)
-End Sub
-
-Public Sub windowClosed(arg2 As WindowEvent)
-End Sub
-
-Public Sub windowIconified(arg2 As WindowEvent) 
-End Sub
-
-Public Sub windowDeiconified(arg2 As WindowEvent)
-End Sub
-
-Public Sub windowActivated(arg2 As WindowEvent)
-End Sub
-
-Public Sub windowDeactivated(arg2 As WindowEvent)
 End Sub
 ]]></Source><Param Name="(Name)" Value="AbstractForm"/><Param Name="(SuperClass)" Value="javax/swing/JFrame"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>
