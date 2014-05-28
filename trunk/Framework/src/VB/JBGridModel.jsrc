@@ -6,10 +6,12 @@ Dim myMatrix As New #HashMap
 Dim myMaxRow As Integer 
 Dim myMaxCol As Integer 
 Dim myTmpIndex As New #Point(0, 0)
+Dim myColumnAlign() As #fmTextAlign
 Dim myColumnIcon() As #IResource
 Dim myColumnName() As String
 'Dim myWatcher As #TableModelListener
 Dim myGrid As JBGrid
+
 Dim myStopEdit As Boolean 
 Dim insideCellEditable As Boolean 
 
@@ -32,18 +34,6 @@ Public Sub fireTableCellUpdated(row As Integer, col As Integer)
    End If
    Call Base.fireTableCellUpdated(row, col)
 End Sub
-
-Public Sub setColumnName(col As Integer, val As String)
-   On Error Resume Next
-   Call refreshRowColCount(myMaxRow, col)
-   myColumnName(col) = val
-   Parent.fireTableStructureChanged()
-End Sub
-
-Public Function getColumnName(col As Integer) As String
-   On Error Resume Next
-   getColumnName = myColumnName(col)
-End Function
 
 Public Function getColumnCount() As Integer
    getColumnCount = myMaxCol
@@ -68,9 +58,32 @@ End Function
 Private Sub refreshRowColCount(row As Integer, col As Integer)
    myMaxRow = max(row, myMaxRow)
    myMaxCol = max(col, myMaxCol)
+   If Ubound(myColumnAlign()) = myMaxCol Then Exit Sub
+   Redim Preserve myColumnAlign(myMaxCol)
    Redim Preserve myColumnName(myMaxCol)
    Redim Preserve myColumnIcon(myMaxCol)
 End Sub
+
+Public Sub setColumnAlign(col As Integer, val As #fmTextAlign)
+   On Error Resume Next
+   Call refreshRowColCount(myMaxRow, col)
+   myColumnAlign(col) = val
+   Parent.fireTableStructureChanged() 
+End Sub
+
+Public Function getColumnAlign(col As Integer) As #fmTextAlign
+   On Error Resume Next
+   'default initial value of array is 0 -> CenterAlign in HeaderRenderer
+   'we reallocate values here to get a default LeftAlign versa Let HeaderAlign() in JBGrid.jsrc
+   Select Case myColumnAlign(col)
+      Case 0, 1
+         getColumnAlign = 10
+      Case 2
+         getColumnAlign = 0
+      Case 3
+         getColumnAlign = 11
+   End Select
+End Function
 
 Public Sub setColumnIcon(col As Integer, val As #IResource)
    On Error Resume Next
@@ -82,6 +95,18 @@ End Sub
 Public Function getColumnIcon(col As Integer) As #IResource
    On Error Resume Next
    getColumnIcon = myColumnIcon(col)
+End Function
+
+Public Sub setColumnName(col As Integer, val As String)
+   On Error Resume Next
+   Call refreshRowColCount(myMaxRow, col)
+   myColumnName(col) = val
+   Parent.fireTableStructureChanged()
+End Sub
+
+Public Function getColumnName(col As Integer) As String
+   On Error Resume Next
+   getColumnName = myColumnName(col)
 End Function
 
 Public Function registerStopEditEvent() As Boolean
@@ -138,14 +163,16 @@ End Function
 Public Sub clear()
 '   Call myMatrix.clear()
    myMatrix = New #HashMap
+   myMaxCol = 0
+   myMaxRow = 0
    Call Parent.fireTableDataChanged()
+   Redim myColumnAlign(-1)
    Redim myColumnName(-1)
    Redim myColumnIcon(-1)
-   Base.fireTableStructureChanged()
+   Call Base.fireTableStructureChanged()
 End Sub
 
 'Public Sub tableChanged(e As TableModelEvent)
 'End Sub
 
-
-  ]]></Source><Param Name="(Name)" Value="JBGridModel"/><Param Name="(SuperClass)" Value="javax/swing/table/AbstractTableModel"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VB"/></SourceFile>
+]]></Source><Param Name="(Name)" Value="JBGridModel"/><Param Name="(SuperClass)" Value="javax/swing/table/AbstractTableModel"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VB"/></SourceFile>

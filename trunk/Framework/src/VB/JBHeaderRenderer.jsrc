@@ -20,7 +20,7 @@ Public Function getTableCellRendererComponent(table As JTable, value As Object, 
 
    myHeaderIcon = myGrid.HeaderIcon(col)
    myColumn = col
-
+   
    If myGrid.FlatHeader Then
       Call Base.setBorder(getMarginBorder(BorderFactory.createEtchedBorder(), 1, 0))
    Else
@@ -28,6 +28,7 @@ Public Function getTableCellRendererComponent(table As JTable, value As Object, 
    End If
    
 '   Call Base.setUI(New VBA#MultiLineLabelUI)
+   Call Base.setHorizontalAlignment(myGrid.HeaderAlign(col))
    Call Base.setFont(myBaseComponent.getFont)
    Call Base.setBackground(RGBtoColor(myGrid.BackColorHeader))
    Call Base.setForeground(RGBtoColor(myGrid.ForeColorHeader))
