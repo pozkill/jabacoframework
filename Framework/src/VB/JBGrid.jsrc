@@ -423,6 +423,15 @@ Public Property Let Header(Index As Integer, value As String)
    Call Me.Refresh()
 End Property
 
+Public Property Let HeaderAlign(Index As Integer, value As #fmTextAlign)
+   Call myModel.setColumnAlign(Index, value)
+   Call Me.Refresh()
+End Property
+
+Public Property Get HeaderAlign(Index As Integer) As #fmTextAlign
+   HeaderAlign = myModel.getColumnAlign(Index) 
+End Property
+
 Public Property Get HeaderIcon(Index As Integer) As #IResource
    HeaderIcon = myModel.getColumnIcon(Index) 
 End Property
