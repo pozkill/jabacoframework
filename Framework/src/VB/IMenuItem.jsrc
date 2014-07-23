@@ -19,6 +19,12 @@ End Property
 Public Property Let Icon(Path As #IResource)
 End Property
 
+Public Property Get Enabled() As Boolean 
+End Property
+
+Public Property Let Enabled(v As Boolean)
+End Property
+
 Public Property Get Visible() As Boolean 
 End Property
 
