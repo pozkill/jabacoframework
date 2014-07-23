@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <SourceFile><Source><![CDATA[' {CheckBoxMenuItem wrapper for jabaco}
 ' @since 2010-07-30
 ' @author Alarcón Franco Andrés
@@ -38,9 +38,9 @@ Public Function getFont() As #Font
    End If
 End Function
 
-Public Sub VBRadioButtonMenuItem(refMenuBar As VBMenuBar, refOwner As #JComponent, _
+Public Sub VBOptionButtonMenuItem(refMenuBar As VBMenuBar, refOwner As #JComponent, _
    refControlID As String, refCaption As String, refSelected As Boolean, _
-   refGroup As ButtonGroup, refVisible As Boolean, refIconPath As #IResource)
+   refGroup As ButtonGroup, refEnabled As Boolean, refVisible As Boolean, refIconPath As #IResource)
 
    myMenuBar = refMenuBar
       
@@ -55,6 +55,7 @@ Public Sub VBRadioButtonMenuItem(refMenuBar As VBMenuBar, refOwner As #JComponen
    Call Parent.addActionListener(refMenuBar)   
    Caption = refCaption
    ControlID = refControlID
+   Enabled = refEnabled
    Visible = refVisible
    Icon = refIconPath
    
@@ -110,6 +111,14 @@ Public Property Let Selected(v As Boolean)
    Base.setSelected(v)
 End Property
 
+Public Property Get Enabled() As Boolean 
+   Enabled = Me.isEnabled()
+End Property
+
+Public Property Let Enabled(v As Boolean)
+   Me.setEnabled v
+End Property
+
 Public Property Get Visible() As Boolean 
    Visible = Me.isVisible()
 End Property
@@ -120,4 +129,4 @@ End Property
 
 Public Property Get Parent() As #JMenuItem 
    Parent = Base
-End Property]]></Source><Param Name="(Name)" Value="VBRadioButtonMenuItem"/><Param Name="(SuperClass)" Value="javax/swing/JRadioButtonMenuItem"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>
+End Property]]></Source><Param Name="(Name)" Value="VBOptionButtonMenuItem"/><Param Name="(SuperClass)" Value="javax/swing/JRadioButtonMenuItem"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>

@@ -12,7 +12,7 @@ Public Property Get MenuBar() As VBMenuBar
    MenuBar = myMenuBar
 End Property
 
-Public Sub VBMenuGroup(refMenuBar As VBMenuBar, refOwner As #JComponent, refControlID As String, refCaption As String, refVisible As Boolean, refIconPath As #IResource)
+Public Sub VBMenuGroup(refMenuBar As VBMenuBar, refOwner As #JComponent, refControlID As String, refCaption As String, refEnabled As Boolean, refVisible As Boolean, refIconPath As #IResource)
    myMenuBar = refMenuBar
    If refOwner = Null Then
       refMenuBar.Add Me
@@ -25,6 +25,7 @@ Public Sub VBMenuGroup(refMenuBar As VBMenuBar, refOwner As #JComponent, refCont
    Call Parent.addActionListener(refMenuBar)
    Caption = refCaption
    ControlID = refControlID
+   Enabled = refEnabled
    Visible = refVisible
    Icon = refIconPath
    
@@ -81,13 +82,13 @@ Public Function GetAsPopupMenu(tmpMenu As #JComponent) As #JPopupMenu
        tmpMenuItem = Nothing 
        tmpMenuItem = Cast(Parent.getMenuComponent(i), VBMenuItem)
        If tmpMenuItem <> Nothing Then
-          tmpNewMenuItem = New VBMenuItem(myMenuBar, tmpMenu, tmpMenuItem.ControlID, tmpMenuItem.Caption, tmpMenuItem.Visible, tmpMenuItem.Icon)
+          tmpNewMenuItem = New VBMenuItem(myMenuBar, tmpMenu, tmpMenuItem.ControlID, tmpMenuItem.Caption, True, tmpMenuItem.Visible, tmpMenuItem.Icon)
        End If
    
        tmpMenuGroup = Nothing 
        tmpMenuGroup = Cast(Parent.getMenuComponent(i), VBMenuGroup)
        If tmpMenuGroup <> Nothing Then
-          tmpNewMenuGroup = New VBMenuGroup(myMenuBar, tmpMenu, tmpMenuGroup.ControlID, tmpMenuGroup.Caption, tmpMenuGroup.Visible, tmpMenuGroup.Icon)
+          tmpNewMenuGroup = New VBMenuGroup(myMenuBar, tmpMenu, tmpMenuGroup.ControlID, tmpMenuGroup.Caption, True, tmpMenuGroup.Visible, tmpMenuGroup.Icon)
           Call tmpMenuGroup.GetAsPopupMenu(tmpNewMenuGroup)
        End If
        
@@ -115,6 +116,14 @@ Public Property Let Caption(s As java#lang#String)
       Me.setMnemonic(s.charAt(mnemonicPos+1))      
    End If
    Me.setLabel(s.replaceFirst("&", ""))
+End Property
+
+Public Property Get Enabled() As Boolean 
+   Enabled = Me.isEnabled()
+End Property
+
+Public Property Let Enabled(v As Boolean)
+   Me.setEnabled v
 End Property
 
 Public Property Get Visible() As Boolean 
