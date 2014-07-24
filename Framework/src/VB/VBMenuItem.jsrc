@@ -50,11 +50,14 @@ Public Sub VBMenuItem(refMenuBar As VBMenuBar, refOwner As #JComponent, refContr
    Visible = refVisible
    Icon = refIconPath
    
-   If refOwner <> Nothing Then 
-      If Parent.getIcon() = Nothing Then
-         Parent.setIcon CreateIcon(16, 16) ' ugly swing - will work in most cases
-      End If
-   End If
+   'If refOwner <> Nothing Then 
+   '   If Parent.getIcon() = Nothing Then
+   '      Parent.setIcon CreateIcon(16, 16) ' ugly swing - will work in most cases
+   '   End If                               ' 24.07.2014: outcommented, because in VBOptionButtonMenuItem the bullet
+   'End If                                  '    and in VBCheckBoxMenuItem the check mark will be overritten on
+                                            '    Windows LookAndFeel on Win7 and Win8.
+                                            '    On all other Systems and LookAndFeels, the bullet and check mark are
+                                            '    beside the (empty) image, if it exists.
 
 End Sub
 
@@ -86,9 +89,11 @@ End Property
 
 Public Property Let Icon(Path As #IResource)
    On Error Goto ERROUT
-   If Len(Path) > 0 Then 
-      Me.setIcon LoadIcon(Path)
-      myIconPath = Path
+   If Path <> Nothing Then
+      If Len(Path) > 0 Then 
+         Me.setIcon LoadIcon(Path)
+         myIconPath = Path
+      End If
    End If
 ERROUT:
 End Property

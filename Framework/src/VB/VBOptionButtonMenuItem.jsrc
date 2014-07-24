@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <SourceFile><Source><![CDATA[' {CheckBoxMenuItem wrapper for jabaco}
 ' @since 2010-07-30
 ' @author Alarcón Franco Andrés
@@ -61,11 +61,11 @@ Public Sub VBOptionButtonMenuItem(refMenuBar As VBMenuBar, refOwner As #JCompone
    
    Base.setSelected(refSelected)
    
-   If refOwner <> Nothing Then 
-      If Parent.getIcon() = Nothing Then
-         Parent.setIcon CreateIcon(16, 16)
-      End If
-   End If
+   'If refOwner <> Nothing Then 
+   '   If Parent.getIcon() = Nothing Then
+   '      Parent.setIcon CreateIcon(16, 16)
+   '   End If
+   'End If
 
 End Sub
 
@@ -96,9 +96,11 @@ End Property
 
 Public Property Let Icon(Path As #IResource)
    On Error Goto ERROUT
-   If Len(Path) > 0 Then 
-      Me.setIcon LoadIcon(Path)
-      myIconPath = Path
+   If Path <> Nothing Then
+      If Len(Path) > 0 Then 
+         Me.setIcon LoadIcon(Path)
+         myIconPath = Path
+      End If
    End If
 ERROUT:
 End Property

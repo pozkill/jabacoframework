@@ -15,10 +15,10 @@ End Property
 Public Sub VBMenuGroup(refMenuBar As VBMenuBar, refOwner As #JComponent, refControlID As String, refCaption As String, refEnabled As Boolean, refVisible As Boolean, refIconPath As #IResource)
    myMenuBar = refMenuBar
    If refOwner = Null Then
-      refMenuBar.Add Me
+      refMenuBar.add Me
       Call Parent.setOpaque(False)
    Else
-      refOwner.Add Me
+      refOwner.add Me
       Call Parent.setOpaque(True)
    End If
    
@@ -29,12 +29,12 @@ Public Sub VBMenuGroup(refMenuBar As VBMenuBar, refOwner As #JComponent, refCont
    Visible = refVisible
    Icon = refIconPath
    
-   If refOwner <> Nothing Then 
-      'Parent.setIconTextGap 8
-      If Parent.getIcon() = Nothing Then
-         Parent.setIcon CreateIcon(16, 16) ' ugly swing - will work in most cases
-      End If
-   End If
+   'If refOwner <> Nothing Then 
+   '   'Parent.setIconTextGap 8
+   '   If Parent.getIcon() = Nothing Then
+   '      Parent.setIcon CreateIcon(16, 16) ' ugly swing - will work in most cases
+   '   End If                               ' 24.07.2014: Look in VBMenuItem for reason, why this is
+   'End If                                  '      outcommented
    
 End Sub
 
@@ -140,9 +140,11 @@ End Property
 
 Public Property Let Icon(Path As #IResource)
    On Error Goto ERROUT
-   If Len(Path) > 0 Then 
-      Base.setIcon LoadIcon(Path)
-      myIconPath = Path
+   If Path <> Nothing Then
+      If Len(Path) > 0 Then 
+         Base.setIcon LoadIcon(Path)
+         myIconPath = Path
+      End If
    End If
 ERROUT:
 End Property
