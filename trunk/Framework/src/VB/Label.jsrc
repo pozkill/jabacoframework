@@ -220,7 +220,11 @@ Public Property Get BorderColor() As Long
 End Property
 
 Public Property Let BorderColor(v As Long)
-   myBorderColor = v
+   If v <> -1 Then ' the non-color -1
+      myBorderColor = v
+   Else
+      myBorderColor = ForeColor
+   End If
 End Property
 
 Public Property Get BorderStyle() As fmBorderStyle
@@ -313,7 +317,9 @@ Public Property Get BackColor() As Long
 End Property
 
 Public Property Let BackColor(v As Long)
-   Base.setBackground(RGBtoColor(v))
+   If v <> -1 Then ' the non-color -1
+      Base.setBackground(RGBtoColor(v))
+   End If
 End Property
 
 Public Property Get ForeColor() As Long
@@ -321,47 +327,49 @@ Public Property Get ForeColor() As Long
 End Property
 
 Public Property Let ForeColor(v As Long)
-    Base.setForeground(RGBtoColor(v))
+   If v <> -1 Then ' the non-color -1
+      Base.setForeground(RGBtoColor(v))
+   End If
 End Property
 
 Public Property Get Width() As Single
-    Width = Me.getSize.Width
+   Width = Me.getSize.Width
 End Property
 
 Public Property Let Width(v As Single)
-    Me.setSize(v, Me.getSize.Height)
+   Me.setSize(v, Me.getSize.Height)
 End Property
 
 Public Property Get Height() As Single
-    Height = Me.getSize.Height
+   Height = Me.getSize.Height
 End Property
 
 Public Property Let Height(v As Single)
-    Me.setSize(Me.getSize.Width, v)
+   Me.setSize(Me.getSize.Width, v)
 End Property
 
 Public Property Get Left() As Single
-    Left = Me.getLocation.x
+   Left = Me.getLocation.x
 End Property
 
 Public Property Let Left(v As Single)
-    If isLeftInitialized = False Then
-       mySavedLeft = v
-       isLeftInitialized = True
-    End If
-    Me.setLocation(v, Me.getLocation.y)
+   If isLeftInitialized = False Then
+      mySavedLeft = v
+      isLeftInitialized = True
+   End If
+   Me.setLocation(v, Me.getLocation.y)
 End Property
 
 Public Property Get Top() As Single
-    Top = Me.getLocation.y
+   Top = Me.getLocation.y
 End Property
 
 Public Property Let Top(v As Single)
-    If isTopInitialized = False Then
-       mySavedTop = v
-       isTopInitialized = True
-    End If
-    Me.setLocation(Me.getLocation.x, v)
+   If isTopInitialized = False Then
+      mySavedTop = v
+      isTopInitialized = True
+   End If
+   Me.setLocation(Me.getLocation.x, v)
 End Property
 
 Public Property Get Anchor() AS AnchorStyles
@@ -380,15 +388,15 @@ Public Function Move(Left As Single, Optional Top As Single = -1, Optional Width
 End Function
 
 Public Property Get ToolTip() As String 
-    ToolTip = Parent.getToolTipText()
+   ToolTip = Parent.getToolTipText()
 End Property
 
 Public Property Let ToolTip(v As String)
-	If Len(v) = 0 Then 
-	    Parent.setToolTipText(Null)
-    Else
-	    Parent.setToolTipText(v)
-    End If
+   If Len(v) = 0 Then 
+      Parent.setToolTipText(Null)
+   Else
+      Parent.setToolTipText(v)
+   End If
 End Property
 
 Public Property Get Enabled() As Boolean 
@@ -484,5 +492,4 @@ Public Sub ResizeTrigger(w As Single, h As Single)
       End Select
    End If
 End Sub
-
 ]]></Source><Param Name="(Name)" Value="Label"/><Param Name="(SuperClass)" Value="javax/swing/JLabel"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VB"/></SourceFile>

@@ -91,7 +91,9 @@ Public Property Get BackColor() As Long
 End Property
 
 Public Property Let BackColor(v As Long)
-   Base.setBackground(RGBtoColor(v))
+   If v <> -1 Then ' the non-color -1
+      Base.setBackground(RGBtoColor(v))
+   End If
 End Property
 
 Public Property Get ForeColor() As Long
@@ -99,7 +101,9 @@ Public Property Get ForeColor() As Long
 End Property
 
 Public Property Let ForeColor(v As Long)
-   Me.setForeground(RGBtoColor(v))
+   If v <> -1 Then ' the non-color -1
+      Me.setForeground(RGBtoColor(v))
+   End If
 End Property
 
 Public Property Get Width() As Single
@@ -310,5 +314,4 @@ Public Sub ResizeTrigger(w As Single, h As Single)
       End Select
    End If
 End Sub
-
 ]]></Source><Param Name="(Name)" Value="ProgressBar"/><Param Name="(SuperClass)" Value="javax/swing/JProgressBar"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/><Param Name="(NameSpace)" Value="VB"/></SourceFile>
