@@ -52,8 +52,43 @@ Public Property Get JabacoFrameworkPath() As String
    JabacoFrameworkPath = tmpString
 End Property
 
-
+Public Property Get ExeName() As String
+   Dim tmpFile As String
+   Dim tmpString As String
    
-Public Function ExeName() As String
-   ExeName = ""
-End Function]]></Source><Param Name="(Name)" Value="App"/><Param Name="(SuperClass)" Value="java/lang/Object"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>
+   Dim tmpFileParts() As String
+   tmpFileParts = Split(System.getProperty("sun.java.command"), " ")
+   tmpFile = tmpFileParts(0)
+
+   If Len(tmpFile) > 3 And Mid(tmpFile, Len(tmpFile)-3).equalsIgnoreCase(".jar") Then ' is jar file
+     tmpFileParts = Split(tmpFile, System.getProperty("file.separator"))
+     tmpFile = tmpFileParts(UBound(tmpFileParts))
+     tmpString = tmpFile
+   Else
+     tmpString = tmpFile & ".class"
+   End If
+
+   ExeName = tmpString
+End Property
+
+Public Property Get StartCommand() As String
+  StartCommand = System.getProperty("sun.java.command")
+End Property
+
+' Gives out the arguments directed to the JVM
+Public Property Get JVMArguments() As String
+   Dim tmpString = ""
+   Dim rbean As java#lang#management#RuntimeMXBean
+   rbean = java#lang#management#ManagementFactory.getRuntimeMXBean
+   Dim argumentList As java#util#List
+   argumentList = rbean.getInputArguments
+   Dim i As Integer
+   For i=0 To argumentList.size()-1
+     If i>0 Then
+       tmpString = tmpString & " "
+     End If
+     tmpString = tmpString & argumentList.get(i)
+   Next i
+   JVMArguments = tmpString
+End Property
+]]></Source><Param Name="(Name)" Value="App"/><Param Name="(SuperClass)" Value="java/lang/Object"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>
