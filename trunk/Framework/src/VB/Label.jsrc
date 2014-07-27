@@ -223,7 +223,7 @@ Public Property Let BorderColor(v As Long)
    If v <> -1 Then ' the non-color -1
       myBorderColor = v
    Else
-      myBorderColor = ForeColor
+      myBorderColor = ColorToRGB(New JLabel.getForeground)
    End If
 End Property
 

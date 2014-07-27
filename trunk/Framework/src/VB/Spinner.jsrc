@@ -45,7 +45,8 @@ Public Sub Class_Initialize()
    Call getParentEditor.addKeyListener(Me)
    Call Parent.addFocusListener(Me)
    Call Parent.addMouseMotionListener(Me)
-   Call Parent.setBorder(New EmptyBorder(New Insets(1,1,1,1)))
+   'Call Parent.setBorder(New EmptyBorder(New Insets(1,1,1,1)))   ' makes the Border different to all other controls
+                                                                  ' in MetalLookAndFeel and other LAFs.
 End Sub
 
 ' ******************************** DEFAULT FOCUS - EVENTS ********************************
@@ -112,7 +113,9 @@ Public Property Get BackColorSel() As Long
 End Property
 
 Public Property Let BackColorSel(v As Long)
-   Call getParentEditor.setSelectionColor(RGBtoColor(v))
+   If v <> -1 Then ' the non-color -1
+      Call getParentEditor.setSelectionColor(RGBtoColor(v))
+   End If
 End Property
 
 Public Property Get ForeColorSel() As Long
@@ -120,7 +123,9 @@ Public Property Get ForeColorSel() As Long
 End Property
 
 Public Property Let ForeColorSel(v As Long)
-   Call getParentEditor.setSelectedTextColor(RGBtoColor(v))
+   If v <> -1 Then ' the non-color -1
+      Call getParentEditor.setSelectedTextColor(RGBtoColor(v))
+   End If
 End Property
 
 Public Property Get Locked() As Boolean
@@ -132,7 +137,9 @@ Public Property Let Locked(v As Boolean)
 End Property
 
 Public Sub setSelColor(v As Long)
-   Parent.setForeground RGBtoColor(v)
+   If v <> -1 Then ' the non-color -1
+      Parent.setForeground RGBtoColor(v)
+   End If
 End Sub
 
 Public Property Get EditorText() As String
@@ -203,7 +210,9 @@ Public Property Get BackColor() As Long
 End Property
 
 Public Property Let BackColor(v As Long)
-   Call getParentEditor.setBackground(RGBtoColor(v))
+   If v <> -1 Then ' the non-color -1
+      Call getParentEditor.setBackground(RGBtoColor(v))
+   End If
 End Property
 
 Public Property Get ForeColor() As Long
@@ -211,7 +220,9 @@ Public Property Get ForeColor() As Long
 End Property
 
 Public Property Let ForeColor(v As Long)
-   Call getParentEditor.setForeground(RGBtoColor(v))
+   If v <> -1 Then ' the non-color -1
+      Call getParentEditor.setForeground(RGBtoColor(v))
+   End If
 End Property
 
 ' ******************************** SAME IN ALL JABACO CONTROLS ********************************
