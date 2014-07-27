@@ -207,7 +207,9 @@ Public Property Get BackColorSel() As Long
 End Property
 
 Public Property Let BackColorSel(v As Long)
-   Parent.setSelectionColor(RGBtoColor(v))
+   If v <> -1 Then ' the non-color -1
+      Parent.setSelectionColor(RGBtoColor(v))
+   End If
 End Property
 
 Public Property Get ForeColorSel() As Long
@@ -215,7 +217,9 @@ Public Property Get ForeColorSel() As Long
 End Property
 
 Public Property Let ForeColorSel(v As Long)
-   Parent.setSelectedTextColor(RGBtoColor(v))
+   If v <> -1 Then ' the non-color -1
+      Parent.setSelectedTextColor(RGBtoColor(v))
+   End If
 End Property
 
 Public Property Get MultiLine() As Boolean
@@ -338,7 +342,9 @@ Public Property Get BackColor() As Long
 End Property
 
 Public Property Let BackColor(v As Long)
-   Parent.setBackground(RGBtoColor(v))
+   If v <> -1 Then ' the non-color -1
+      Parent.setBackground(RGBtoColor(v))
+   End If
    Base.setBackground(Parent.getBackground())
    Parent.setCaretColor(RGB (Parent.getBackground.getBlue XOR 255, Parent.getBackground.getGreen XOR 255, Parent.getBackground.getRed XOR 255))
 End Property
@@ -356,50 +362,52 @@ Public Property Get ForeColor() As Long
 End Property
 
 Public Property Let ForeColor(v As Long)
-    Parent.setForeground(RGBtoColor(v))
-    Base.setForeground(Parent.getForeground())
+   If v <> -1 Then ' the non-color -1
+      Parent.setForeground(RGBtoColor(v))
+   End If
+   Base.setForeground(Parent.getForeground())
 End Property
 
 Public Property Get Width() As Single
-    Width = Me.getSize.Width
+   Width = Me.getSize.Width
 End Property
 
 Public Property Let Width(v As Single)
-    Me.setSize(v, Me.getSize.Height)
-    Call Refresh()
+   Me.setSize(v, Me.getSize.Height)
+   Call Refresh()
 End Property
 
 Public Property Get Height() As Single
-    Height = Me.getSize.Height
+   Height = Me.getSize.Height
 End Property
 
 Public Property Let Height(v As Single)
-    Me.setSize(Me.getSize.Width, v)
-    Call Refresh()
+   Me.setSize(Me.getSize.Width, v)
+   Call Refresh()
 End Property
 
 Public Property Get Left() As Single
-    Left = Me.getLocation.x
+   Left = Me.getLocation.x
 End Property
 
 Public Property Let Left(v As Single)
-    If isLeftInitialized = False Then
-       mySavedLeft = v
-       isLeftInitialized = True
-    End If
-    Me.setLocation(v, Me.getLocation.y)
+   If isLeftInitialized = False Then
+      mySavedLeft = v
+      isLeftInitialized = True
+   End If
+   Me.setLocation(v, Me.getLocation.y)
 End Property
 
 Public Property Get Top() As Single
-    Top = Me.getLocation.y
+   Top = Me.getLocation.y
 End Property
 
 Public Property Let Top(v As Single)
-    If isTopInitialized = False Then
-       mySavedTop = v
-       isTopInitialized = True
-    End If
-    Me.setLocation(Me.getLocation.x, v)
+   If isTopInitialized = False Then
+      mySavedTop = v
+      isTopInitialized = True
+   End If
+   Me.setLocation(Me.getLocation.x, v)
 End Property
 
 Public Property Get Anchor() AS AnchorStyles
@@ -418,15 +426,15 @@ Public Function Move(Left As Single, Optional Top As Single = -1, Optional Width
 End Function
 
 Public Property Get ToolTip() As String 
-    ToolTip = Parent.getToolTipText()
+   ToolTip = Parent.getToolTipText()
 End Property
 
 Public Property Let ToolTip(v As String)
-	If Len(v) = 0 Then 
-	    Parent.setToolTipText(Null)
-    Else
-	    Parent.setToolTipText(v)
-    End If
+   If Len(v) = 0 Then 
+      Parent.setToolTipText(Null)
+   Else
+      Parent.setToolTipText(v)
+   End If
 End Property
 
 Public Property Get Enabled() As Boolean 
@@ -438,11 +446,11 @@ Public Property Let Enabled(v As Boolean)
 End Property
 
 Public Property Get Visible() As Boolean 
-    Visible = Base.isVisible()
+   Visible = Base.isVisible()
 End Property
 
 Public Property Let Visible(v As Boolean)
-    Base.setVisible v
+   Base.setVisible v
 End Property
 
 Public Property Get Tag() As String 
