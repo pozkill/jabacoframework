@@ -70,7 +70,7 @@ Public Sub fireLoaded(sender As Object)
 End Sub
 
 Public Sub dispose()
-   Me.Form_Unload(0)
+   Me.Form_Unload()
 End Sub
 
 ' ******************************** DEFAULT FOCUS - EVENTS ********************************
@@ -138,8 +138,8 @@ Public Sub Form_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As S
 End Sub
 Public Sub Form_Paint(g As java#awt#Graphics)
 End Sub
-Public Sub Form_Unload(cancel As Integer)    'cancel is not used, is only for compatibility
-End Sub
+Public Function Form_Unload() As Integer   ' Form_Unload = 1 cancels, all other (Form_Unload <> 1) closes the window
+End Function
 Public Sub myContent_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
    Call Me.Form_MouseUp(Button, Shift, X, Y)
 End Sub

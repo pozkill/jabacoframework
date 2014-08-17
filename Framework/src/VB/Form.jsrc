@@ -71,8 +71,8 @@ End Sub
 
 ' ******************************** REDIRECT EVENTS ********************************
 
-Public Sub Form_Unload(cancel As Integer)    'cancel is not used, is only for compatibility
-End Sub
+Public Function Form_Unload() As Integer   ' Form_Unload = 1 cancels, all other (Form_Unload <> 1) closes the window
+End Function
 
 Public Sub Form_Activate()
 End Sub
