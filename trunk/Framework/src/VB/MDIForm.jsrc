@@ -71,6 +71,6 @@ Public Sub Form_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As S
 End Sub
 Public Sub Form_Paint(g As java#awt#Graphics)
 End Sub
-Public Sub Form_Unload(cancel As Integer)    'cancel is not used, is only for compatibility
-End Sub
+Public Function Form_Unload() As Integer   ' Form_Unload = 1 cancels, all other (Form_Unload <> 1) closes the window
+End Function
 ]]></Source><Param Name="(Name)" Value="MDIForm"/><Param Name="(SuperClass)" Value="VB/AbstractForm"/><Param Name="(NameSpace)" Value="VB"/><Param Name="(Type)" Value="Class"/><Param Name="(Access)" Value="Public"/></SourceFile>

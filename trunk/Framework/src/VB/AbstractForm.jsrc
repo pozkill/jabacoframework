@@ -79,7 +79,12 @@ End Sub
 
 Public Sub windowClosing(arg2 As WindowEvent)      
    On Error Resume Next
-   Me.Form_Unload(0)
+   Me.Parent.setDefaultCloseOperation(0)
+   Dim close As Integer
+   close = Me.Form_Unload()
+   If close <> 1 Then
+      System.exit(0)
+   End If
 End Sub
 
 Public Sub windowClosed(arg2 As WindowEvent)
@@ -134,8 +139,8 @@ End Sub
 
 ' ******************************** REDIRECT EVENTS ********************************
 
-Public Sub Form_Unload(cancel As Integer)    'cancel is not used, is only for compatibility
-End Sub
+Public Function Form_Unload() As Integer   ' Form_Unload = 1 cancels, all other (Form_Unload <> 1) closes the window
+End Function
 Public Sub Form_Activate()
 End Sub
 Public Sub Form_Deactivate()
