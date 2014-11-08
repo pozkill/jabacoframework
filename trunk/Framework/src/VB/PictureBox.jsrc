@@ -281,13 +281,16 @@ Public Sub Line(x1 As Single, y1 As Single, x2 As Single, y2 As Single, Rect As 
       If FillColor <> -1 Then
          Dim tmpColor As Color
          tmpColor = my2DGraphics.getColor
-         Call my2DGraphics.setColor(RGBToColor(FillColor))
-         Call my2DGraphics.fillRect(x1 + 1, y1 + 1, x2 - x1 - 1, y2 - y1 - 1)
+         Call my2DGraphics.setColor(RGBtoColor(FillColor))
+         'outcomment for future additional implementation with Integer: 'Call my2DGraphics.fillRect(x1 + 1, y1 + 1, x2 - x1 - 1, y2 - y1 - 1)
+         Call my2DGraphics.fill(New java#awt#geom#Rectangle2D$Float(x1 + 1, y1 + 1, x2 - x1 - 1, y2 - y1 - 1))
          Call my2DGraphics.setColor(tmpColor)
       End If
-      Call my2DGraphics.drawRect(x1, y1, x2 - x1, y2 - y1)
+      'outcomment for future additional implementation with Integer: 'Call my2DGraphics.drawRect(x1, y1, x2 - x1, y2 - y1)
+      Call my2DGraphics.draw(New java#awt#geom#Rectangle2D$Float(x1, y1, x2 - x1, y2 - y1))
    Else
-      my2DGraphics.drawLine(x1, y1, x2, y2)
+      'outcomment for future additional implementation with Integer: 'my2DGraphics.drawLine(x1, y1, x2, y2)
+      my2DGraphics.draw(New java#awt#geom#Line2D$Float(x1, y1, x2, y2))
    End If
    Call disposeGraphics(my2DGraphics)
    myCurrentX = x2
@@ -353,18 +356,25 @@ Public Sub Circle(x As Single, y As Single, radius As Single, color As Long, sta
   Call my2DGraphics.setColor(RGBtoColor(FillColor))
   If FillColor <> -1 Then
     If aspect > 1 Then
-      Call my2DGraphics.fillArc(Round(x-radius/aspect), Round(y-radius), Round(radius*2.0/aspect), Round(radius*2.0), Round(halfStep1), Round(halfStep2))
+      'outcomment for future additional implementation with Integer: 'Call my2DGraphics.fillArc(Round(x-radius/aspect), Round(y-radius), Round(radius*2.0/aspect), Round(radius*2.0), Round(halfStep1), Round(halfStep2))
+      Call my2DGraphics.fill(New java#awt#geom#Arc2D$Float(x-radius/aspect, y-radius, radius*2.0/aspect, radius*2.0, halfStep1, halfStep2, 0))
     Else
-      Call my2DGraphics.fillArc(Round(x-radius), Round(y-radius*aspect), Round(radius*2.0), Round(radius*2.0*aspect), Round(halfStep1), Round(halfStep2))
+      'The outcomment ome. could be in the future - when a new Jabaco-compiler without overloading-bug exist - integrated
+      'for a faster implementation in a subroutine called
+      'Public Sub Circle(x As Integer, y As Integer, radius As Integer, .... etc
+      'outcomment for future additional implementation with Integer: 'Call my2DGraphics.fillArc(Round(x-radius), Round(y-radius*aspect), Round(radius*2.0), Round(radius*2.0*aspect), Round(halfStep1), Round(halfStep2))
+      Call my2DGraphics.fill(New java#awt#geom#Arc2D$Float(x-radius, y-radius*aspect, radius*2.0, radius*2.0*aspect, halfStep1, halfStep2, 0))
     End If
   End If  
 
   If color=-1 Then color=ForeColor
   Call my2DGraphics.setColor(RGBtoColor(color))
   If aspect > 1 Then
-    Call my2DGraphics.drawArc(Round(x-radius/aspect), Round(y-radius), Round(radius*2.0/aspect), Round(radius*2.0), Round(halfStep1), Round(halfStep2))
+    'outcomment for future additional implementation with Integer: 'Call my2DGraphics.drawArc(Round(x-radius/aspect), Round(y-radius), Round(radius*2.0/aspect), Round(radius*2.0), Round(halfStep1), Round(halfStep2))
+    Call my2DGraphics.draw(New java#awt#geom#Arc2D$Float(x-radius/aspect, y-radius, radius*2.0/aspect, radius*2.0, halfStep1, halfStep2, 0))
   Else
-    Call my2DGraphics.drawArc(Round(x-radius), Round(y-radius*aspect), Round(radius*2.0), Round(radius*2.0*aspect), Round(halfStep1), Round(halfStep2))
+    'outcomment for future additional implementation with Integer: 'Call my2DGraphics.drawArc(Round(x-radius), Round(y-radius*aspect), Round(radius*2.0), Round(radius*2.0*aspect), Round(halfStep1), Round(halfStep2))
+    Call my2DGraphics.draw(New java#awt#geom#Arc2D$Float(x-radius, y-radius*aspect, radius*2.0, radius*2.0*aspect, Round(halfStep1), halfStep2, 0))
   End If
  
   Call my2DGraphics.setColor(tmpColor)
